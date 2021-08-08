@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="root"
     v-click-outside="onClickOutside"
     class="emoji-input"
     :class="{ 'with-picker': !hideEmojiButton }"

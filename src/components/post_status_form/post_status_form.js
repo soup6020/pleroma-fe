@@ -11,10 +11,10 @@ import { reject, map, uniqBy, debounce } from 'lodash'
 import suggestor from '../emoji_input/suggestor.js'
 import { mapGetters, mapState } from 'vuex'
 import Checkbox from '../checkbox/checkbox.vue'
+import Select from '../select/select.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faChevronDown,
   faSmileBeam,
   faPollH,
   faUpload,
@@ -24,7 +24,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faChevronDown,
   faSmileBeam,
   faPollH,
   faUpload,
@@ -84,6 +83,7 @@ const PostStatusForm = {
     PollForm,
     ScopeSelector,
     Checkbox,
+    Select,
     Attachment,
     StatusContent
   },
@@ -115,7 +115,7 @@ const PostStatusForm = {
       ? this.copyMessageScope
       : this.$store.state.users.currentUser.default_scope
 
-    const { postContentType: contentType } = this.$store.getters.mergedConfig
+    const { postContentType: contentType, sensitiveByDefault } = this.$store.getters.mergedConfig
 
     return {
       dropFiles: [],
@@ -126,7 +126,7 @@ const PostStatusForm = {
       newStatus: {
         spoilerText: this.subject || '',
         status: statusText,
-        nsfw: false,
+        nsfw: !!sensitiveByDefault,
         files: [],
         poll: {},
         mediaDescriptions: {},

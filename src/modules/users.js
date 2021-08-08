@@ -531,7 +531,7 @@ const users = {
               if (user.token) {
                 store.dispatch('setWsToken', user.token)
 
-                // Initialize the chat socket.
+                // Initialize the shout socket.
                 store.dispatch('initializeSocket')
               }
 
@@ -547,9 +547,10 @@ const users = {
               }
 
               if (store.getters.mergedConfig.useStreamingApi) {
-                store.dispatch('enableMastoSockets').catch((error) => {
+                store.dispatch('fetchTimeline', 'friends', { since: null })
+                store.dispatch('fetchNotifications', { since: null })
+                store.dispatch('enableMastoSockets', true).catch((error) => {
                   console.error('Failed initializing MastoAPI Streaming socket', error)
-                  startPolling()
                 }).then(() => {
                   store.dispatch('fetchChats', { latest: true })
                   setTimeout(() => store.dispatch('setNotificationsSilence', false), 10000)

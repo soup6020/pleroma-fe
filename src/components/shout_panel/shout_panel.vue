@@ -1,52 +1,50 @@
 <template>
   <div
     v-if="!collapsed || !floating"
-    class="chat-panel"
+    class="shout-panel"
   >
     <div class="panel panel-default">
       <div
         class="panel-heading timeline-heading"
-        :class="{ 'chat-heading': floating }"
+        :class="{ 'shout-heading': floating }"
         @click.stop.prevent="togglePanel"
       >
         <div class="title">
-          <span>{{ $t('shoutbox.title') }}</span>
+          {{ $t('shoutbox.title') }}
           <FAIcon
             v-if="floating"
             icon="times"
+            class="close-icon"
           />
         </div>
       </div>
-      <div
-        v-chat-scroll
-        class="chat-window"
-      >
+      <div class="shout-window">
         <div
           v-for="message in messages"
           :key="message.id"
-          class="chat-message"
+          class="shout-message"
         >
-          <span class="chat-avatar">
+          <span class="shout-avatar">
             <img :src="message.author.avatar">
           </span>
-          <div class="chat-content">
+          <div class="shout-content">
             <router-link
-              class="chat-name"
+              class="shout-name"
               :to="userProfileLink(message.author)"
             >
               {{ message.author.username }}
             </router-link>
             <br>
-            <span class="chat-text">
+            <span class="shout-text">
               {{ message.text }}
             </span>
           </div>
         </div>
       </div>
-      <div class="chat-input">
+      <div class="shout-input">
         <textarea
           v-model="currentMessage"
-          class="chat-input-textarea"
+          class="shout-input-textarea"
           rows="1"
           @keyup.enter="submit(currentMessage)"
         />
@@ -55,11 +53,11 @@
   </div>
   <div
     v-else
-    class="chat-panel"
+    class="shout-panel"
   >
     <div class="panel panel-default">
       <div
-        class="panel-heading stub timeline-heading chat-heading"
+        class="panel-heading stub timeline-heading shout-heading"
         @click.stop.prevent="togglePanel"
       >
         <div class="title">
@@ -74,12 +72,12 @@
   </div>
 </template>
 
-<script src="./chat_panel.js"></script>
+<script src="./shout_panel.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';
 
-.floating-chat {
+.floating-shout {
   position: fixed;
   right: 0px;
   bottom: 0px;
@@ -87,32 +85,39 @@
   max-width: 25em;
 }
 
-.chat-panel {
-  .chat-heading {
+.shout-panel {
+  .shout-heading {
     cursor: pointer;
 
     .icon {
       color: $fallback--text;
       color: var(--text, $fallback--text);
+      margin-right: 0.5em;
+    }
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 
-  .chat-window {
+  .shout-window {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 20em;
   }
 
-  .chat-window-container {
+  .shout-window-container {
     height: 100%;
   }
 
-  .chat-message {
+  .shout-message {
     display: flex;
     padding: 0.2em 0.5em
   }
 
-  .chat-avatar {
+  .shout-avatar {
     img {
       height: 24px;
       width: 24px;
@@ -123,7 +128,7 @@
     }
   }
 
-  .chat-input {
+  .shout-input {
     display: flex;
     textarea {
       flex: 1;
@@ -133,7 +138,7 @@
     }
   }
 
-  .chat-panel {
+  .shout-panel {
     .title {
       display: flex;
       justify-content: space-between;

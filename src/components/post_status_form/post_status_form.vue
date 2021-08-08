@@ -189,28 +189,19 @@
             v-if="postFormats.length > 1"
             class="text-format"
           >
-            <label
-              for="post-content-type"
-              class="select"
+            <Select
+              id="post-content-type"
+              v-model="newStatus.contentType"
+              class="form-control"
             >
-              <select
-                id="post-content-type"
-                v-model="newStatus.contentType"
-                class="form-control"
+              <option
+                v-for="postFormat in postFormats"
+                :key="postFormat"
+                :value="postFormat"
               >
-                <option
-                  v-for="postFormat in postFormats"
-                  :key="postFormat"
-                  :value="postFormat"
-                >
-                  {{ $t(`post_status.content_type["${postFormat}"]`) }}
-                </option>
-              </select>
-              <FAIcon
-                class="select-down-icon"
-                icon="chevron-down"
-              />
-            </label>
+                {{ $t(`post_status.content_type["${postFormat}"]`) }}
+              </option>
+            </Select>
           </div>
           <div
             v-if="postFormats.length === 1 && postFormats[0] !== 'text/plain'"
@@ -272,7 +263,7 @@
           disabled
           class="btn button-default"
         >
-          {{ $t('general.submit') }}
+          {{ $t('post_status.post') }}
         </button>
         <!-- touchstart is used to keep the OSK at the same position after a message send -->
         <button
@@ -282,7 +273,7 @@
           @touchstart.stop.prevent="postStatus($event, newStatus)"
           @click.stop.prevent="postStatus($event, newStatus)"
         >
-          {{ $t('general.submit') }}
+          {{ $t('post_status.post') }}
         </button>
       </div>
       <div

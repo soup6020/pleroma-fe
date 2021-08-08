@@ -3,27 +3,27 @@
     "mrf": {
       "federation": "Federation",
       "keyword": {
-        "keyword_policies": "Keyword Policies",
+        "keyword_policies": "Keyword policies",
         "ftl_removal": "Removal from \"The Whole Known Network\" Timeline",
         "reject": "Reject",
         "replace": "Replace",
         "is_replaced_by": "→"
       },
-      "mrf_policies": "Enabled MRF Policies",
+      "mrf_policies": "Enabled MRF policies",
       "mrf_policies_desc": "MRF policies manipulate the federation behaviour of the instance.  The following policies are enabled:",
       "simple": {
-        "simple_policies": "Instance-specific Policies",
+        "simple_policies": "Instance-specific policies",
         "accept": "Accept",
         "accept_desc": "This instance only accepts messages from the following instances:",
         "reject": "Reject",
         "reject_desc": "This instance will not accept messages from the following instances:",
         "quarantine": "Quarantine",
         "quarantine_desc": "This instance will send only public posts to the following instances:",
-        "ftl_removal": "Removal from \"The Whole Known Network\" Timeline",
-        "ftl_removal_desc": "This instance removes these instances from \"The Whole Known Network\" timeline:",
+        "ftl_removal": "Removal from \"Known Network\" Timeline",
+        "ftl_removal_desc": "This instance removes these instances from \"Known Network\" timeline:",
         "media_removal": "Media Removal",
         "media_removal_desc": "This instance removes media from posts on the following instances:",
-        "media_nsfw": "Media Force-set As Sensitive",
+        "media_nsfw": "Media force-set as sensitive",
         "media_nsfw_desc": "This instance forces media to be set sensitive in posts on the following instances:"
       }
     },
@@ -79,7 +79,10 @@
     "role": {
       "admin": "Admin",
       "moderator": "Moderator"
-    }
+    },
+    "flash_content": "Click to show Flash content using Ruffle (Experimental, may not work).",
+    "flash_security": "Note that this can be potentially dangerous since Flash content is still arbitrary code.",
+    "flash_fail": "Failed to load flash content, see console for details."
   },
   "image_cropper": {
     "crop_picture": "Crop picture",
@@ -118,12 +121,13 @@
     "about": "About",
     "administration": "Administration",
     "back": "Back",
-    "friend_requests": "Follow Requests",
+    "friend_requests": "Follow requests",
     "mentions": "Mentions",
     "interactions": "Interactions",
-    "dms": "Direct Messages",
-    "public_tl": "Public Timeline",
+    "dms": "Direct messages",
+    "public_tl": "Public timeline",
     "timeline": "Timeline",
+    "home_timeline": "Home timeline",
     "twkn": "Known Network",
     "bookmarks": "Bookmarks",
     "user_search": "User Search",
@@ -148,8 +152,8 @@
     "reacted_with": "reacted with {0}"
   },
   "polls": {
-    "add_poll": "Add Poll",
-    "add_option": "Add Option",
+    "add_poll": "Add poll",
+    "add_option": "Add option",
     "option": "Option",
     "votes": "votes",
     "people_voted_count": "{count} person voted | {count} people voted",
@@ -178,7 +182,7 @@
     "storage_unavailable": "Pleroma could not access browser storage. Your login or your local settings won't be saved and you might encounter unexpected issues. Try enabling cookies."
   },
   "interactions": {
-    "favs_repeats": "Repeats and Favorites",
+    "favs_repeats": "Repeats and favorites",
     "follows": "New follows",
     "moves": "User migrates",
     "load_older": "Load older interactions"
@@ -200,6 +204,7 @@
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
     "direct_warning_to_first_only": "This post will only be visible to the mentioned users at the beginning of the message.",
     "posting": "Posting",
+    "post": "Post",
     "preview": "Preview",
     "preview_empty": "Empty",
     "empty_status_error": "Can't post an empty status with no files",
@@ -210,10 +215,10 @@
       "unlisted": "This post will not be visible in Public Timeline and The Whole Known Network"
     },
     "scope": {
-      "direct": "Direct - Post to mentioned users only",
-      "private": "Followers-only - Post to followers only",
-      "public": "Public - Post to public timelines",
-      "unlisted": "Unlisted - Do not post to public timelines"
+      "direct": "Direct - post to mentioned users only",
+      "private": "Followers-only - post to followers only",
+      "public": "Public - post to public timelines",
+      "unlisted": "Unlisted - do not post to public timelines"
     }
   },
   "registration": {
@@ -230,6 +235,7 @@
     "bio_placeholder": "e.g.\nHi, I'm Lain.\nI’m an anime girl living in suburban Japan. You may know me from the Wired.",
     "reason": "Reason to register",
     "reason_placeholder": "This instance approves registrations manually.\nLet the administration know why you want to register.",
+    "register": "Register",
     "validations": {
       "username_required": "cannot be left blank",
       "fullname_required": "cannot be left blank",
@@ -249,6 +255,7 @@
   },
   "settings": {
     "app_name": "App name",
+    "save": "Save changes",
     "security": "Security",
     "setting_changed": "Setting is different from default",
     "enter_current_password_to_confirm": "Enter your current password to confirm your identity",
@@ -277,7 +284,7 @@
     "attachmentRadius": "Attachments",
     "attachments": "Attachments",
     "avatar": "Avatar",
-    "avatarAltRadius": "Avatars (Notifications)",
+    "avatarAltRadius": "Avatars (notifications)",
     "avatarRadius": "Avatars",
     "background": "Background",
     "bio": "Bio",
@@ -299,10 +306,10 @@
     "cGreen": "Green (Retweet)",
     "cOrange": "Orange (Favorite)",
     "cRed": "Red (Cancel)",
-    "change_email": "Change Email",
+    "change_email": "Change email",
     "change_email_error": "There was an issue changing your email.",
     "changed_email": "Email changed successfully!",
-    "change_password": "Change Password",
+    "change_password": "Change password",
     "change_password_error": "There was an issue changing your password.",
     "changed_password": "Password changed successfully!",
     "chatMessageRadius": "Chat message",
@@ -311,9 +318,9 @@
     "confirm_new_password": "Confirm new password",
     "current_password": "Current password",
     "mutes_and_blocks": "Mutes and Blocks",
-    "data_import_export_tab": "Data Import / Export",
+    "data_import_export_tab": "Data import / export",
     "default_vis": "Default visibility scope",
-    "delete_account": "Delete Account",
+    "delete_account": "Delete account",
     "delete_account_description": "Permanently delete your data and deactivate your account.",
     "delete_account_error": "There was an issue deleting your account. If this persists please contact your instance administrator.",
     "delete_account_instructions": "Type your password in the input below to confirm account deletion.",
@@ -325,6 +332,7 @@
     "export_theme": "Save preset",
     "filtering": "Filtering",
     "filtering_explanation": "All statuses containing these words will be muted, one per line",
+    "word_filter": "Word filter",
     "follow_export": "Follow export",
     "follow_export_button": "Export your follows to a csv file",
     "follow_import": "Follow import",
@@ -335,9 +343,13 @@
     "general": "General",
     "hide_attachments_in_convo": "Hide attachments in conversations",
     "hide_attachments_in_tl": "Hide attachments in timeline",
+    "hide_media_previews": "Hide media previews",
     "hide_muted_posts": "Hide posts of muted users",
+    "hide_all_muted_posts": "Hide muted posts",
     "max_thumbnails": "Maximum amount of thumbnails per post",
     "hide_isp": "Hide instance-specific panel",
+    "hide_shoutbox": "Hide instance shoutbox",
+    "right_sidebar": "Show sidebar on the right side",
     "hide_wallpaper": "Hide instance wallpaper",
     "preload_images": "Preload images",
     "use_one_click_nsfw": "Open NSFW attachments with just one click",
@@ -361,20 +373,32 @@
     "loop_video_silent_only": "Loop only videos without sound (i.e. Mastodon's \"gifs\")",
     "mutes_tab": "Mutes",
     "play_videos_in_modal": "Play videos in a popup frame",
+    "file_export_import": {
+      "backup_restore": "Settings backup",
+      "backup_settings": "Backup settings to file",
+      "backup_settings_theme": "Backup settings and theme to file",
+      "restore_settings": "Restore settings from file",
+      "errors": {
+        "invalid_file": "The selected file is not a supported Pleroma settings backup. No changes were made.",
+        "file_too_new": "Incompatile major version: {fileMajor}, this PleromaFE (settings ver {feMajor}) is too old to handle it",
+        "file_too_old": "Incompatile major version: {fileMajor}, file version is too old and not supported (min. set. ver. {feMajor})",
+        "file_slightly_new": "File minor version is different, some settings might not load"
+      }
+    },
     "profile_fields": {
       "label": "Profile metadata",
-      "add_field": "Add Field",
+      "add_field": "Add field",
       "name": "Label",
       "value": "Content"
     },
     "use_contain_fit": "Don't crop the attachment in thumbnails",
     "name": "Name",
-    "name_bio": "Name & Bio",
-    "new_email": "New Email",
+    "name_bio": "Name & bio",
+    "new_email": "New email",
     "new_password": "New password",
     "notification_visibility": "Types of notifications to show",
     "notification_visibility_follows": "Follows",
-    "notification_visibility_likes": "Likes",
+    "notification_visibility_likes": "Favorites",
     "notification_visibility_mentions": "Mentions",
     "notification_visibility_repeats": "Repeats",
     "notification_visibility_moves": "User Migrates",
@@ -386,25 +410,27 @@
     "hide_followers_description": "Don't show who's following me",
     "hide_follows_count_description": "Don't show follow count",
     "hide_followers_count_description": "Don't show follower count",
-    "show_admin_badge": "Show Admin badge in my profile",
-    "show_moderator_badge": "Show Moderator badge in my profile",
+    "show_admin_badge": "Show \"Admin\" badge in my profile",
+    "show_moderator_badge": "Show \"Moderator\" badge in my profile",
     "nsfw_clickthrough": "Enable clickthrough attachment and link preview image hiding for NSFW statuses",
     "oauth_tokens": "OAuth tokens",
     "token": "Token",
-    "refresh_token": "Refresh Token",
-    "valid_until": "Valid Until",
+    "refresh_token": "Refresh token",
+    "valid_until": "Valid until",
     "revoke_token": "Revoke",
     "panelRadius": "Panels",
     "pause_on_unfocused": "Pause streaming when tab is not focused",
     "presets": "Presets",
-    "profile_background": "Profile Background",
-    "profile_banner": "Profile Banner",
+    "profile_background": "Profile background",
+    "profile_banner": "Profile banner",
     "profile_tab": "Profile",
     "radii_help": "Set up interface edge rounding (in pixels)",
     "replies_in_timeline": "Replies in timeline",
     "reply_visibility_all": "Show all replies",
     "reply_visibility_following": "Only show replies directed at me or users I'm following",
     "reply_visibility_self": "Only show replies directed at me",
+    "reply_visibility_following_short": "Show replies to my follows",
+    "reply_visibility_self_short": "Show replies to self only",
     "autohide_floating_post_button": "Automatically hide New Post button (mobile)",
     "saving_err": "Error saving settings",
     "saving_ok": "Settings saved",
@@ -429,6 +455,7 @@
     "subject_line_mastodon": "Like mastodon: copy as is",
     "subject_line_noop": "Do not copy",
     "post_status_content_type": "Post status content type",
+    "sensitive_by_default": "Mark posts as sensitive by default",
     "stop_gifs": "Play-on-hover GIFs",
     "streaming": "Enable automatic streaming of new posts when scrolled to the top",
     "user_mutes": "Users",
@@ -458,6 +485,7 @@
     "notification_mutes": "To stop receiving notifications from a specific user, use a mute.",
     "notification_blocks": "Blocking a user stops all notifications as well as unsubscribes them.",
     "enable_web_push_notifications": "Enable web push notifications",
+    "more_settings": "More settings",
     "style": {
       "switcher": {
         "keep_color": "Keep colors",
@@ -606,8 +634,8 @@
     },
     "version": {
       "title": "Version",
-      "backend_version": "Backend Version",
-      "frontend_version": "Frontend Version"
+      "backend_version": "Backend version",
+      "frontend_version": "Frontend version"
     }
   },
   "time": {
@@ -655,7 +683,9 @@
     "reload": "Reload",
     "up_to_date": "Up-to-date",
     "no_more_statuses": "No more statuses",
-    "no_statuses": "No statuses"
+    "no_statuses": "No statuses",
+    "socket_reconnected": "Realtime connection established",
+    "socket_broke": "Realtime connection lost: CloseEvent code {0}"
   },
   "status": {
     "favorites": "Favorites",
@@ -689,6 +719,7 @@
     "block": "Block",
     "blocked": "Blocked!",
     "deny": "Deny",
+    "edit_profile": "Edit profile",
     "favorites": "Favorites",
     "follow": "Follow",
     "follow_sent": "Request sent!",
@@ -739,10 +770,16 @@
       "quarantine": "Disallow user posts from federating",
       "delete_user": "Delete user",
       "delete_user_confirmation": "Are you absolutely sure? This action cannot be undone."
+    },
+    "highlight": {
+      "disabled": "No highlight",
+      "solid": "Solid bg",
+      "striped": "Striped bg",
+      "side": "Side stripe"
     }
   },
   "user_profile": {
-    "timeline_title": "User Timeline",
+    "timeline_title": "User timeline",
     "profile_does_not_exist": "Sorry, this profile does not exist.",
     "profile_loading_error": "Sorry, there was an error loading this profile."
   },
@@ -760,7 +797,7 @@
     "who_to_follow": "Who to follow"
   },
   "tool_tip": {
-    "media_upload": "Upload Media",
+    "media_upload": "Upload media",
     "repeat": "Repeat",
     "reply": "Reply",
     "favorite": "Favorite",

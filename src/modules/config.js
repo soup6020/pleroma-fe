@@ -21,6 +21,7 @@ export const defaultState = {
   customThemeSource: undefined,
   hideISP: false,
   hideInstanceWallpaper: false,
+  hideShoutbox: false,
   // bad name: actually hides posts of muted USERS
   hideMutedPosts: undefined, // instance default
   collapseMessageWithSubject: undefined, // instance default
@@ -44,7 +45,7 @@ export const defaultState = {
     likes: true,
     repeats: true,
     moves: true,
-    emojiReactions: false,
+    emojiReactions: true,
     followRequest: true,
     chatMention: true
   },
@@ -54,6 +55,7 @@ export const defaultState = {
   interfaceLanguage: browserLocale,
   hideScopeNotice: false,
   useStreamingApi: false,
+  sidebarRight: undefined, // instance default
   scopeCopy: undefined, // instance default
   subjectLineBehavior: undefined, // instance default
   alwaysShowSubjectInput: undefined, // instance default
@@ -67,7 +69,8 @@ export const defaultState = {
   greentext: undefined, // instance default
   hidePostStats: undefined, // instance default
   hideUserStats: undefined, // instance default
-  virtualScrolling: undefined // instance default
+  virtualScrolling: undefined, // instance default
+  sensitiveByDefault: undefined // instance default
 }
 
 // caching the instance default properties
@@ -91,7 +94,8 @@ const config = {
       const { defaultConfig } = rootGetters
       return {
         ...defaultConfig,
-        ...state
+        // Do not override with undefined
+        ...Object.fromEntries(Object.entries(state).filter(([k, v]) => v !== undefined))
       }
     }
   },
@@ -109,6 +113,20 @@ const config = {
     }
   },
   actions: {
+    loadSettings ({ dispatch }, data) {
+      const knownKeys = new Set(Object.keys(defaultState))
+      const presentKeys = new Set(Object.keys(data))
+      const intersection = new Set()
+      for (let elem of presentKeys) {
+        if (knownKeys.has(elem)) {
+          intersection.add(elem)
+        }
+      }
+
+      intersection.forEach(
+        name => dispatch('setOption', { name, value: data[name] })
+      )
+    },
     setHighlight ({ commit, dispatch }, { user, color, type }) {
       commit('setHighlight', { user, color, type })
     },

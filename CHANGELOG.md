@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.4.0] - 2021-08-08
+### Added
+- Added a quick settings to timeline header for easier access
+- Added option to mark posts as sensitive by default
+- Added quick filters for notifications
+- Implemented user option to change sidebar position to the right side
+- Implemented user option to hide floating shout panel
+- Implemented "edit profile" button if viewing own profile which opens profile settings
+
+### Fixed
+- Fixed follow request count showing in the wrong location in mobile view
+
 
 ## [2.3.0] - 2021-03-01
 ### Fixed
@@ -12,9 +24,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Fixed some UI jumpiness when opening images particularly in chat view
 - Fixed chat unread badge looking weird
 - Fixed punycode names not working properly
+- Fixed notifications crashing on an invalid notification
 
 ### Changed
 - Display 'people voted' instead of 'votes' for multi-choice polls
+- Changed the "Timelines" link in side panel to toggle show all timeline options inside the panel
+- Renamed "Timeline" to "Home Timeline" to be more clear
 - Optimized chat to not get horrible performance after keeping the same chat open for a long time
 - When opening emoji picker or react picker, it automatically focuses the search field
 - Language picker now uses native language names
@@ -31,6 +46,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Follows/Followers tabs on user profiles now display the content properly.
 - Handle punycode in screen names
+- Fixed local dev mode having non-functional websockets in some cases
+- Show notices for websocket events (errors, abnormal closures, reconnections)
+- Fix not being able to re-enable websocket until page refresh
+- Fix annoying issue where timeline might have few posts when streaming is enabled
 
 ### Changed
 - Don't filter own posts when they hit your wordfilter

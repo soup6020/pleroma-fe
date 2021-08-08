@@ -19,7 +19,6 @@ const defaultState = {
   defaultBanner: '/images/banner.png',
   background: '/static/aurora_borealis.jpg',
   collapseMessageWithSubject: false,
-  disableChat: false,
   greentext: false,
   hideFilteredStatuses: false,
   hideMutedPosts: false,
@@ -43,6 +42,7 @@ const defaultState = {
   subjectLineBehavior: 'email',
   theme: 'pleroma-dark',
   virtualScrolling: true,
+  sensitiveByDefault: false,
 
   // Nasty stuff
   customEmoji: [],
@@ -56,7 +56,7 @@ const defaultState = {
   knownDomains: [],
 
   // Feature-set, apparently, not everything here is reported...
-  chatAvailable: false,
+  shoutAvailable: false,
   pleromaChatMessagesAvailable: false,
   gopherAvailable: false,
   mediaProxyAvailable: false,
@@ -106,7 +106,7 @@ const instance = {
         case 'name':
           dispatch('setPageTitle')
           break
-        case 'chatAvailable':
+        case 'shoutAvailable':
           if (value) {
             dispatch('initializeSocket')
           }
