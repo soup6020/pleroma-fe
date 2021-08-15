@@ -38,6 +38,8 @@ const filterByKeyword = (list, keyword = '') => {
   return orderedEmojiList.flat()
 }
 
+const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
+
 const EmojiPicker = {
   props: {
     enableStickerPicker: {
@@ -174,9 +176,12 @@ const EmojiPicker = {
       }
       return 0
     },
+    allEmojis () {
+      return this.$store.state.instance.customEmoji || []
+    },
     filteredEmoji () {
       return filterByKeyword(
-        this.$store.state.instance.customEmoji || [],
+        this.allEmojis,
         trim(this.keyword)
       )
     },
@@ -184,7 +189,6 @@ const EmojiPicker = {
       return this.filteredEmoji.slice(0, this.customEmojiBufferSlice)
     },
     groupedCustomEmojis () {
-      const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
       return this.customEmojiBuffer.reduce((res, emoji) => {
         const pack = packOf(emoji)
         if (!res[pack]) {
@@ -200,6 +204,26 @@ const EmojiPicker = {
         res[pack].emojis.push(emoji)
         return res
       }, {})
+    },
+    allEmojiGroups () {
+      return this.allEmojis
+        .reduce((res, emoji) => {
+          const packName = packOf(emoji)
+          const packId = `custom-${packName}`
+          if (res.filter(k => k.id === packId).length === 0) {
+            res.push({
+              id: packId,
+              text: packName,
+              image: emoji.imageUrl
+            })
+          }
+          return res
+        }, [])
+        .concat({
+          id: 'standard',
+          text: this.$t('emoji.unicode'),
+          icon: 'box-open'
+        })
     },
     emojis () {
       const standardEmojis = this.$store.state.instance.emoji || []

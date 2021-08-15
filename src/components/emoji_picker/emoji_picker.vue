@@ -3,12 +3,12 @@
     <div class="heading">
       <span class="emoji-tabs">
         <span
-          v-for="group in emojis"
+          v-for="group in allEmojiGroups"
           :key="group.id"
           class="emoji-tabs-item"
           :class="{
             active: activeGroupView === group.id,
-            disabled: group.emojis.length === 0
+            disabled: false
           }"
           :title="group.text"
           @click.prevent="highlight(group.id)"
