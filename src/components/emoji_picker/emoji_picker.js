@@ -58,7 +58,8 @@ const EmojiPicker = {
       customEmojiBufferSlice: LOAD_EMOJI_BY,
       customEmojiTimeout: null,
       customEmojiLoadAllConfirmed: false,
-      groupLoadedCount: {}
+      groupLoadedCount: {},
+      firstLoaded: false
     }
   },
   components: {
@@ -167,6 +168,13 @@ const EmojiPicker = {
       }
       this.$nextTick(() => {
         this.$refs['emoji-groups'].scrollTop = 0
+        this.$nextTick(() => {
+          if (this.firstLoaded) {
+            return
+          }
+          this.triggerLoadMore(this.$refs['emoji-groups'])
+          this.firstLoaded = true
+        })
       })
       const bufferSize = this.customEmojiBuffer.length
       const bufferPrefilledAll = bufferSize === this.filteredEmoji.length
