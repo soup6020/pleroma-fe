@@ -38,8 +38,6 @@ const filterByKeyword = (list, keyword = '') => {
   return orderedEmojiList.flat()
 }
 
-const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
-
 const EmojiPicker = {
   props: {
     enableStickerPicker: {
