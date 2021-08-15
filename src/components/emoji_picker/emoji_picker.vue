@@ -13,7 +13,17 @@
           :title="group.text"
           @click.prevent="highlight(group.id)"
         >
+          <span
+            v-if="group.image"
+            class="emoji-picker-header-image"
+          >
+            <img
+              :alt="group.text"
+              :src="group.image"
+            >
+          </span>
           <FAIcon
+            v-else
             :icon="group.icon"
             fixed-width
           />

@@ -183,17 +183,32 @@ const EmojiPicker = {
     customEmojiBuffer () {
       return this.filteredEmoji.slice(0, this.customEmojiBufferSlice)
     },
+    groupedCustomEmojis () {
+      const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
+      return this.customEmojiBuffer.reduce((res, emoji) => {
+        const pack = packOf(emoji)
+        if (!res[pack]) {
+          res[pack] = {
+            id: `custom-${pack}`,
+            text: pack,
+            /// FIXME
+            // icon: 'smile-beam',
+            image: emoji.imageUrl,
+            emojis: []
+          }
+        }
+        res[pack].emojis.push(emoji)
+        return res
+      }, {})
+    },
     emojis () {
       const standardEmojis = this.$store.state.instance.emoji || []
-      const customEmojis = this.customEmojiBuffer
+      // const customEmojis = this.customEmojiBuffer
 
       return [
-        {
-          id: 'custom',
-          text: this.$t('emoji.custom'),
-          icon: 'smile-beam',
-          emojis: customEmojis
-        },
+        ...Object
+          .keys(this.groupedCustomEmojis)
+          .map(k => this.groupedCustomEmojis[k]),
         {
           id: 'standard',
           text: this.$t('emoji.unicode'),
