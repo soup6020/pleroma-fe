@@ -57,7 +57,8 @@ const EmojiPicker = {
       keepOpen: false,
       customEmojiBufferSlice: LOAD_EMOJI_BY,
       customEmojiTimeout: null,
-      customEmojiLoadAllConfirmed: false
+      customEmojiLoadAllConfirmed: false,
+      groupLoadedCount: {}
     }
   },
   components: {
@@ -79,7 +80,9 @@ const EmojiPicker = {
       const target = (e && e.target) || this.$refs['emoji-groups']
       this.updateScrolledClass(target)
       this.scrolledGroup(target)
-      this.triggerLoadMore(target)
+      this.$nextTick(() => {
+        this.triggerLoadMore(target)
+      })
     },
     highlight (key) {
       const ref = this.$refs['group-' + key]
@@ -88,6 +91,7 @@ const EmojiPicker = {
       this.activeGroup = key
       this.$nextTick(() => {
         this.$refs['emoji-groups'].scrollTop = top + 1
+        this.loadEmoji(key)
       })
     },
     updateScrolledClass (target) {
@@ -100,28 +104,40 @@ const EmojiPicker = {
       }
     },
     triggerLoadMore (target) {
-      const ref = this.$refs[`group-end-${this.lastNonUnicodeGroupId}`][0]
-      if (!ref) return
-      const bottom = ref.offsetTop + ref.offsetHeight
+      Object.keys(this.allCustomGroups)
+        .map(groupId => {
+          const ref = this.$refs[`group-end-${groupId}`][0]
+          if (!ref) return undefined
 
-      const scrollerBottom = target.scrollTop + target.clientHeight
-      const scrollerTop = target.scrollTop
-      const scrollerMax = target.scrollHeight
+          const bottom = ref.offsetTop + ref.offsetHeight
 
-      // Loads more emoji when they come into view
-      const approachingBottom = bottom - scrollerBottom < LOAD_EMOJI_MARGIN
-      // Always load when at the very top in case there's no scroll space yet
-      const atTop = scrollerTop < 5
-      // Don't load when looking at unicode category or at the very bottom
-      const bottomAboveViewport = bottom < scrollerTop || scrollerBottom === scrollerMax
-      if (!bottomAboveViewport && (approachingBottom || atTop)) {
-        this.loadEmoji()
-      }
+          const group = this.$refs[`group-${groupId}`][0]
+          const top = group.offsetTop
+
+          const scrollerBottom = target.scrollTop + target.clientHeight
+          const scrollerTop = target.scrollTop
+          const scrollerMax = target.scrollHeight
+
+          // Loads more emoji when they come into view
+          const approachingBottom = bottom - scrollerBottom < LOAD_EMOJI_MARGIN
+          // Always load when at the very top in case there's no scroll space yet
+          const atTop = scrollerTop < top + target.clientHeight / 2 && top < scrollerBottom
+          // Don't load when looking at unicode category or at the very bottom
+          const bottomAboveViewport = bottom < scrollerTop || scrollerBottom === scrollerMax
+          if (!bottomAboveViewport && (approachingBottom || atTop)) {
+            return groupId
+          }
+          return undefined
+        })
+        .filter(k => k)
+        .map(k => {
+          this.loadEmoji(k)
+        })
     },
     scrolledGroup (target) {
       const top = target.scrollTop + 5
       this.$nextTick(() => {
-        this.emojisView.forEach(group => {
+        this.allEmojiGroups.forEach(group => {
           const ref = this.$refs['group-' + group.id]
           if (ref.offsetTop <= top) {
             this.activeGroup = group.id
@@ -129,14 +145,21 @@ const EmojiPicker = {
         })
       })
     },
-    loadEmoji () {
-      const allLoaded = this.customEmojiBuffer.length === this.filteredEmoji.length
+    loadEmoji (loadGroup) {
+      if (!this.allCustomGroups[loadGroup]) {
+        return
+      }
+
+      const allLoaded = this.loadedCount[loadGroup] >= this.allCustomGroups[loadGroup].emojis.length
 
       if (allLoaded) {
         return
       }
 
-      this.customEmojiBufferSlice += LOAD_EMOJI_BY
+      this.groupLoadedCount = {
+        ...this.groupLoadedCount,
+        [loadGroup]: this.loadedCount[loadGroup] + LOAD_EMOJI_BY
+      }
     },
     startEmojiLoad (forceUpdate = false) {
       if (!forceUpdate) {
@@ -157,6 +180,9 @@ const EmojiPicker = {
     },
     setShowStickers (value) {
       this.showingStickers = value
+    },
+    limitedEmojis (list, groupId) {
+      return list.slice(0, this.loadedCount[groupId])
     }
   },
   watch: {
@@ -205,24 +231,36 @@ const EmojiPicker = {
         return res
       }, {})
     },
-    allEmojiGroups () {
-      return this.allEmojis
+    allCustomGroups () {
+      return this.filteredEmoji
         .reduce((res, emoji) => {
           const packName = packOf(emoji)
           const packId = `custom-${packName}`
-          if (res.filter(k => k.id === packId).length === 0) {
-            res.push({
+          if (!res[packId]) {
+            res[packId] = ({
               id: packId,
               text: packName,
-              image: emoji.imageUrl
+              image: emoji.imageUrl,
+              emojis: []
             })
           }
+          res[packId].emojis.push(emoji)
           return res
-        }, [])
+        }, {})
+    },
+    sensibleInitialAmountForAGroup () {
+      const groupCount = Object.keys(this.allCustomGroups).length
+      return Math.max(Math.floor(LOAD_EMOJI_BY / Math.max(groupCount, 1)), 1)
+    },
+    allEmojiGroups () {
+      const standardEmojis = this.$store.state.instance.emoji || []
+      return Object.entries(this.allCustomGroups)
+        .map(([_, v]) => v)
         .concat({
           id: 'standard',
           text: this.$t('emoji.unicode'),
-          icon: 'box-open'
+          icon: 'box-open',
+          emojis: filterByKeyword(standardEmojis, this.keyword)
         })
     },
     emojis () {
@@ -240,6 +278,13 @@ const EmojiPicker = {
           emojis: filterByKeyword(standardEmojis, trim(this.keyword))
         }
       ]
+    },
+    loadedCount () {
+      return Object.keys(this.allCustomGroups)
+        .reduce((res, groupId) => {
+          res[groupId] = this.groupLoadedCount[groupId] || this.sensibleInitialAmountForAGroup
+          return res
+        }, {})
     },
     lastNonUnicodeGroupId () {
       return this.emojis[this.emojis.length - 2].id

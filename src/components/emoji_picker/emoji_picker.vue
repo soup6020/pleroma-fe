@@ -67,7 +67,7 @@
           @scroll="onScroll"
         >
           <div
-            v-for="group in emojisView"
+            v-for="group in allEmojiGroups"
             :key="group.id"
             class="emoji-group"
           >
@@ -78,7 +78,7 @@
               {{ group.text }}
             </h6>
             <span
-              v-for="emoji in group.emojis"
+              v-for="emoji in limitedEmojis(group.emojis, group.id)"
               :key="group.id + emoji.displayText"
               :title="emoji.displayText"
               class="emoji-item"
