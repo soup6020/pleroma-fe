@@ -164,6 +164,16 @@ const instance = {
         if (res.ok) {
           const result = await res.json()
           const values = Array.isArray(result) ? Object.assign({}, ...result) : result
+          const caseInsensitiveStrCmp = (a, b) => {
+            const la = a.toLowerCase()
+            const lb = b.toLowerCase()
+            return la > lb ? 1 : (la < lb ? -1 : 0)
+          }
+          const byPackThenByName = (a, b) => {
+            const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
+            return caseInsensitiveStrCmp(packOf(a), packOf(b)) || caseInsensitiveStrCmp(a.displayText, b.displayText)
+          }
+
           const emoji = Object.entries(values).map(([key, value]) => {
             const imageUrl = value.image_url
             return {
@@ -174,7 +184,7 @@ const instance = {
             }
             // Technically could use tags but those are kinda useless right now,
             // should have been "pack" field, that would be more useful
-          }).sort((a, b) => a.displayText.toLowerCase() > b.displayText.toLowerCase() ? 1 : -1)
+          }).sort(byPackThenByName)
           commit('setInstanceOption', { name: 'customEmoji', value: emoji })
         } else {
           throw (res)

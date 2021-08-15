@@ -98,7 +98,7 @@ const EmojiPicker = {
       }
     },
     triggerLoadMore (target) {
-      const ref = this.$refs['group-end-custom']
+      const ref = this.$refs[`group-end-${this.lastNonUnicodeGroupId}`][0]
       if (!ref) return
       const bottom = ref.offsetTop + ref.offsetHeight
 
@@ -216,6 +216,9 @@ const EmojiPicker = {
           emojis: filterByKeyword(standardEmojis, trim(this.keyword))
         }
       ]
+    },
+    lastNonUnicodeGroupId () {
+      return this.emojis[this.emojis.length - 2].id
     },
     emojisView () {
       return this.emojis.filter(value => value.emojis.length > 0)
