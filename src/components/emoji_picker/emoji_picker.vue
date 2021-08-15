@@ -3,7 +3,7 @@
     <div class="heading">
       <span class="emoji-tabs">
         <span
-          v-for="group in allEmojiGroups"
+          v-for="group in filteredEmojiGroups"
           :key="group.id"
           class="emoji-tabs-item"
           :class="{
@@ -67,7 +67,7 @@
           @scroll="onScroll"
         >
           <div
-            v-for="group in allEmojiGroups"
+            v-for="group in filteredEmojiGroups"
             :key="group.id"
             class="emoji-group"
           >

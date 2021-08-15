@@ -106,6 +106,7 @@ const EmojiPicker = {
     },
     triggerLoadMore (target) {
       Object.keys(this.allCustomGroups)
+        .filter(id => this.filteredEmojiGroups.filter(group => group.id === id).length > 0)
         .map(groupId => {
           const ref = this.$refs[`group-end-${groupId}`][0]
           if (!ref) return undefined
@@ -123,9 +124,10 @@ const EmojiPicker = {
           const approachingBottom = bottom - scrollerBottom < LOAD_EMOJI_MARGIN
           // Always load when at the very top in case there's no scroll space yet
           const atTop = scrollerTop < top + target.clientHeight / 2 && top < scrollerBottom
+          const unscrollable = top - bottom < target.clientHeight
           // Don't load when looking at unicode category or at the very bottom
           const bottomAboveViewport = bottom < scrollerTop || scrollerBottom === scrollerMax
-          if (!bottomAboveViewport && (approachingBottom || atTop)) {
+          if (!bottomAboveViewport && (approachingBottom || atTop || unscrollable)) {
             return groupId
           }
           return undefined
@@ -176,12 +178,6 @@ const EmojiPicker = {
           this.firstLoaded = true
         })
       })
-      const bufferSize = this.customEmojiBuffer.length
-      const bufferPrefilledAll = bufferSize === this.filteredEmoji.length
-      if (bufferPrefilledAll && !forceUpdate) {
-        return
-      }
-      this.customEmojiBufferSlice = LOAD_EMOJI_BY
     },
     toggleStickers () {
       this.showingStickers = !this.showingStickers
@@ -191,6 +187,9 @@ const EmojiPicker = {
     },
     limitedEmojis (list, groupId) {
       return list.slice(0, this.loadedCount[groupId])
+    },
+    filterByKeyword (list, keyword) {
+      return filterByKeyword(list, keyword)
     }
   },
   watch: {
@@ -210,51 +209,8 @@ const EmojiPicker = {
       }
       return 0
     },
-    allEmojis () {
-      return this.$store.state.instance.customEmoji || []
-    },
-    filteredEmoji () {
-      return filterByKeyword(
-        this.allEmojis,
-        trim(this.keyword)
-      )
-    },
-    customEmojiBuffer () {
-      return this.filteredEmoji.slice(0, this.customEmojiBufferSlice)
-    },
-    groupedCustomEmojis () {
-      return this.customEmojiBuffer.reduce((res, emoji) => {
-        const pack = packOf(emoji)
-        if (!res[pack]) {
-          res[pack] = {
-            id: `custom-${pack}`,
-            text: pack,
-            /// FIXME
-            // icon: 'smile-beam',
-            image: emoji.imageUrl,
-            emojis: []
-          }
-        }
-        res[pack].emojis.push(emoji)
-        return res
-      }, {})
-    },
     allCustomGroups () {
-      return this.filteredEmoji
-        .reduce((res, emoji) => {
-          const packName = packOf(emoji)
-          const packId = `custom-${packName}`
-          if (!res[packId]) {
-            res[packId] = ({
-              id: packId,
-              text: packName,
-              image: emoji.imageUrl,
-              emojis: []
-            })
-          }
-          res[packId].emojis.push(emoji)
-          return res
-        }, {})
+      return this.$store.getters.groupedCustomEmojis
     },
     sensibleInitialAmountForAGroup () {
       const groupCount = Object.keys(this.allCustomGroups).length
@@ -271,21 +227,13 @@ const EmojiPicker = {
           emojis: filterByKeyword(standardEmojis, this.keyword)
         })
     },
-    emojis () {
-      const standardEmojis = this.$store.state.instance.emoji || []
-      // const customEmojis = this.customEmojiBuffer
-
-      return [
-        ...Object
-          .keys(this.groupedCustomEmojis)
-          .map(k => this.groupedCustomEmojis[k]),
-        {
-          id: 'standard',
-          text: this.$t('emoji.unicode'),
-          icon: 'box-open',
-          emojis: filterByKeyword(standardEmojis, trim(this.keyword))
-        }
-      ]
+    filteredEmojiGroups () {
+      return this.allEmojiGroups
+        .map(group => ({
+          ...group,
+          emojis: filterByKeyword(group.emojis, this.keyword)
+        }))
+        .filter(group => group.emojis.length > 0)
     },
     loadedCount () {
       return Object.keys(this.allCustomGroups)
@@ -296,9 +244,6 @@ const EmojiPicker = {
     },
     lastNonUnicodeGroupId () {
       return this.emojis[this.emojis.length - 2].id
-    },
-    emojisView () {
-      return this.emojis.filter(value => value.emojis.length > 0)
     },
     stickerPickerEnabled () {
       return (this.$store.state.instance.stickers || []).length !== 0

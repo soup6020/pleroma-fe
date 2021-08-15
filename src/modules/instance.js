@@ -115,6 +115,24 @@ const instance = {
         .map(key => [key, state[key]])
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
     },
+    groupedCustomEmojis (state) {
+      return state.customEmoji
+        .reduce((res, emoji) => {
+          emoji.tags.forEach(packName => {
+            const packId = `custom-${packName}`
+            if (!res[packId]) {
+              res[packId] = ({
+                id: packId,
+                text: packName,
+                image: emoji.imageUrl,
+                emojis: []
+              })
+            }
+            res[packId].emojis.push(emoji)
+          })
+          return res
+        }, {})
+    },
     instanceDomain (state) {
       return new URL(state.server).hostname
     }
