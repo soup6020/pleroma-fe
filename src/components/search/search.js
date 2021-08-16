@@ -30,7 +30,11 @@ const Search = {
       userIds: [],
       statuses: [],
       hashtags: [],
-      currenResultTab: 'statuses'
+      currenResultTab: 'statuses',
+
+      statusesOffset: 0,
+      lastStatusFetchCount: 0,
+      lastQuery: ''
     }
   },
   computed: {
@@ -67,18 +71,26 @@ const Search = {
 
       this.loading = true
       this.userIds = []
-      this.statuses = []
       this.hashtags = []
       this.$refs.searchInput.blur()
+      if (this.lastQuery !== query) {
+        this.statuses = []
+        this.statusesOffset = 0
+        this.lastStatusFetchCount = 0
+      }
 
-      this.$store.dispatch('search', { q: query, resolve: true })
+      this.$store.dispatch('search', { q: query, resolve: true, offset: this.statusesOffset })
         .then(data => {
           this.loading = false
           this.userIds = map(data.accounts, 'id')
-          this.statuses = data.statuses
+          this.statuses = this.statuses.concat(data.statuses)
           this.hashtags = data.hashtags
           this.currenResultTab = this.getActiveTab()
           this.loaded = true
+
+          this.statusesOffset += data.statuses.length
+          this.lastStatusFetchCount = data.statuses.length
+          this.lastQuery = query
         })
     },
     resultCount (tabName) {
