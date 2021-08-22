@@ -22,7 +22,7 @@
       </button>
     </div>
     <div
-      v-if="loading"
+      v-if="loading && statusesOffset == 0"
       class="text-center loading-icon"
     >
       <FAIcon

@@ -7,6 +7,7 @@ import {
   faCircleNotch,
   faSearch
 } from '@fortawesome/free-solid-svg-icons'
+import { uniqBy } from 'lodash'
 
 library.add(
   faCircleNotch,
@@ -84,16 +85,20 @@ const Search = {
         .then(data => {
           this.loading = false
 
+          let oldLength = this.statuses.length
+
           // Always append to old results. If new results are empty, this doesn't change anything
           this.userIds = this.userIds.concat(map(data.accounts, 'id'))
-          this.statuses = this.statuses.concat(data.statuses)
+          this.statuses = uniqBy(this.statuses.concat(data.statuses), 'id')
           this.hashtags = this.hashtags.concat(data.hashtags)
 
           this.currenResultTab = this.getActiveTab()
           this.loaded = true
 
-          this.statusesOffset += data.statuses.length
-          this.lastStatusFetchCount = data.statuses.length
+          // Offset from whatever we already have
+          this.statusesOffset = this.statuses.length
+          // Because the amount of new statuses can actually be zero, compare to old lenght instead
+          this.lastStatusFetchCount = this.statuses.length - oldLength
           this.lastQuery = query
         })
     },
