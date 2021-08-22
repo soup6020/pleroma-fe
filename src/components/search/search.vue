@@ -68,7 +68,7 @@
         <button
           v-if="!loading && loaded && lastStatusFetchCount > 0"
           class="more-statuses-button button-unstyled -link -fullwidth"
-          @click.prevent="search(searchTerm)"
+          @click.prevent="search(searchTerm, 'statuses')"
         >
           <div class="new-status-notification text-center">
             {{ $t('search.load_more') }}

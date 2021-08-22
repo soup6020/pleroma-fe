@@ -63,28 +63,32 @@ const Search = {
       this.$router.push({ name: 'search', query: { query } })
       this.$refs.searchInput.focus()
     },
-    search (query) {
+    search (query, searchType = null) {
       if (!query) {
         this.loading = false
         return
       }
 
       this.loading = true
-      this.userIds = []
-      this.hashtags = []
       this.$refs.searchInput.blur()
       if (this.lastQuery !== query) {
+        this.userIds = []
+        this.hashtags = []
         this.statuses = []
+
         this.statusesOffset = 0
         this.lastStatusFetchCount = 0
       }
 
-      this.$store.dispatch('search', { q: query, resolve: true, offset: this.statusesOffset })
+      this.$store.dispatch('search', { q: query, resolve: true, offset: this.statusesOffset, 'type': searchType })
         .then(data => {
           this.loading = false
-          this.userIds = map(data.accounts, 'id')
+
+          // Always append to old results. If new results are empty, this doesn't change anything
+          this.userIds = this.userIds.concat(map(data.accounts, 'id'))
           this.statuses = this.statuses.concat(data.statuses)
-          this.hashtags = data.hashtags
+          this.hashtags = this.hashtags.concat(data.hashtags)
+
           this.currenResultTab = this.getActiveTab()
           this.loaded = true
 
