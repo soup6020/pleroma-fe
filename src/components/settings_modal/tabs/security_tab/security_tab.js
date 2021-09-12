@@ -15,11 +15,20 @@ const SecurityTab = {
       deleteAccountError: false,
       changePasswordInputs: [ '', '', '' ],
       changedPassword: false,
-      changePasswordError: false
+      changePasswordError: false,
+      moveAccountTarget: '',
+      moveAccountPassword: '',
+      movedAccount: false,
+      moveAccountError: false,
+      aliases: [],
+      addAliasTarget: '',
+      addedAlias: false,
+      addAliasError: false
     }
   },
   created () {
     this.$store.dispatch('fetchTokens')
+    this.fetchAliases()
   },
   components: {
     ProgressButton,
@@ -90,6 +99,46 @@ const SecurityTab = {
             this.changedEmail = false
             this.changeEmailError = res.error
           }
+        })
+    },
+    moveAccount () {
+      const params = {
+        targetAccount: this.moveAccountTarget,
+        password: this.moveAccountPassword
+      }
+      this.$store.state.api.backendInteractor.moveAccount(params)
+        .then((res) => {
+          if (res.status === 'success') {
+            this.movedAccount = true
+            this.moveAccountError = false
+          } else {
+            this.movedAccount = false
+            this.moveAccountError = res.error
+          }
+        })
+    },
+    removeAlias (alias) {
+      this.$store.state.api.backendInteractor.deleteAlias({ alias })
+        .then(() => this.fetchAliases())
+    },
+    addAlias () {
+      this.$store.state.api.backendInteractor.addAlias({ alias: this.addAliasTarget })
+        .then((res) => {
+          this.addedAlias = true
+          this.addAliasError = false
+          this.addAliasTarget = ''
+        })
+        .catch((error) => {
+          this.addedAlias = false
+          this.addAliasError = error
+        })
+        .then(() => this.fetchAliases())
+    },
+    fetchAliases () {
+      this.$store.state.api.backendInteractor.listAliases()
+        .catch(() => {})
+        .then((res) => {
+          this.aliases = res.aliases
         })
     },
     logout () {
