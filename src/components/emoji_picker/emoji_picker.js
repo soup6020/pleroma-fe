@@ -78,6 +78,18 @@ const EmojiPicker = {
     onScroll (e) {
       const target = (e && e.target) || this.$refs['emoji-groups']
       this.updateScrolledClass(target)
+      this.scrolledGroup(target)
+    },
+    scrolledGroup (target) {
+      const top = target.scrollTop + 5
+      this.$nextTick(() => {
+        this.allEmojiGroups.forEach(group => {
+          const ref = this.$refs['group-' + group.id]
+          if (ref[0].offsetTop <= top) {
+            this.activeGroup = group.id
+          }
+        })
+      })
     },
     highlight (key) {
       const ref = this.$refs['group-' + key]
@@ -134,6 +146,9 @@ const EmojiPicker = {
     }
   },
   mounted () {
+    if (this.defaultGroup) {
+      this.highlight(this.defaultGroup)
+    }
     this.initializeLazyLoad()
   },
   destroyed () {
@@ -151,6 +166,9 @@ const EmojiPicker = {
     },
     allCustomGroups () {
       return this.$store.getters.groupedCustomEmojis
+    },
+    defaultGroup () {
+      return Object.keys(this.allCustomGroups)[0]
     },
     allEmojiGroups () {
       const standardEmojis = this.$store.state.instance.emoji || []
