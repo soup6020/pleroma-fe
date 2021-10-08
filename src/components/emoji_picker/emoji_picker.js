@@ -133,6 +133,18 @@ const EmojiPicker = {
           this.$lozad.mutationObserver.disconnect()
         }
       }
+    },
+    onShowing () {
+      const oldContentLoaded = this.contentLoaded
+      this.contentLoaded = true
+      this.waitForDomAndInitializeLazyLoad()
+      if (!oldContentLoaded) {
+        this.$nextTick(() => {
+          if (this.defaultGroup) {
+            this.highlight(this.defaultGroup)
+          }
+        })
+      }
     }
   },
   watch: {
@@ -145,16 +157,14 @@ const EmojiPicker = {
     },
     showing (val) {
       if (val) {
-        this.contentLoaded = true
-        this.waitForDomAndInitializeLazyLoad()
+        this.onShowing()
       }
     }
   },
   mounted () {
-    if (this.defaultGroup) {
-      this.highlight(this.defaultGroup)
+    if (this.showing) {
+      this.onShowing()
     }
-    this.waitForDomAndInitializeLazyLoad()
   },
   destroyed () {
     this.destroyLazyLoad()
