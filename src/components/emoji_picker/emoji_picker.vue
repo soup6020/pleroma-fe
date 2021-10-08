@@ -1,5 +1,7 @@
 <template>
-  <div class="emoji-picker panel panel-default panel-body">
+  <div
+    class="emoji-picker panel panel-default panel-body"
+  >
     <div class="heading">
       <span class="emoji-tabs">
         <span
@@ -45,7 +47,10 @@
         </span>
       </span>
     </div>
-    <div class="content">
+    <div
+      v-if="contentLoaded"
+      class="content"
+    >
       <div
         class="emoji-content"
         :class="{hidden: showingStickers}"

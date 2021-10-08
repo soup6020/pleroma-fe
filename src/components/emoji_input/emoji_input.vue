@@ -19,6 +19,7 @@
         v-if="enableEmojiPicker"
         ref="picker"
         :class="{ hide: !showPicker }"
+        :showing="showPicker"
         :enable-sticker-picker="enableStickerPicker"
         class="emoji-picker-panel"
         @emoji="insert"

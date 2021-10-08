@@ -39,6 +39,10 @@ const EmojiPicker = {
       required: false,
       type: Boolean,
       default: false
+    },
+    showing: {
+      required: true,
+      type: Boolean
     }
   },
   data () {
@@ -48,7 +52,9 @@ const EmojiPicker = {
       showingStickers: false,
       groupsScrolledClass: 'scrolled-top',
       keepOpen: false,
-      customEmojiTimeout: null
+      customEmojiTimeout: null,
+      // Lazy-load only after the first time `showing` becomes true.
+      contentLoaded: false
     }
   },
   components: {
@@ -115,6 +121,9 @@ const EmojiPicker = {
       this.$lozad = lozad('img', {})
       this.$lozad.observe()
     },
+    waitForDomAndInitializeLazyLoad() {
+      this.$nextTick(() => this.initializeLazyLoad())
+    },
     destroyLazyLoad () {
       if (this.$lozad) {
         if (this.$lozad.observer) {
@@ -129,18 +138,23 @@ const EmojiPicker = {
   watch: {
     keyword () {
       this.onScroll()
-      // Wait for the dom to change
-      this.$nextTick(() => this.initializeLazyLoad())
+      this.waitForDomAndInitializeLazyLoad()
     },
     allCustomGroups () {
-      this.$nextTick(() => this.initializeLazyLoad())
+      this.waitForDomAndInitializeLazyLoad()
+    },
+    showing (val) {
+      if (val) {
+        this.contentLoaded = true
+        this.waitForDomAndInitializeLazyLoad()
+      }
     }
   },
   mounted () {
     if (this.defaultGroup) {
       this.highlight(this.defaultGroup)
     }
-    this.initializeLazyLoad()
+    this.waitForDomAndInitializeLazyLoad()
   },
   destroyed () {
     this.destroyLazyLoad()
