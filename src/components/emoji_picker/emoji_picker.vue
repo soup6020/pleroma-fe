@@ -62,7 +62,6 @@
         </div>
         <div
           ref="emoji-groups"
-          v-lazy-image-container
           class="emoji-groups"
           :class="groupsScrolledClass"
           @scroll="onScroll"
@@ -79,7 +78,7 @@
               {{ group.text }}
             </h6>
             <span
-              v-for="emoji in limitedEmojis(group.emojis, group.id)"
+              v-for="emoji in group.emojis"
               :key="group.id + emoji.displayText"
               :title="emoji.displayText"
               class="emoji-item"

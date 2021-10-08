@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
-import LazyImageContainer from '../../directives/lazy_image_container'
+import lozad from 'lozad'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBoxOpen,
@@ -54,7 +54,6 @@ const EmojiPicker = {
       showingStickers: false,
       groupsScrolledClass: 'scrolled-top',
       keepOpen: false,
-      customEmojiBufferSlice: LOAD_EMOJI_BY,
       customEmojiTimeout: null,
       customEmojiLoadAllConfirmed: false,
       groupLoadedCount: {},
@@ -64,9 +63,6 @@ const EmojiPicker = {
   components: {
     StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
     Checkbox
-  },
-  directives: {
-    LazyImageContainer
   },
   methods: {
     onStickerUploaded (e) {
@@ -82,10 +78,6 @@ const EmojiPicker = {
     onScroll (e) {
       const target = (e && e.target) || this.$refs['emoji-groups']
       this.updateScrolledClass(target)
-      this.scrolledGroup(target)
-      this.$nextTick(() => {
-        this.triggerLoadMore(target)
-      })
     },
     highlight (key) {
       const ref = this.$refs['group-' + key]
@@ -94,7 +86,6 @@ const EmojiPicker = {
       this.activeGroup = key
       this.$nextTick(() => {
         this.$refs['emoji-groups'].scrollTop = top + 1
-        this.loadEmoji(key)
       })
     },
     updateScrolledClass (target) {
@@ -106,100 +97,47 @@ const EmojiPicker = {
         this.groupsScrolledClass = 'scrolled-middle'
       }
     },
-    triggerLoadMore (target) {
-      Object.keys(this.allCustomGroups)
-        .filter(id => this.filteredEmojiGroups.filter(group => group.id === id).length > 0)
-        .map(groupId => {
-          const ref = this.$refs[`group-end-${groupId}`][0]
-          if (!ref) return undefined
-
-          const bottom = ref.offsetTop + ref.offsetHeight
-
-          const group = this.$refs[`group-${groupId}`][0]
-          const top = group.offsetTop
-
-          const scrollerBottom = target.scrollTop + target.clientHeight
-          const scrollerTop = target.scrollTop
-          const scrollerMax = target.scrollHeight
-
-          // Loads more emoji when they come into view
-          const approachingBottom = bottom - scrollerBottom < LOAD_EMOJI_MARGIN
-          // Always load when at the very top in case there's no scroll space yet
-          const atTop = scrollerTop < top + target.clientHeight / 2 && top < scrollerBottom
-          const unscrollable = top - bottom < target.clientHeight
-          // Don't load when looking at unicode category or at the very bottom
-          const bottomAboveViewport = bottom < scrollerTop || scrollerBottom === scrollerMax
-          if (!bottomAboveViewport && (approachingBottom || atTop || unscrollable)) {
-            return groupId
-          }
-          return undefined
-        })
-        .filter(k => k)
-        .map(k => {
-          this.loadEmoji(k)
-        })
-    },
-    scrolledGroup (target) {
-      const top = target.scrollTop + 5
-      this.$nextTick(() => {
-        this.allEmojiGroups.forEach(group => {
-          const ref = this.$refs['group-' + group.id]
-          if (ref.offsetTop <= top) {
-            this.activeGroup = group.id
-          }
-        })
-      })
-    },
-    loadEmoji (loadGroup) {
-      if (!this.allCustomGroups[loadGroup]) {
-        return
-      }
-
-      const allLoaded = this.loadedCount[loadGroup] >= this.allCustomGroups[loadGroup].emojis.length
-
-      if (allLoaded) {
-        return
-      }
-
-      this.groupLoadedCount = {
-        ...this.groupLoadedCount,
-        [loadGroup]: this.loadedCount[loadGroup] + LOAD_EMOJI_BY
-      }
-    },
-    startEmojiLoad (forceUpdate = false) {
-      if (!forceUpdate) {
-        this.keyword = ''
-      }
-      this.$nextTick(() => {
-        this.$refs['emoji-groups'].scrollTop = 0
-        this.$nextTick(() => {
-          if (this.firstLoaded) {
-            return
-          }
-          this.triggerLoadMore(this.$refs['emoji-groups'])
-          this.firstLoaded = true
-        })
-      })
-    },
     toggleStickers () {
       this.showingStickers = !this.showingStickers
     },
     setShowStickers (value) {
       this.showingStickers = value
     },
-    limitedEmojis (list, groupId) {
-      return list // list.slice(0, this.loadedCount[groupId])
-    },
     filterByKeyword (list, keyword) {
       return filterByKeyword(list, keyword)
+    },
+    initializeLazyLoad () {
+      this.destroyLazyLoad()
+      this.$lozad = lozad('img', {})
+      this.$lozad.observe()
+    },
+    destroyLazyLoad () {
+      if (this.$lozad) {
+        if (this.$lozad.observer) {
+          this.$lozad.observer.disconnect()
+        }
+        if (this.$lozad.mutationObserver) {
+          this.$lozad.mutationObserver.disconnect()
+        }
+      }
     }
   },
   watch: {
     keyword () {
       this.customEmojiLoadAllConfirmed = false
       this.onScroll()
-      this.startEmojiLoad(true)
+      // Wait for the dom to change
+      this.$nextTick(() => this.initializeLazyLoad())
+    },
+    allCustomGroups () {
+      this.$nextTick(() => this.initializeLazyLoad())
     }
+  },
+  mounted () {
+    this.initializeLazyLoad()
+  },
+  destroyed () {
+    this.destroyLazyLoad()
   },
   computed: {
     activeGroupView () {
@@ -213,10 +151,6 @@ const EmojiPicker = {
     },
     allCustomGroups () {
       return this.$store.getters.groupedCustomEmojis
-    },
-    sensibleInitialAmountForAGroup () {
-      const groupCount = Object.keys(this.allCustomGroups).length
-      return Math.max(Math.floor(LOAD_EMOJI_BY / Math.max(groupCount, 1)), 1)
     },
     allEmojiGroups () {
       const standardEmojis = this.$store.state.instance.emoji || []
@@ -236,16 +170,6 @@ const EmojiPicker = {
           emojis: filterByKeyword(group.emojis, this.keyword)
         }))
         .filter(group => group.emojis.length > 0)
-    },
-    loadedCount () {
-      return Object.keys(this.allCustomGroups)
-        .reduce((res, groupId) => {
-          res[groupId] = this.groupLoadedCount[groupId] || this.sensibleInitialAmountForAGroup
-          return res
-        }, {})
-    },
-    lastNonUnicodeGroupId () {
-      return this.emojis[this.emojis.length - 2].id
     },
     stickerPickerEnabled () {
       return (this.$store.state.instance.stickers || []).length !== 0
