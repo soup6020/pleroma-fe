@@ -7,8 +7,7 @@
           :key="group.id"
           class="emoji-tabs-item"
           :class="{
-            active: activeGroupView === group.id,
-            disabled: false
+            active: activeGroupView === group.id
           }"
           :title="group.text"
           @click.prevent="highlight(group.id)"
