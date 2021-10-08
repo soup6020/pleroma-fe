@@ -121,7 +121,7 @@ const EmojiPicker = {
       this.$lozad = lozad('img', {})
       this.$lozad.observe()
     },
-    waitForDomAndInitializeLazyLoad() {
+    waitForDomAndInitializeLazyLoad () {
       this.$nextTick(() => this.initializeLazyLoad())
     },
     destroyLazyLoad () {
