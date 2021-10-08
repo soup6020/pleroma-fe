@@ -1,5 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
+import StillImage from '../still-image/still-image.vue'
 import lozad from 'lozad'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -52,7 +53,8 @@ const EmojiPicker = {
   },
   components: {
     StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
-    Checkbox
+    Checkbox,
+    StillImage
   },
   methods: {
     onStickerUploaded (e) {

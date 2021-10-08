@@ -16,10 +16,10 @@
             v-if="group.image"
             class="emoji-picker-header-image"
           >
-            <img
+            <still-image
               :alt="group.text"
               :src="group.image"
-            >
+            />
           </span>
           <FAIcon
             v-else
