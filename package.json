@@ -35,6 +35,7 @@
     "js-cookie": "3.0.1",
     "localforage": "1.10.0",
     "parse-link-header": "2.0.0",
+    "lozad": "^1.16.0",
     "phoenix": "1.6.2",
     "punycode.js": "2.1.0",
     "qrcode": "1.5.0",

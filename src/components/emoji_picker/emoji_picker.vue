@@ -62,6 +62,7 @@
         </div>
         <div
           ref="emoji-groups"
+          v-lazy-image-container
           class="emoji-groups"
           :class="groupsScrolledClass"
           @scroll="onScroll"
@@ -87,7 +88,7 @@
               <span v-if="!emoji.imageUrl">{{ emoji.replacement }}</span>
               <img
                 v-else
-                :src="emoji.imageUrl"
+                :data-src="emoji.imageUrl"
               >
             </span>
             <span :ref="'group-end-' + group.id" />

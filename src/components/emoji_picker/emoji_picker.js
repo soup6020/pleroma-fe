@@ -1,5 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
+import LazyImageContainer from '../../directives/lazy_image_container'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBoxOpen,
@@ -63,6 +64,9 @@ const EmojiPicker = {
   components: {
     StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
     Checkbox
+  },
+  directives: {
+    LazyImageContainer
   },
   methods: {
     onStickerUploaded (e) {
@@ -184,7 +188,7 @@ const EmojiPicker = {
       this.showingStickers = value
     },
     limitedEmojis (list, groupId) {
-      return list.slice(0, this.loadedCount[groupId])
+      return list // list.slice(0, this.loadedCount[groupId])
     },
     filterByKeyword (list, keyword) {
       return filterByKeyword(list, keyword)
