@@ -116,9 +116,15 @@ const instance = {
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
     },
     groupedCustomEmojis (state) {
+      const packsOf = emoji => {
+        return emoji.tags
+          .filter(k => k.startsWith('pack:'))
+          .map(k => k.slice(5)) // remove 'pack:' prefix
+      }
+
       return state.customEmoji
         .reduce((res, emoji) => {
-          emoji.tags.forEach(packName => {
+          packsOf(emoji).forEach(packName => {
             const packId = `custom-${packName}`
             if (!res[packId]) {
               res[packId] = ({
