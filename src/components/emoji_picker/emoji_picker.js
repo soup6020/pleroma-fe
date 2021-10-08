@@ -15,13 +15,6 @@ library.add(
   faSmileBeam
 )
 
-// At widest, approximately 20 emoji are visible in a row,
-// loading 3 rows, could be overkill for narrow picker
-const LOAD_EMOJI_BY = 60
-
-// When to start loading new batch emoji, in pixels
-const LOAD_EMOJI_MARGIN = 64
-
 const filterByKeyword = (list, keyword = '') => {
   if (keyword === '') return list
 
@@ -54,10 +47,7 @@ const EmojiPicker = {
       showingStickers: false,
       groupsScrolledClass: 'scrolled-top',
       keepOpen: false,
-      customEmojiTimeout: null,
-      customEmojiLoadAllConfirmed: false,
-      groupLoadedCount: {},
-      firstLoaded: false
+      customEmojiTimeout: null
     }
   },
   components: {
@@ -136,7 +126,6 @@ const EmojiPicker = {
   },
   watch: {
     keyword () {
-      this.customEmojiLoadAllConfirmed = false
       this.onScroll()
       // Wait for the dom to change
       this.$nextTick(() => this.initializeLazyLoad())
