@@ -118,8 +118,19 @@ const EmojiPicker = {
     },
     initializeLazyLoad () {
       this.destroyLazyLoad()
-      this.$lozad = lozad('img', {})
-      this.$lozad.observe()
+      this.$nextTick(() => {
+        this.$lozad = lozad('.still-image.emoji-picker-emoji', {
+          load: el => {
+            const vn = el.__vue__
+            if (!vn) {
+              return
+            }
+
+            vn.loadLazy()
+          }
+        })
+        this.$lozad.observe()
+      })
     },
     waitForDomAndInitializeLazyLoad () {
       this.$nextTick(() => this.initializeLazyLoad())

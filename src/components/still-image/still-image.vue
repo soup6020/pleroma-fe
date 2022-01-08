@@ -11,10 +11,11 @@
     <!-- NOTE: key is required to force to re-render img tag when src is changed -->
     <img
       ref="src"
-      :key="src"
+      :key="realSrc"
       :alt="alt"
       :title="alt"
-      :src="src"
+      :data-src="dataSrc"
+      :src="realSrc"
       :referrerpolicy="referrerpolicy"
       @load="onLoad"
       @error="onError"
