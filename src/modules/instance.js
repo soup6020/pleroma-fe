@@ -3,6 +3,18 @@ import { CURRENT_VERSION } from '../services/theme_data/theme_data.service.js'
 import apiService from '../services/api/api.service.js'
 import { instanceDefaultProperties } from './config.js'
 
+const SORTED_EMOJI_GROUP_IDS = [
+  'smileys-and-emotion',
+  'people-and-body',
+  'animals-and-nature',
+  'food-and-drink',
+  'travel-and-places',
+  'activities',
+  'objects',
+  'symbols',
+  'flags'
+]
+
 const defaultState = {
   // Stuff from apiConfig
   name: 'Pleroma FE',
@@ -64,7 +76,7 @@ const defaultState = {
   // Nasty stuff
   customEmoji: [],
   customEmojiFetched: false,
-  emoji: [],
+  emoji: {},
   emojiFetched: false,
   pleromaBackend: true,
   postFormats: [],
@@ -139,6 +151,17 @@ const instance = {
           return res
         }, {})
     },
+    standardEmojiList (state) {
+      return SORTED_EMOJI_GROUP_IDS
+        .map(groupId => state.emoji[groupId] || [])
+        .reduce((a, b) => a.concat(b), [])
+    },
+    standardEmojiGroupList (state) {
+      return SORTED_EMOJI_GROUP_IDS.map(groupId => ({
+        id: groupId,
+        emojis: state.emoji[groupId] || []
+      }))
+    },
     instanceDomain (state) {
       return new URL(state.server).hostname
     }
@@ -165,13 +188,14 @@ const instance = {
         const res = await window.fetch('/static/emoji.json')
         if (res.ok) {
           const values = await res.json()
-          const emoji = Object.keys(values).map((key) => {
-            return {
-              displayText: key,
+          const emoji = Object.keys(values).reduce((res, groupId) => {
+            res[groupId] = values[groupId].map(e => ({
+              displayText: e.name,
               imageUrl: false,
-              replacement: values[key]
-            }
-          }).sort((a, b) => a.name > b.name ? 1 : -1)
+              replacement: e.emoji
+            }))
+            return res
+          }, {})
           commit('setInstanceOption', { name: 'emoji', value: emoji })
         } else {
           throw (res)

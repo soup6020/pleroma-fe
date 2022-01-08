@@ -214,16 +214,18 @@ const EmojiPicker = {
     defaultGroup () {
       return Object.keys(this.allCustomGroups)[0]
     },
+    unicodeEmojiGroups () {
+      return this.$store.getters.standardEmojiGroupList.map(group => ({
+        id: `standard-${group.id}`,
+        text: this.$t(`emoji.unicode_groups.${group.id}`),
+        icon: 'box-open',
+        emojis: group.emojis
+      }))
+    },
     allEmojiGroups () {
-      const standardEmojis = this.$store.state.instance.emoji || []
       return Object.entries(this.allCustomGroups)
         .map(([_, v]) => v)
-        .concat({
-          id: 'standard',
-          text: this.$t('emoji.unicode'),
-          icon: 'box-open',
-          emojis: filterByKeyword(standardEmojis, this.keyword)
-        })
+        .concat(this.unicodeEmojiGroups)
     },
     filteredEmojiGroups () {
       return this.allEmojiGroups
