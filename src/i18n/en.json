@@ -199,6 +199,17 @@
     "add_emoji": "Insert emoji",
     "custom": "Custom emoji",
     "unicode": "Unicode emoji",
+    "unicode_groups": {
+      "activities": "Activities",
+      "animals-and-nature": "Animals & Nature",
+      "flags": "Flags",
+      "food-and-drink": "Food & Drink",
+      "objects": "Objects",
+      "people-and-body": "People & Body",
+      "smileys-and-emotion": "Smileys & Emotion",
+      "symbols": "Symbols",
+      "travel-and-places": "Travel & Places"
+    },
     "load_all_hint": "Loaded first {saneAmount} emoji, loading all emoji may cause performance issues.",
     "load_all": "Loading all {emojiAmount} emoji"
   },
