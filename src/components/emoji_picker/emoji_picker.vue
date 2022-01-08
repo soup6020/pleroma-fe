@@ -3,9 +3,13 @@
     class="emoji-picker panel panel-default panel-body"
   >
     <div class="heading">
-      <span class="emoji-tabs">
+      <span
+        ref="header"
+        class="emoji-tabs"
+      >
         <span
           v-for="group in filteredEmojiGroups"
+          :ref="'group-header-' + group.id"
           :key="group.id"
           class="emoji-tabs-item"
           :class="{

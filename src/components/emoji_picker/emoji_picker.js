@@ -87,7 +87,25 @@ const EmojiPicker = {
             this.activeGroup = group.id
           }
         })
+        this.scrollHeader()
       })
+    },
+    scrollHeader () {
+      // Scroll the active tab's header into view
+      const headerRef = this.$refs['group-header-' + this.activeGroup][0]
+      const left = headerRef.offsetLeft
+      const right = left + headerRef.offsetWidth
+      const headerCont = this.$refs.header
+      const currentScroll = headerCont.scrollLeft
+      const currentScrollRight = currentScroll + headerCont.clientWidth
+      const setScroll = s => { headerCont.scrollLeft = s }
+
+      const margin = 7 // .emoji-tabs-item: padding
+      if (left - margin < currentScroll) {
+        setScroll(left - margin)
+      } else if (right + margin > currentScrollRight) {
+        setScroll(right + margin - headerCont.clientWidth)
+      }
     },
     highlight (key) {
       const ref = this.$refs['group-' + key]
