@@ -43,7 +43,7 @@ const UNICODE_EMOJI_GROUP_ICON = {
   'activities': 'basketball-ball',
   'objects': 'lightbulb',
   'symbols': 'code',
-  'flags': 'flag',
+  'flags': 'flag'
 }
 
 const filterByKeyword = (list, keyword = '') => {
