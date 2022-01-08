@@ -6,15 +6,45 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBoxOpen,
   faStickyNote,
-  faSmileBeam
+  faSmileBeam,
+  faSmile,
+  faUser,
+  faPaw,
+  faIceCream,
+  faBus,
+  faBasketballBall,
+  faLightbulb,
+  faCode,
+  faFlag
 } from '@fortawesome/free-solid-svg-icons'
 import { trim } from 'lodash'
 
 library.add(
   faBoxOpen,
   faStickyNote,
-  faSmileBeam
+  faSmileBeam,
+  faSmile,
+  faUser,
+  faPaw,
+  faIceCream,
+  faBus,
+  faBasketballBall,
+  faLightbulb,
+  faCode,
+  faFlag
 )
+
+const UNICODE_EMOJI_GROUP_ICON = {
+  'smileys-and-emotion': 'smile',
+  'people-and-body': 'user',
+  'animals-and-nature': 'paw',
+  'food-and-drink': 'ice-cream',
+  'travel-and-places': 'bus',
+  'activities': 'basketball-ball',
+  'objects': 'lightbulb',
+  'symbols': 'code',
+  'flags': 'flag',
+}
 
 const filterByKeyword = (list, keyword = '') => {
   if (keyword === '') return list
@@ -218,7 +248,7 @@ const EmojiPicker = {
       return this.$store.getters.standardEmojiGroupList.map(group => ({
         id: `standard-${group.id}`,
         text: this.$t(`emoji.unicode_groups.${group.id}`),
-        icon: 'box-open',
+        icon: UNICODE_EMOJI_GROUP_ICON[group.id],
         emojis: group.emojis
       }))
     },
