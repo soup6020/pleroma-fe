@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.4.2] - 2022-01-09
+### Added 
+- Added Apply and Reset buttons to the bottom of theme tab to minimize UI travel
+- Implemented user option to always show floating New Post button (normally mobile-only)
+- Display reasons for instance specific policies 
+- Added functionality to cancel follow request
+
+### Fixed
+- Fixed link to external profile not working on user profiles
+- Fixed mobile shoutbox display 
+- Fixed favicon badge not working in Chrome
+- Escape html more properly in subject/display name 
+
+
 ## [2.4.0] - 2021-08-08
 ### Added
 - Added a quick settings to timeline header for easier access
