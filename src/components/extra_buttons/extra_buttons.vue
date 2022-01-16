@@ -6,6 +6,8 @@
     :offset="{ y: 5 }"
     :bound-to="{ x: 'container' }"
     remove-padding
+    @show="onShow"
+    @close="onClose"
   >
     <template #content="{close}">
       <div class="dropdown-menu">
@@ -122,10 +124,24 @@
     </template>
     <template #trigger>
       <span class="button-unstyled popover-trigger">
-        <FAIcon
-          class="fa-scale-110 fa-old-padding"
-          icon="ellipsis-h"
-        />
+        <FALayers class="fa-old-padding-layer">
+          <FAIcon
+            class="fa-scale-110 "
+            icon="ellipsis-h"
+          />
+          <FAIcon
+            v-if="!expanded"
+            class="focus-marker"
+            transform="shrink-6 up-8 right-16"
+            icon="plus"
+          />
+          <FAIcon
+            v-else
+            class="focus-marker"
+            transform="shrink-6 up-8 right-16"
+            icon="times"
+          />
+        </FALayers>
       </span>
     </template>
   </Popover>
@@ -150,6 +166,16 @@
     &:hover .svg-inline--fa {
       color: $fallback--text;
       color: var(--text, $fallback--text);
+    }
+
+    .focus-marker {
+      visibility: hidden;
+    }
+
+    &:hover, &:focus {
+      .focus-marker {
+        visibility: visible;
+      }
     }
   }
 }

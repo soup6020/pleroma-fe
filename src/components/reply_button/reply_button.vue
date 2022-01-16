@@ -7,10 +7,24 @@
       :title="$t('tool_tip.reply')"
       @click.prevent="$emit('toggle')"
     >
-      <FAIcon
-        class="fa-scale-110 fa-old-padding"
-        icon="reply"
-      />
+      <FALayers class="fa-old-padding-layer">
+        <FAIcon
+          class="fa-scale-110"
+          icon="reply"
+        />
+        <FAIcon
+          v-if="!replying"
+          class="focus-marker"
+          transform="shrink-6 up-8 right-16"
+          icon="plus"
+        />
+        <FAIcon
+          v-else
+          class="focus-marker"
+          transform="shrink-6 up-8 right-16"
+          icon="times"
+        />
+      </FALayers>
     </button>
     <span v-else>
       <FAIcon
@@ -51,6 +65,16 @@
     &.-active .svg-inline--fa {
       color: $fallback--cBlue;
       color: var(--cBlue, $fallback--cBlue);
+    }
+
+    .focus-marker {
+      visibility: hidden;
+    }
+
+    &:hover, &:focus {
+      .focus-marker {
+        visibility: visible;
+      }
     }
   }
 

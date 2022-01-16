@@ -1,7 +1,17 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faRetweet } from '@fortawesome/free-solid-svg-icons'
+import {
+  faRetweet,
+  faPlus,
+  faMinus,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faRetweet)
+library.add(
+  faRetweet,
+  faPlus,
+  faMinus,
+  faCheck
+)
 
 const RetweetButton = {
   props: ['status', 'loggedIn', 'visibility'],

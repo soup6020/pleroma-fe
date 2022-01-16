@@ -1,15 +1,21 @@
 import Popover from '../popover/popover.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faSmileBeam } from '@fortawesome/free-regular-svg-icons'
 import { trim } from 'lodash'
 
-library.add(faSmileBeam)
+library.add(
+  faPlus,
+  faTimes,
+  faSmileBeam
+)
 
 const ReactButton = {
   props: ['status'],
   data () {
     return {
-      filterWord: ''
+      filterWord: '',
+      expanded: false
     }
   },
   components: {
@@ -24,6 +30,13 @@ const ReactButton = {
         this.$store.dispatch('reactWithEmoji', { id: this.status.id, emoji })
       }
       close()
+    },
+    onShow () {
+      this.expanded = true
+      this.focusInput()
+    },
+    onClose () {
+      this.expanded = false
     },
     focusInput () {
       this.$nextTick(() => {

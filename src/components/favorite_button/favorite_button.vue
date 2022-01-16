@@ -7,11 +7,31 @@
       :title="$t('tool_tip.favorite')"
       @click.prevent="favorite()"
     >
-      <FAIcon
-        class="fa-scale-110 fa-old-padding"
-        :icon="[status.favorited ? 'fas' : 'far', 'star']"
-        :spin="animated"
-      />
+      <FALayers class="fa-scale-110 fa-old-padding-layer">
+        <FAIcon
+          class="fa-scale-110"
+          :icon="[status.favorited ? 'fas' : 'far', 'star']"
+          :spin="animated"
+        />
+        <FAIcon
+          v-if="status.favorited"
+          class="active-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="check"
+        />
+        <FAIcon
+          v-if="!status.favorited"
+          class="focus-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="plus"
+        />
+        <FAIcon
+          v-else
+          class="focus-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="minus"
+        />
+      </FALayers>
     </button>
     <span v-else>
       <FAIcon
@@ -56,6 +76,19 @@
     &.-favorited .svg-inline--fa {
       color: $fallback--cOrange;
       color: var(--cOrange, $fallback--cOrange);
+    }
+
+    .focus-marker {
+      visibility: hidden;
+    }
+
+    &:hover, &:focus {
+      .focus-marker {
+        visibility: visible;
+      }
+      .active-marker {
+        visibility: hidden;
+      }
     }
   }
 }
