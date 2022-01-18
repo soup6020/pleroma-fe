@@ -57,6 +57,14 @@ const StillImage = {
     onError () {
       this.imageLoadError && this.imageLoadError()
     }
+  },
+  watch: {
+    src () {
+      this.realSrc = this.src
+    },
+    dataSrc () {
+      this.$el.removeAttribute('data-loaded')
+    }
   }
 }
 
