@@ -46,6 +46,7 @@
 
 <style lang="scss">
 @import '../../_variables.scss';
+@import '../../_mixins.scss';
 
 .ReplyButton {
   display: flex;
@@ -67,12 +68,13 @@
       color: var(--cBlue, $fallback--cBlue);
     }
 
-    .focus-marker,
-    &:focus:not(:focus-visible):not(:hover) .focus-marker {
-      visibility: hidden;
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
     }
 
-    &:hover, &:focus, &:focus-visible {
+    @include focused-style {
       .focus-marker {
         visibility: visible;
       }

@@ -53,6 +53,7 @@
 
 <style lang="scss">
 @import '../../_variables.scss';
+@import '../../_mixins.scss';
 
 .FavoriteButton {
   display: flex;
@@ -78,19 +79,21 @@
       color: var(--cOrange, $fallback--cOrange);
     }
 
-    .focus-marker,
-    &:focus:not(:focus-visible):not(:hover) .focus-marker {
-      visibility: hidden;
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
+
+      .active-marker {
+        visibility: visible;
+      }
     }
 
-    &:focus:not(:focus-visible):not(:hover) .active-marker {
-      visibility: visible;
-    }
-
-    &:hover, &:focus, &:focus-visible {
+    @include focused-style {
       .focus-marker {
         visibility: visible;
       }
+
       .active-marker {
         visibility: hidden;
       }
