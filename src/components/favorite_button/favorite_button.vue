@@ -78,11 +78,16 @@
       color: var(--cOrange, $fallback--cOrange);
     }
 
-    .focus-marker {
+    .focus-marker,
+    &:focus:not(:focus-visible):not(:hover) .focus-marker {
       visibility: hidden;
     }
 
-    &:hover, &:focus {
+    &:focus:not(:focus-visible):not(:hover) .active-marker {
+      visibility: visible;
+    }
+
+    &:hover, &:focus, &:focus-visible {
       .focus-marker {
         visibility: visible;
       }

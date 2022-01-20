@@ -141,11 +141,12 @@
       color: var(--text, $fallback--text);
     }
 
-    .focus-marker {
+    .focus-marker,
+    &:focus:not(:focus-visible):not(:hover) .focus-marker {
       visibility: hidden;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus, &:focus-visible {
       .focus-marker {
         visibility: visible;
       }
