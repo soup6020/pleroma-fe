@@ -15,13 +15,13 @@
         <FAIcon
           v-if="!replying"
           class="focus-marker"
-          transform="shrink-6 up-8 right-16"
+          transform="shrink-6 up-8 right-11"
           icon="plus"
         />
         <FAIcon
           v-else
           class="focus-marker"
-          transform="shrink-6 up-8 right-16"
+          transform="shrink-6 up-8 right-11"
           icon="times"
         />
       </FALayers>
