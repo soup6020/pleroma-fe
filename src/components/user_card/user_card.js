@@ -8,6 +8,7 @@ import UserNote from '../user_note/user_note.vue'
 import Select from '../select/select.vue'
 import UserLink from '../user_link/user_link.vue'
 import RichContent from 'src/components/rich_content/rich_content.jsx'
+import ConfirmModal from '../confirm_modal/confirm_modal.vue'
 import generateProfileLink from 'src/services/user_profile_link_generator/user_profile_link_generator'
 import { mapGetters } from 'vuex'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -46,7 +47,8 @@ export default {
   data () {
     return {
       followRequestInProgress: false,
-      betterShadow: this.$store.state.interface.browserSupport.cssFilter
+      betterShadow: this.$store.state.interface.browserSupport.cssFilter,
+      showingConfirmMute: false
     }
   },
   created () {
@@ -137,6 +139,9 @@ export default {
     supportsNote () {
       return 'note' in this.relationship
     },
+    shouldConfirmMute () {
+      return this.mergedConfig.modalOnMute
+    },
     ...mapGetters(['mergedConfig'])
   },
   components: {
@@ -149,11 +154,26 @@ export default {
     Select,
     RichContent,
     UserLink,
-    UserNote
+    UserNote,
+    ConfirmModal
   },
   methods: {
+    showConfirmMute () {
+      this.showingConfirmMute = true
+    },
+    hideConfirmMute () {
+      this.showingConfirmMute = false
+    },
     muteUser () {
+      if (!this.shouldConfirmMute) {
+        this.doMuteUser()
+      } else {
+        this.showConfirmMute()
+      }
+    },
+    doMuteUser () {
       this.$store.dispatch('muteUser', this.user.id)
+      this.hideConfirmMute()
     },
     unmuteUser () {
       this.$store.dispatch('unmuteUser', this.user.id)
