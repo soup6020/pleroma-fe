@@ -59,7 +59,7 @@ const ExtraButtons = {
     },
     doDeleteStatus () {
       this.$store.dispatch('deleteStatus', { id: this.status.id })
-      hideDeleteStatusConfirmDialog()
+      this.hideDeleteStatusConfirmDialog()
     },
     showDeleteStatusConfirmDialog () {
       this.showingDeleteDialog = true
