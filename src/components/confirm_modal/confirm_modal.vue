@@ -2,26 +2,26 @@
   <dialog-modal
     v-if="showing"
     class="confirm-modal"
-    :onCancel="onCancel"
+    :on-cancel="onCancel"
   >
     <template v-slot:header>
-      <span v-text="title"></span>
+      <span v-text="title" />
     </template>
 
-    <slot></slot>
+    <slot />
 
     <template v-slot:footer>
       <button
         class="btn button-default"
-        v-text="confirmText"
         @click.prevent="onAccept"
-      ></button>
+        v-text="confirmText"
+      />
 
       <button
         class="btn button-default"
-        v-text="cancelText"
         @click.prevent="onCancel"
-      ></button>
+        v-text="cancelText"
+      />
     </template>
   </dialog-modal>
 </template>

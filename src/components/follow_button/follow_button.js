@@ -8,7 +8,7 @@ export default {
   data () {
     return {
       inProgress: false,
-      showingConfirmUnfollow: false,
+      showingConfirmUnfollow: false
     }
   },
   computed: {
