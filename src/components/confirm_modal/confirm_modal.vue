@@ -1,6 +1,7 @@
 <template>
   <dialog-modal
     v-if="showing"
+    class="confirm-modal"
     :onCancel="onCancel"
   >
     <template v-slot:header>

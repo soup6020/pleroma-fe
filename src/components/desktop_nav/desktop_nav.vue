@@ -76,6 +76,16 @@
         </button>
       </div>
     </div>
+    <confirm-modal
+      :showing="showingConfirmLogout"
+      :title="$t('login.mute_confirm_title')"
+      :confirm-text="$t('login.logout_confirm_accept_button')"
+      :cancel-text="$t('login.logout_confirm_cancel_button')"
+      @accepted="doLogout"
+      @cancelled="hideConfirmLogout"
+    >
+      {{ $t('login.logout_confirm') }}
+    </confirm-modal>
   </nav>
 </template>
 <script src="./desktop_nav.js"></script>
