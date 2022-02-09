@@ -2,6 +2,7 @@ import { mapState } from 'vuex'
 import ProgressButton from '../progress_button/progress_button.vue'
 import Popover from '../popover/popover.vue'
 import UserListMenu from 'src/components/user_list_menu/user_list_menu.vue'
+import ConfirmModal from '../confirm_modal/confirm_modal.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faEllipsisV
@@ -16,14 +17,23 @@ const AccountActions = {
     'user', 'relationship'
   ],
   data () {
-    return { }
+    return {
+      showingConfirmBlock: false
+    }
   },
   components: {
     ProgressButton,
     Popover,
-    UserListMenu
+    UserListMenu,
+    ConfirmModal
   },
   methods: {
+    showConfirmBlock () {
+      this.showingConfirmBlock = true
+    },
+    hideConfirmBlock () {
+      this.showingConfirmBlock = false
+    },
     showRepeats () {
       this.$store.dispatch('showReblogs', this.user.id)
     },
@@ -31,7 +41,15 @@ const AccountActions = {
       this.$store.dispatch('hideReblogs', this.user.id)
     },
     blockUser () {
+      if (!this.shouldConfirmBlock) {
+        this.doBlockUser()
+      } else {
+        this.showConfirmBlock()
+      }
+    },
+    doBlockUser () {
       this.$store.dispatch('blockUser', this.user.id)
+      this.hideConfirmBlock()
     },
     unblockUser () {
       this.$store.dispatch('unblockUser', this.user.id)
@@ -50,6 +68,9 @@ const AccountActions = {
     }
   },
   computed: {
+    shouldConfirmBlock () {
+      return this.$store.getters.mergedConfig.modalOnBlock
+    },
     ...mapState({
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable
     })
