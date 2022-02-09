@@ -59,6 +59,16 @@
     >
       {{ status.repeat_num }}
     </span>
+    <confirm-modal
+      :showing="showingConfirmDialog"
+      :title="$t('status.repeat_confirm_title')"
+      :confirm-text="$t('status.repeat_confirm_accept_button')"
+      :cancel-text="$t('status.repeat_confirm_cancel_button')"
+      @accepted="doRetweet"
+      @cancelled="hideConfirmDialog"
+    >
+      {{ $t('status.repeat_confirm') }}
+    </confirm-modal>
   </div>
 </template>
 
