@@ -148,6 +148,41 @@
             </SizeSetting>
           </div>
         </li>
+        <li class="select-multiple">
+          <span class="label">{{ $t('settings.confirm_dialogs') }}</span>
+          <ul class="option-list">
+            <li>
+              <BooleanSetting path="modalOnRepeat">
+                {{ $t('settings.confirm_dialogs_repeat') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnUnfollow">
+                {{ $t('settings.confirm_dialogs_unfollow') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnBlock">
+                {{ $t('settings.confirm_dialogs_block') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnMute">
+                {{ $t('settings.confirm_dialogs_mute') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnDelete">
+                {{ $t('settings.confirm_dialogs_delete') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnLogout">
+                {{ $t('settings.confirm_dialogs_logout') }}
+              </BooleanSetting>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div class="setting-item">
