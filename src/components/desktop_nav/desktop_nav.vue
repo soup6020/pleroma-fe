@@ -78,7 +78,7 @@
     </div>
     <confirm-modal
       :showing="showingConfirmLogout"
-      :title="$t('login.mute_confirm_title')"
+      :title="$t('login.logout_confirm_title')"
       :confirm-text="$t('login.logout_confirm_accept_button')"
       :cancel-text="$t('login.logout_confirm_cancel_button')"
       @accepted="doLogout"
