@@ -29,6 +29,8 @@ const ProfileTab = {
       newLocked: this.$store.state.users.currentUser.locked,
       newNoRichText: this.$store.state.users.currentUser.no_rich_text,
       newDefaultScope: this.$store.state.users.currentUser.default_scope,
+      newBirthday: this.$store.state.users.currentUser.birthday,
+      showBirthday: this.$store.state.users.currentUser.show_birthday,
       newFields: this.$store.state.users.currentUser.fields.map(field => ({ name: field.name, value: field.value })),
       hideFollows: this.$store.state.users.currentUser.hide_follows,
       hideFollowers: this.$store.state.users.currentUser.hide_followers,
@@ -132,7 +134,9 @@ const ProfileTab = {
             allow_following_move: this.allowFollowingMove,
             hide_follows_count: this.hideFollowsCount,
             hide_followers_count: this.hideFollowersCount,
-            show_role: this.showRole
+            show_role: this.showRole,
+            birthday: this.newBirthday || null,
+            show_birthday: this.showBirthday
             /* eslint-enable camelcase */
           } }).then((user) => {
           this.newFields.splice(user.fields.length)

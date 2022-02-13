@@ -633,7 +633,11 @@
     "reply_visibility_following_short": "Pokazuj odpowiedzi obserwującym",
     "reply_visibility_self_short": "Pokazuj odpowiedzi tylko do mnie",
     "sensitive_by_default": "Domyślnie oznaczaj wpisy jako wrażliwe",
-    "hide_shoutbox": "Ukryj shoutbox instancji"
+    "hide_shoutbox": "Ukryj shoutbox instancji",
+    "birthday": {
+      "label": "Urodziny",
+      "show_birthday": "Pokazuj moją datę urodzenia"
+    }
   },
   "time": {
     "day": "{0} dzień",
@@ -770,7 +774,8 @@
     "highlight": {
       "disabled": "Bez wyróżnienia"
     },
-    "bot": "Bot"
+    "bot": "Bot",
+    "birthday": "Urodzony(-a) {birthday}"
   },
   "user_profile": {
     "timeline_title": "Oś czasu użytkownika",

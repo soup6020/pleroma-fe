@@ -11,6 +11,16 @@
         :allow-zooming-avatar="true"
         rounded="top"
       />
+      <span
+        v-if="!!user.birthday"
+        class="user-birthday"
+      >
+        <FAIcon
+          class="fa-old-padding"
+          icon="birthday-cake"
+        />
+        {{ $t('user_card.birthday', { birthday: formattedBirthday }) }}
+      </span>
       <div
         v-if="user.fields_html && user.fields_html.length > 0"
         class="user-profile-fields"
@@ -137,6 +147,10 @@
 .user-profile {
   flex: 2;
   flex-basis: 500px;
+
+  .user-birthday {
+    margin: 0 0.75em 0.5em;
+  }
 
   .user-profile-fields {
     margin: 0 0.5em;

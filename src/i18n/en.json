@@ -399,6 +399,10 @@
       "name": "Label",
       "value": "Content"
     },
+    "birthday": {
+      "label": "Birthday",
+      "show_birthday": "Show my birthday"
+    },
     "use_contain_fit": "Don't crop the attachment in thumbnails",
     "name": "Name",
     "name_bio": "Name & bio",
@@ -774,6 +778,7 @@
     "hide_repeats": "Hide repeats",
     "show_repeats": "Show repeats",
     "bot": "Bot",
+    "birthday": "Born {birthday}",
     "admin_menu": {
       "moderation": "Moderation",
       "grant_admin": "Grant Admin",
