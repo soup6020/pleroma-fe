@@ -43,11 +43,8 @@ const reports = {
     },
     setReportState ({ commit, dispatch, rootState }, { id, state }) {
       const oldState = rootState.reports.reports[id].state
-      console.log(oldState, state)
       commit('setReportState', { id, state })
-      rootState.api.backendInteractor.setReportState({ id, state }).then(report => {
-        console.log(report)
-      }).catch(e => {
+      rootState.api.backendInteractor.setReportState({ id, state }).catch(e => {
         console.error('Failed to set report state', e)
         dispatch('pushGlobalNotice', {
           level: 'error',

@@ -93,7 +93,7 @@ export const prepareNotificationObject = (notification, i18n) => {
       i18nString = 'follow_request'
       break
     case 'pleroma:report':
-      i18nString = 'reported'
+      i18nString = 'submitted_report'
       break
   }
 

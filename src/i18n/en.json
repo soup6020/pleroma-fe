@@ -176,6 +176,8 @@
   "interactions": {
     "favs_repeats": "Repeats and Favorites",
     "follows": "New follows",
+    "emoji_reactions": "Emoji Reactions",
+    "reports": "Reports",
     "moves": "User migrates",
     "load_older": "Load older interactions"
   },

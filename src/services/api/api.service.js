@@ -1270,7 +1270,8 @@ const deleteChatMessage = ({ chatId, messageId, credentials }) => {
 }
 
 const setReportState = ({ id, state, credentials }) => {
-  // Can't use promisedRequest because on OK this does not return json
+  // TODO: Can't use promisedRequest because on OK this does not return json
+  // See https://git.pleroma.social/pleroma/pleroma-fe/-/merge_requests/1322
   return fetch(PLEROMA_ADMIN_REPORTS, {
     headers: {
       ...authHeaders(credentials),

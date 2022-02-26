@@ -13,7 +13,8 @@ const Interactions = {
   data () {
     return {
       allowFollowingMove: this.$store.state.users.currentUser.allow_following_move,
-      filterMode: tabModeDict['mentions']
+      filterMode: tabModeDict['mentions'],
+      canSeeReports: ['moderator', 'admin'].includes(this.$store.state.users.currentUser.role)
     }
   },
   methods: {
