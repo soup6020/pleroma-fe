@@ -1,6 +1,7 @@
 <template>
   <Status
     v-if="notification.type === 'mention'"
+    class="Notification"
     :compact="true"
     :statusoid="notification.status"
   />
@@ -11,7 +12,7 @@
     >
       <small>
         <router-link :to="userProfileLink">
-          {{ notification.from_profile.screen_name }}
+          {{ notification.from_profile.screen_name_ui }}
         </router-link>
       </small>
       <button
@@ -51,17 +52,19 @@
         <span class="notification-details">
           <div class="name-and-action">
             <!-- eslint-disable vue/no-v-html -->
-            <bdi
-              v-if="!!notification.from_profile.name_html"
-              class="username"
-              :title="'@'+notification.from_profile.screen_name"
-              v-html="notification.from_profile.name_html"
-            />
+            <bdi v-if="!!notification.from_profile.name_html">
+              <RichContent
+                class="username"
+                :title="'@'+notification.from_profile.screen_name_ui"
+                :html="notification.from_profile.name_html"
+                :emoji="notification.from_profile.emoji"
+              />
+            </bdi>
             <!-- eslint-enable vue/no-v-html -->
             <span
               v-else
               class="username"
-              :title="'@'+notification.from_profile.screen_name"
+              :title="'@'+notification.from_profile.screen_name_ui"
             >{{ notification.from_profile.name }}</span>
             <span v-if="notification.type === 'like'">
               <FAIcon
@@ -155,7 +158,7 @@
             :to="userProfileLink"
             class="follow-name"
           >
-            @{{ notification.from_profile.screen_name }}
+            @{{ notification.from_profile.screen_name_ui }}
           </router-link>
           <div
             v-if="notification.type === 'follow_request'"
@@ -180,7 +183,7 @@
           class="move-text"
         >
           <router-link :to="targetUserProfileLink">
-            @{{ notification.target.screen_name }}
+            @{{ notification.target.screen_name_ui }}
           </router-link>
         </div>
         <Report
@@ -188,8 +191,9 @@
           :report-id="notification.report.id"
         />
         <template v-else>
-          <status-content
+          <StatusContent
             class="faint"
+            :compact="true"
             :status="notification.action"
           />
         </template>

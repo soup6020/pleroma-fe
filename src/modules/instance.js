@@ -19,10 +19,19 @@ const defaultState = {
   defaultBanner: '/images/banner.png',
   background: '/static/aurora_borealis.jpg',
   collapseMessageWithSubject: false,
-  disableChat: false,
   greentext: false,
+  useAtIcon: false,
+  mentionLinkDisplay: 'short',
+  mentionLinkShowTooltip: true,
+  mentionLinkShowAvatar: false,
+  mentionLinkFadeDomain: true,
+  mentionLinkShowYous: false,
+  mentionLinkBoldenYou: true,
   hideFilteredStatuses: false,
+  // bad name: actually hides posts of muted USERS
   hideMutedPosts: false,
+  hideMutedThreads: true,
+  hideWordFilteredPosts: false,
   hidePostStats: false,
   hideSitename: false,
   hideUserStats: false,
@@ -43,6 +52,7 @@ const defaultState = {
   subjectLineBehavior: 'email',
   theme: 'pleroma-dark',
   virtualScrolling: true,
+  sensitiveByDefault: false,
 
   // Nasty stuff
   customEmoji: [],
@@ -56,7 +66,7 @@ const defaultState = {
   knownDomains: [],
 
   // Feature-set, apparently, not everything here is reported...
-  chatAvailable: false,
+  shoutAvailable: false,
   pleromaChatMessagesAvailable: false,
   gopherAvailable: false,
   mediaProxyAvailable: false,
@@ -97,6 +107,9 @@ const instance = {
       return instanceDefaultProperties
         .map(key => [key, state[key]])
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+    },
+    instanceDomain (state) {
+      return new URL(state.server).hostname
     }
   },
   actions: {
@@ -106,7 +119,7 @@ const instance = {
         case 'name':
           dispatch('setPageTitle')
           break
-        case 'chatAvailable':
+        case 'shoutAvailable':
           if (value) {
             dispatch('initializeSocket')
           }

@@ -4,40 +4,44 @@
     placement="top"
     :offset="{ y: 5 }"
   >
-    <template slot="trigger">
+    <template v-slot:trigger>
       <slot />
     </template>
-    <div
-      slot="content"
-      class="user-list-popover"
-    >
-      <div v-if="users.length">
-        <div
-          v-for="(user) in usersCapped"
-          :key="user.id"
-          class="user-list-row"
-        >
-          <UserAvatar
-            :user="user"
-            class="avatar-small"
-            :compact="true"
-          />
-          <div class="user-list-names">
-            <!-- eslint-disable vue/no-v-html -->
-            <span v-html="user.name_html" />
-            <!-- eslint-enable vue/no-v-html -->
-            <span class="user-list-screen-name">{{ user.screen_name }}</span>
+    <template v-slot:content>
+      <div class="user-list-popover">
+        <template v-if="users.length">
+          <div
+            v-for="(user) in usersCapped"
+            :key="user.id"
+            class="user-list-row"
+          >
+            <UserAvatar
+              :user="user"
+              class="avatar-small"
+              :compact="true"
+            />
+            <div class="user-list-names">
+              <!-- eslint-disable vue/no-v-html -->
+              <RichContent
+                class="username"
+                :title="'@'+user.screen_name_ui"
+                :html="user.name_html"
+                :emoji="user.emoji"
+              />
+              <!-- eslint-enable vue/no-v-html -->
+              <span class="user-list-screen-name">{{ user.screen_name_ui }}</span>
+            </div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <FAIcon
+            icon="circle-notch"
+            spin
+            size="3x"
+          />
+        </template>
       </div>
-      <div v-else>
-        <FAIcon
-          icon="circle-notch"
-          spin
-          size="3x"
-        />
-      </div>
-    </div>
+    </template>
   </Popover>
 </template>
 
@@ -48,6 +52,8 @@
 
 .user-list-popover {
   padding: 0.5em;
+
+  --emoji-size: 16px;
 
   .user-list-row {
     padding: 0.25em;

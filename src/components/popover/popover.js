@@ -3,25 +3,32 @@ const Popover = {
   props: {
     // Action to trigger popover: either 'hover' or 'click'
     trigger: String,
+
     // Either 'top' or 'bottom'
     placement: String,
+
     // Takes object with properties 'x' and 'y', values of these can be
     // 'container' for using offsetParent as boundaries for either axis
     // or 'viewport'
     boundTo: Object,
+
     // Takes a selector to use as a replacement for the parent container
     // for getting boundaries for x an y axis
     boundToSelector: String,
+
     // Takes a top/bottom/left/right object, how much space to leave
     // between boundary and popover element
     margin: Object,
+
     // Takes a x/y object and tells how many pixels to offset from
     // anchor point on either axis
     offset: Object,
+
     // Replaces the classes you may want for the popover container.
     // Use 'popover-default' in addition to get the default popover
     // styles with your custom class.
     popoverClass: String,
+
     // If true, subtract padding when calculating position for the popover,
     // use it when popover offset looks to be different on top vs bottom.
     removePadding: Boolean
@@ -47,8 +54,11 @@ const Popover = {
       }
 
       // Popover will be anchored around this element, trigger ref is the container, so
-      // its children are what are inside the slot. Expect only one slot="trigger".
+      // its children are what are inside the slot. Expect only one v-slot:trigger.
       const anchorEl = (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
+      // SVGs don't have offsetWidth/Height, use fallback
+      const anchorWidth = anchorEl.offsetWidth || anchorEl.clientWidth
+      const anchorHeight = anchorEl.offsetHeight || anchorEl.clientHeight
       const screenBox = anchorEl.getBoundingClientRect()
       // Screen position of the origin point for popover
       const origin = { x: screenBox.left + screenBox.width * 0.5, y: screenBox.top }
@@ -107,11 +117,11 @@ const Popover = {
 
       const yOffset = (this.offset && this.offset.y) || 0
       const translateY = usingTop
-        ? -anchorEl.offsetHeight + vPadding - yOffset - content.offsetHeight
+        ? -anchorHeight + vPadding - yOffset - content.offsetHeight
         : yOffset
 
       const xOffset = (this.offset && this.offset.x) || 0
-      const translateX = (anchorEl.offsetWidth * 0.5) - content.offsetWidth * 0.5 + horizOffset + xOffset
+      const translateX = anchorWidth * 0.5 - content.offsetWidth * 0.5 + horizOffset + xOffset
 
       // Note, separate translateX and translateY avoids blurry text on chromium,
       // single translate or translate3d resulted in blurry text.
@@ -121,9 +131,12 @@ const Popover = {
       }
     },
     showPopover () {
-      if (this.hidden) this.$emit('show')
+      const wasHidden = this.hidden
       this.hidden = false
-      this.$nextTick(this.updateStyles)
+      this.$nextTick(() => {
+        if (wasHidden) this.$emit('show')
+        this.updateStyles()
+      })
     },
     hidePopover () {
       if (!this.hidden) this.$emit('close')

@@ -246,6 +246,11 @@ export const getters = {
     }
     return result
   },
+  findUserByUrl: state => query => {
+    return state.users
+      .find(u => u.statusnet_profile_url &&
+            u.statusnet_profile_url.toLowerCase() === query.toLowerCase())
+  },
   relationship: state => id => {
     const rel = id && state.relationships[id]
     return rel || { id, loading: true }
@@ -388,7 +393,7 @@ const users = {
     toggleActivationStatus ({ rootState, commit }, { user }) {
       const api = user.deactivated ? rootState.api.backendInteractor.activateUser : rootState.api.backendInteractor.deactivateUser
       api({ user })
-        .then(({ deactivated }) => commit('updateActivationStatus', { user, deactivated }))
+        .then((user) => { let deactivated = !user.is_active; commit('updateActivationStatus', { user, deactivated }) })
     },
     registerPushNotifications (store) {
       const token = store.state.currentUser.credentials
@@ -531,7 +536,7 @@ const users = {
               if (user.token) {
                 store.dispatch('setWsToken', user.token)
 
-                // Initialize the chat socket.
+                // Initialize the shout socket.
                 store.dispatch('initializeSocket')
               }
 
@@ -547,9 +552,10 @@ const users = {
               }
 
               if (store.getters.mergedConfig.useStreamingApi) {
-                store.dispatch('enableMastoSockets').catch((error) => {
+                store.dispatch('fetchTimeline', 'friends', { since: null })
+                store.dispatch('fetchNotifications', { since: null })
+                store.dispatch('enableMastoSockets', true).catch((error) => {
                   console.error('Failed initializing MastoAPI Streaming socket', error)
-                  startPolling()
                 }).then(() => {
                   store.dispatch('fetchChats', { latest: true })
                   setTimeout(() => store.dispatch('setNotificationsSilence', false), 10000)

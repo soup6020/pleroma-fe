@@ -39,7 +39,14 @@
     "close": "关闭",
     "retry": "重试",
     "error_retry": "请重试",
-    "loading": "载入中…"
+    "loading": "载入中…",
+    "role": {
+      "moderator": "监察员",
+      "admin": "管理员"
+    },
+    "flash_content": "点击以使用 Ruffle 显示 Flash 内容（实验性，可能无效）。",
+    "flash_security": "注意这可能有潜在的危险，因为 Flash 内容仍然是任意的代码。",
+    "flash_fail": "Flash 内容加载失败，请在控制台查看详情。"
   },
   "image_cropper": {
     "crop_picture": "裁剪图片",
@@ -92,7 +99,8 @@
     "administration": "管理员",
     "chats": "聊天",
     "timelines": "时间线",
-    "bookmarks": "书签"
+    "bookmarks": "书签",
+    "home_timeline": "主页时间线"
   },
   "notifications": {
     "broken_favorite": "未知的状态，正在搜索中…",
@@ -120,7 +128,9 @@
     "expiry": "投票期限",
     "expires_in": "投票于 {0} 后结束",
     "expired": "投票 {0} 前已结束",
-    "not_enough_options": "投票的选项太少"
+    "not_enough_options": "投票的选项太少",
+    "votes_count": "{count} 票 | {count} 票",
+    "people_voted_count": "{count} 人已投票 | {count} 人已投票"
   },
   "stickers": {
     "add_sticker": "添加贴纸"
@@ -162,7 +172,8 @@
     "preview": "预览",
     "media_description": "媒体描述",
     "media_description_error": "更新媒体失败，请重试",
-    "empty_status_error": "不能发布没有内容、没有附件的发文"
+    "empty_status_error": "不能发布没有内容、没有附件的发文",
+    "post": "发送"
   },
   "registration": {
     "bio": "简介",
@@ -183,7 +194,10 @@
       "password_required": "不能留空",
       "password_confirmation_required": "不能留空",
       "password_confirmation_match": "密码不一致"
-    }
+    },
+    "reason_placeholder": "此实例的注册需要手动批准。\n请让管理员知道您为什么想要注册。",
+    "reason": "注册理由",
+    "register": "注册"
   },
   "selectable_list": {
     "select_all": "选择全部"
@@ -290,7 +304,7 @@
     "new_password": "新密码",
     "notification_visibility": "要显示的通知类型",
     "notification_visibility_follows": "关注",
-    "notification_visibility_likes": "点赞",
+    "notification_visibility_likes": "喜欢",
     "notification_visibility_mentions": "提及",
     "notification_visibility_repeats": "转发",
     "no_rich_text_description": "不显示富文本格式",
@@ -298,8 +312,8 @@
     "no_mutes": "没有隐藏",
     "hide_follows_description": "不要显示我所关注的人",
     "hide_followers_description": "不要显示关注我的人",
-    "show_admin_badge": "在我的个人资料中显示管理员徽章",
-    "show_moderator_badge": "在我的个人资料中显示监察员徽章",
+    "show_admin_badge": "在我的个人资料中显示“管理员”徽章",
+    "show_moderator_badge": "在我的个人资料中显示“监察员”徽章",
     "nsfw_clickthrough": "将不和谐附件和链接预览隐藏，点击才会显示",
     "oauth_tokens": "OAuth令牌",
     "token": "令牌",
@@ -552,7 +566,30 @@
     "mute_import": "隐藏名单导入",
     "mute_export_button": "导出你的隐藏名单到一个 csv 文件",
     "mute_export": "隐藏名单导出",
-    "hide_wallpaper": "隐藏实例壁纸"
+    "hide_wallpaper": "隐藏实例壁纸",
+    "setting_changed": "与默认设置不同",
+    "more_settings": "更多设置",
+    "sensitive_by_default": "默认标记发文为敏感内容",
+    "reply_visibility_self_short": "只显示对我本人的回复",
+    "reply_visibility_following_short": "显示对我关注的人的回复",
+    "hide_all_muted_posts": "不显示已隐藏的发文",
+    "hide_media_previews": "隐藏媒体预览",
+    "word_filter": "词语过滤",
+    "save": "保存更改",
+    "file_export_import": {
+      "errors": {
+        "file_slightly_new": "文件的小版本不同，有些设置可能无法加载",
+        "file_too_old": "不兼容的主版本：{fileMajor}，文件版本过旧，不受支持（最小设置版本 {feMajor}）",
+        "file_too_new": "不兼容的主版本：{fileMajor}，此 PleromaFE（设置版本 {feMajor}）过旧，无法处理",
+        "invalid_file": "所选文件不是受支持的 Pleroma 设置备份。没有进行任何更改。"
+      },
+      "restore_settings": "从文件恢复设置",
+      "backup_settings_theme": "备份设置和主题到文件",
+      "backup_settings": "备份设置到文件",
+      "backup_restore": "设置备份"
+    },
+    "right_sidebar": "在右侧显示侧边栏",
+    "hide_shoutbox": "隐藏实例留言板"
   },
   "time": {
     "day": "{0} 天",
@@ -600,7 +637,9 @@
     "no_more_statuses": "没有更多的状态",
     "no_statuses": "没有状态更新",
     "reload": "重新载入",
-    "error": "取得时间轴时发生错误：{0}"
+    "error": "取得时间轴时发生错误：{0}",
+    "socket_broke": "丢失实时连接：CloseEvent code {0}",
+    "socket_reconnected": "已建立实时连接"
   },
   "status": {
     "favorites": "喜欢",
@@ -638,7 +677,6 @@
     "follow": "关注",
     "follow_sent": "请求已发送！",
     "follow_progress": "请求中…",
-    "follow_again": "再次发送请求？",
     "follow_unfollow": "取消关注",
     "followees": "正在关注",
     "followers": "关注者",
@@ -683,7 +721,15 @@
     "show_repeats": "显示转发",
     "hide_repeats": "隐藏转发",
     "message": "消息",
-    "mention": "提及"
+    "mention": "提及",
+    "bot": "机器人",
+    "highlight": {
+      "side": "侧边条纹",
+      "striped": "条纹背景",
+      "solid": "单一颜色背景",
+      "disabled": "不突出显示"
+    },
+    "edit_profile": "编辑个人资料"
   },
   "user_profile": {
     "timeline_title": "用户时间线",
@@ -778,8 +824,8 @@
         "media_nsfw_desc": "本实例将来自以下实例的媒体内容强制设置为敏感内容：",
         "media_nsfw": "强制设置媒体为敏感内容",
         "media_removal_desc": "本实例移除来自以下实例的媒体内容：",
-        "ftl_removal_desc": "该实例在从“全部已知网络”时间线上移除了下列实例：",
-        "ftl_removal": "从“全部已知网络”时间线上移除"
+        "ftl_removal_desc": "该实例在从“已知网络”时间线上移除了下列实例：",
+        "ftl_removal": "从“已知网络”时间线上移除"
       },
       "mrf_policies_desc": "MRF 策略会影响本实例的互通行为。以下策略已启用：",
       "mrf_policies": "已启用的 MRF 策略",
@@ -801,7 +847,7 @@
     "mute": "隐藏"
   },
   "errors": {
-    "storage_unavailable": "Pleroma 无法访问浏览器储存。您的登陆名以及本地设置将不会被保存，您可能遇到意外问题。请尝试启用 cookies。"
+    "storage_unavailable": "Pleroma 无法访问浏览器储存。您的登陆以及本地设置将不会被保存，您也可能遇到未知问题。请尝试启用 cookies。"
   },
   "shoutbox": {
     "title": "留言板"

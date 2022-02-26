@@ -88,6 +88,10 @@ a {
   font-family: sans-serif;
   font-family: var(--interfaceFont, sans-serif);
 
+  &.-sublime {
+    background: transparent;
+  }
+
   i[class*=icon-],
   .svg-inline--fa {
     color: $fallback--text;
@@ -187,7 +191,7 @@ a {
   }
 }
 
-input, textarea, .select, .input {
+input, textarea, .input {
 
   &.unstyled {
     border-radius: 0;
@@ -217,45 +221,9 @@ input, textarea, .select, .input {
   hyphens: none;
   padding: 8px .5em;
 
-  &.select {
-    padding: 0;
-  }
-
-  &:disabled, &[disabled=disabled] {
+  &:disabled, &[disabled=disabled], &.disabled {
     cursor: not-allowed;
     opacity: 0.5;
-  }
-
-  .select-down-icon {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 5px;
-    height: 100%;
-    color: $fallback--text;
-    color: var(--inputText, $fallback--text);
-    line-height: 28px;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: transparent;
-    border: none;
-    color: $fallback--text;
-    color: var(--inputText, --text, $fallback--text);
-    margin: 0;
-    padding: 0 2em 0 .2em;
-    font-family: sans-serif;
-    font-family: var(--inputFont, sans-serif);
-    font-size: 14px;
-    width: 100%;
-    z-index: 1;
-    height: 28px;
-    line-height: 16px;
   }
 
   &[type=range] {
@@ -547,9 +515,21 @@ main-router {
   border-radius: var(--panelRadius, $fallback--panelRadius);
 }
 
-.panel-footer {
+/* TODO Should remove timeline-footer from here when we refactor panels into
+ * separate component and utilize slots
+ */
+.panel-footer, .timeline-footer {
+  display: flex;
   border-radius: 0 0 $fallback--panelRadius $fallback--panelRadius;
   border-radius: 0 0 var(--panelRadius, $fallback--panelRadius) var(--panelRadius, $fallback--panelRadius);
+  flex: none;
+  padding: 0.6em 0.6em;
+  text-align: left;
+  line-height: 28px;
+  align-items: baseline;
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  border-color: var(--border, $fallback--border);
 
   .faint {
     color: $fallback--faint;
@@ -586,6 +566,7 @@ nav {
   color: var(--faint, $fallback--faint);
   box-shadow: 0px 0px 4px rgba(0,0,0,.6);
   box-shadow: var(--topBarShadow);
+  box-sizing: border-box;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -705,6 +686,15 @@ nav {
       color: var(--alertWarningPanelText, $fallback--text);
     }
   }
+
+  &.success {
+    background-color: var(--alertSuccess, $fallback--alertWarning);
+    color: var(--alertSuccessText, $fallback--text);
+
+    .panel-heading & {
+      color: var(--alertSuccessPanelText, $fallback--text);
+    }
+  }
 }
 
 .faint {
@@ -808,13 +798,6 @@ nav {
   }
 }
 
-.select-multiple {
-  display: flex;
-  .option-list {
-    margin: 0;
-    padding-left: .5em;
-  }
-}
 .setting-list,
 .option-list{
   list-style-type: none;
@@ -861,22 +844,21 @@ nav {
 }
 
 .new-status-notification {
-  position:relative;
-  margin-top: -1px;
+  position: relative;
   font-size: 1.1em;
-  border-width: 1px 0 0 0;
-  border-style: solid;
-  border-color: var(--border, $fallback--border);
-  padding: 10px;
   z-index: 1;
-  background-color: $fallback--fg;
-  background-color: var(--panel, $fallback--fg);
+  flex: 1;
 }
 
 .chat-layout {
   // Needed for smoother chat navigation in the desktop Safari (otherwise the chat layout "jumps" as the chat opens).
   overflow: hidden;
   height: 100%;
+
+  // Get rid of scrollbar on body as scrolling happens on different element
+  body {
+    overflow: hidden;
+  }
 
   // Ensures the fixed position of the mobile browser bars on scroll up / down events.
   // Prevents the mobile browser bars from overlapping or hiding the message posting form.

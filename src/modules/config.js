@@ -11,7 +11,8 @@ const browserLocale = (window.navigator.language || 'en').split('-')[0]
  */
 export const multiChoiceProperties = [
   'postContentType',
-  'subjectLineBehavior'
+  'subjectLineBehavior',
+  'mentionLinkDisplay' // short | full_for_remote | full
 ]
 
 export const defaultState = {
@@ -21,8 +22,11 @@ export const defaultState = {
   customThemeSource: undefined,
   hideISP: false,
   hideInstanceWallpaper: false,
+  hideShoutbox: false,
   // bad name: actually hides posts of muted USERS
   hideMutedPosts: undefined, // instance default
+  hideMutedThreads: undefined, // instance default
+  hideWordFilteredPosts: undefined, // instance default
   collapseMessageWithSubject: undefined, // instance default
   padEmoji: true,
   hideAttachments: false,
@@ -34,6 +38,7 @@ export const defaultState = {
   loopVideoSilentOnly: true,
   streaming: false,
   emojiReactionsOnTimeline: true,
+  alwaysShowNewPostButton: false,
   autohideFloatingPostButton: false,
   pauseOnUnfocused: true,
   stopGifs: false,
@@ -55,6 +60,7 @@ export const defaultState = {
   interfaceLanguage: browserLocale,
   hideScopeNotice: false,
   useStreamingApi: false,
+  sidebarRight: undefined, // instance default
   scopeCopy: undefined, // instance default
   subjectLineBehavior: undefined, // instance default
   alwaysShowSubjectInput: undefined, // instance default
@@ -66,9 +72,17 @@ export const defaultState = {
   useOneClickNsfw: false,
   useContainFit: false,
   greentext: undefined, // instance default
+  useAtIcon: undefined, // instance default
+  mentionLinkDisplay: undefined, // instance default
+  mentionLinkShowTooltip: undefined, // instance default
+  mentionLinkShowAvatar: undefined, // instance default
+  mentionLinkFadeDomain: undefined, // instance default
+  mentionLinkShowYous: undefined, // instance default
+  mentionLinkBoldenYou: undefined, // instance default
   hidePostStats: undefined, // instance default
   hideUserStats: undefined, // instance default
-  virtualScrolling: undefined // instance default
+  virtualScrolling: undefined, // instance default
+  sensitiveByDefault: undefined // instance default
 }
 
 // caching the instance default properties
@@ -77,18 +91,23 @@ export const instanceDefaultProperties = Object.entries(defaultState)
   .map(([key, value]) => key)
 
 const config = {
-  state: defaultState,
+  state: { ...defaultState },
   getters: {
-    mergedConfig (state, getters, rootState, rootGetters) {
+    defaultConfig (state, getters, rootState, rootGetters) {
       const { instance } = rootState
       return {
-        ...state,
-        ...instanceDefaultProperties
-          .map(key => [key, state[key] === undefined
-            ? instance[key]
-            : state[key]
-          ])
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+        ...defaultState,
+        ...Object.fromEntries(
+          instanceDefaultProperties.map(key => [key, instance[key]])
+        )
+      }
+    },
+    mergedConfig (state, getters, rootState, rootGetters) {
+      const { defaultConfig } = rootGetters
+      return {
+        ...defaultConfig,
+        // Do not override with undefined
+        ...Object.fromEntries(Object.entries(state).filter(([k, v]) => v !== undefined))
       }
     }
   },
@@ -106,6 +125,20 @@ const config = {
     }
   },
   actions: {
+    loadSettings ({ dispatch }, data) {
+      const knownKeys = new Set(Object.keys(defaultState))
+      const presentKeys = new Set(Object.keys(data))
+      const intersection = new Set()
+      for (let elem of presentKeys) {
+        if (knownKeys.has(elem)) {
+          intersection.add(elem)
+        }
+      }
+
+      intersection.forEach(
+        name => dispatch('setOption', { name, value: data[name] })
+      )
+    },
     setHighlight ({ commit, dispatch }, { user, color, type }) {
       commit('setHighlight', { user, color, type })
     },

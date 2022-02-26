@@ -35,7 +35,12 @@
     "retry": "Tenta novamente",
     "error_retry": "Por favor, tenta novamente",
     "loading": "A carregar…",
-    "dismiss": "Ignorar"
+    "dismiss": "Ignorar",
+    "role":
+    {
+      "moderator": "Moderador",
+      "admin": "Admin"
+    }
   },
   "image_cropper": {
     "crop_picture": "Cortar imagem",
@@ -570,7 +575,6 @@
     "follow": "Seguir",
     "follow_sent": "Pedido enviado!",
     "follow_progress": "Enviando…",
-    "follow_again": "Enviar solicitação novamente?",
     "follow_unfollow": "Deixar de seguir",
     "followees": "Seguindo",
     "followers": "Seguidores",
@@ -615,11 +619,7 @@
     "report": "Denunciar",
     "message": "Mensagem",
     "mention": "Mencionar",
-    "hidden": "Ocultar",
-    "roles": {
-      "moderator": "Moderador",
-      "admin": "Admin"
-    }
+    "hidden": "Ocultar"
   },
   "user_profile": {
     "timeline_title": "Cronologia do Utilizador",

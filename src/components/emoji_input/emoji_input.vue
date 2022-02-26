@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="root"
     v-click-outside="onClickOutside"
     class="emoji-input"
     :class="{ 'with-picker': !hideEmojiButton }"
@@ -9,6 +10,7 @@
       <button
         v-if="!hideEmojiButton"
         class="button-unstyled emoji-picker-icon"
+        type="button"
         @click.prevent="togglePicker"
       >
         <FAIcon :icon="['far', 'smile-beam']" />

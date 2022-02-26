@@ -6,7 +6,7 @@
     <div class="user-reporting-panel panel">
       <div class="panel-heading">
         <div class="title">
-          {{ $t('user_reporting.title', [user.screen_name]) }}
+          {{ $t('user_reporting.title', [user.screen_name_ui]) }}
         </div>
       </div>
       <div class="panel-body">
@@ -45,10 +45,7 @@
         </div>
         <div class="user-reporting-panel-right">
           <List :items="statuses">
-            <template
-              slot="item"
-              slot-scope="{item}"
-            >
+            <template v-slot:item="{item}">
               <div class="status-fadein user-reporting-panel-sitem">
                 <Status
                   :in-conversation="false"

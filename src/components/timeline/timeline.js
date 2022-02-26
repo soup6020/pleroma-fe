@@ -2,26 +2,15 @@ import Status from '../status/status.vue'
 import timelineFetcher from '../../services/timeline_fetcher/timeline_fetcher.service.js'
 import Conversation from '../conversation/conversation.vue'
 import TimelineMenu from '../timeline_menu/timeline_menu.vue'
+import TimelineQuickSettings from './timeline_quick_settings.vue'
 import { debounce, throttle, keyBy } from 'lodash'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faCog } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faCircleNotch
+  faCircleNotch,
+  faCog
 )
-
-export const getExcludedStatusIdsByPinning = (statuses, pinnedStatusIds) => {
-  const ids = []
-  if (pinnedStatusIds && pinnedStatusIds.length > 0) {
-    for (let status of statuses) {
-      if (!pinnedStatusIds.includes(status.id)) {
-        break
-      }
-      ids.push(status.id)
-    }
-  }
-  return ids
-}
 
 const Timeline = {
   props: [
@@ -47,7 +36,8 @@ const Timeline = {
   components: {
     Status,
     Conversation,
-    TimelineMenu
+    TimelineMenu,
+    TimelineQuickSettings
   },
   computed: {
     newStatusCount () {
@@ -74,11 +64,6 @@ const Timeline = {
       }
     },
     // id map of statuses which need to be hidden in the main list due to pinning logic
-    excludedStatusIdsObject () {
-      const ids = getExcludedStatusIdsByPinning(this.timeline.visibleStatuses, this.pinnedStatusIds)
-      // Convert id array to object
-      return keyBy(ids)
-    },
     pinnedStatusIdsObject () {
       return keyBy(this.pinnedStatusIds)
     },

@@ -7,228 +7,126 @@
           <interface-language-switcher />
         </li>
         <li v-if="instanceSpecificPanelPresent">
-          <Checkbox v-model="hideISP">
+          <BooleanSetting path="hideISP">
             {{ $t('settings.hide_isp') }}
-          </Checkbox>
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="sidebarRight">
+            {{ $t('settings.right_sidebar') }}
+          </BooleanSetting>
         </li>
         <li v-if="instanceWallpaperUsed">
-          <Checkbox v-model="hideInstanceWallpaper">
+          <BooleanSetting path="hideInstanceWallpaper">
             {{ $t('settings.hide_wallpaper') }}
-          </Checkbox>
-        </li>
-      </ul>
-    </div>
-    <div class="setting-item">
-      <h2>{{ $t('nav.timeline') }}</h2>
-      <ul class="setting-list">
-        <li>
-          <Checkbox v-model="hideMutedPosts">
-            {{ $t('settings.hide_muted_posts') }} {{ $t('settings.instance_default', { value: hideMutedPostsLocalizedValue }) }}
-          </Checkbox>
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="collapseMessageWithSubject">
-            {{ $t('settings.collapse_subject') }} {{ $t('settings.instance_default', { value: collapseMessageWithSubjectLocalizedValue }) }}
-          </Checkbox>
+          <BooleanSetting path="stopGifs">
+            {{ $t('settings.stop_gifs') }}
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="streaming">
+          <BooleanSetting path="streaming">
             {{ $t('settings.streaming') }}
-          </Checkbox>
+          </BooleanSetting>
           <ul
             class="setting-list suboptions"
             :class="[{disabled: !streaming}]"
           >
             <li>
-              <Checkbox
-                v-model="pauseOnUnfocused"
+              <BooleanSetting
+                path="pauseOnUnfocused"
                 :disabled="!streaming"
               >
                 {{ $t('settings.pause_on_unfocused') }}
-              </Checkbox>
+              </BooleanSetting>
             </li>
           </ul>
         </li>
         <li>
-          <Checkbox v-model="useStreamingApi">
+          <BooleanSetting path="useStreamingApi">
             {{ $t('settings.useStreamingApi') }}
             <br>
             <small>
               {{ $t('settings.useStreamingApiWarning') }}
             </small>
-          </Checkbox>
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="emojiReactionsOnTimeline">
-            {{ $t('settings.emoji_reactions_on_timeline') }}
-          </Checkbox>
-        </li>
-        <li>
-          <Checkbox v-model="virtualScrolling">
+          <BooleanSetting path="virtualScrolling">
             {{ $t('settings.virtual_scrolling') }}
-          </Checkbox>
-        </li>
-      </ul>
-    </div>
-
-    <div class="setting-item">
-      <h2>{{ $t('settings.composing') }}</h2>
-      <ul class="setting-list">
-        <li>
-          <Checkbox v-model="scopeCopy">
-            {{ $t('settings.scope_copy') }} {{ $t('settings.instance_default', { value: scopeCopyLocalizedValue }) }}
-          </Checkbox>
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="alwaysShowSubjectInput">
-            {{ $t('settings.subject_input_always_show') }} {{ $t('settings.instance_default', { value: alwaysShowSubjectInputLocalizedValue }) }}
-          </Checkbox>
-        </li>
-        <li>
-          <div>
-            {{ $t('settings.subject_line_behavior') }}
-            <label
-              for="subjectLineBehavior"
-              class="select"
-            >
-              <select
-                id="subjectLineBehavior"
-                v-model="subjectLineBehavior"
-              >
-                <option value="email">
-                  {{ $t('settings.subject_line_email') }}
-                  {{ subjectLineBehaviorDefaultValue == 'email' ? $t('settings.instance_default_simple') : '' }}
-                </option>
-                <option value="masto">
-                  {{ $t('settings.subject_line_mastodon') }}
-                  {{ subjectLineBehaviorDefaultValue == 'mastodon' ? $t('settings.instance_default_simple') : '' }}
-                </option>
-                <option value="noop">
-                  {{ $t('settings.subject_line_noop') }}
-                  {{ subjectLineBehaviorDefaultValue == 'noop' ? $t('settings.instance_default_simple') : '' }}
-                </option>
-              </select>
-              <FAIcon
-                class="select-down-icon"
-                icon="chevron-down"
-              />
-            </label>
-          </div>
-        </li>
-        <li v-if="postFormats.length > 0">
-          <div>
-            {{ $t('settings.post_status_content_type') }}
-            <label
-              for="postContentType"
-              class="select"
-            >
-              <select
-                id="postContentType"
-                v-model="postContentType"
-              >
-                <option
-                  v-for="postFormat in postFormats"
-                  :key="postFormat"
-                  :value="postFormat"
-                >
-                  {{ $t(`post_status.content_type["${postFormat}"]`) }}
-                  {{ postContentTypeDefaultValue === postFormat ? $t('settings.instance_default_simple') : '' }}
-                </option>
-              </select>
-              <FAIcon
-                class="select-down-icon"
-                icon="chevron-down"
-              />
-            </label>
-          </div>
-        </li>
-        <li>
-          <Checkbox v-model="minimalScopesMode">
-            {{ $t('settings.minimal_scopes_mode') }} {{ $t('settings.instance_default', { value: minimalScopesModeLocalizedValue }) }}
-          </Checkbox>
-        </li>
-        <li>
-          <Checkbox v-model="autohideFloatingPostButton">
+          <BooleanSetting path="autohideFloatingPostButton">
             {{ $t('settings.autohide_floating_post_button') }}
-          </Checkbox>
+          </BooleanSetting>
         </li>
-        <li>
-          <Checkbox v-model="padEmoji">
-            {{ $t('settings.pad_emoji') }}
-          </Checkbox>
+        <li v-if="instanceShoutboxPresent">
+          <BooleanSetting path="hideShoutbox">
+            {{ $t('settings.hide_shoutbox') }}
+          </BooleanSetting>
         </li>
       </ul>
     </div>
-
     <div class="setting-item">
-      <h2>{{ $t('settings.attachments') }}</h2>
+      <h2>{{ $t('settings.post_look_feel') }}</h2>
       <ul class="setting-list">
         <li>
-          <Checkbox v-model="hideAttachments">
-            {{ $t('settings.hide_attachments_in_tl') }}
-          </Checkbox>
+          <BooleanSetting path="collapseMessageWithSubject">
+            {{ $t('settings.collapse_subject') }}
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="hideAttachmentsInConv">
-            {{ $t('settings.hide_attachments_in_convo') }}
-          </Checkbox>
+          <BooleanSetting path="emojiReactionsOnTimeline">
+            {{ $t('settings.emoji_reactions_on_timeline') }}
+          </BooleanSetting>
+        </li>
+        <h3>{{ $t('settings.attachments') }}</h3>
+        <li>
+          <BooleanSetting path="useContainFit">
+            {{ $t('settings.use_contain_fit') }}
+          </BooleanSetting>
         </li>
         <li>
-          <label for="maxThumbnails">
-            {{ $t('settings.max_thumbnails') }}
-          </label>
-          <input
-            id="maxThumbnails"
-            v-model.number="maxThumbnails"
-            class="number-input"
-            type="number"
-            min="0"
-            step="1"
-          >
-        </li>
-        <li>
-          <Checkbox v-model="hideNsfw">
+          <BooleanSetting path="hideNsfw">
             {{ $t('settings.nsfw_clickthrough') }}
-          </Checkbox>
+          </BooleanSetting>
         </li>
         <ul class="setting-list suboptions">
           <li>
-            <Checkbox
-              v-model="preloadImage"
+            <BooleanSetting
+              path="preloadImage"
               :disabled="!hideNsfw"
             >
               {{ $t('settings.preload_images') }}
-            </Checkbox>
+            </BooleanSetting>
           </li>
           <li>
-            <Checkbox
-              v-model="useOneClickNsfw"
+            <BooleanSetting
+              path="useOneClickNsfw"
               :disabled="!hideNsfw"
             >
               {{ $t('settings.use_one_click_nsfw') }}
-            </Checkbox>
+            </BooleanSetting>
           </li>
         </ul>
         <li>
-          <Checkbox v-model="stopGifs">
-            {{ $t('settings.stop_gifs') }}
-          </Checkbox>
-        </li>
-        <li>
-          <Checkbox v-model="loopVideo">
+          <BooleanSetting path="loopVideo">
             {{ $t('settings.loop_video') }}
-          </Checkbox>
+          </BooleanSetting>
           <ul
             class="setting-list suboptions"
             :class="[{disabled: !streaming}]"
           >
             <li>
-              <Checkbox
-                v-model="loopVideoSilentOnly"
+              <BooleanSetting
+                path="loopVideoSilentOnly"
                 :disabled="!loopVideo || !loopSilentAvailable"
               >
                 {{ $t('settings.loop_video_silent_only') }}
-              </Checkbox>
+              </BooleanSetting>
               <div
                 v-if="!loopSilentAvailable"
                 class="unavailable"
@@ -239,14 +137,119 @@
           </ul>
         </li>
         <li>
-          <Checkbox v-model="playVideosInModal">
+          <BooleanSetting path="playVideosInModal">
             {{ $t('settings.play_videos_in_modal') }}
-          </Checkbox>
+          </BooleanSetting>
+        </li>
+        <h3>{{ $t('settings.fun') }}</h3>
+        <li>
+          <BooleanSetting path="greentext">
+            {{ $t('settings.greentext') }}
+          </BooleanSetting>
         </li>
         <li>
-          <Checkbox v-model="useContainFit">
-            {{ $t('settings.use_contain_fit') }}
-          </Checkbox>
+          <BooleanSetting path="mentionLinkShowYous">
+            {{ $t('settings.show_yous') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <ChoiceSetting
+            id="mentionLinkDisplay"
+            path="mentionLinkDisplay"
+            :options="mentionLinkDisplayOptions"
+          >
+            {{ $t('settings.mention_link_display') }}
+          </ChoiceSetting>
+        </li>
+        <ul
+          class="setting-list suboptions"
+        >
+          <li
+            v-if="mentionLinkDisplay === 'short'"
+          >
+            <BooleanSetting path="mentionLinkShowTooltip">
+              {{ $t('settings.mention_link_show_tooltip') }}
+            </BooleanSetting>
+          </li>
+          <li>
+            <BooleanSetting path="useAtIcon">
+              {{ $t('settings.use_at_icon') }}
+            </BooleanSetting>
+          </li>
+          <li>
+            <BooleanSetting path="mentionLinkShowAvatar">
+              {{ $t('settings.mention_link_show_avatar') }}
+            </BooleanSetting>
+          </li>
+          <li>
+            <BooleanSetting path="mentionLinkFadeDomain">
+              {{ $t('settings.mention_link_fade_domain') }}
+            </BooleanSetting>
+          </li>
+          <li>
+            <BooleanSetting path="mentionLinkBoldenYou">
+              {{ $t('settings.mention_link_bolden_you') }}
+            </BooleanSetting>
+          </li>
+        </ul>
+      </ul>
+    </div>
+
+    <div class="setting-item">
+      <h2>{{ $t('settings.composing') }}</h2>
+      <ul class="setting-list">
+        <li>
+          <BooleanSetting path="scopeCopy">
+            {{ $t('settings.scope_copy') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="alwaysShowSubjectInput">
+            {{ $t('settings.subject_input_always_show') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <ChoiceSetting
+            id="subjectLineBehavior"
+            path="subjectLineBehavior"
+            :options="subjectLineOptions"
+          >
+            {{ $t('settings.subject_line_behavior') }}
+          </ChoiceSetting>
+        </li>
+        <li v-if="postFormats.length > 0">
+          <ChoiceSetting
+            id="postContentType"
+            path="postContentType"
+            :options="postContentOptions"
+          >
+            {{ $t('settings.post_status_content_type') }}
+          </ChoiceSetting>
+        </li>
+        <li>
+          <BooleanSetting path="minimalScopesMode">
+            {{ $t('settings.minimal_scopes_mode') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="sensitiveByDefault">
+            {{ $t('settings.sensitive_by_default') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="alwaysShowNewPostButton">
+            {{ $t('settings.always_show_post_button') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="autohideFloatingPostButton">
+            {{ $t('settings.autohide_floating_post_button') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="padEmoji">
+            {{ $t('settings.pad_emoji') }}
+          </BooleanSetting>
         </li>
       </ul>
     </div>
@@ -255,20 +258,9 @@
       <h2>{{ $t('settings.notifications') }}</h2>
       <ul class="setting-list">
         <li>
-          <Checkbox v-model="webPushNotifications">
+          <BooleanSetting path="webPushNotifications">
             {{ $t('settings.enable_web_push_notifications') }}
-          </Checkbox>
-        </li>
-      </ul>
-    </div>
-
-    <div class="setting-item">
-      <h2>{{ $t('settings.fun') }}</h2>
-      <ul class="setting-list">
-        <li>
-          <Checkbox v-model="greentext">
-            {{ $t('settings.greentext') }} {{ $t('settings.instance_default', { value: greentextLocalizedValue }) }}
-          </Checkbox>
+          </BooleanSetting>
         </li>
       </ul>
     </div>

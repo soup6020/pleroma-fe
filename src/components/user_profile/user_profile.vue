@@ -20,20 +20,24 @@
           :key="index"
           class="user-profile-field"
         >
-          <!-- eslint-disable vue/no-v-html -->
           <dt
             :title="user.fields_text[index].name"
             class="user-profile-field-name"
-            @click.prevent="linkClicked"
-            v-html="field.name"
-          />
+          >
+            <RichContent
+              :html="field.name"
+              :emoji="user.emoji"
+            />
+          </dt>
           <dd
             :title="user.fields_text[index].value"
             class="user-profile-field-value"
-            @click.prevent="linkClicked"
-            v-html="field.value"
-          />
-          <!-- eslint-enable vue/no-v-html -->
+          >
+            <RichContent
+              :html="field.value"
+              :emoji="user.emoji"
+            />
+          </dd>
         </dl>
       </div>
       <tab-switcher
@@ -60,10 +64,7 @@
           :disabled="!user.friends_count"
         >
           <FriendList :user-id="userId">
-            <template
-              slot="item"
-              slot-scope="{item}"
-            >
+            <template v-slot:item="{item}">
               <FollowCard :user="item" />
             </template>
           </FriendList>
@@ -75,10 +76,7 @@
           :disabled="!user.followers_count"
         >
           <FollowerList :user-id="userId">
-            <template
-              slot="item"
-              slot-scope="{item}"
-            >
+            <template v-slot:item="{item}">
               <FollowCard
                 :user="item"
                 :no-follows-you="isUs"

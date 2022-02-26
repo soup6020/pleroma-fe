@@ -1,6 +1,6 @@
 @import '../../_variables.scss';
 
-.notifications {
+.Notifications {
   &:not(.minimal) {
     // a bit of a hack to allow scrolling below notifications
     padding-bottom: 15em;
@@ -9,6 +9,10 @@
   .loadmore-error {
     color: $fallback--text;
     color: var(--text, $fallback--text);
+  }
+
+  .notifications-footer {
+    border: none;
   }
 
   .notification {
@@ -33,11 +37,6 @@
 
 .notification {
   box-sizing: border-box;
-  border-bottom: 1px solid;
-  border-color: $fallback--border;
-  border-color: var(--border, $fallback--border);
-  word-wrap: break-word;
-  word-break: break-word;
 
   &:hover .animated.Avatar {
     canvas {
@@ -83,7 +82,6 @@
       color: var(--cRed, $fallback--cRed);
     }
   }
-
 
   .follow-text, .move-text {
     padding: 0.5em 0;
@@ -147,13 +145,6 @@
       max-width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
-
-      img {
-        width: 14px;
-        height: 14px;
-        vertical-align: middle;
-        object-fit: contain
-      }
     }
 
     .timeago {

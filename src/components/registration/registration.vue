@@ -163,6 +163,23 @@
             </div>
 
             <div
+              v-if="accountApprovalRequired"
+              class="form-group"
+            >
+              <label
+                class="form--label"
+                for="reason"
+              >{{ $t('registration.reason') }}</label>
+              <textarea
+                id="reason"
+                v-model="user.reason"
+                :disabled="isPending"
+                class="form-control"
+                :placeholder="reasonPlaceholder"
+              />
+            </div>
+
+            <div
               v-if="captcha.type != 'none'"
               id="captcha-group"
               class="form-group"
@@ -213,7 +230,7 @@
                 type="submit"
                 class="btn button-default"
               >
-                {{ $t('general.submit') }}
+                {{ $t('registration.register') }}
               </button>
             </div>
           </div>

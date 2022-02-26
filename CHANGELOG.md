@@ -3,10 +3,88 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## Unreleased
+### Fixed
+- AdminFE button no longer scrolls page to top when clicked
+- Pinned statuses no longer appear at bottom of user timeline (still appear as part of the timeline when fetched deep enough)
+- Fixed many many bugs related to new mentions, including spacing and alignment issues
+- Links in profile bios now properly open in new tabs
+- Inline images now respect their intended width/height attributes
+- Links with `&` in them work properly now
+- Interaction list popovers now properly emojify names
+- Completely hidden posts still had 1px border
+- Attachments are ALWAYS in same order as user uploaded, no more "videos first"
+- Attachment description is prefilled with backend-provided default when uploading
+- Proper visual feedback that next image is loading when browsing
+
+### Changed
+- (You)s are optional (opt-in) now, bolding your nickname is also optional (opt-out)
+- User highlight background now also covers the `@`
+- Reverted back to textual `@`, svg version is opt-in.
+- Settings window has been throughly rearranged to make make more sense and make navication settings easier.
+- Uploaded attachments are uniform with displayed attachments
+- Flash is watchable in media-modal (takes up nearly full screen though due to sizing issues)
+- Notifications about likes/repeats/emoji reacts are now minimized so they always take up same amount of space irrelevant to size of post.
+
+### Added
+- Options to show domains in mentions
+- Option to show user avatars in mention links (opt-in)
+- Option to disable the tooltip for mentions
+- Option to completely hide muted threads
+- Ability to open videos in modal even if you disabled that feature, via an icon button
+- New button on attachment that indicates that attachment has a description and shows a bar filled with description
+- Attachments are truncated just like post contents
+- Media modal now also displays description and counter position in gallery (i.e. 1/5)
+- Ability to rearrange order of attachments when uploading
+
+## [2.4.2] - 2022-01-09
+### Added 
+- Added Apply and Reset buttons to the bottom of theme tab to minimize UI travel
+- Implemented user option to always show floating New Post button (normally mobile-only)
+- Display reasons for instance specific policies 
+- Added functionality to cancel follow request
+
+### Fixed
+- Fixed link to external profile not working on user profiles
+- Fixed mobile shoutbox display 
+- Fixed favicon badge not working in Chrome
+- Escape html more properly in subject/display name 
+
+
+## [2.4.0] - 2021-08-08
+### Added
+- Added a quick settings to timeline header for easier access
+- Added option to mark posts as sensitive by default
+- Added quick filters for notifications
+- Implemented user option to change sidebar position to the right side
+- Implemented user option to hide floating shout panel
+- Implemented "edit profile" button if viewing own profile which opens profile settings
+
+### Fixed
+- Fixed follow request count showing in the wrong location in mobile view
+
+
+## [2.3.0] - 2021-03-01
 ### Fixed
 - Button to remove uploaded media in post status form is now properly placed and sized.
 - Fixed shoutbox not working in mobile layout
+- Fixed missing highlighted border in expanded conversations again
+- Fixed some UI jumpiness when opening images particularly in chat view
+- Fixed chat unread badge looking weird
+- Fixed punycode names not working properly
+- Fixed notifications crashing on an invalid notification
+
+### Changed
+- Display 'people voted' instead of 'votes' for multi-choice polls
+- Changed the "Timelines" link in side panel to toggle show all timeline options inside the panel
+- Renamed "Timeline" to "Home Timeline" to be more clear
+- Optimized chat to not get horrible performance after keeping the same chat open for a long time
+- When opening emoji picker or react picker, it automatically focuses the search field
+- Language picker now uses native language names
+
+### Added
+- Added reason field for registration when approval is required
+- Group staff members by role in the About page
 
 
 ## [2.2.3] - 2021-01-18
@@ -16,10 +94,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Follows/Followers tabs on user profiles now display the content properly.
 - Handle punycode in screen names
+- Fixed local dev mode having non-functional websockets in some cases
+- Show notices for websocket events (errors, abnormal closures, reconnections)
+- Fix not being able to re-enable websocket until page refresh
+- Fix annoying issue where timeline might have few posts when streaming is enabled
 
 ### Changed
 - Don't filter own posts when they hit your wordfilter
-- Language picker now uses native language names
 
 
 ## [2.2.2] - 2020-12-22

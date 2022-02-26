@@ -11,7 +11,7 @@ import statusesModule from './modules/statuses.js'
 import usersModule from './modules/users.js'
 import apiModule from './modules/api.js'
 import configModule from './modules/config.js'
-import chatModule from './modules/chat.js'
+import shoutModule from './modules/shout.js'
 import oauthModule from './modules/oauth.js'
 import authFlowModule from './modules/auth_flow.js'
 import mediaViewerModule from './modules/media_viewer.js'
@@ -28,7 +28,6 @@ import pushNotifications from './lib/push_notifications_plugin.js'
 
 import messages from './i18n/messages.js'
 
-import VueChatScroll from 'vue-chat-scroll'
 import VueClickOutside from 'v-click-outside'
 import PortalVue from 'portal-vue'
 import VBodyScrollLock from './directives/body_scroll_lock'
@@ -42,7 +41,6 @@ const currentLocale = (window.navigator.language || 'en').split('-')[0]
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(VueI18n)
-Vue.use(VueChatScroll)
 Vue.use(VueClickOutside)
 Vue.use(PortalVue)
 Vue.use(VBodyScrollLock)
@@ -90,7 +88,7 @@ const persistedStateOptions = {
       users: usersModule,
       api: apiModule,
       config: configModule,
-      chat: chatModule,
+      shout: shoutModule,
       oauth: oauthModule,
       authFlow: authFlowModule,
       mediaViewer: mediaViewerModule,

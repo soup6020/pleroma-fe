@@ -17,8 +17,11 @@
           <span class="result-percentage">
             {{ percentageForOption(option.votes_count) }}%
           </span>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="option.title_html" />
+          <RichContent
+            :html="option.title_html"
+            :handle-links="false"
+            :emoji="emoji"
+          />
         </div>
         <div
           class="result-fill"
@@ -42,8 +45,11 @@
           :value="index"
         >
         <label class="option-vote">
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="option.title_html" />
+          <RichContent
+            :html="option.title_html"
+            :handle-links="false"
+            :emoji="emoji"
+          />
         </label>
       </div>
     </div>
@@ -58,7 +64,12 @@
         {{ $t('polls.vote') }}
       </button>
       <div class="total">
-        {{ totalVotesCount }} {{ $t("polls.votes") }}&nbsp;·&nbsp;
+        <template v-if="typeof poll.voters_count === 'number'">
+          {{ $tc("polls.people_voted_count", poll.voters_count, { count: poll.voters_count }) }}&nbsp;·&nbsp;
+        </template>
+        <template v-else>
+          {{ $tc("polls.votes_count", poll.votes_count, { count: poll.votes_count }) }}&nbsp;·&nbsp;
+        </template>
       </div>
       <i18n :path="expired ? 'polls.expired' : 'polls.expires_in'">
         <Timeago
