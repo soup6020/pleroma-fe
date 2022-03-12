@@ -805,7 +805,7 @@
       "disable_any_subscription": "Disallow following user at all",
       "quarantine": "Disallow user posts from federating",
       "delete_user": "Delete user",
-      "delete_user_confirmation": "Are you absolutely sure? This action cannot be undone."
+      "delete_user_confirmation": "This will permanently delete the data from this account and deactivate it. Are you absolutely sure?"
     },
     "highlight": {
       "disabled": "No highlight",
