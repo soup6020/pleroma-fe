@@ -90,6 +90,8 @@ const MASTODON_DOMAIN_BLOCKS_URL = '/api/v1/domain_blocks'
 const MASTODON_LISTS_URL = '/api/v1/lists'
 const MASTODON_STREAMING = '/api/v1/streaming'
 const MASTODON_KNOWN_DOMAIN_LIST_URL = '/api/v1/instance/peers'
+const MASTODON_ANNOUNCEMENTS_URL = '/api/v1/announcements'
+const MASTODON_ANNOUNCEMENTS_DISMISS_URL = id => `/api/v1/announcements/${id}/dismiss`
 const PLEROMA_EMOJI_REACTIONS_URL = id => `/api/v1/pleroma/statuses/${id}/reactions`
 const PLEROMA_EMOJI_REACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
 const PLEROMA_EMOJI_UNREACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
@@ -1361,6 +1363,18 @@ const dismissNotification = ({ credentials, id }) => {
   })
 }
 
+const fetchAnnouncements = ({ credentials }) => {
+  return promisedRequest({ url: MASTODON_ANNOUNCEMENTS_URL, credentials })
+}
+
+const dismissAnnouncement = ({ id, credentials }) => {
+  return promisedRequest({
+    url: MASTODON_ANNOUNCEMENTS_DISMISS_URL(id),
+    credentials,
+    method: 'POST'
+  })
+}
+
 export const getMastodonSocketURI = ({ credentials, stream, args = {} }) => {
   return Object.entries({
     ...(credentials
@@ -1687,7 +1701,9 @@ const apiService = {
   readChat,
   deleteChatMessage,
   setReportState,
-  fetchUserInLists
+  fetchUserInLists,
+  fetchAnnouncements,
+  dismissAnnouncement
 }
 
 export default apiService
