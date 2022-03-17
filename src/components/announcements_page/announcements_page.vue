@@ -7,6 +7,51 @@
     </div>
     <div class="panel-body">
       <section
+        v-if="currentUser && currentUser.role === 'admin'"
+      >
+        <div class="post-form">
+          <div class="heading">
+            <h4>{{ $t('announcements.post_form_header') }}</h4>
+          </div>
+          <div class="body">
+            <textarea
+              ref="textarea"
+              v-model="newAnnouncement.content"
+              class="post-textarea"
+              rows="1"
+              cols="1"
+              :placeholder="$t('announcements.post_placeholder')"
+              :disabled="posting"
+            />
+          </div>
+          <div class="footer">
+            <button
+              class="btn button-default post-button"
+              :disabled="posting"
+              @click.prevent="postAnnouncement"
+            >
+              {{ $t('announcements.post_action') }}
+            </button>
+            <div
+              v-if="error"
+              class="alert error"
+            >
+              {{ $t('announcements.post_error', { error }) }}
+              <button
+                class="button-unstyled"
+                @click="clearError"
+              >
+                <FAIcon
+                  class="fa-scale-110 fa-old-padding"
+                  icon="times"
+                  :title="$t('announcements.close_error')"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
         v-for="announcement in announcements"
         :key="announcement.id"
       >
@@ -19,3 +64,34 @@
 </template>
 
 <script src="./announcements_page.js"></script>
+
+<style lang="scss">
+@import "../../variables";
+
+.announcements-page {
+  .post-form {
+    padding: var(--status-margin, $status-margin);
+
+    .heading, .body {
+      margin-bottom: var(--status-margin, $status-margin);
+    }
+
+    .body {
+      display: flex;
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .post-textarea {
+      resize: vertical;
+      height: 10em;
+      overflow: none;
+      box-sizing: content-box;
+    }
+
+    .post-button {
+      min-width: 10em;
+    }
+  }
+}
+</style>

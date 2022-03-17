@@ -102,6 +102,7 @@ const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
 const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
+const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
 
 const oldfetch = window.fetch
 
@@ -1375,6 +1376,29 @@ const dismissAnnouncement = ({ id, credentials }) => {
   })
 }
 
+const postAnnouncement = ({ credentials, content, startsAt, endsAt, allDay }) => {
+  const payload = { content }
+
+  if (typeof startsAt !== 'undefined') {
+    payload['starts_at'] = startsAt
+  }
+
+  if (typeof endsAt !== 'undefined') {
+    payload['ends_at'] = endsAt
+  }
+
+  if (typeof allDay !== 'undefined') {
+    payload['all_day'] = allDay
+  }
+
+  return promisedRequest({
+    url: PLEROMA_POST_ANNOUNCEMENT_URL,
+    credentials,
+    method: 'POST',
+    payload
+  })
+}
+
 export const getMastodonSocketURI = ({ credentials, stream, args = {} }) => {
   return Object.entries({
     ...(credentials
@@ -1703,7 +1727,8 @@ const apiService = {
   setReportState,
   fetchUserInLists,
   fetchAnnouncements,
-  dismissAnnouncement
+  dismissAnnouncement,
+  postAnnouncement
 }
 
 export default apiService

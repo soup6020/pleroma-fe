@@ -53,6 +53,12 @@ const announcements = {
       const interval = store.state.fetchAnnouncementsTimer
       store.commit('setFetchAnnouncementsTimer', undefined)
       clearInterval(interval)
+    },
+    postAnnouncement (store, { content, startsAt, endsAt, allDay }) {
+      return store.rootState.api.backendInteractor.postAnnouncement({ content, startsAt, endsAt, allDay })
+        .then(() => {
+          return store.dispatch('fetchAnnouncements')
+        })
     }
   }
 }
