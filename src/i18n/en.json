@@ -49,7 +49,8 @@
     "end_time_display": "Ends at {time}",
     "edit_action": "Edit",
     "submit_edit_action": "Submit",
-    "cancel_edit_action": "Cancel"
+    "cancel_edit_action": "Cancel",
+    "inactive_message": "This announcement is inactive"
   },
   "shoutbox": {
     "title": "Shoutbox"
