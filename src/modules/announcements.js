@@ -26,7 +26,11 @@ export const mutations = {
 }
 
 export const getters = {
-  unreadAnnouncementCount (state) {
+  unreadAnnouncementCount (state, _getters, rootState) {
+    if (!rootState.users.currentUser) {
+      return 0
+    }
+
     return state.announcements.reduce((acc, cur) => {
       return (!cur.inactive && !cur.read) ? acc + 1 : acc
     }, 0)
