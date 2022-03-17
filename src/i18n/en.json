@@ -35,7 +35,12 @@
   "announcements": {
     "page_header": "Announcements",
     "title": "Announcement",
-    "mark_as_read_action": "Mark as read"
+    "mark_as_read_action": "Mark as read",
+    "post_form_header": "Post announcement",
+    "post_placeholder": "Type your announcement content here...",
+    "post_action": "Post",
+    "post_error": "Error: {error}",
+    "close_error": "Close"
   },
   "shoutbox": {
     "title": "Shoutbox"
