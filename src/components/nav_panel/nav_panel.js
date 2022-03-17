@@ -117,7 +117,7 @@ const NavPanel = {
         }
       )
     },
-    ...mapGetters(['unreadChatCount'])
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
   }
 }
 

@@ -25,9 +25,18 @@ export const mutations = {
   }
 }
 
+export const getters = {
+  unreadAnnouncementCount (state) {
+    return state.announcements.reduce((acc, cur) => {
+      return (!cur.inactive && !cur.read) ? acc + 1 : acc
+    }, 0)
+  }
+}
+
 const announcements = {
   state: defaultState,
   mutations,
+  getters,
   actions: {
     fetchAnnouncements (store) {
       const currentUser = store.rootState.users.currentUser

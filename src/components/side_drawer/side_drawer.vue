@@ -202,6 +202,12 @@
               class="fa-scale-110 fa-old-padding"
               icon="bullhorn"
             /> {{ $t("nav.announcements") }}
+            <span
+              v-if="unreadAnnouncementCount"
+              class="badge badge-notification"
+            >
+              {{ unreadAnnouncementCount }}
+            </span>
           </router-link>
         </li>
         <li

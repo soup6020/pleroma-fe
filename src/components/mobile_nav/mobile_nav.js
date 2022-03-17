@@ -54,7 +54,7 @@ const MobileNav = {
     isChat () {
       return this.$route.name === 'chat'
     },
-    ...mapGetters(['unreadChatCount']),
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount']),
     chatsPinned () {
       return new Set(this.$store.state.serverSideStorage.prefsStorage.collections.pinnedNavItems).has('chats')
     }

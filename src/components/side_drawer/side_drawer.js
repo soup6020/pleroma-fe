@@ -97,7 +97,7 @@ const SideDrawer = {
     ...mapState({
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable
     }),
-    ...mapGetters(['unreadChatCount'])
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
   },
   methods: {
     toggleDrawer () {
