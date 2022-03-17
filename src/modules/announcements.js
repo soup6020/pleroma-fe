@@ -65,6 +65,12 @@ const announcements = {
           return store.dispatch('fetchAnnouncements')
         })
     },
+    editAnnouncement (store, { id, content, startsAt, endsAt, allDay }) {
+      return store.rootState.api.backendInteractor.editAnnouncement({ id, content, startsAt, endsAt, allDay })
+        .then(() => {
+          return store.dispatch('fetchAnnouncements')
+        })
+    },
     deleteAnnouncement (store, id) {
       return store.rootState.api.backendInteractor.deleteAnnouncement({ id })
         .then(() => {

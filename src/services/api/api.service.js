@@ -104,6 +104,7 @@ const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 const PLEROMA_ANNOUNCEMENTS_URL = '/api/v1/pleroma/admin/announcements'
 const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
+const PLEROMA_EDIT_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
 const oldfetch = window.fetch
@@ -1382,26 +1383,39 @@ const dismissAnnouncement = ({ id, credentials }) => {
   })
 }
 
-const postAnnouncement = ({ credentials, content, startsAt, endsAt, allDay }) => {
+const announcementToPayload = ({ content, startsAt, endsAt, allDay }) => {
   const payload = { content }
 
   if (typeof startsAt !== 'undefined') {
-    payload['starts_at'] = new Date(startsAt).toISOString()
+    payload['starts_at'] = startsAt ? new Date(startsAt).toISOString() : null
   }
 
   if (typeof endsAt !== 'undefined') {
-    payload['ends_at'] = new Date(endsAt).toISOString()
+    payload['ends_at'] = endsAt ? new Date(endsAt).toISOString() : null
   }
 
   if (typeof allDay !== 'undefined') {
     payload['all_day'] = allDay
   }
 
+  return payload
+}
+
+const postAnnouncement = ({ credentials, content, startsAt, endsAt, allDay }) => {
   return promisedRequest({
     url: PLEROMA_POST_ANNOUNCEMENT_URL,
     credentials,
     method: 'POST',
-    payload
+    payload: announcementToPayload({ content, startsAt, endsAt, allDay })
+  })
+}
+
+const editAnnouncement = ({ id, credentials, content, startsAt, endsAt, allDay }) => {
+  return promisedRequest({
+    url: PLEROMA_EDIT_ANNOUNCEMENT_URL(id),
+    credentials,
+    method: 'PATCH',
+    payload: announcementToPayload({ content, startsAt, endsAt, allDay })
   })
 }
 
@@ -1743,6 +1757,7 @@ const apiService = {
   fetchAnnouncements,
   dismissAnnouncement,
   postAnnouncement,
+  editAnnouncement,
   deleteAnnouncement,
   adminFetchAnnouncements
 }

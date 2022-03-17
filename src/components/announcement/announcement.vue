@@ -16,7 +16,10 @@
       />
     </div>
     <div class="footer">
-      <div class="times">
+      <div
+        v-if="!editing"
+        class="times"
+      >
         <span v-if="startsAt">
           {{ $t('announcements.start_time_display', { time: startsAt }) }}
         </span>
@@ -24,7 +27,10 @@
           {{ $t('announcements.end_time_display', { time: endsAt }) }}
         </span>
       </div>
-      <div class="actions">
+      <div
+        v-if="!editing"
+        class="actions"
+      >
         <button
           v-if="currentUser"
           class="btn button-default"
@@ -36,10 +42,50 @@
         <button
           v-if="currentUser && currentUser.role === 'admin'"
           class="btn button-default"
+          @click="enterEditMode"
+        >
+          {{ $t('announcements.edit_action') }}
+        </button>
+        <button
+          v-if="currentUser && currentUser.role === 'admin'"
+          class="btn button-default"
           @click="deleteAnnouncement"
         >
           {{ $t('announcements.delete_action') }}
         </button>
+      </div>
+      <div
+        v-else
+        class="actions"
+      >
+        <button
+          class="btn button-default"
+          @click="submitEdit"
+        >
+          {{ $t('announcements.submit_edit_action') }}
+        </button>
+        <button
+          class="btn button-default"
+          @click="cancelEdit"
+        >
+          {{ $t('announcements.cancel_edit_action') }}
+        </button>
+        <div
+          v-if="editing && editError"
+          class="alert error"
+        >
+          {{ $t('announcements.edit_error', { error }) }}
+          <button
+            class="button-unstyled"
+            @click="clearError"
+          >
+            <FAIcon
+              class="fa-scale-110 fa-old-padding"
+              icon="times"
+              :title="$t('announcements.close_error')"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>

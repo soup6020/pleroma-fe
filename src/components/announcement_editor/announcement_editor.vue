@@ -41,12 +41,20 @@
 <script src="./announcement_editor.js"></script>
 
 <style lang="scss">
-    .announcement-editor {
-      display: flex;
-      align-items: stretch;
-      flex-direction: column;
-      .announcement-metadata {
-        margin-top: 0.5em;
-      }
-    }
+.announcement-editor {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+
+  .announcement-metadata {
+    margin-top: 0.5em;
+  }
+
+  .post-textarea {
+    resize: vertical;
+    height: 10em;
+    overflow: none;
+    box-sizing: content-box;
+  }
+}
 </style>

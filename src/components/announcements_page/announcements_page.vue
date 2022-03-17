@@ -71,13 +71,6 @@
       margin-bottom: var(--status-margin, $status-margin);
     }
 
-    .post-textarea {
-      resize: vertical;
-      height: 10em;
-      overflow: none;
-      box-sizing: content-box;
-    }
-
     .post-button {
       min-width: 10em;
     }
