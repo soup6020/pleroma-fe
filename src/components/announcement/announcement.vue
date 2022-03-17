@@ -12,11 +12,19 @@
     </div>
     <div class="footer">
       <button
+        v-if="currentUser"
         class="btn button-default"
         :class="{ toggled: isRead }"
         @click="markAsRead"
       >
         {{ $t('announcements.mark_as_read_action') }}
+      </button>
+      <button
+        v-if="currentUser && currentUser.role === 'admin'"
+        class="btn button-default"
+        @click="deleteAnnouncement"
+      >
+        {{ $t('announcements.delete_action') }}
       </button>
     </div>
   </div>
@@ -36,6 +44,16 @@
 
   .heading, .body {
     margin-bottom: var(--status-margin, $status-margin);
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .btn {
+      min-width: 10em;
+    }
   }
 }
 </style>

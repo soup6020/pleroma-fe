@@ -103,6 +103,7 @@ const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/
 const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
+const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
 const oldfetch = window.fetch
 
@@ -1399,6 +1400,14 @@ const postAnnouncement = ({ credentials, content, startsAt, endsAt, allDay }) =>
   })
 }
 
+const deleteAnnouncement = ({ id, credentials }) => {
+  return promisedRequest({
+    url: PLEROMA_DELETE_ANNOUNCEMENT_URL(id),
+    credentials,
+    method: 'DELETE'
+  })
+}
+
 export const getMastodonSocketURI = ({ credentials, stream, args = {} }) => {
   return Object.entries({
     ...(credentials
@@ -1728,7 +1737,8 @@ const apiService = {
   fetchUserInLists,
   fetchAnnouncements,
   dismissAnnouncement,
-  postAnnouncement
+  postAnnouncement,
+  deleteAnnouncement
 }
 
 export default apiService

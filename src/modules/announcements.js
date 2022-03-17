@@ -59,6 +59,12 @@ const announcements = {
         .then(() => {
           return store.dispatch('fetchAnnouncements')
         })
+    },
+    deleteAnnouncement (store, id) {
+      return store.rootState.api.backendInteractor.deleteAnnouncement({ id })
+        .then(() => {
+          return store.dispatch('fetchAnnouncements')
+        })
     }
   }
 }
