@@ -32,6 +32,11 @@
     },
     "staff": "Staff"
   },
+  "announcements": {
+    "page_header": "Announcements",
+    "title": "Announcement",
+    "mark_as_read_action": "Mark as read"
+  },
   "shoutbox": {
     "title": "Shoutbox"
   },
@@ -162,7 +167,8 @@
     "mobile_sidebar": "Toggle mobile sidebar",
     "mobile_notifications": "Open notifications",
     "mobile_notifications": "Open notifications (there are unread ones)",
-    "mobile_notifications_close": "Close notifications"
+    "mobile_notifications_close": "Close notifications",
+    "announcements": "Announcements"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",
