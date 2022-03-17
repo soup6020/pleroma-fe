@@ -35,6 +35,8 @@
           v-if="currentUser"
           class="btn button-default"
           :class="{ toggled: isRead }"
+          :disabled="inactive"
+          :title="inactive ? $t('announcements.inactive_message') : ''"
           @click="markAsRead"
         >
           {{ $t('announcements.mark_as_read_action') }}

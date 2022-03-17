@@ -12,11 +12,13 @@ export const mutations = {
     set(state, 'announcements', announcements)
   },
   setAnnouncementRead (state, { id, read }) {
-    if (!state.announcements[id]) {
+    const index = state.announcements.findIndex(a => a.id === id)
+
+    if (index < 0) {
       return
     }
 
-    set(state.announcements[id], 'read', read)
+    set(state.announcements[index], 'read', read)
   },
   setFetchAnnouncementsTimer (state, timer) {
     set(state, 'fetchAnnouncementsTimer', announcements)
@@ -31,9 +33,30 @@ const announcements = {
       const currentUser = store.rootState.users.currentUser
       const isAdmin = currentUser && currentUser.role === 'admin'
 
-      return (isAdmin
-        ? store.rootState.api.backendInteractor.adminFetchAnnouncements()
-        : store.rootState.api.backendInteractor.fetchAnnouncements())
+      const getAnnouncements = async () => {
+        if (!isAdmin) {
+          return store.rootState.api.backendInteractor.fetchAnnouncements()
+        }
+
+        const all = await store.rootState.api.backendInteractor.adminFetchAnnouncements()
+        const visible = await store.rootState.api.backendInteractor.fetchAnnouncements()
+        const visibleObject = visible.reduce((a, c) => {
+          a[c.id] = c
+          return a
+        }, {})
+
+        all.forEach(announcement => {
+          if (!visibleObject[announcement.id]) {
+            announcement.inactive = true
+          } else {
+            announcement.read = visibleObject[announcement.id].read
+          }
+        })
+
+        return all
+      }
+
+      return getAnnouncements()
         .then(announcements => {
           store.commit('setAnnouncements', announcements)
         })

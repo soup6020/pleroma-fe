@@ -46,6 +46,9 @@ const Announcement = {
       }
 
       return this.formatTimeOrDate(time, localeService.internalToBrowserLocale(this.$i18n.locale))
+    },
+    inactive () {
+      return this.announcement.inactive
     }
   },
   methods: {
