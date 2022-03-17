@@ -40,7 +40,8 @@
     "post_placeholder": "Type your announcement content here...",
     "post_action": "Post",
     "post_error": "Error: {error}",
-    "close_error": "Close"
+    "close_error": "Close",
+    "delete_action": "Delete"
   },
   "shoutbox": {
     "title": "Shoutbox"
