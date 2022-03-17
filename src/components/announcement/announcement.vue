@@ -5,27 +5,42 @@
     </div>
     <div class="body">
       <rich-content
+        v-if="!editing"
         :html="content"
         :emoji="announcement.emojis"
         :handle-links="true"
       />
+      <announcement-editor
+        v-else
+        :announcement="newAnnouncement"
+      />
     </div>
     <div class="footer">
-      <button
-        v-if="currentUser"
-        class="btn button-default"
-        :class="{ toggled: isRead }"
-        @click="markAsRead"
-      >
-        {{ $t('announcements.mark_as_read_action') }}
-      </button>
-      <button
-        v-if="currentUser && currentUser.role === 'admin'"
-        class="btn button-default"
-        @click="deleteAnnouncement"
-      >
-        {{ $t('announcements.delete_action') }}
-      </button>
+      <div class="times">
+        <span v-if="startsAt">
+          {{ $t('announcements.start_time_display', { time: startsAt }) }}
+        </span>
+        <span v-if="endsAt">
+          {{ $t('announcements.end_time_display', { time: endsAt }) }}
+        </span>
+      </div>
+      <div class="actions">
+        <button
+          v-if="currentUser"
+          class="btn button-default"
+          :class="{ toggled: isRead }"
+          @click="markAsRead"
+        >
+          {{ $t('announcements.mark_as_read_action') }}
+        </button>
+        <button
+          v-if="currentUser && currentUser.role === 'admin'"
+          class="btn button-default"
+          @click="deleteAnnouncement"
+        >
+          {{ $t('announcements.delete_action') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -47,6 +62,15 @@
   }
 
   .footer {
+    display: flex;
+    flex-direction: column;
+    .times {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .footer .actions {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

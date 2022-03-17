@@ -1,11 +1,11 @@
 import { mapState } from 'vuex'
 import Announcement from '../announcement/announcement.vue'
-import Checkbox from '../checkbox/checkbox.vue'
+import AnnouncementEditor from '../announcement_editor/announcement_editor.vue'
 
 const AnnouncementsPage = {
   components: {
     Announcement,
-    Checkbox
+    AnnouncementEditor
   },
   data () {
     return {

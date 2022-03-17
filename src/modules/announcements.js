@@ -28,7 +28,12 @@ const announcements = {
   mutations,
   actions: {
     fetchAnnouncements (store) {
-      return store.rootState.api.backendInteractor.fetchAnnouncements()
+      const currentUser = store.rootState.users.currentUser
+      const isAdmin = currentUser && currentUser.role === 'admin'
+
+      return (isAdmin
+        ? store.rootState.api.backendInteractor.adminFetchAnnouncements()
+        : store.rootState.api.backendInteractor.fetchAnnouncements())
         .then(announcements => {
           store.commit('setAnnouncements', announcements)
         })

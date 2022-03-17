@@ -102,6 +102,7 @@ const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
 const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
+const PLEROMA_ANNOUNCEMENTS_URL = '/api/v1/pleroma/admin/announcements'
 const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
@@ -1365,6 +1366,10 @@ const dismissNotification = ({ credentials, id }) => {
   })
 }
 
+const adminFetchAnnouncements = ({ credentials }) => {
+  return promisedRequest({ url: PLEROMA_ANNOUNCEMENTS_URL, credentials })
+}
+
 const fetchAnnouncements = ({ credentials }) => {
   return promisedRequest({ url: MASTODON_ANNOUNCEMENTS_URL, credentials })
 }
@@ -1738,7 +1743,8 @@ const apiService = {
   fetchAnnouncements,
   dismissAnnouncement,
   postAnnouncement,
-  deleteAnnouncement
+  deleteAnnouncement,
+  adminFetchAnnouncements
 }
 
 export default apiService
