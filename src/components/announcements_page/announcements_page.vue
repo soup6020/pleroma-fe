@@ -23,6 +23,29 @@
               :placeholder="$t('announcements.post_placeholder')"
               :disabled="posting"
             />
+            <span class="announcement-metadata">
+              <label for="announcement-start-time">{{ $t('announcements.start_time_prompt') }}</label>
+              <input
+                id="announcement-start-time"
+                v-model="newAnnouncement.startsAt"
+                :type="newAnnouncement.allDay ? 'date' : 'datetime-local'"
+              >
+            </span>
+            <span class="announcement-metadata">
+              <label for="announcement-end-time">{{ $t('announcements.end_time_prompt') }}</label>
+              <input
+                id="announcement-end-time"
+                v-model="newAnnouncement.endsAt"
+                :type="newAnnouncement.allDay ? 'date' : 'datetime-local'"
+              >
+            </span>
+            <span class="announcement-metadata">
+              <Checkbox
+                id="announcement-all-day"
+                v-model="newAnnouncement.allDay"
+              />
+              <label for="announcement-all-day">{{ $t('announcements.all_day_prompt') }}</label>
+            </span>
           </div>
           <div class="footer">
             <button
@@ -80,6 +103,9 @@
       display: flex;
       align-items: stretch;
       flex-direction: column;
+      .announcement-metadata {
+        margin-top: 0.5em;
+      }
     }
 
     .post-textarea {

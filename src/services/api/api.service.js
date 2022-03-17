@@ -1381,11 +1381,11 @@ const postAnnouncement = ({ credentials, content, startsAt, endsAt, allDay }) =>
   const payload = { content }
 
   if (typeof startsAt !== 'undefined') {
-    payload['starts_at'] = startsAt
+    payload['starts_at'] = new Date(startsAt).toISOString()
   }
 
   if (typeof endsAt !== 'undefined') {
-    payload['ends_at'] = endsAt
+    payload['ends_at'] = new Date(endsAt).toISOString()
   }
 
   if (typeof allDay !== 'undefined') {

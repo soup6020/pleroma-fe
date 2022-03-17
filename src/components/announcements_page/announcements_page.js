@@ -1,14 +1,19 @@
 import { mapState } from 'vuex'
 import Announcement from '../announcement/announcement.vue'
+import Checkbox from '../checkbox/checkbox.vue'
 
 const AnnouncementsPage = {
   components: {
-    Announcement
+    Announcement,
+    Checkbox
   },
   data () {
     return {
       newAnnouncement: {
-        content: ''
+        content: '',
+        startsAt: undefined,
+        endsAt: undefined,
+        allDay: false
       },
       posting: false,
       error: undefined
@@ -29,6 +34,11 @@ const AnnouncementsPage = {
     postAnnouncement () {
       this.posting = true
       this.$store.dispatch('postAnnouncement', this.newAnnouncement)
+        .then(() => {
+          this.newAnnouncement.content = ''
+          this.startsAt = undefined
+          this.endsAt = undefined
+        })
         .catch(error => {
           this.error = error.error
         })
