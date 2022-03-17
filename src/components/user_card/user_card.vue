@@ -314,24 +314,26 @@
         :handle-links="true"
       />
     </div>
-    <confirm-modal
-      :showing="showingConfirmMute"
-      :title="$t('user_card.mute_confirm_title')"
-      :confirm-text="$t('user_card.mute_confirm_accept_button')"
-      :cancel-text="$t('user_card.mute_confirm_cancel_button')"
-      @accepted="doMuteUser"
-      @cancelled="hideConfirmMute"
-    >
-      <i18n
-        path="user_card.mute_confirm"
-        tag="span"
+    <portal to="modal">
+      <confirm-modal
+        v-if="showingConfirmMute"
+        :title="$t('user_card.mute_confirm_title')"
+        :confirm-text="$t('user_card.mute_confirm_accept_button')"
+        :cancel-text="$t('user_card.mute_confirm_cancel_button')"
+        @accepted="doMuteUser"
+        @cancelled="hideConfirmMute"
       >
-        <span
-          place="user"
-          v-text="user.screen_name_ui"
-        />
-      </i18n>
-    </confirm-modal>
+        <i18n
+          path="user_card.mute_confirm"
+          tag="span"
+        >
+          <span
+            place="user"
+            v-text="user.screen_name_ui"
+          />
+        </i18n>
+      </confirm-modal>
+    </portal>
   </div>
 </template>
 

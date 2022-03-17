@@ -165,16 +165,18 @@
           />
         </FALayers>
       </span>
-      <ConfirmModal
-        :showing="showingDeleteDialog"
-        :title="$t('status.delete_confirm_title')"
-        :cancel-text="$t('status.delete_confirm_cancel_button')"
-        :confirm-text="$t('status.delete_confirm_accept_button')"
-        @cancelled="hideDeleteStatusConfirmDialog"
-        @accepted="doDeleteStatus"
-      >
-        {{ $t('status.delete_confirm') }}
-      </ConfirmModal>
+      <portal to="modal">
+        <ConfirmModal
+          v-if="showingDeleteDialog"
+          :title="$t('status.delete_confirm_title')"
+          :cancel-text="$t('status.delete_confirm_cancel_button')"
+          :confirm-text="$t('status.delete_confirm_accept_button')"
+          @cancelled="hideDeleteStatusConfirmDialog"
+          @accepted="doDeleteStatus"
+        >
+          {{ $t('status.delete_confirm') }}
+        </ConfirmModal>
+      </portal>
     </template>
   </Popover>
 </template>

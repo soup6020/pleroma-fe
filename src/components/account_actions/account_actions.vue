@@ -74,24 +74,26 @@
         </button>
       </template>
     </Popover>
-    <confirm-modal
-      :showing="showingConfirmBlock"
-      :title="$t('user_card.block_confirm_title')"
-      :confirm-text="$t('user_card.block_confirm_accept_button')"
-      :cancel-text="$t('user_card.block_confirm_cancel_button')"
-      @accepted="doBlockUser"
-      @cancelled="hideConfirmBlock"
-    >
-      <i18n
-        path="user_card.block_confirm"
-        tag="span"
+    <portal to="modal">
+      <confirm-modal
+        v-if="showingConfirmBlock"
+        :title="$t('user_card.block_confirm_title')"
+        :confirm-text="$t('user_card.block_confirm_accept_button')"
+        :cancel-text="$t('user_card.block_confirm_cancel_button')"
+        @accepted="doBlockUser"
+        @cancelled="hideConfirmBlock"
       >
-        <span
-          place="user"
-          v-text="user.screen_name_ui"
-        />
-      </i18n>
-    </confirm-modal>
+        <i18n
+          path="user_card.block_confirm"
+          tag="span"
+        >
+          <span
+            place="user"
+            v-text="user.screen_name_ui"
+          />
+        </i18n>
+      </confirm-modal>
+    </portal>
   </div>
 </template>
 

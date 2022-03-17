@@ -11,12 +11,7 @@ const ConfirmModal = {
   components: {
     DialogModal
   },
-  data: {
-  },
   props: {
-    showing: {
-      type: Boolean
-    },
     title: {
       type: String
     },
