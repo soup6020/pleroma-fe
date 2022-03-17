@@ -41,7 +41,10 @@
     "post_action": "Post",
     "post_error": "Error: {error}",
     "close_error": "Close",
-    "delete_action": "Delete"
+    "delete_action": "Delete",
+    "start_time_prompt": "Start time: ",
+    "end_time_prompt": "End time: ",
+    "all_day_prompt": "This is an all-day event"
   },
   "shoutbox": {
     "title": "Shoutbox"
