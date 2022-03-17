@@ -192,6 +192,19 @@
           </a>
         </li>
         <li
+          @click="toggleDrawer"
+        >
+          <router-link
+            :to="{ name: 'announcements' }"
+          >
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="bullhorn"
+            /> {{ $t("nav.announcements") }}
+          </router-link>
+        </li>
+        <li
           v-if="currentUser"
           @click="toggleDrawer"
         >
