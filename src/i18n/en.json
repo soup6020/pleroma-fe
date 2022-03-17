@@ -44,7 +44,9 @@
     "delete_action": "Delete",
     "start_time_prompt": "Start time: ",
     "end_time_prompt": "End time: ",
-    "all_day_prompt": "This is an all-day event"
+    "all_day_prompt": "This is an all-day event",
+    "start_time_display": "Starts at {time}",
+    "end_time_display": "Ends at {time}"
   },
   "shoutbox": {
     "title": "Shoutbox"
