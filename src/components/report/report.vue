@@ -28,10 +28,10 @@
         </option>
       </Select>
     </div>
-    <!-- eslint-disable vue/no-v-html -->
-    <div
+    <RichContent
       class="report-content"
-      v-html="report.content"
+      :html="report.content"
+      :emoji="report.emojis"
     />
     <div v-if="report.statuses.length">
       <small>{{ $t('report.reported_statuses') }}</small>
