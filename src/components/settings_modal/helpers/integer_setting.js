@@ -1,18 +1,15 @@
 import { get, set } from 'lodash'
-import Checkbox from 'src/components/checkbox/checkbox.vue'
 import ModifiedIndicator from './modified_indicator.vue'
-import ServerSideIndicator from './server_side_indicator.vue'
 export default {
   components: {
-    Checkbox,
-    ModifiedIndicator,
-    ServerSideIndicator
+    ModifiedIndicator
   },
-  props: [
-    'path',
-    'disabled',
-    'expert'
-  ],
+  props: {
+    path: String,
+    disabled: Boolean,
+    min: Number,
+    expert: Number
+  },
   computed: {
     pathDefault () {
       const [firstSegment, ...rest] = this.path.split('.')
@@ -29,11 +26,8 @@ export default {
     defaultState () {
       return get(this.$parent, this.pathDefault)
     },
-    isServerSide () {
-      return this.path.startsWith('serverSide_')
-    },
     isChanged () {
-      return !this.path.startsWith('serverSide_') && this.state !== this.defaultState
+      return this.state !== this.defaultState
     },
     matchesExpertLevel () {
       return (this.expert || 0) <= this.$parent.expertLevel
@@ -41,7 +35,7 @@ export default {
   },
   methods: {
     update (e) {
-      set(this.$parent, this.path, e)
+      set(this.$parent, this.path, parseInt(e.target.value))
     }
   }
 }

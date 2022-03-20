@@ -11,6 +11,7 @@ import statusesModule from './modules/statuses.js'
 import usersModule from './modules/users.js'
 import apiModule from './modules/api.js'
 import configModule from './modules/config.js'
+import serverSideConfigModule from './modules/serverSideConfig.js'
 import shoutModule from './modules/shout.js'
 import oauthModule from './modules/oauth.js'
 import authFlowModule from './modules/auth_flow.js'
@@ -44,6 +45,8 @@ Vue.use(VueI18n)
 Vue.use(VueClickOutside)
 Vue.use(PortalVue)
 Vue.use(VBodyScrollLock)
+
+Vue.config.ignoredElements = ['pinch-zoom']
 
 Vue.component('FAIcon', FontAwesomeIcon)
 Vue.component('FALayers', FontAwesomeLayers)
@@ -88,6 +91,7 @@ const persistedStateOptions = {
       users: usersModule,
       api: apiModule,
       config: configModule,
+      serverSideConfig: serverSideConfigModule,
       shout: shoutModule,
       oauth: oauthModule,
       authFlow: authFlowModule,
