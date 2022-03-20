@@ -14,28 +14,19 @@
     </div>
     <div class="report-state">
       <span>{{ $t('report.state') }}</span>
-      <label
-        for="report-state"
-        class="select"
+      <Select
+        :id="report-state"
+        v-model="state"
+        class="form-control"
       >
-        <select
-          id="report-state"
-          v-model="state"
-          class="form-control"
+        <option
+          v-for="state in ['open', 'closed', 'resolved']"
+          :key="state"
+          :value="state"
         >
-          <option
-            v-for="state in ['open', 'closed', 'resolved']"
-            :key="state"
-            :value="state"
-          >
-            {{ $t('report.state_' + state) }}
-          </option>
-        </select>
-        <FAIcon
-          class="select-down-icon"
-          icon="chevron-down"
-        />
-      </label>
+          {{ $t('report.state_' + state) }}
+        </option>
+      </Select>
     </div>
     <!-- eslint-disable vue/no-v-html -->
     <div
