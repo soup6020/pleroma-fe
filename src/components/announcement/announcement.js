@@ -9,7 +9,7 @@ const Announcement = {
   data () {
     return {
       editing: false,
-      newAnnouncement: {
+      editedAnnouncement: {
         content: '',
         startsAt: undefined,
         endsAt: undefined,
@@ -65,16 +65,16 @@ const Announcement = {
       return this.announcement['all_day'] ? d.toLocaleDateString(locale) : d.toLocaleString(locale)
     },
     enterEditMode () {
-      this.newAnnouncement.content = this.announcement.pleroma['raw_content']
-      this.newAnnouncement.startsAt = this.announcement['starts_at']
-      this.newAnnouncement.endsAt = this.announcement['ends_at']
-      this.newAnnouncement.allDay = this.announcement['all_day']
+      this.editedAnnouncement.content = this.announcement.pleroma['raw_content']
+      this.editedAnnouncement.startsAt = this.announcement['starts_at']
+      this.editedAnnouncement.endsAt = this.announcement['ends_at']
+      this.editedAnnouncement.allDay = this.announcement['all_day']
       this.editing = true
     },
     submitEdit () {
       this.$store.dispatch('editAnnouncement', {
         id: this.announcement.id,
-        ...this.newAnnouncement
+        ...this.editedAnnouncement
       })
         .then(() => {
           this.editing = false

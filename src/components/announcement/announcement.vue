@@ -12,7 +12,7 @@
       />
       <announcement-editor
         v-else
-        :announcement="newAnnouncement"
+        :announcement="editedAnnouncement"
       />
     </div>
     <div class="footer">
