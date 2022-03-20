@@ -31,9 +31,8 @@ export const getters = {
       return 0
     }
 
-    return state.announcements.reduce((acc, cur) => {
-      return (!cur.inactive && !cur.read) ? acc + 1 : acc
-    }, 0)
+    const unread = state.announcements.filter(announcement => !(announcement.inactive || announcement.read))
+    return unread.length
   }
 }
 
