@@ -31,7 +31,7 @@
     <RichContent
       class="report-content"
       :html="report.content"
-      :emoji="report.emojis"
+      :emoji="[]"
     />
     <div v-if="report.statuses.length">
       <small>{{ $t('report.reported_statuses') }}</small>

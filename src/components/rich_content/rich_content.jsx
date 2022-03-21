@@ -42,8 +42,7 @@ export default Vue.component('RichContent', {
     // Emoji object, as in status.emojis, note the "s" at the end...
     emoji: {
       required: true,
-      type: Array,
-      default: () => []
+      type: Array
     },
     // Whether to handle links or not (posts: yes, everything else: no)
     handleLinks: {
