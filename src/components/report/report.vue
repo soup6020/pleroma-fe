@@ -35,7 +35,6 @@
     />
     <div v-if="report.statuses.length">
       <small>{{ $t('report.reported_statuses') }}</small>
-      <!-- eslint-enable vue/no-v-html -->
       <router-link
         v-for="status in report.statuses"
         :key="status.id"
