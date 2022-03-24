@@ -130,6 +130,18 @@
           </tr>
         </tbody>
       </table>
+      <div
+        v-if="listAliasesError"
+        class="alert error"
+      >
+        {{ $t('settings.list_aliases_error', { error }) }}
+        <FAIcon
+          class="fa-scale-110 fa-old-padding"
+          icon="times"
+          :title="$t('settings.hide_list_aliases_error_action')"
+          @click="listAliasesError = false"
+        />
+      </div>
       <div>
         <i18n
           path="settings.new_alias_target"

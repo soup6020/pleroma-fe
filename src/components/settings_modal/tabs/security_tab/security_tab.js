@@ -21,6 +21,7 @@ const SecurityTab = {
       movedAccount: false,
       moveAccountError: false,
       aliases: [],
+      listAliasesError: false,
       addAliasTarget: '',
       addedAlias: false,
       addAliasError: false
@@ -136,9 +137,12 @@ const SecurityTab = {
     },
     fetchAliases () {
       this.$store.state.api.backendInteractor.listAliases()
-        .catch(() => {})
         .then((res) => {
           this.aliases = res.aliases
+          this.listAliasesError = false
+        })
+        .catch((error) => {
+          this.listAliasesError = error.error
         })
     },
     logout () {
