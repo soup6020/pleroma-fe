@@ -53,7 +53,7 @@
       <div class="panel-body">
         <SettingsModalContent v-if="modalOpenedOnce" />
       </div>
-      <div class="panel-footer">
+      <div class="panel-footer settings-footer">
         <Popover
           class="export"
           trigger="click"
@@ -108,6 +108,14 @@
             </div>
           </template>
         </Popover>
+
+        <Checkbox v-model="expertLevel">
+          {{ $t("settings.expert_mode") }}
+        </Checkbox>
+        <portal-target
+          class="extra-content"
+          name="unscrolled-content"
+        />
       </div>
     </div>
   </Modal>
