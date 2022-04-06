@@ -74,7 +74,7 @@
         </button>
       </template>
     </Popover>
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmBlock"
         :title="$t('user_card.block_confirm_title')"
@@ -93,7 +93,7 @@
           />
         </i18n>
       </confirm-modal>
-    </portal>
+    </teleport>
   </div>
 </template>
 

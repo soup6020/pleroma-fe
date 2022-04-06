@@ -165,7 +165,7 @@
           />
         </FALayers>
       </span>
-      <portal to="modal">
+      <teleport to="#modal">
         <ConfirmModal
           v-if="showingDeleteDialog"
           :title="$t('status.delete_confirm_title')"
@@ -176,7 +176,7 @@
         >
           {{ $t('status.delete_confirm') }}
         </ConfirmModal>
-      </portal>
+      </teleport>
     </template>
   </Popover>
 </template>

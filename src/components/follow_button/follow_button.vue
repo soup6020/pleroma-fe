@@ -7,7 +7,7 @@
     @click="onClick"
   >
     {{ label }}
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmUnfollow"
         :title="$t('user_card.unfollow_confirm_title')"
@@ -26,7 +26,7 @@
           />
         </i18n>
       </confirm-modal>
-    </portal>
+    </teleport>
   </button>
 </template>
 

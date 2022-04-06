@@ -88,7 +88,7 @@
       ref="sideDrawer"
       :logout="logout"
     />
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmLogout"
         :title="$t('login.logout_confirm_title')"
@@ -99,7 +99,7 @@
       >
         {{ $t('login.logout_confirm') }}
       </confirm-modal>
-    </portal>
+    </teleport>
   </div>
 </template>
 

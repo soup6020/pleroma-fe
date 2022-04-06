@@ -314,7 +314,7 @@
         :handle-links="true"
       />
     </div>
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmMute"
         :title="$t('user_card.mute_confirm_title')"
@@ -333,7 +333,7 @@
           />
         </i18n>
       </confirm-modal>
-    </portal>
+    </teleport>
   </div>
 </template>
 

@@ -59,7 +59,7 @@
     >
       {{ status.repeat_num }}
     </span>
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmDialog"
         :title="$t('status.repeat_confirm_title')"
@@ -70,7 +70,7 @@
       >
         {{ $t('status.repeat_confirm') }}
       </confirm-modal>
-    </portal>
+    </teleport>
   </div>
 </template>
 

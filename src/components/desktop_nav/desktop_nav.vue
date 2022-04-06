@@ -76,7 +76,7 @@
         </button>
       </div>
     </div>
-    <portal to="modal">
+    <teleport to="#modal">
       <confirm-modal
         v-if="showingConfirmLogout"
         :title="$t('login.logout_confirm_title')"
@@ -87,7 +87,7 @@
       >
         {{ $t('login.logout_confirm') }}
       </confirm-modal>
-    </portal>
+    </teleport>
   </nav>
 </template>
 <script src="./desktop_nav.js"></script>
