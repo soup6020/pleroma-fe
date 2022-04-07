@@ -9,7 +9,7 @@
       >
         <span
           v-for="group in filteredEmojiGroups"
-          :ref="'group-header-' + group.id"
+          :ref="setGroupRef('group-header-' + group.id)"
           :key="group.id"
           class="emoji-tabs-item"
           :class="{
@@ -80,7 +80,7 @@
             class="emoji-group"
           >
             <h6
-              :ref="'group-' + group.id"
+              :ref="setGroupRef('group-' + group.id)"
               class="emoji-group-title"
             >
               {{ group.text }}
@@ -96,10 +96,12 @@
               <still-image
                 v-else
                 class="emoji-picker-emoji"
+                :ref="setEmojiRef(group.id + emoji.displayText)"
                 :data-src="emoji.imageUrl"
+                :data-emoji-name="group.id + emoji.displayText"
               />
             </span>
-            <span :ref="'group-end-' + group.id" />
+            <span :ref="setGroupRef('group-end-' + group.id)" />
           </div>
         </div>
         <div class="keep-open">

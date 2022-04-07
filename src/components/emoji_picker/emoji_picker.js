@@ -84,7 +84,9 @@ const EmojiPicker = {
       keepOpen: false,
       customEmojiTimeout: null,
       // Lazy-load only after the first time `showing` becomes true.
-      contentLoaded: false
+      contentLoaded: false,
+      groupRefs: {},
+      emojiRefs: {}
     }
   },
   components: {
@@ -93,6 +95,12 @@ const EmojiPicker = {
     StillImage
   },
   methods: {
+    setGroupRef (name) {
+      return el => { this.groupRefs[name] = el }
+    },
+    setEmojiRef (name) {
+      return el => { this.emojiRefs[name] = el }
+    },
     onStickerUploaded (e) {
       this.$emit('sticker-uploaded', e)
     },
@@ -112,8 +120,8 @@ const EmojiPicker = {
       const top = target.scrollTop + 5
       this.$nextTick(() => {
         this.allEmojiGroups.forEach(group => {
-          const ref = this.$refs['group-' + group.id]
-          if (ref[0].offsetTop <= top) {
+          const ref = this.groupRefs['group-' + group.id]
+          if (ref && ref.offsetTop <= top) {
             this.activeGroup = group.id
           }
         })
@@ -122,7 +130,7 @@ const EmojiPicker = {
     },
     scrollHeader () {
       // Scroll the active tab's header into view
-      const headerRef = this.$refs['group-header-' + this.activeGroup][0]
+      const headerRef = this.groupRefs['group-header-' + this.activeGroup]
       const left = headerRef.offsetLeft
       const right = left + headerRef.offsetWidth
       const headerCont = this.$refs.header
@@ -138,7 +146,7 @@ const EmojiPicker = {
       }
     },
     highlight (key) {
-      const ref = this.$refs['group-' + key]
+      const ref = this.groupRefs['group-' + key]
       const top = ref.offsetTop
       this.setShowStickers(false)
       this.activeGroup = key
@@ -169,7 +177,8 @@ const EmojiPicker = {
       this.$nextTick(() => {
         this.$lozad = lozad('.still-image.emoji-picker-emoji', {
           load: el => {
-            const vn = el.__vue__
+            const name = el.getAttribute('data-emoji-name')
+            const vn = this.emojiRefs[name]
             if (!vn) {
               return
             }
