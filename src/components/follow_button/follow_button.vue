@@ -16,15 +16,16 @@
         @accepted="doUnfollow"
         @cancelled="hideConfirmUnfollow"
       >
-        <i18n
-          path="user_card.unfollow_confirm"
+        <i18n-t
+          keypath="user_card.unfollow_confirm"
           tag="span"
         >
-          <span
-            place="user"
-            v-text="user.screen_name_ui"
-          />
-        </i18n>
+          <template #user>
+            <span
+              v-text="user.screen_name_ui"
+            />
+          </template>
+        </i18n-t>
       </confirm-modal>
     </teleport>
   </button>
