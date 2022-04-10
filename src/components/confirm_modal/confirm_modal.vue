@@ -1,5 +1,6 @@
 <template>
   <dialog-modal
+    v-body-scroll-lock="true"
     class="confirm-modal"
     :on-cancel="onCancel"
   >
