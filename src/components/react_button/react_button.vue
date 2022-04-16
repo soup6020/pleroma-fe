@@ -53,13 +53,13 @@
             :icon="['far', 'smile-beam']"
           />
           <FAIcon
-            v-if="!expanded"
+            v-show="!expanded"
             class="focus-marker"
             transform="shrink-6 up-9 right-17"
             icon="plus"
           />
           <FAIcon
-            v-else
+            v-show="expanded"
             class="focus-marker"
             transform="shrink-6 up-9 right-17"
             icon="times"

@@ -130,13 +130,13 @@
             icon="ellipsis-h"
           />
           <FAIcon
-            v-if="!expanded"
+            v-show="!expanded"
             class="focus-marker"
             transform="shrink-6 up-8 right-16"
             icon="plus"
           />
           <FAIcon
-            v-else
+            v-show="expanded"
             class="focus-marker"
             transform="shrink-6 up-8 right-16"
             icon="times"
