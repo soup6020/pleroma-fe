@@ -92,10 +92,13 @@
               class="emoji-item"
               @click.stop.prevent="onEmoji(emoji)"
             >
-              <span v-if="!emoji.imageUrl">{{ emoji.replacement }}</span>
+              <span
+                v-if="!emoji.imageUrl"
+                class="emoji-picker-emoji -unicode"
+              >{{ emoji.replacement }}</span>
               <still-image
                 v-else
-                class="emoji-picker-emoji"
+                class="emoji-picker-emoji -custom"
                 :ref="setEmojiRef(group.id + emoji.displayText)"
                 :data-src="emoji.imageUrl"
                 :data-emoji-name="group.id + emoji.displayText"
