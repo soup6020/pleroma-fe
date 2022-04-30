@@ -1,5 +1,3 @@
-import { set } from 'vue'
-
 const FETCH_ANNOUNCEMENT_INTERVAL_MS = 1000 * 60 * 5
 
 export const defaultState = {
@@ -9,7 +7,7 @@ export const defaultState = {
 
 export const mutations = {
   setAnnouncements (state, announcements) {
-    set(state, 'announcements', announcements)
+    state.announcements = announcements
   },
   setAnnouncementRead (state, { id, read }) {
     const index = state.announcements.findIndex(a => a.id === id)
@@ -18,10 +16,10 @@ export const mutations = {
       return
     }
 
-    set(state.announcements[index], 'read', read)
+    state.announcements[index].read = read
   },
   setFetchAnnouncementsTimer (state, timer) {
-    set(state, 'fetchAnnouncementsTimer', announcements)
+    state.fetchAnnouncementsTimer = timer
   }
 }
 
