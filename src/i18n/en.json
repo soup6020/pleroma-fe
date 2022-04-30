@@ -950,6 +950,7 @@
     "mute_confirm": "Do you really want to mute {user}?",
     "mute_confirm_accept_button": "Mute",
     "mute_confirm_cancel_button": "Do not mute",
+    "mute_duration_prompt": "Mute this user for (0 for indefinite time):",
     "per_day": "per day",
     "remote_follow": "Remote follow",
     "remove_follower": "Remove follower",
