@@ -1,3 +1,4 @@
+import { unitToSeconds } from 'src/services/date_utils/date_utils.js'
 import UserAvatar from '../user_avatar/user_avatar.vue'
 import RemoteFollow from '../remote_follow/remote_follow.vue'
 import ProgressButton from '../progress_button/progress_button.vue'
@@ -48,7 +49,9 @@ export default {
     return {
       followRequestInProgress: false,
       betterShadow: this.$store.state.interface.browserSupport.cssFilter,
-      showingConfirmMute: false
+      showingConfirmMute: false,
+      muteExpiryAmount: 0,
+      muteExpiryUnit: 'minutes'
     }
   },
   created () {
@@ -142,6 +145,9 @@ export default {
     shouldConfirmMute () {
       return this.mergedConfig.modalOnMute
     },
+    muteExpiryUnits () {
+      return ['minutes', 'hours', 'days']
+    },
     ...mapGetters(['mergedConfig'])
   },
   components: {
@@ -172,7 +178,10 @@ export default {
       }
     },
     doMuteUser () {
-      this.$store.dispatch('muteUser', this.user.id)
+      this.$store.dispatch('muteUser', {
+        id: this.user.id,
+        expiresIn: this.shouldConfirmMute ? unitToSeconds(this.muteExpiryUnit, this.muteExpiryAmount) : 0
+      })
       this.hideConfirmMute()
     },
     unmuteUser () {

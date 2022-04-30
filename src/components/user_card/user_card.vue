@@ -325,7 +325,7 @@
       >
         <i18n-t
           keypath="user_card.mute_confirm"
-          tag="span"
+          tag="div"
         >
           <template #user>
             <span
@@ -333,6 +333,32 @@
             />
           </template>
         </i18n-t>
+        <div
+          class="mute-expiry"
+        >
+          <label>
+            {{ $t('user_card.mute_duration_prompt') }}
+          </label>
+          <input
+            v-model="muteExpiryAmount"
+            type="number"
+            class="expiry-amount hide-number-spinner"
+            :min="0"
+          >
+          <Select
+            v-model="muteExpiryUnit"
+            unstyled="true"
+            class="expiry-unit"
+          >
+            <option
+              v-for="unit in muteExpiryUnits"
+              :key="unit"
+              :value="unit"
+            >
+              {{ $t(`time.${unit}_short`, ['']) }}
+            </option>
+          </Select>
+        </div>
       </confirm-modal>
     </teleport>
   </div>
