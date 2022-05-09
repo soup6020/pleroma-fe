@@ -60,7 +60,7 @@
         <thead>
           <tr>
             <th>{{ $t('settings.account_backup_table_head') }}</th>
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>
