@@ -87,6 +87,7 @@ const PLEROMA_CHAT_URL = id => `/api/v1/pleroma/chats/by-account-id/${id}`
 const PLEROMA_CHAT_MESSAGES_URL = id => `/api/v1/pleroma/chats/${id}/messages`
 const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
+const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 
 const oldfetch = window.fetch
 
@@ -868,6 +869,25 @@ const fetchBlocks = ({ credentials }) => {
     .then((users) => users.map(parseUser))
 }
 
+const addBackup = ({ credentials }) => {
+  return promisedRequest({
+    url: PLEROMA_BACKUP_URL,
+    method: 'POST',
+    credentials
+  })
+}
+
+const listBackups = ({ credentials }) => {
+  return promisedRequest({
+    url: PLEROMA_BACKUP_URL,
+    method: 'GET',
+    credentials,
+    params: {
+      _cacheBooster: (new Date()).getTime()
+    }
+  })
+}
+
 const fetchOAuthTokens = ({ credentials }) => {
   const url = '/api/oauth_tokens.json'
 
@@ -1325,6 +1345,8 @@ const apiService = {
   generateMfaBackupCodes,
   mfaSetupOTP,
   mfaConfirmOTP,
+  addBackup,
+  listBackups,
   fetchFollowRequests,
   approveUser,
   denyUser,
