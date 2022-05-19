@@ -54,6 +54,7 @@
     <PostStatusModal />
     <SettingsModal />
     <div id="modal" />
+    <div id="popovers" />
     <GlobalNoticeList />
   </div>
 </template>

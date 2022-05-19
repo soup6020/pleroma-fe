@@ -11,19 +11,21 @@
     >
       <slot name="trigger" />
     </button>
-    <div
-      v-if="!hidden"
-      ref="content"
-      :style="styles"
-      class="popover"
-      :class="popoverClass || 'popover-default'"
-    >
-      <slot
-        name="content"
-        class="popover-inner"
-        :close="hidePopover"
-      />
-    </div>
+    <teleport to="#popovers">
+      <div
+        v-if="!hidden"
+        ref="content"
+        :style="styles"
+        class="popover"
+        :class="popoverClass || 'popover-default'"
+      >
+        <slot
+          name="content"
+          class="popover-inner"
+          :close="hidePopover"
+        />
+      </div>
+    </teleport>
   </div>
 </template>
 

@@ -6,6 +6,7 @@
     :offset="{ y: 5 }"
     :bound-to="{ x: 'container' }"
     remove-padding
+    popover-class="ReactButton popover-default"
     @show="focusInput"
   >
     <template v-slot:content="{close}">

@@ -43,6 +43,7 @@ const Popover = {
   methods: {
     containerBoundingClientRect () {
       const container = this.boundToSelector ? this.$el.closest(this.boundToSelector) : this.$el.offsetParent
+      console.log(container)
       return container.getBoundingClientRect()
     },
     updateStyles () {
@@ -125,10 +126,17 @@ const Popover = {
 
       // Note, separate translateX and translateY avoids blurry text on chromium,
       // single translate or translate3d resulted in blurry text.
+      console.log(translateX + screenBox.x + screenBox.width)
+      console.log(Math.round(parentBounds.width))
       this.styles = {
         opacity: 1,
-        transform: `translateX(${Math.round(translateX)}px) translateY(${Math.round(translateY)}px)`
+        // transform: `translateX(${Math.round(translateX)}px) translateY(${Math.round(translateY)}px)`
+        left: `${Math.round(translateX + screenBox.x + screenBox.width / 2)}px`,
+        top: `${Math.round(translateY + screenBox.y + screenBox.height / 2)}px`,
+        maxWidth: `${Math.round(parentBounds.width)}px`,
+        position: 'fixed'
       }
+      console.log(this.styles)
     },
     showPopover () {
       const wasHidden = this.hidden
