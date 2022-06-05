@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { setPreset, applyTheme } from '../services/style_setter/style_setter.js'
+import { setPreset, applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
 import localeService from '../services/locale/locale.service.js'
 
@@ -165,11 +165,16 @@ const config = {
     setHighlight ({ commit, dispatch }, { user, color, type }) {
       commit('setHighlight', { user, color, type })
     },
-    setOption ({ commit, dispatch }, { name, value }) {
+    setOption ({ commit, dispatch, state }, { name, value }) {
       commit('setOption', { name, value })
       switch (name) {
         case 'theme':
           setPreset(value)
+          break
+        case 'sidebarColumnWidth':
+        case 'contentColumnWidth':
+        case 'notifsColumnWidth':
+          applyConfig(state)
           break
         case 'customTheme':
         case 'customThemeSource':
