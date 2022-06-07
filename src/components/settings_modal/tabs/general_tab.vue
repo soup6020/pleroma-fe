@@ -181,6 +181,16 @@
                 {{ $t('settings.confirm_dialogs_logout') }}
               </BooleanSetting>
             </li>
+            <li>
+              <BooleanSetting path="modalOnApproveFollow">
+                {{ $t('settings.confirm_dialogs_approve_follow') }}
+              </BooleanSetting>
+            </li>
+            <li>
+              <BooleanSetting path="modalOnDenyFollow">
+                {{ $t('settings.confirm_dialogs_deny_follow') }}
+              </BooleanSetting>
+            </li>
           </ul>
         </li>
       </ul>

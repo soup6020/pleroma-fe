@@ -84,6 +84,8 @@ export const defaultState = {
   modalOnMute: undefined, // instance default
   modalOnDelete: undefined, // instance default
   modalOnLogout: undefined, // instance default
+  modalOnApproveFollow: undefined, // instance default
+  modalOnDenyFollow: undefined, // instance default
   playVideosInModal: false,
   useOneClickNsfw: false,
   useContainFit: true,

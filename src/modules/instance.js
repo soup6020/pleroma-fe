@@ -77,6 +77,8 @@ const defaultState = {
   modalOnMute: false,
   modalOnDelete: true,
   modalOnLogout: true,
+  modalOnApproveFollow: false,
+  modalOnDenyFollow: false,
   loginMethod: 'password',
   logo: '/static/logo.svg',
   logoMargin: '.2em',
