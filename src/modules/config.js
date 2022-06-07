@@ -1,5 +1,9 @@
+import Cookies from 'js-cookie'
 import { setPreset, applyTheme } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
+import localeService from '../services/locale/locale.service.js'
+
+const BACKEND_LANGUAGE_COOKIE_NAME = 'userLanguage'
 
 const browserLocale = (window.navigator.language || 'en').split('-')[0]
 
@@ -55,7 +59,8 @@ export const defaultState = {
     moves: true,
     emojiReactions: true,
     followRequest: true,
-    chatMention: true
+    chatMention: true,
+    polls: true
   },
   webPushNotifications: false,
   muteWords: [],
@@ -165,6 +170,7 @@ const config = {
           break
         case 'interfaceLanguage':
           messages.setLanguage(this.getters.i18n, value)
+          Cookies.set(BACKEND_LANGUAGE_COOKIE_NAME, localeService.internalToBackendLocale(value))
           break
         case 'thirdColumnMode':
           dispatch('setLayoutWidth', undefined)
