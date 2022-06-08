@@ -168,6 +168,9 @@ const Popover = {
       if (this.hidden) return
       if (this.$el.contains(e.target)) return
       this.hidePopover()
+    },
+    onScroll () {
+      this.hidePopover()
     }
   },
   updated () {
@@ -183,9 +186,11 @@ const Popover = {
   },
   created () {
     document.addEventListener('click', this.onClickOutside)
+    window.addEventListener('scroll', this.onScroll)
   },
   unmounted () {
     document.removeEventListener('click', this.onClickOutside)
+    window.removeEventListener('scroll', this.onScroll)
     this.hidePopover()
   }
 }
