@@ -43,7 +43,6 @@ const Popover = {
   methods: {
     containerBoundingClientRect () {
       const container = this.boundToSelector ? this.$el.closest(this.boundToSelector) : this.$el.offsetParent
-      console.log(container)
       return container.getBoundingClientRect()
     },
     updateStyles () {
@@ -58,14 +57,15 @@ const Popover = {
       // its children are what are inside the slot. Expect only one v-slot:trigger.
       const anchorEl = (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
       // SVGs don't have offsetWidth/Height, use fallback
-      const anchorWidth = anchorEl.offsetWidth || anchorEl.clientWidth
       const anchorHeight = anchorEl.offsetHeight || anchorEl.clientHeight
-      const screenBox = anchorEl.getBoundingClientRect()
+      const anchorScreenBox = anchorEl.getBoundingClientRect()
+
       // Screen position of the origin point for popover
-      const origin = { x: screenBox.left + screenBox.width * 0.5, y: screenBox.top }
+      const origin = { x: anchorScreenBox.left, y: anchorScreenBox.top }
       const content = this.$refs.content
+
       // Minor optimization, don't call a slow reflow call if we don't have to
-      const parentBounds = this.boundTo &&
+      const parentScreenBox = this.boundTo &&
         (this.boundTo.x === 'container' || this.boundTo.y === 'container') &&
         this.containerBoundingClientRect()
 
@@ -74,31 +74,30 @@ const Popover = {
       // What are the screen bounds for the popover? Viewport vs container
       // when using viewport, using default margin values to dodge the navbar
       const xBounds = this.boundTo && this.boundTo.x === 'container' ? {
-        min: parentBounds.left + (margin.left || 0),
-        max: parentBounds.right - (margin.right || 0)
+        min: parentScreenBox.left + (margin.left || 0),
+        max: parentScreenBox.right - (margin.right || 0)
       } : {
         min: 0 + (margin.left || 10),
         max: window.innerWidth - (margin.right || 10)
       }
 
       const yBounds = this.boundTo && this.boundTo.y === 'container' ? {
-        min: parentBounds.top + (margin.top || 0),
-        max: parentBounds.bottom - (margin.bottom || 0)
+        min: parentScreenBox.top + (margin.top || 0),
+        max: parentScreenBox.bottom - (margin.bottom || 0)
       } : {
         min: 0 + (margin.top || 50),
         max: window.innerHeight - (margin.bottom || 5)
       }
 
       let horizOffset = 0
-
       // If overflowing from left, move it so that it doesn't
-      if ((origin.x - content.offsetWidth * 0.5) < xBounds.min) {
-        horizOffset += -(origin.x - content.offsetWidth * 0.5) + xBounds.min
+      if ((origin.x) < xBounds.min) {
+        horizOffset += -origin.x + xBounds.min
       }
 
       // If overflowing from right, move it so that it doesn't
-      if ((origin.x + horizOffset + content.offsetWidth * 0.5) > xBounds.max) {
-        horizOffset -= (origin.x + horizOffset + content.offsetWidth * 0.5) - xBounds.max
+      if ((origin.x + horizOffset + content.offsetWidth) > xBounds.max) {
+        horizOffset -= (origin.x + horizOffset + content.offsetWidth) - xBounds.max
       }
 
       // Default to whatever user wished with placement prop
@@ -118,25 +117,21 @@ const Popover = {
 
       const yOffset = (this.offset && this.offset.y) || 0
       const translateY = usingTop
-        ? -anchorHeight + vPadding - yOffset - content.offsetHeight
-        : yOffset
+        ? yOffset - content.offsetHeight - vPadding
+        : yOffset + anchorHeight + vPadding
 
       const xOffset = (this.offset && this.offset.x) || 0
-      const translateX = anchorWidth * 0.5 - content.offsetWidth * 0.5 + horizOffset + xOffset
+      const translateX = horizOffset + xOffset
 
       // Note, separate translateX and translateY avoids blurry text on chromium,
       // single translate or translate3d resulted in blurry text.
-      console.log(translateX + screenBox.x + screenBox.width)
-      console.log(Math.round(parentBounds.width))
       this.styles = {
         opacity: 1,
-        // transform: `translateX(${Math.round(translateX)}px) translateY(${Math.round(translateY)}px)`
-        left: `${Math.round(translateX + screenBox.x + screenBox.width / 2)}px`,
-        top: `${Math.round(translateY + screenBox.y + screenBox.height / 2)}px`,
-        maxWidth: `${Math.round(parentBounds.width)}px`,
+        left: `${Math.round(origin.x + translateX)}px`,
+        top: `${Math.round(origin.y + translateY)}px`,
+        maxWidth: `${parentScreenBox ? Math.round(parentScreenBox.width) : 0}px`,
         position: 'fixed'
       }
-      console.log(this.styles)
     },
     showPopover () {
       const wasHidden = this.hidden
