@@ -109,16 +109,10 @@ const Popover = {
       if (origin.y + content.offsetHeight > yBounds.max) usingTop = true
       if (origin.y - content.offsetHeight < yBounds.min) usingTop = false
 
-      let vPadding = 0
-      if (this.removePadding && usingTop) {
-        const anchorStyle = getComputedStyle(anchorEl)
-        vPadding = parseFloat(anchorStyle.paddingTop) + parseFloat(anchorStyle.paddingBottom)
-      }
-
       const yOffset = (this.offset && this.offset.y) || 0
       const translateY = usingTop
-        ? yOffset - content.offsetHeight - vPadding
-        : yOffset + anchorHeight + vPadding
+        ? yOffset - content.offsetHeight
+        : yOffset + anchorHeight
 
       const xOffset = (this.offset && this.offset.x) || 0
       const translateX = horizOffset + xOffset
