@@ -244,6 +244,16 @@ export const parseAttachment = (data) => {
   return output
 }
 
+export const parseSource = (data) => {
+  const output = {}
+
+  output.text = data.text
+  output.spoiler_text = data.spoiler_text
+  output.content_type = data.content_type
+
+  return output
+}
+
 export const parseStatus = (data) => {
   const output = {}
   const masto = data.hasOwnProperty('account')
@@ -264,6 +274,8 @@ export const parseStatus = (data) => {
     output.emojis = data.emojis
 
     output.tags = data.tags
+
+    output.is_edited = data.edited_at !== null
 
     if (data.pleroma) {
       const { pleroma } = data

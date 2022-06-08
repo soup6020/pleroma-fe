@@ -170,6 +170,7 @@
           class="visibility-tray"
         >
           <scope-selector
+            v-if="!disableVisibilitySelector"
             :show-all="showAllScopes"
             :user-default="userDefaultScope"
             :original-scope="copyMessageScope"

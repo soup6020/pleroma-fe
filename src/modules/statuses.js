@@ -248,6 +248,9 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
     'status': (status) => {
       addStatus(status, showImmediately)
     },
+    'edit': (status) => {
+      addStatus(status, showImmediately)
+    },
     'retweet': (status) => {
       // RetweetedStatuses are never shown immediately
       const retweetedStatus = addStatus(status.retweeted_status, false, false)
@@ -599,6 +602,9 @@ const statuses = {
     fetchStatus ({ rootState, dispatch }, id) {
       return rootState.api.backendInteractor.fetchStatus({ id })
         .then((status) => dispatch('addNewStatuses', { statuses: [status] }))
+    },
+    fetchStatusSource ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusSource({ id: status.id, credentials: rootState.users.currentUser.credentials })
     },
     deleteStatus ({ rootState, commit }, status) {
       commit('setDeleted', { status })

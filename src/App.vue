@@ -52,6 +52,7 @@
     <MobilePostStatusButton />
     <UserReportingModal />
     <PostStatusModal />
+    <EditStatusModal />
     <SettingsModal />
     <div id="modal" />
     <GlobalNoticeList />

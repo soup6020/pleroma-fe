@@ -71,6 +71,19 @@ const ExtraButtons = {
     },
     reportStatus () {
       this.$store.dispatch('openUserReportingModal', { userId: this.status.user.id, statusIds: [this.status.id] })
+    },
+    editStatus () {
+      this.$store.dispatch('fetchStatusSource', { id: this.status.id })
+        .then(data => this.$store.dispatch('openEditStatusModal', {
+          statusId: this.status.id,
+          subject: data.spoiler_text,
+          statusText: data.text,
+          statusIsSensitive: this.status.nsfw,
+          statusPoll: this.status.poll,
+          statusFiles: this.status.attachments,
+          visibility: this.status.visibility,
+          statusContentType: data.content_type
+        }))
     }
   },
   computed: {

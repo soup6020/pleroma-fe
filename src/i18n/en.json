@@ -200,6 +200,7 @@
     "load_older": "Load older interactions"
   },
   "post_status": {
+    "edit_status": "Edit status",
     "new_status": "Post new status",
     "account_not_locked_warning": "Your account is not {0}. Anyone can follow you to view your follower-only posts.",
     "account_not_locked_warning_link": "locked",
@@ -744,6 +745,7 @@
     "favorites": "Favorites",
     "repeats": "Repeats",
     "delete": "Delete status",
+    "edit": "Edit status",
     "pin": "Pin on profile",
     "unpin": "Unpin from profile",
     "pinned": "Pinned",

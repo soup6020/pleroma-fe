@@ -74,6 +74,17 @@
           /><span>{{ $t("status.unbookmark") }}</span>
         </button>
         <button
+          v-if="ownStatus"
+          class="button-default dropdown-item dropdown-item-icon"
+          @click.prevent="editStatus"
+          @click="close"
+        >
+          <FAIcon
+            fixed-width
+            icon="pen"
+          /><span>{{ $t("status.edit") }}</span>
+        </button>
+        <button
           v-if="canDelete"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="deleteStatus"
