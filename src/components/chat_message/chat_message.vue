@@ -44,7 +44,7 @@
               <Popover
                 trigger="click"
                 placement="top"
-                :bound-to-selector="isCurrentUser ? '' : '.scrollable-message-list'"
+                bound-to-selector=".chat-view-inner"
                 :bound-to="{ x: 'container' }"
                 :margin="popoverMarginStyle"
                 @show="menuOpened = true"

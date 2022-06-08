@@ -129,8 +129,11 @@ const Popover = {
         opacity: 1,
         left: `${Math.round(origin.x + translateX)}px`,
         top: `${Math.round(origin.y + translateY)}px`,
-        maxWidth: `${parentScreenBox ? Math.round(parentScreenBox.width) : 0}px`,
         position: 'fixed'
+      }
+
+      if (parentScreenBox) {
+        this.styles.maxWidth = `${Math.round(parentScreenBox.width)}px`
       }
     },
     showPopover () {
