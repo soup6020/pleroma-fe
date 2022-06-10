@@ -104,6 +104,7 @@ const Notification = {
           notification.type = 'follow'
         }
       })
+      this.hideApproveConfirmDialog()
     },
     denyUser () {
       if (this.shouldConfirmDeny) {
@@ -118,6 +119,7 @@ const Notification = {
           this.$store.dispatch('dismissNotificationLocal', { id: this.notification.id })
           this.$store.dispatch('removeFollowRequest', this.user)
         })
+      this.hideDenyConfirmDialog()
     }
   },
   computed: {
