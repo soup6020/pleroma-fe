@@ -1185,8 +1185,6 @@ const MASTODON_STREAMING_EVENTS = new Set([
   'status.update'
 ])
 
-// If Mastodon is doing a different streaming event,
-// please let us know, Gargron.
 const PLEROMA_STREAMING_EVENTS = new Set([
   'pleroma:chat_update'
 ])
