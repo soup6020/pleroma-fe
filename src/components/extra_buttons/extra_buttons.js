@@ -80,7 +80,7 @@ const ExtraButtons = {
           statusText: data.text,
           statusIsSensitive: this.status.nsfw,
           statusPoll: this.status.poll,
-          statusFiles: this.status.attachments,
+          statusFiles: [...this.status.attachments],
           visibility: this.status.visibility,
           statusContentType: data.content_type
         }))
