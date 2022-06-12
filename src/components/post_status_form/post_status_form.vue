@@ -66,6 +66,14 @@
           <span v-if="safeDMEnabled">{{ $t('post_status.direct_warning_to_first_only') }}</span>
           <span v-else>{{ $t('post_status.direct_warning_to_all') }}</span>
         </p>
+        <p
+          v-if="isEdit"
+          class="visibility-notice"
+        >
+          <span>{{ $t('post_status.edit_remote_warning') }}</span>
+          <br>
+          <span>{{ $t('post_status.edit_unsupported_warning') }}</span>
+        </p>
         <div
           v-if="!disablePreview"
           class="preview-heading faint"

@@ -261,6 +261,9 @@ const PostStatusForm = {
     uploadFileLimitReached () {
       return this.newStatus.files.length >= this.fileLimit
     },
+    isEdit () {
+      return typeof this.statusId !== 'undefined' && this.statusId.trim() !== ''
+    },
     ...mapGetters(['mergedConfig']),
     ...mapState({
       mobileLayout: state => state.interface.mobileLayout
