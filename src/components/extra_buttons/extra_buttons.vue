@@ -119,12 +119,12 @@
       </div>
     </template>
     <template v-slot:trigger>
-      <button class="button-unstyled popover-trigger">
+      <span class="button-unstyled popover-trigger">
         <FAIcon
           class="fa-scale-110 fa-old-padding"
           icon="ellipsis-h"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>
