@@ -195,8 +195,8 @@ const Popover = {
       if (this.$el.contains(e.target)) return
       this.hidePopover()
     },
-    onScroll () {
-      this.hidePopover()
+    onScroll (e) {
+      this.updateStyles()
     }
   },
   updated () {
@@ -210,13 +210,17 @@ const Popover = {
       this.oldSize = { width: content.offsetWidth, height: content.offsetHeight }
     }
   },
-  created () {
+  mounted () {
+    let scrollable = this.$refs.trigger.closest('.column.-scrollable')
+    if (!scrollable) scrollable = window
     document.addEventListener('click', this.onClickOutside)
-    window.addEventListener('scroll', this.onScroll)
+    scrollable.addEventListener('scroll', this.onScroll)
   },
-  unmounted () {
+  beforeUnmount () {
+    let scrollable = this.$refs.trigger.closest('.column.-scrollable')
+    if (!scrollable) scrollable = window
     document.removeEventListener('click', this.onClickOutside)
-    window.removeEventListener('scroll', this.onScroll)
+    scrollable.removeEventListener('scroll', this.onScroll)
     this.hidePopover()
   }
 }
