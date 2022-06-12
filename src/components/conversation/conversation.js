@@ -395,6 +395,7 @@ const conversation = {
     setHighlight (id) {
       if (!id) return
       this.highlight = id
+      this.$store.dispatch('fetchStatus', id)
       this.$store.dispatch('fetchFavsAndRepeats', id)
       this.$store.dispatch('fetchEmojiReactionsBy', id)
     },
