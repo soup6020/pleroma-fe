@@ -52,8 +52,6 @@
   border-width: 1px;
   border-radius: $fallback--tooltipRadius;
   border-radius: var(--tooltipRadius, $fallback--tooltipRadius);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: var(--popupShadow);
 
   /* TODO cleanup this */
   .Status.Status {
