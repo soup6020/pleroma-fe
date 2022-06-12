@@ -101,7 +101,6 @@
   }
 
   &:hover .new .full {
-    opacity: 1;
     pointer-events: initial;
   }
 
@@ -112,4 +111,10 @@
   .full .-faded {
     color: var(--faint, $fallback--faint);
   }
+}
+
+.mention-link-popover {
+  max-width: 70ch;
+  max-height: 20rem;
+  overflow: hidden;
 }

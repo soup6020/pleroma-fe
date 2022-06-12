@@ -31,13 +31,18 @@ const Popover = {
 
     // If true, subtract padding when calculating position for the popover,
     // use it when popover offset looks to be different on top vs bottom.
-    removePadding: Boolean
+    removePadding: Boolean,
+
+    // self-explanatory (i hope)
+    disabled: Boolean
   },
   data () {
     return {
       hidden: true,
-      styles: { opacity: 0 },
-      oldSize: { width: 0, height: 0 }
+      styles: {},
+      oldSize: { width: 0, height: 0 },
+      // used to avoid blinking if hovered onto popover
+      graceTimeout: null
     }
   },
   methods: {
@@ -47,9 +52,7 @@ const Popover = {
     },
     updateStyles () {
       if (this.hidden) {
-        this.styles = {
-          opacity: 0
-        }
+        this.styles = {}
         return
       }
 
@@ -132,7 +135,6 @@ const Popover = {
       // Note, separate translateX and translateY avoids blurry text on chromium,
       // single translate or translate3d resulted in blurry text.
       this.styles = {
-        opacity: 1,
         left: `${Math.round(translateX)}px`,
         top: `${Math.round(translateY)}px`,
         position: 'fixed'
@@ -143,6 +145,7 @@ const Popover = {
       }
     },
     showPopover () {
+      if (this.disabled) return
       const wasHidden = this.hidden
       this.hidden = false
       this.$nextTick(() => {
@@ -153,13 +156,30 @@ const Popover = {
     hidePopover () {
       if (!this.hidden) this.$emit('close')
       this.hidden = true
-      this.styles = { opacity: 0 }
     },
     onMouseenter (e) {
-      if (this.trigger === 'hover') this.showPopover()
+      if (this.trigger === 'hover') {
+        clearTimeout(this.graceTimeout)
+        this.graceTimeout = null
+        this.showPopover()
+      }
     },
     onMouseleave (e) {
-      if (this.trigger === 'hover') this.hidePopover()
+      if (this.trigger === 'hover') {
+        this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
+      }
+    },
+    onMouseenterContent (e) {
+      if (this.trigger === 'hover') {
+        clearTimeout(this.graceTimeout)
+        this.graceTimeout = null
+        this.showPopover()
+      }
+    },
+    onMouseleaveContent (e) {
+      if (this.trigger === 'hover') {
+        this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
+      }
     },
     onClick (e) {
       if (this.trigger === 'click') {

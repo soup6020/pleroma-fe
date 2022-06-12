@@ -2,6 +2,7 @@ import generateProfileLink from 'src/services/user_profile_link_generator/user_p
 import { mapGetters, mapState } from 'vuex'
 import { highlightClass, highlightStyle } from '../../services/user_highlighter/user_highlighter.js'
 import UserAvatar from '../user_avatar/user_avatar.vue'
+import { defineAsyncComponent } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faAt
@@ -14,7 +15,9 @@ library.add(
 const MentionLink = {
   name: 'MentionLink',
   components: {
-    UserAvatar
+    UserAvatar,
+    Popover: defineAsyncComponent(() => import('../popover/popover.vue')),
+    UserCard: defineAsyncComponent(() => import('../user_card/user_card.vue'))
   },
   props: {
     url: {
@@ -36,6 +39,7 @@ const MentionLink = {
   },
   methods: {
     onClick () {
+      if (this.shouldShowTooltip) return
       const link = generateProfileLink(
         this.userId || this.user.id,
         this.userScreenName || this.user.screen_name
@@ -110,7 +114,7 @@ const MentionLink = {
       }
     },
     shouldShowTooltip () {
-      return this.mergedConfig.mentionLinkShowTooltip && this.mergedConfig.mentionLinkDisplay === 'short' && this.isRemote
+      return this.mergedConfig.mentionLinkShowTooltip
     },
     shouldShowAvatar () {
       return this.mergedConfig.mentionLinkShowAvatar

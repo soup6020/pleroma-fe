@@ -1,5 +1,5 @@
 <template>
-  <div
+  <span
     @mouseenter="onMouseenter"
     @mouseleave="onMouseleave"
   >
@@ -12,21 +12,25 @@
       <slot name="trigger" />
     </button>
     <teleport to="#popovers">
-      <div
-        v-if="!hidden"
-        ref="content"
-        :style="styles"
-        class="popover"
-        :class="popoverClass || 'popover-default'"
-      >
-        <slot
-          name="content"
-          class="popover-inner"
-          :close="hidePopover"
-        />
-      </div>
+      <transition name="fade">
+        <div
+          v-if="!hidden"
+          ref="content"
+          :style="styles"
+          class="popover"
+          :class="popoverClass || 'popover-default'"
+          @mouseenter="onMouseenterContent"
+          @mouseleave="onMouseleaveContent"
+        >
+          <slot
+            name="content"
+            class="popover-inner"
+            :close="hidePopover"
+          />
+        </div>
+      </transition>
     </teleport>
-  </div>
+  </span>
 </template>
 
 <script src="./popover.js" />
@@ -47,8 +51,6 @@
 }
 
 .popover-default {
-  transition: opacity 0.3s;
-
   &:after {
     content: '';
     position: absolute;

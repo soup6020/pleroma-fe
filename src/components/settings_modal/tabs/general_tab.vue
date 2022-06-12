@@ -269,7 +269,7 @@
               path="mentionLinkShowTooltip"
               expert="1"
             >
-              {{ $t('settings.mention_link_show_tooltip') }}
+              {{ $t('settings.mention_link_use_tooltip') }}
             </BooleanSetting>
           </li>
         </ul>
