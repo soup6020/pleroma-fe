@@ -58,10 +58,18 @@ const Popover = {
       const anchorEl = (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
       // SVGs don't have offsetWidth/Height, use fallback
       const anchorHeight = anchorEl.offsetHeight || anchorEl.clientHeight
+      const anchorWidth = anchorEl.offsetWidth || anchorEl.clientWidth
       const anchorScreenBox = anchorEl.getBoundingClientRect()
 
-      // Screen position of the origin point for popover
-      const origin = { x: anchorScreenBox.left, y: anchorScreenBox.top }
+      const anchorStyle = getComputedStyle(anchorEl)
+      const topPadding = parseFloat(anchorStyle.paddingTop)
+      const bottomPadding = parseFloat(anchorStyle.paddingBottom)
+
+      // Screen position of the origin point for popover = center of the anchor
+      const origin = {
+        x: anchorScreenBox.left + anchorWidth * 0.5,
+        y: anchorScreenBox.top + anchorHeight * 0.5
+      }
       const content = this.$refs.content
 
       // Minor optimization, don't call a slow reflow call if we don't have to
@@ -89,15 +97,17 @@ const Popover = {
         max: window.innerHeight - (margin.bottom || 5)
       }
 
-      let horizOffset = 0
+      let horizOffset = content.offsetWidth * -0.5
+      const leftBorder = origin.x + horizOffset
+      const rightBorder = origin.x - horizOffset
       // If overflowing from left, move it so that it doesn't
-      if ((origin.x) < xBounds.min) {
-        horizOffset += -origin.x + xBounds.min
+      if (leftBorder < xBounds.min) {
+        horizOffset += xBounds.min - leftBorder
       }
 
       // If overflowing from right, move it so that it doesn't
-      if ((origin.x + horizOffset + content.offsetWidth) > xBounds.max) {
-        horizOffset -= (origin.x + horizOffset + content.offsetWidth) - xBounds.max
+      if (rightBorder > xBounds.max) {
+        horizOffset -= rightBorder - xBounds.max
       }
 
       // Default to whatever user wished with placement prop
@@ -106,23 +116,25 @@ const Popover = {
       // Handle special cases, first force to displaying on top if there's not space on bottom,
       // regardless of what placement value was. Then check if there's not space on top, and
       // force to bottom, again regardless of what placement value was.
-      if (origin.y + content.offsetHeight > yBounds.max) usingTop = true
-      if (origin.y - content.offsetHeight < yBounds.min) usingTop = false
+      const topBoundary = origin.y - anchorHeight * 0.5 + (this.removePadding ? topPadding : 0)
+      const bottomBoundary = origin.y + anchorHeight * 0.5 - (this.removePadding ? bottomPadding : 0)
+      if (bottomBoundary + content.offsetHeight > yBounds.max) usingTop = true
+      if (topBoundary - content.offsetHeight < yBounds.min) usingTop = false
 
       const yOffset = (this.offset && this.offset.y) || 0
       const translateY = usingTop
-        ? yOffset - content.offsetHeight
-        : yOffset + anchorHeight
+        ? topBoundary - yOffset - content.offsetHeight
+        : bottomBoundary + yOffset
 
       const xOffset = (this.offset && this.offset.x) || 0
-      const translateX = horizOffset + xOffset
+      const translateX = origin.x + horizOffset + xOffset
 
       // Note, separate translateX and translateY avoids blurry text on chromium,
       // single translate or translate3d resulted in blurry text.
       this.styles = {
         opacity: 1,
-        left: `${Math.round(origin.x + translateX)}px`,
-        top: `${Math.round(origin.y + translateY)}px`,
+        left: `${Math.round(translateX)}px`,
+        top: `${Math.round(translateY)}px`,
         position: 'fixed'
       }
 
