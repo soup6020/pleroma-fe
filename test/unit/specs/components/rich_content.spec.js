@@ -4,7 +4,15 @@ import RichContent from 'src/components/rich_content/rich_content.jsx'
 const attentions = []
 const global = {
   mocks: {
-    '$store': null
+    '$store': {
+      state: {},
+      getters: {
+        mergedConfig: () => ({
+          mentionLinkShowTooltip: true
+        }),
+        findUserByUrl: () => null
+      }
+    }
   },
   stubs: {
     FAIcon: true
@@ -131,8 +139,7 @@ describe('RichContent', () => {
       ].join(''),
       [
         makeMention('John'),
-        makeMention('Josh'),
-        makeMention('Jeremy')
+        makeMention('Josh'), makeMention('Jeremy')
       ].join('')
     ].join('\n')
 
@@ -359,9 +366,9 @@ describe('RichContent', () => {
         '</span>',
         '</a>',
         '<!-- eslint-enable vue/no-v-html -->',
-        '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
+        '<!---->', // vue placeholder
         '</span>',
-        '<!--v-if-->', // v-if placeholder, mentionsline's extra mentions and stuff
+        '<!--v-if-->', // vue placeholder, mentionsline's extra mentions and stuff
         '</span>'
       ),
       p(
@@ -422,7 +429,7 @@ describe('RichContent', () => {
       '</span>',
       '</a>',
       '<!-- eslint-enable vue/no-v-html -->',
-      '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
+      '<!---->', // vue placeholder, mentionlink's "new" (i.e. rich) display
       '</span>',
       '<span class="MentionLink mention-link">',
       '<!-- eslint-disable vue/no-v-html -->',
@@ -435,9 +442,9 @@ describe('RichContent', () => {
       '</span>',
       '</a>',
       '<!-- eslint-enable vue/no-v-html -->',
-      '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
+      '<!---->', // vue placeholder, mentionlink's "new" (i.e. rich) display
       '</span>',
-      '<!--v-if-->', // v-if placeholder, mentionsline's extra mentions and stuff
+      '<!--v-if-->', // vue placeholder, mentionsline's extra mentions and stuff
       '</span>',
       ' ',
       '</span>',
