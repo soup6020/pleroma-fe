@@ -44,7 +44,7 @@
 
 .popover {
   z-index: 90000;
-  position: absolute;
+  position: fixed;
   min-width: 0;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   box-shadow: var(--popupShadow);

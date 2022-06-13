@@ -11,6 +11,7 @@ import Timeago from '../timeago/timeago.vue'
 import StatusContent from '../status_content/status_content.vue'
 import RichContent from 'src/components/rich_content/rich_content.jsx'
 import StatusPopover from '../status_popover/status_popover.vue'
+import Popover from '../popover/popover.vue'
 import UserListPopover from '../user_list_popover/user_list_popover.vue'
 import EmojiReactions from '../emoji_reactions/emoji_reactions.vue'
 import MentionsLine from 'src/components/mentions_line/mentions_line.vue'
@@ -115,7 +116,8 @@ const Status = {
     StatusContent,
     RichContent,
     MentionLink,
-    MentionsLine
+    MentionsLine,
+    Popover
   },
   props: [
     'statusoid',

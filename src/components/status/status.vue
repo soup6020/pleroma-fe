@@ -122,17 +122,33 @@
           v-if="!noHeading"
           class="left-side"
         >
-          <a
-            :href="$router.resolve(userProfileLink).href"
-            @click.stop.prevent.capture="toggleUserExpanded"
-          >
-            <UserAvatar
-              class="post-avatar"
-              :bot="botIndicator"
-              :compact="compact"
-              :better-shadow="betterShadow"
-              :user="status.user"
-            />
+          <a :href="$router.resolve(userProfileLink).href" @click.prevent>
+            <Popover
+              trigger="click"
+              popover-class="popover-default user-popover"
+              :overlay-centers="true"
+              overlay-centers-selector=".user-info-avatar-link .Avatar"
+            >
+              <template v-slot:trigger>
+                <UserAvatar
+                  class="post-avatar"
+                  :bot="botIndicator"
+                  :compact="compact"
+                  :better-shadow="betterShadow"
+                  :user="status.user"
+                />
+              </template>
+              <template v-slot:content>
+                <UserCard
+                  class="mention-link-popover"
+                  :user-id="status.user.id"
+                  :hide-bio="true"
+                  :bordered="false"
+                  :allow-zooming-avatar="true"
+                  :rounded="true"
+                />
+              </template>
+            </Popover>
           </a>
         </div>
         <div class="right-side">

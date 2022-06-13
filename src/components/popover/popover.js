@@ -34,7 +34,13 @@ const Popover = {
     removePadding: Boolean,
 
     // self-explanatory (i hope)
-    disabled: Boolean
+    disabled: Boolean,
+
+    // Instead of putting popover next to anchor, overlay popover's center on top of anchor's center
+    overlayCenters: Boolean,
+
+    // What selector (witin popover!) to use for determining center of popover
+    overlayCentersSelector: String
   },
   data () {
     return {
@@ -73,7 +79,9 @@ const Popover = {
         x: anchorScreenBox.left + anchorWidth * 0.5,
         y: anchorScreenBox.top + anchorHeight * 0.5
       }
-      const content = this.$refs.content
+      const content = this.overlayCentersSelector
+        ? this.$refs.content.querySelector(this.overlayCentersSelector)
+        : this.$refs.content
 
       // Minor optimization, don't call a slow reflow call if we don't have to
       const parentScreenBox = this.boundTo &&
@@ -100,44 +108,51 @@ const Popover = {
         max: window.innerHeight - (margin.bottom || 5)
       }
 
-      let horizOffset = content.offsetWidth * -0.5
-      const leftBorder = origin.x + horizOffset
-      const rightBorder = origin.x - horizOffset
-      // If overflowing from left, move it so that it doesn't
-      if (leftBorder < xBounds.min) {
-        horizOffset += xBounds.min - leftBorder
-      }
+      if (!this.overlayCenters) {
+        let horizOffset = content.offsetWidth * -0.5
+        const leftBorder = origin.x + horizOffset
+        const rightBorder = origin.x - horizOffset
+        // If overflowing from left, move it so that it doesn't
+        if (leftBorder < xBounds.min) {
+          horizOffset += xBounds.min - leftBorder
+        }
 
-      // If overflowing from right, move it so that it doesn't
-      if (rightBorder > xBounds.max) {
-        horizOffset -= rightBorder - xBounds.max
-      }
+        // If overflowing from right, move it so that it doesn't
+        if (rightBorder > xBounds.max) {
+          horizOffset -= rightBorder - xBounds.max
+        }
 
-      // Default to whatever user wished with placement prop
-      let usingTop = this.placement !== 'bottom'
+        // Default to whatever user wished with placement prop
+        let usingTop = this.placement !== 'bottom'
 
-      // Handle special cases, first force to displaying on top if there's not space on bottom,
-      // regardless of what placement value was. Then check if there's not space on top, and
-      // force to bottom, again regardless of what placement value was.
-      const topBoundary = origin.y - anchorHeight * 0.5 + (this.removePadding ? topPadding : 0)
-      const bottomBoundary = origin.y + anchorHeight * 0.5 - (this.removePadding ? bottomPadding : 0)
-      if (bottomBoundary + content.offsetHeight > yBounds.max) usingTop = true
-      if (topBoundary - content.offsetHeight < yBounds.min) usingTop = false
+        // Handle special cases, first force to displaying on top if there's not space on bottom,
+        // regardless of what placement value was. Then check if there's not space on top, and
+        // force to bottom, again regardless of what placement value was.
+        const topBoundary = origin.y - anchorHeight * 0.5 + (this.removePadding ? topPadding : 0)
+        const bottomBoundary = origin.y + anchorHeight * 0.5 - (this.removePadding ? bottomPadding : 0)
+        if (bottomBoundary + content.offsetHeight > yBounds.max) usingTop = true
+        if (topBoundary - content.offsetHeight < yBounds.min) usingTop = false
 
-      const yOffset = (this.offset && this.offset.y) || 0
-      const translateY = usingTop
-        ? topBoundary - yOffset - content.offsetHeight
-        : bottomBoundary + yOffset
+        const yOffset = (this.offset && this.offset.y) || 0
+        const translateY = usingTop
+          ? topBoundary - yOffset - content.offsetHeight
+          : bottomBoundary + yOffset
 
-      const xOffset = (this.offset && this.offset.x) || 0
-      const translateX = origin.x + horizOffset + xOffset
+        const xOffset = (this.offset && this.offset.x) || 0
+        const translateX = origin.x + horizOffset + xOffset
 
-      // Note, separate translateX and translateY avoids blurry text on chromium,
-      // single translate or translate3d resulted in blurry text.
-      this.styles = {
-        left: `${Math.round(translateX)}px`,
-        top: `${Math.round(translateY)}px`,
-        position: 'fixed'
+        this.styles = {
+          left: `${Math.round(translateX)}px`,
+          top: `${Math.round(translateY)}px`
+        }
+      } else {
+        const translateY = origin.y - content.offsetHeight
+        const translateX = origin.x - content.offsetWidth
+
+        this.styles = {
+          left: `${Math.round(translateX)}px`,
+          top: `${Math.round(translateY)}px`
+        }
       }
 
       if (parentScreenBox) {
