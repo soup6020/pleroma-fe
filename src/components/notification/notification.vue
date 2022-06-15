@@ -34,21 +34,36 @@
       <a
         class="avatar-container"
         :href="$router.resolve(userProfileLink).href"
-        @click.stop.prevent.capture="toggleUserExpanded"
+        @click.prevent
       >
-        <UserAvatar
-          :compact="true"
-          :better-shadow="betterShadow"
-          :user="notification.from_profile"
-        />
+        <Popover
+          trigger="click"
+          popover-class="popover-default user-popover"
+          :overlay-centers="true"
+          overlay-centers-selector=".user-info-avatar-link .Avatar"
+        >
+          <template v-slot:trigger>
+            <UserAvatar
+              class="post-avatar"
+              :bot="botIndicator"
+              :compact="true"
+              :better-shadow="betterShadow"
+              :user="notification.from_profile"
+            />
+          </template>
+          <template v-slot:content>
+            <UserCard
+              class="mention-link-popover"
+              :user-id="getUser(notification).id"
+              :hide-bio="true"
+              :bordered="false"
+              :allow-zooming-avatar="true"
+              :rounded="true"
+            />
+          </template>
+        </Popover>
       </a>
       <div class="notification-right">
-        <UserCard
-          v-if="userExpanded"
-          :user-id="getUser(notification).id"
-          :rounded="true"
-          :bordered="true"
-        />
         <span class="notification-details">
           <div class="name-and-action">
             <!-- eslint-disable vue/no-v-html -->
