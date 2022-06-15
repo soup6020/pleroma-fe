@@ -79,9 +79,10 @@ const Popover = {
         x: anchorScreenBox.left + anchorWidth * 0.5,
         y: anchorScreenBox.top + anchorHeight * 0.5
       }
-      const content = this.overlayCentersSelector
+      const content = this.$refs.content
+      const overlayCenter = this.overlayCentersSelector
         ? this.$refs.content.querySelector(this.overlayCentersSelector)
-        : this.$refs.content
+        : null
 
       // Minor optimization, don't call a slow reflow call if we don't have to
       const parentScreenBox = this.boundTo &&
@@ -108,20 +109,39 @@ const Popover = {
         max: window.innerHeight - (margin.bottom || 5)
       }
 
-      if (!this.overlayCenters) {
-        let horizOffset = content.offsetWidth * -0.5
-        const leftBorder = origin.x + horizOffset
-        const rightBorder = origin.x - horizOffset
-        // If overflowing from left, move it so that it doesn't
-        if (leftBorder < xBounds.min) {
-          horizOffset += xBounds.min - leftBorder
-        }
+      let horizOffset = 0
+      let vertOffset = 0
 
-        // If overflowing from right, move it so that it doesn't
-        if (rightBorder > xBounds.max) {
-          horizOffset -= rightBorder - xBounds.max
-        }
+      if (overlayCenter) {
+        const box = content.getBoundingClientRect()
+        const overlayCenterScreenBox = overlayCenter.getBoundingClientRect()
+        const leftInnerOffset = overlayCenterScreenBox.left - box.left
+        const topInnerOffset = overlayCenterScreenBox.top - box.top
+        horizOffset = -leftInnerOffset - overlayCenter.offsetWidth * 0.5
+        vertOffset = -topInnerOffset - overlayCenter.offsetWidth * 0.5
+      } else {
+        horizOffset = content.offsetWidth * -0.5
+        vertOffset = content.offsetWidth * -0.5
+      }
+      const leftBorder = origin.x + horizOffset
+      const rightBorder = origin.x - horizOffset
+      // If overflowing from left, move it so that it doesn't
+      if (leftBorder < xBounds.min) {
+        horizOffset += xBounds.min - leftBorder
+      }
 
+      // If overflowing from right, move it so that it doesn't
+      if (rightBorder > xBounds.max) {
+        horizOffset -= rightBorder - xBounds.max
+      }
+
+      let translateX = 0
+      let translateY = 0
+
+      if (overlayCenter) {
+        translateX = origin.x + horizOffset
+        translateY = origin.y + vertOffset
+      } else {
         // Default to whatever user wished with placement prop
         let usingTop = this.placement !== 'bottom'
 
@@ -134,25 +154,17 @@ const Popover = {
         if (topBoundary - content.offsetHeight < yBounds.min) usingTop = false
 
         const yOffset = (this.offset && this.offset.y) || 0
-        const translateY = usingTop
+        translateY = usingTop
           ? topBoundary - yOffset - content.offsetHeight
           : bottomBoundary + yOffset
 
         const xOffset = (this.offset && this.offset.x) || 0
-        const translateX = origin.x + horizOffset + xOffset
+        translateX = origin.x + horizOffset + xOffset
+      }
 
-        this.styles = {
-          left: `${Math.round(translateX)}px`,
-          top: `${Math.round(translateY)}px`
-        }
-      } else {
-        const translateY = origin.y - content.offsetHeight
-        const translateX = origin.x - content.offsetWidth
-
-        this.styles = {
-          left: `${Math.round(translateX)}px`,
-          top: `${Math.round(translateY)}px`
-        }
+      this.styles = {
+        left: `${Math.round(translateX)}px`,
+        top: `${Math.round(translateY)}px`
       }
 
       if (parentScreenBox) {
