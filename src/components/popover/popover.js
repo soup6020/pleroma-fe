@@ -80,7 +80,7 @@ const Popover = {
         y: anchorScreenBox.top + anchorHeight * 0.5
       }
       const content = this.$refs.content
-      const overlayCenter = this.overlayCentersSelector
+      const overlayCenter = this.overlayCenters
         ? this.$refs.content.querySelector(this.overlayCentersSelector)
         : null
 
