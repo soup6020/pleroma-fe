@@ -9,14 +9,13 @@
   <template v-slot:trigger>
     <slot />
   </template>
-  <template v-slot:content>
+  <template v-slot:content={close}>
     <UserCard
       class="user-popover"
       :user-id="userId"
       :hide-bio="true"
-      :bordered="false"
       :allow-zooming-avatar="true"
-      :rounded="true"
+      :onClose="close"
     />
   </template>
 </Popover>
