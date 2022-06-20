@@ -6,7 +6,7 @@
       class="mention-link"
       :content="mention.content"
       :url="mention.url"
-    /><span
+    /> <span
       v-if="manyMentions"
       class="extraMentions"
     >
