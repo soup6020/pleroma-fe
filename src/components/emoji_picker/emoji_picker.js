@@ -270,7 +270,7 @@ const EmojiPicker = {
       return this.allEmojiGroups
         .map(group => ({
           ...group,
-          emojis: filterByKeyword(group.emojis, this.keyword)
+          emojis: filterByKeyword(group.emojis, trim(this.keyword))
         }))
         .filter(group => group.emojis.length > 0)
     },
