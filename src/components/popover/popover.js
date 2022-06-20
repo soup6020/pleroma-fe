@@ -47,6 +47,7 @@ const Popover = {
       hidden: true,
       styles: {},
       oldSize: { width: 0, height: 0 },
+      scrollable: null,
       // used to avoid blinking if hovered onto popover
       graceTimeout: null
     }
@@ -175,14 +176,25 @@ const Popover = {
       if (this.disabled) return
       const wasHidden = this.hidden
       this.hidden = false
+      if (this.trigger === 'click') {
+        document.addEventListener('click', this.onClickOutside)
+      }
+      this.scrollable.addEventListener('scroll', this.onScroll)
+      this.scrollable.addEventListener('resize', this.onResize)
       this.$nextTick(() => {
         if (wasHidden) this.$emit('show')
         this.updateStyles()
       })
     },
     hidePopover () {
+      if (this.disabled) return
       if (!this.hidden) this.$emit('close')
       this.hidden = true
+      if (this.trigger === 'click') {
+        document.removeEventListener('click', this.onClickOutside)
+      }
+      this.scrollable.removeEventListener('scroll', this.onScroll)
+      this.scrollable.removeEventListener('resize', this.onResize)
     },
     onMouseenter (e) {
       if (this.trigger === 'hover') {
@@ -225,6 +237,9 @@ const Popover = {
     },
     onScroll (e) {
       this.updateStyles()
+    },
+    onResize (e) {
+      this.updateStyles()
     }
   },
   updated () {
@@ -241,14 +256,9 @@ const Popover = {
   mounted () {
     let scrollable = this.$refs.trigger.closest('.column.-scrollable')
     if (!scrollable) scrollable = window
-    document.addEventListener('click', this.onClickOutside)
-    scrollable.addEventListener('scroll', this.onScroll)
+    this.scrollable = scrollable
   },
   beforeUnmount () {
-    let scrollable = this.$refs.trigger.closest('.column.-scrollable')
-    if (!scrollable) scrollable = window
-    document.removeEventListener('click', this.onClickOutside)
-    scrollable.removeEventListener('scroll', this.onScroll)
     this.hidePopover()
   }
 }
