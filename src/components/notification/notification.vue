@@ -36,32 +36,18 @@
         :href="$router.resolve(userProfileLink).href"
         @click.prevent
       >
-        <Popover
-          trigger="click"
-          popover-class="popover-default user-popover"
-          :overlay-centers="true"
-          overlay-centers-selector=".user-info-avatar-link .Avatar"
+        <UserPopover
+          :userId="notification.from_profile.id"
+          :overlayCenters="true"
         >
-          <template v-slot:trigger>
-            <UserAvatar
-              class="post-avatar"
-              :bot="botIndicator"
-              :compact="true"
-              :better-shadow="betterShadow"
-              :user="notification.from_profile"
-            />
-          </template>
-          <template v-slot:content>
-            <UserCard
-              class="mention-link-popover"
-              :user-id="getUser(notification).id"
-              :hide-bio="true"
-              :bordered="false"
-              :allow-zooming-avatar="true"
-              :rounded="true"
-            />
-          </template>
-        </Popover>
+          <UserAvatar
+            class="post-avatar"
+            :bot="botIndicator"
+            :compact="true"
+            :better-shadow="betterShadow"
+            :user="notification.from_profile"
+          />
+        </UserPopover>
       </a>
       <div class="notification-right">
         <span class="notification-details">

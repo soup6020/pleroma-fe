@@ -16,8 +16,7 @@ const MentionLink = {
   name: 'MentionLink',
   components: {
     UserAvatar,
-    Popover: defineAsyncComponent(() => import('../popover/popover.vue')),
-    UserCard: defineAsyncComponent(() => import('../user_card/user_card.vue'))
+    UserPopover: defineAsyncComponent(() => import('../user_popover/user_popover.vue'))
   },
   props: {
     url: {
