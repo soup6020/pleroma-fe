@@ -1,3 +1,4 @@
+import UserCard from '../user_card/user_card.vue'
 import { defineAsyncComponent } from 'vue'
 
 const UserPopover = {
@@ -6,7 +7,7 @@ const UserPopover = {
     'userId', 'overlayCenters', 'disabled'
   ],
   components: {
-    UserCard: defineAsyncComponent(() => import('../user_card/user_card.vue')),
+    UserCard,
     Popover: defineAsyncComponent(() => import('../popover/popover.vue'))
   }
 }
