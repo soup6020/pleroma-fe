@@ -19,6 +19,7 @@ import reportsModule from './modules/reports.js'
 import pollsModule from './modules/polls.js'
 import postStatusModule from './modules/postStatus.js'
 import editStatusModule from './modules/editStatus.js'
+import statusHistoryModule from './modules/statusHistory.js'
 
 import chatsModule from './modules/chats.js'
 
@@ -84,6 +85,7 @@ const persistedStateOptions = {
       polls: pollsModule,
       postStatus: postStatusModule,
       editStatus: editStatusModule,
+      statusHistory: statusHistoryModule,
       chats: chatsModule
     },
     plugins,

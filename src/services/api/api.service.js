@@ -425,17 +425,16 @@ const fetchStatusSource = ({ id, credentials }) => {
     .then((data) => parseSource(data))
 }
 
-const fetchStatusHistory = ({ id, credentials }) => {
-  let url = MASTODON_STATUS_HISTORY_URL(id)
-  return fetch(url, { headers: authHeaders(credentials) })
+const fetchStatusHistory = ({ status, credentials }) => {
+  let url = MASTODON_STATUS_HISTORY_URL(status.id)
+  return promisedRequest({ url, credentials })
     .then((data) => {
-      if (data.ok) {
-        return data
-      }
-      throw new Error('Error fetching history', data)
+      data.reverse()
+      return data.map((item) => {
+        item.originalStatus = status
+        return parseStatus(item)
+      })
     })
-    .then((data) => data.json())
-    .then((data) => parseStatus(data))
 }
 
 const tagUser = ({ tag, credentials, user }) => {

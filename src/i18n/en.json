@@ -795,7 +795,8 @@
     "ancestor_follow_with_icon": "{icon} {text}",
     "show_all_conversation_with_icon": "{icon} {text}",
     "show_all_conversation": "Show full conversation ({numStatus} other status) | Show full conversation ({numStatus} other statuses)",
-    "show_only_conversation_under_this": "Only show replies to this status"
+    "show_only_conversation_under_this": "Only show replies to this status",
+    "status_history": "Status history"
   },
   "user_card": {
     "approve": "Approve",

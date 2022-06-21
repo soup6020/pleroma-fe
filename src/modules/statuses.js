@@ -606,6 +606,9 @@ const statuses = {
     fetchStatusSource ({ rootState, dispatch }, status) {
       return apiService.fetchStatusSource({ id: status.id, credentials: rootState.users.currentUser.credentials })
     },
+    fetchStatusHistory ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusHistory({ status })
+    },
     deleteStatus ({ rootState, commit }, status) {
       commit('setDeleted', { status })
       apiService.deleteStatus({ id: status.id, credentials: rootState.users.currentUser.credentials })

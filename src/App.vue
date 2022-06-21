@@ -53,6 +53,7 @@
     <UserReportingModal />
     <PostStatusModal />
     <EditStatusModal />
+    <StatusHistoryModal />
     <SettingsModal />
     <div id="modal" />
     <GlobalNoticeList />

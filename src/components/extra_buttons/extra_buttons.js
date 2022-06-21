@@ -6,7 +6,8 @@ import {
   faEyeSlash,
   faThumbtack,
   faShareAlt,
-  faExternalLinkAlt
+  faExternalLinkAlt,
+  faHistory
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faBookmark as faBookmarkReg,
@@ -21,7 +22,8 @@ library.add(
   faThumbtack,
   faShareAlt,
   faExternalLinkAlt,
-  faFlag
+  faFlag,
+  faHistory
 )
 
 const ExtraButtons = {
@@ -84,6 +86,20 @@ const ExtraButtons = {
           visibility: this.status.visibility,
           statusContentType: data.content_type
         }))
+    },
+    showStatusHistory () {
+      let originalStatus = {}
+      Object.assign(originalStatus, this.status)
+      delete originalStatus.attachments
+      delete originalStatus.created_at
+      delete originalStatus.emojis
+      delete originalStatus.text
+      delete originalStatus.raw_html
+      delete originalStatus.nsfw
+      delete originalStatus.poll
+      delete originalStatus.summary
+      delete originalStatus.summary_raw_html
+      this.$store.dispatch('openStatusHistoryModal', originalStatus)
     }
   },
   computed: {
@@ -104,6 +120,9 @@ const ExtraButtons = {
     },
     statusLink () {
       return `${this.$store.state.instance.server}${this.$router.resolve({ name: 'conversation', params: { id: this.status.id } }).href}`
+    },
+    isEdited () {
+      return this.status.edited_at !== null
     }
   }
 }

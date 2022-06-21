@@ -275,7 +275,7 @@ export const parseStatus = (data) => {
 
     output.tags = data.tags
 
-    output.is_edited = data.edited_at !== null
+    output.edited_at = data.edited_at
 
     if (data.pleroma) {
       const { pleroma } = data
@@ -377,6 +377,10 @@ export const parseStatus = (data) => {
 
   output.favoritedBy = []
   output.rebloggedBy = []
+
+  if (data.hasOwnProperty('originalStatus')) {
+    Object.assign(output, data.originalStatus)
+  }
 
   return output
 }
