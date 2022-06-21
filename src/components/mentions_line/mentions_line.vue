@@ -6,15 +6,14 @@
       class="mention-link"
       :content="mention.content"
       :url="mention.url"
-    /> <span
+    /><span
       v-if="manyMentions"
       class="extraMentions"
     >
       <span
         v-if="expanded"
         class="fullExtraMentions"
-      >
-        <MentionLink
+      >{{ ' ' }}<MentionLink
           v-for="mention in extraMentions"
           :key="mention.index"
           class="mention-link"
