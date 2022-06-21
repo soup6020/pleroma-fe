@@ -4,6 +4,13 @@
 :root {
   --navbar-height: 3.5rem;
   --post-line-height: 1.4;
+  // Z-Index stuff
+  --ZI_media_modal: 90000;
+  --ZI_navbar_popovers: 85000;
+  --ZI_navbar: 80000;
+  --ZI_modals_popovers: 75000;
+  --ZI_modals: 70000;
+  --ZI_popovers: 60000;
 }
 
 html {
@@ -117,7 +124,7 @@ i[class*=icon-],
 }
 
 nav {
-  z-index: 1000;
+  z-index: var(--ZI_navbar);
   color: var(--topBarText);
   background-color: $fallback--fg;
   background-color: var(--topBar, $fallback--fg);

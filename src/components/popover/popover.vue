@@ -43,7 +43,7 @@
 }
 
 .popover {
-  z-index: 90000;
+  z-index: var(--ZI_popover_override, var(--ZI_popovers));
   position: fixed;
   min-width: 0;
   max-width: calc(100vw - 20px);
@@ -87,7 +87,7 @@
   text-align: left;
   list-style: none;
   max-width: 100vw;
-  z-index: 200;
+  z-index: var(--ZI_popover_override, var(--ZI_popovers));
   white-space: nowrap;
 
   .dropdown-divider {

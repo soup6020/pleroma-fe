@@ -22,6 +22,9 @@ export default {
       default: false
     }
   },
+  provide: {
+    popoversZLayer: 'modals'
+  },
   computed: {
     classes () {
       return {
@@ -35,7 +38,7 @@ export default {
 
 <style lang="scss">
 .modal-view {
-  z-index: 2000;
+  z-index: var(--ZI_modals);
   position: fixed;
   top: 0;
   left: 0;

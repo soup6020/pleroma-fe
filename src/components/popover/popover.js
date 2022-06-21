@@ -42,6 +42,7 @@ const Popover = {
     // What selector (witin popover!) to use for determining center of popover
     overlayCentersSelector: String
   },
+  inject: ['popoversZLayer'], // override popover z layer
   data () {
     return {
       hidden: true,
@@ -168,6 +169,9 @@ const Popover = {
         top: `${Math.round(translateY)}px`
       }
 
+      if (this.popoversZLayer) {
+        this.styles['--ZI_popover_override'] = `var(--ZI_${this.popoversZLayer}_popovers)`
+      }
       if (parentScreenBox) {
         this.styles.maxWidth = `${Math.round(parentScreenBox.width)}px`
       }

@@ -1,3 +1,4 @@
+import { computed } from 'vue'
 import { mapGetters } from 'vuex'
 import Notification from '../notification/notification.vue'
 import NotificationFilters from './notification_filters.vue'
@@ -38,6 +39,11 @@ const Notifications = {
       seenToDisplayCount: DEFAULT_SEEN_TO_DISPLAY_COUNT
     }
   },
+  provide () {
+    return {
+      popoversZLayer: computed(() => this.popoversZLayer)
+    }
+  },
   computed: {
     mainClass () {
       return this.minimalMode ? '' : 'panel panel-default'
@@ -74,6 +80,10 @@ const Notifications = {
         mobile: '#mobile-notifications'
       }
       return map[layoutType] || '#notifs-sidebar'
+    },
+    popoversZLayer () {
+      const { layoutType } = this.$store.state.interface
+      return layoutType === 'mobile' ? 'navbar' : null
     },
     notificationsToDisplay () {
       return this.filteredNotifications.slice(0, this.unseenCount + this.seenToDisplayCount)
