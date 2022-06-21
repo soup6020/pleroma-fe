@@ -4,6 +4,7 @@
     popover-class="popover-default status-popover"
     :bound-to="{ x: 'container' }"
     @show="enter"
+    ref="popover"
   >
     <template v-slot:trigger>
       <slot />
