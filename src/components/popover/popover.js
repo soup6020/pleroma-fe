@@ -254,7 +254,8 @@ const Popover = {
     }
   },
   mounted () {
-    let scrollable = this.$refs.trigger.closest('.column.-scrollable')
+    let scrollable = this.$refs.trigger.closest('.column.-scrollable') ||
+        this.$refs.trigger.closest('.mobile-notifications')
     if (!scrollable) scrollable = window
     this.scrollable = scrollable
   },
