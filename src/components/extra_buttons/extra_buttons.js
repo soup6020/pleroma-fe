@@ -123,7 +123,8 @@ const ExtraButtons = {
     },
     isEdited () {
       return this.status.edited_at !== null
-    }
+    },
+    editingAvailable () { return this.$store.state.instance.editingAvailable }
   }
 }
 

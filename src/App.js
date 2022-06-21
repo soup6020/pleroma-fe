@@ -94,6 +94,7 @@ export default {
       return this.$store.getters.mergedConfig.alwaysShowNewPostButton || this.layoutType === 'mobile'
     },
     showFeaturesPanel () { return this.$store.state.instance.showFeaturesPanel },
+    editingAvailable () { return this.$store.state.instance.editingAvailable },
     shoutboxPosition () {
       return this.$store.getters.mergedConfig.alwaysShowNewPostButton || false
     },

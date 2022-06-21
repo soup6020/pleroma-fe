@@ -74,7 +74,7 @@
           /><span>{{ $t("status.unbookmark") }}</span>
         </button>
         <button
-          v-if="ownStatus"
+          v-if="ownStatus && editingAvailable"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="editStatus"
           @click="close"
@@ -85,7 +85,7 @@
           /><span>{{ $t("status.edit") }}</span>
         </button>
         <button
-          v-if="isEdited"
+          v-if="isEdited && editingAvailable"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="showStatusHistory"
           @click="close"
