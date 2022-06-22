@@ -66,14 +66,13 @@
           <span v-if="safeDMEnabled">{{ $t('post_status.direct_warning_to_first_only') }}</span>
           <span v-else>{{ $t('post_status.direct_warning_to_all') }}</span>
         </p>
-        <p
+        <div
           v-if="isEdit"
-          class="visibility-notice"
+          class="visibility-notice edit-warning"
         >
-          <span>{{ $t('post_status.edit_remote_warning') }}</span>
-          <br>
-          <span>{{ $t('post_status.edit_unsupported_warning') }}</span>
-        </p>
+          <p>{{ $t('post_status.edit_remote_warning') }}</p>
+          <p>{{ $t('post_status.edit_unsupported_warning') }}</p>
+        </div>
         <div
           v-if="!disablePreview"
           class="preview-heading faint"
@@ -417,6 +416,16 @@
     justify-content: space-between;
     padding-top: 5px;
     align-items: baseline;
+  }
+
+  .visibility-notice.edit-warning {
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
   }
 
   .media-upload-icon, .poll-icon, .emoji-icon {
