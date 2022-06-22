@@ -748,6 +748,7 @@
     "repeats": "Repeats",
     "delete": "Delete status",
     "edit": "Edit status",
+    "edited_at": "(last edited {time})",
     "pin": "Pin on profile",
     "unpin": "Unpin from profile",
     "pinned": "Pinned",
