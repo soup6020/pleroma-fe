@@ -329,7 +329,7 @@
               />
             </div>
             <div
-              v-if="isEdited && editingAvailable"
+              v-if="isEdited && editingAvailable && !isPreview"
               class="heading-edited-row"
             >
               <i18n-t
