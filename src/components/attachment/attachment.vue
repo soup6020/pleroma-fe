@@ -166,7 +166,7 @@
           :icon="placeholderIconClass"
         />
         <p>
-          {{ edit ? localDescription : attachment.description }}
+          {{ localDescription }}
         </p>
       </a>
 
@@ -244,7 +244,7 @@
       </span>
     </div>
     <div
-      v-if="size !== 'hide' && !hideDescription && (edit || (attachment.description && showDescription))"
+      v-if="size !== 'hide' && !hideDescription && (edit || (localDescription && showDescription))"
       class="description-container"
       :class="{ '-static': !edit }"
     >
@@ -257,7 +257,7 @@
         @keydown.enter.prevent=""
       >
       <p v-else>
-        {{ attachment.description }}
+        {{ localDescription }}
       </p>
     </div>
   </div>
