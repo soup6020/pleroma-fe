@@ -88,8 +88,7 @@ const ExtraButtons = {
         }))
     },
     showStatusHistory () {
-      let originalStatus = {}
-      Object.assign(originalStatus, this.status)
+      let originalStatus = { ...this.status }
       delete originalStatus.attachments
       delete originalStatus.created_at
       delete originalStatus.emojis
