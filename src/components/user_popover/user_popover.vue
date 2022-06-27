@@ -2,7 +2,7 @@
 <Popover
   trigger="click"
   popover-class="popover-default user-popover"
-  overlay-centers-selector=".user-info-avatar-link .Avatar"
+  :overlay-centers-selector="overlayCentersSelector || '.user-info-avatar-link .Avatar'"
   :overlay-centers="overlayCenters"
   :disabled="disabled"
 >

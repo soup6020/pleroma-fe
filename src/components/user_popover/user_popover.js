@@ -4,7 +4,7 @@ import { defineAsyncComponent } from 'vue'
 const UserPopover = {
   name: 'UserPopover',
   props: [
-    'userId', 'overlayCenters', 'disabled'
+    'userId', 'overlayCenters', 'disabled', 'overlay-centers-selector'
   ],
   components: {
     UserCard,
