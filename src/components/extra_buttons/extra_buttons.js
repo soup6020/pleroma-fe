@@ -88,16 +88,9 @@ const ExtraButtons = {
         }))
     },
     showStatusHistory () {
-      let originalStatus = { ...this.status }
-      delete originalStatus.attachments
-      delete originalStatus.created_at
-      delete originalStatus.emojis
-      delete originalStatus.text
-      delete originalStatus.raw_html
-      delete originalStatus.nsfw
-      delete originalStatus.poll
-      delete originalStatus.summary
-      delete originalStatus.summary_raw_html
+      const originalStatus = { ...this.status }
+      const stripFieldsList = ['attachments', 'created_at', 'emojis', 'text', 'raw_html', 'nsfw', 'poll', 'summary', 'summary_raw_html']
+      stripFieldsList.forEach(p => delete originalStatus[p])
       this.$store.dispatch('openStatusHistoryModal', originalStatus)
     }
   },
