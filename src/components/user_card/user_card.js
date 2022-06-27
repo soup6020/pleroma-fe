@@ -38,7 +38,8 @@ export default {
     'rounded',
     'bordered',
     'allowZoomingAvatar',
-    'onClose'
+    'onClose',
+    'onAvatarClick'
   ],
   data () {
     return {
@@ -182,6 +183,12 @@ export default {
     },
     mentionUser () {
       this.$store.dispatch('openPostStatusModal', { replyTo: true, repliedUser: this.user })
+    },
+    onAvatarClickHandler (e) {
+      if (this.onAvatarClick) {
+        e.preventDefault()
+        this.onAvatarClick()
+      }
     }
   }
 }

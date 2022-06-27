@@ -550,6 +550,7 @@
     "mention_link_show_avatar": "Show user avatar beside the link",
     "mention_link_fade_domain": "Fade domains (e.g. {'@'}example.org in {'@'}foo{'@'}example.org)",
     "mention_link_bolden_you": "Highlight mention of you when you are mentioned",
+    "user_popover_avatar_zoom": "Clicking on user avatar in popover zooms it instead of closing the popover",
     "fun": "Fun",
     "greentext": "Meme arrows",
     "show_yous": "Show (You)s",

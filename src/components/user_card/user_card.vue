@@ -30,6 +30,7 @@
           <router-link
             v-else
             :to="userProfileLink(user)"
+            @click="onAvatarClickHandler"
           >
             <UserAvatar
               :better-shadow="betterShadow"

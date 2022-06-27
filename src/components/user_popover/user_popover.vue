@@ -2,7 +2,7 @@
 <Popover
   trigger="click"
   popover-class="popover-default user-popover"
-  :overlay-centers-selector="overlayCentersSelector || '.user-info-avatar-link .Avatar'"
+  :overlay-centers-selector="overlayCentersSelector || '.user-info .Avatar'"
   :overlay-centers="overlayCenters"
   :disabled="disabled"
 >
@@ -14,8 +14,9 @@
       class="user-popover"
       :user-id="userId"
       :hide-bio="true"
-      :allow-zooming-avatar="true"
-      :onClose="close"
+      :allow-zooming-avatar="userPopoverZoom"
+      :on-avatar-click="userPopoverZoom ? null : close"
+      :on-close="close"
     />
   </template>
 </Popover>

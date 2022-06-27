@@ -75,6 +75,11 @@
           </BooleanSetting>
         </li>
         <li>
+          <BooleanSetting path="userPopoverZoom">
+            {{ $t('settings.user_popover_avatar_zoom') }}
+          </BooleanSetting>
+        </li>
+        <li>
           <ChoiceSetting
             v-if="user"
             id="thirdColumnMode"
