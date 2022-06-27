@@ -45,6 +45,10 @@ const Popover = {
   inject: ['popoversZLayer'], // override popover z layer
   data () {
     return {
+      // lockReEntry is a flag that is set when mouse cursor is leaving the popover's content
+      // so that if mouse goes back into popover it won't be re-shown again to prevent annoyance
+      // with popovers refusing to be hidden when user wants to interact with something in below popover
+      lockReEntry: false,
       hidden: true,
       styles: {},
       oldSize: { width: 0, height: 0 },
@@ -202,6 +206,7 @@ const Popover = {
     },
     onMouseenter (e) {
       if (this.trigger === 'hover') {
+        this.lockReEntry = false
         clearTimeout(this.graceTimeout)
         this.graceTimeout = null
         this.showPopover()
@@ -213,7 +218,8 @@ const Popover = {
       }
     },
     onMouseenterContent (e) {
-      if (this.trigger === 'hover') {
+      if (this.trigger === 'hover' && !this.lockReEntry) {
+        this.lockReEntry = true
         clearTimeout(this.graceTimeout)
         this.graceTimeout = null
         this.showPopover()
