@@ -261,18 +261,14 @@
             {{ $t('settings.mention_link_display') }}
           </ChoiceSetting>
         </li>
-        <ul
-          class="setting-list suboptions"
-        >
-          <li v-if="mentionLinkDisplay === 'short'">
-            <BooleanSetting
-              path="mentionLinkShowTooltip"
-              expert="1"
-            >
-              {{ $t('settings.mention_link_use_tooltip') }}
-            </BooleanSetting>
-          </li>
-        </ul>
+        <li>
+          <BooleanSetting
+            path="mentionLinkShowTooltip"
+            expert="1"
+          >
+            {{ $t('settings.mention_link_use_tooltip') }}
+          </BooleanSetting>
+        </li>
         <li>
           <BooleanSetting
             path="useAtIcon"
