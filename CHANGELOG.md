@@ -47,6 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Ability to rearrange order of attachments when uploading
 - Enabled users to zoom and pan images in media viewer with mouse and touch
 - Timelines/panels and conversations have sticky headers now
+- Added frontend ui for account migration
 
 
 ## [2.4.2] - 2022-01-09

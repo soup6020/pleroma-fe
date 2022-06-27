@@ -4,6 +4,10 @@
   width: 100%;
   z-index: var(--ZI_navbar);
 
+  input {
+    color: var(--inputTopbarText, var(--inputText));
+  }
+
   a {
     color: var(--topBarLink, $fallback--link);
   }
