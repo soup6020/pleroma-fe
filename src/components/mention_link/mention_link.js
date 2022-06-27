@@ -36,6 +36,11 @@ const MentionLink = {
       type: String
     }
   },
+  data () {
+    return {
+      hasSelection: false
+    }
+  },
   methods: {
     onClick () {
       if (this.shouldShowTooltip) return
@@ -44,7 +49,16 @@ const MentionLink = {
         this.userScreenName || this.user.screen_name
       )
       this.$router.push(link)
+    },
+    handleSelection () {
+      this.hasSelection = document.getSelection().containsNode(this.$refs.full, true)
     }
+  },
+  mounted () {
+    document.addEventListener('selectionchange', this.handleSelection)
+  },
+  unmounted () {
+    document.removeEventListener('selectionchange', this.handleSelection)
   },
   computed: {
     user () {
@@ -91,7 +105,8 @@ const MentionLink = {
       return [
         {
           '-you': this.isYou && this.shouldBoldenYou,
-          '-highlighted': this.highlight
+          '-highlighted': this.highlight,
+          '-has-selection': this.hasSelection
         },
         this.highlightType
       ]

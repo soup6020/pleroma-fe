@@ -54,24 +54,10 @@
             :class="{ '-you': shouldBoldenYou }"
           > {{ ' ' + $t('status.you') }}</span>
           <!-- eslint-enable vue/no-v-html -->
-        </a><span
-          v-if="shouldShowTooltip"
-          class="full"
-        >
-          <span
-            class="userNameFull"
-          >
+        </a><span class="full" ref="full">
             <!-- eslint-disable vue/no-v-html -->
-            @<span
-              class="userName"
-              v-html="userName"
-            /><span
-              class="serverName"
-              :class="{ '-faded': shouldFadeDomain }"
-              v-html="'@' + serverName"
-            />
+            @<span v-html="userName" /><span v-html="'@' + serverName" />
             <!-- eslint-enable vue/no-v-html -->
-          </span>
         </span>
       </span>
     </UserPopover>
