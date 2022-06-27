@@ -42,7 +42,7 @@ const StatusPopover = {
   watch: {
     status (newStatus, oldStatus) {
       if (newStatus !== oldStatus) {
-        this.$refs.popover.updateStyles()
+        this.$nextTick(() => this.$refs.popover.updateStyles())
       }
     }
   }
