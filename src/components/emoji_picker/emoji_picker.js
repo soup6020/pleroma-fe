@@ -17,7 +17,7 @@ import {
   faCode,
   faFlag
 } from '@fortawesome/free-solid-svg-icons'
-import { trim } from 'lodash'
+import { debounce, trim } from 'lodash'
 
 library.add(
   faBoxOpen,
@@ -86,7 +86,8 @@ const EmojiPicker = {
       // Lazy-load only after the first time `showing` becomes true.
       contentLoaded: false,
       groupRefs: {},
-      emojiRefs: {}
+      emojiRefs: {},
+      filteredEmojiGroups: []
     }
   },
   components: {
@@ -206,6 +207,7 @@ const EmojiPicker = {
       const oldContentLoaded = this.contentLoaded
       this.contentLoaded = true
       this.waitForDomAndInitializeLazyLoad()
+      this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       if (!oldContentLoaded) {
         this.$nextTick(() => {
           if (this.defaultGroup) {
@@ -213,15 +215,24 @@ const EmojiPicker = {
           }
         })
       }
+    },
+    getFilteredEmojiGroups () {
+      return this.allEmojiGroups
+        .map(group => ({
+          ...group,
+          emojis: filterByKeyword(group.emojis, trim(this.keyword))
+        }))
+        .filter(group => group.emojis.length > 0)
     }
   },
   watch: {
     keyword () {
       this.onScroll()
-      this.waitForDomAndInitializeLazyLoad()
+      this.debouncedHandleKeywordChange()
     },
     allCustomGroups () {
       this.waitForDomAndInitializeLazyLoad()
+      this.filteredEmojiGroups = this.getFilteredEmojiGroups()
     },
     showing (val) {
       if (val) {
@@ -266,16 +277,14 @@ const EmojiPicker = {
         .map(([_, v]) => v)
         .concat(this.unicodeEmojiGroups)
     },
-    filteredEmojiGroups () {
-      return this.allEmojiGroups
-        .map(group => ({
-          ...group,
-          emojis: filterByKeyword(group.emojis, trim(this.keyword))
-        }))
-        .filter(group => group.emojis.length > 0)
-    },
     stickerPickerEnabled () {
       return (this.$store.state.instance.stickers || []).length !== 0
+    },
+    debouncedHandleKeywordChange () {
+      return debounce(() => {
+        this.waitForDomAndInitializeLazyLoad()
+        this.filteredEmojiGroups = this.getFilteredEmojiGroups()
+      }, 500)
     }
   }
 }
