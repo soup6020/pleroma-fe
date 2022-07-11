@@ -125,13 +125,6 @@ const StatusContent = {
     generateTagLink (tag) {
       return `/tag/${tag}`
     }
-  },
-  watch: {
-    'status.raw_html' (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.parseReadyDone = false
-      }
-    }
   }
 }
 
