@@ -234,8 +234,9 @@
     }
   },
   "registration": {
-    "bio": "Bio",
+    "bio_optional": "Bio (optional)",
     "email": "Email",
+    "email_optional": "Email (optional)",
     "fullname": "Display name",
     "password_confirm": "Password confirmation",
     "registration": "Registration",
