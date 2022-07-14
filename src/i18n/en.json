@@ -45,6 +45,7 @@
     "start_time_prompt": "Start time: ",
     "end_time_prompt": "End time: ",
     "all_day_prompt": "This is an all-day event",
+    "published_time_display": "Published at {time}",
     "start_time_display": "Starts at {time}",
     "end_time_display": "Ends at {time}",
     "edit_action": "Edit",
