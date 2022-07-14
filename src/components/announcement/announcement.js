@@ -33,6 +33,14 @@ const Announcement = {
     isRead () {
       return this.announcement.read
     },
+    publishedAt () {
+      const time = this.announcement['published_at']
+      if (!time) {
+        return
+      }
+
+      return this.formatTimeOrDate(time, localeService.internalToBrowserLocale(this.$i18n.locale))
+    },
     startsAt () {
       const time = this.announcement['starts_at']
       if (!time) {

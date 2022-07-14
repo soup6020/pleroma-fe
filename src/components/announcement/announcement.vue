@@ -20,6 +20,9 @@
         v-if="!editing"
         class="times"
       >
+        <span v-if="publishedAt">
+          {{ $t('announcements.published_time_display', { time: publishedAt }) }}
+        </span>
         <span v-if="startsAt">
           {{ $t('announcements.start_time_display', { time: startsAt }) }}
         </span>
