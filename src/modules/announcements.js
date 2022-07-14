@@ -54,12 +54,14 @@ const announcements = {
           a[c.id] = c
           return a
         }, {})
+        const getWithinVisible = announcement => visibleObject[announcement.id]
 
         all.forEach(announcement => {
-          if (!visibleObject[announcement.id]) {
+          const visibleAnnouncement = getWithinVisible(announcement)
+          if (!visibleAnnouncement) {
             announcement.inactive = true
           } else {
-            announcement.read = visibleObject[announcement.id].read
+            announcement.read = visibleAnnouncement.read
           }
         })
 
