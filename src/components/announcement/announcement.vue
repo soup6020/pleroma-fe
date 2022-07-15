@@ -124,10 +124,11 @@
   .footer .actions {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     .btn {
-      min-width: 10em;
+      flex: 1;
+      margin: 1em;
     }
   }
 }
