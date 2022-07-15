@@ -129,6 +129,7 @@
     .btn {
       flex: 1;
       margin: 1em;
+      max-width: 10em;
     }
   }
 }
