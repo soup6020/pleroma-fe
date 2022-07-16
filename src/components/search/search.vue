@@ -89,7 +89,7 @@
           class="search-result-heading"
         >
           <h4>
-            {{ $t('search.no_results') }}
+            {{ visibleStatuses.length === 0 ? $t('search.no_results') : $t('search.no_more_results') }}
           </h4>
         </div>
       </div>
