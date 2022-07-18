@@ -120,7 +120,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/ruffle-mirror/*",
+          from: "node_modules/@ruffle-rs/ruffle/*",
           to: "static/ruffle",
           flatten: true
         },

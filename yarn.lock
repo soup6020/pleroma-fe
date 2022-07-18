@@ -1338,6 +1338,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@ruffle-rs/ruffle@^0.1.0-nightly.2022.7.12":
+  version "0.1.0-nightly.2022.7.12"
+  resolved "https://registry.yarnpkg.com/@ruffle-rs/ruffle/-/ruffle-0.1.0-nightly.2022.7.12.tgz#c2d77fce7a0e98d51a6535371550e0bff019d0ea"
+  integrity sha512-DFsiT4kdUuSHsYXzHV97e9Ui3FkcsHEg1GyHJipt/lCpCoZ2uRtP41uEz9eNc9ug8jWd7UyXxJmdkkRvs9UHgQ==
+
 "@socket.io/base64-arraybuffer@~1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@socket.io/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#568d9beae00b0d835f4f8c53fd55714986492e61"
@@ -8827,11 +8832,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-ruffle-mirror@2021.12.31:
-  version "2021.12.31"
-  resolved "https://registry.yarnpkg.com/ruffle-mirror/-/ruffle-mirror-2021.12.31.tgz#d5ece0ff164d98468d84eb7cba3e69abff4c0687"
-  integrity sha512-kilyYstBQ+ZQY44IvUHhMt8Uh1yQJ8B+6GdzA1FzErgJy+5mnaLUBtU8JEG7cSrW3QLdFQLhRSeh8lLDINXgSA==
 
 run-async@^2.2.0:
   version "2.3.0"
