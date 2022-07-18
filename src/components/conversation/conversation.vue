@@ -7,7 +7,7 @@
   >
     <div
       v-if="isExpanded"
-      class="panel-heading conversation-heading"
+      class="panel-heading conversation-heading -sticky"
     >
       <span class="title"> {{ $t('timeline.conversation') }} </span>
       <button
@@ -27,20 +27,24 @@
           v-if="shouldShowAllConversationButton"
           class="conversation-dive-to-top-level-box"
         >
-          <i18n
-            path="status.show_all_conversation_with_icon"
+          <i18n-t
+            keypath="status.show_all_conversation_with_icon"
             tag="button"
             class="button-unstyled -link"
             @click.prevent="diveToTopLevel"
+            scope="global"
           >
-            <FAIcon
-              place="icon"
-              icon="angle-double-left"
-            />
-            <span place="text">
-              {{ $tc('status.show_all_conversation', otherTopLevelCount, { numStatus: otherTopLevelCount }) }}
-            </span>
-          </i18n>
+            <template #icon>
+              <FAIcon
+                icon="angle-double-left"
+              />
+            </template>
+            <template #text>
+              <span>
+                {{ $tc('status.show_all_conversation', otherTopLevelCount, { numStatus: otherTopLevelCount }) }}
+              </span>
+            </template>
+          </i18n-t>
         </div>
         <div
           v-if="shouldShowAncestors"
@@ -96,20 +100,24 @@
               <div
                 class="thread-ancestor-dive-box-inner"
               >
-                <i18n
+                <i18n-t
                   tag="button"
-                  path="status.ancestor_follow_with_icon"
+                  scope="global"
+                  keypath="status.ancestor_follow_with_icon"
                   class="button-unstyled -link thread-tree-show-replies-button"
                   @click.prevent="diveIntoStatus(status.id)"
                 >
-                  <FAIcon
-                    place="icon"
-                    icon="angle-double-right"
-                  />
-                  <span place="text">
-                    {{ $tc('status.ancestor_follow', getReplies(status.id).length - 1, { numReplies: getReplies(status.id).length - 1 }) }}
-                  </span>
-                </i18n>
+                  <template #icon>
+                    <FAIcon
+                      icon="angle-double-right"
+                    />
+                  </template>
+                  <template #text>
+                    <span>
+                      {{ $tc('status.ancestor_follow', getReplies(status.id).length - 1, { numReplies: getReplies(status.id).length - 1 }) }}
+                    </span>
+                  </template>
+                </i18n-t>
               </div>
             </div>
           </div>
@@ -193,6 +201,8 @@
 @import '../../_variables.scss';
 
 .Conversation {
+  z-index: 1;
+
   .conversation-dive-to-top-level-box {
     padding: var(--status-margin, $status-margin);
     border-bottom-width: 1px;
@@ -215,6 +225,7 @@
     --text: var(--faint);
     color: var(--text);
   }
+
   .thread-ancestor-dive-box {
     padding-left: var(--status-margin, $status-margin);
     border-bottom-width: 1px;
@@ -242,6 +253,7 @@
   .thread-ancestor-has-other-replies .conversation-status,
   .thread-ancestor:last-child .conversation-status,
   .thread-ancestor:last-child .thread-ancestor-dive-box,
+  &:last-child .conversation-status,
   &.-expanded .thread-tree .conversation-status {
     border-bottom: none;
   }
@@ -261,6 +273,10 @@
     border-radius: 0 0 $fallback--panelRadius $fallback--panelRadius;
     border-radius: 0 0 var(--panelRadius, $fallback--panelRadius) var(--panelRadius, $fallback--panelRadius);
     border-bottom: 1px solid var(--border, $fallback--border);
+  }
+
+  &.-expanded.status-fadein {
+    margin: calc(var(--status-margin, $status-margin) / 2);
   }
 }
 </style>

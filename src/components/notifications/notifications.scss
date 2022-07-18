@@ -11,10 +11,6 @@
     color: var(--text, $fallback--text);
   }
 
-  .notifications-footer {
-    border: none;
-  }
-
   .notification {
     position: relative;
 
@@ -47,6 +43,10 @@
     }
   }
 
+  &:last-child .Notification {
+    border-bottom: none;
+  }
+
   .non-mention {
     display: flex;
     flex: 1;
@@ -66,8 +66,6 @@
   }
 
   .follow-request-accept {
-    cursor: pointer;
-
     &:hover {
       color: $fallback--text;
       color: var(--text, $fallback--text);
@@ -75,8 +73,6 @@
   }
 
   .follow-request-reject {
-    cursor: pointer;
-
     &:hover {
       color: $fallback--cRed;
       color: var(--cRed, $fallback--cRed);
@@ -119,13 +115,13 @@
   }
 
   .emoji-reaction-emoji {
-    font-size: 16px;
+    font-size: 1.3em;
   }
 
   .notification-details {
-    min-width: 0px;
+    min-width: 0;
     word-wrap: break-word;
-    line-height:18px;
+    line-height: var(--post-line-height);
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -148,7 +144,7 @@
     }
 
     .timeago {
-      margin-right: .2em;
+      margin-right: 0.2em;
     }
 
     .status-content {
@@ -161,7 +157,8 @@
       margin: 0 0 0.3em;
       padding: 0;
       font-size: 1em;
-      line-height:20px;
+      line-height: 1.5;
+
       small {
         font-weight: lighter;
       }

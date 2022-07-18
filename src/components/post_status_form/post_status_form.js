@@ -78,6 +78,12 @@ const PostStatusForm = {
     'emojiPickerPlacement',
     'optimisticPosting'
   ],
+  emits: [
+    'posted',
+    'resize',
+    'mediaplay',
+    'mediapause'
+  ],
   components: {
     MediaUpload,
     EmojiInput,
@@ -480,7 +486,7 @@ const PostStatusForm = {
       const bottomBottomPaddingStr = window.getComputedStyle(bottomRef)['padding-bottom']
       const bottomBottomPadding = pxStringToNumber(bottomBottomPaddingStr)
 
-      const scrollerRef = this.$el.closest('.sidebar-scroller') ||
+      const scrollerRef = this.$el.closest('.column.-scrollable') ||
             this.$el.closest('.post-form-modal-view') ||
             window
 

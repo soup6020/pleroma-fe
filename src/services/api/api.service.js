@@ -9,6 +9,8 @@ const FOLLOW_IMPORT_URL = '/api/pleroma/follow_import'
 const DELETE_ACCOUNT_URL = '/api/pleroma/delete_account'
 const CHANGE_EMAIL_URL = '/api/pleroma/change_email'
 const CHANGE_PASSWORD_URL = '/api/pleroma/change_password'
+const MOVE_ACCOUNT_URL = '/api/pleroma/move_account'
+const ALIASES_URL = '/api/pleroma/aliases'
 const TAG_USER_URL = '/api/pleroma/admin/users/tag'
 const PERMISSION_GROUP_URL = (screenName, right) => `/api/pleroma/admin/users/${screenName}/permission_group/${right}`
 const ACTIVATE_USER_URL = '/api/pleroma/admin/users/activate'
@@ -88,6 +90,7 @@ const PLEROMA_CHAT_MESSAGES_URL = id => `/api/v1/pleroma/chats/${id}/messages`
 const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
 const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
+const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 
 const oldfetch = window.fetch
 
@@ -152,9 +155,15 @@ const updateNotificationSettings = ({ credentials, settings }) => {
   }).then((data) => data.json())
 }
 
-const updateProfileImages = ({ credentials, avatar = null, banner = null, background = null }) => {
+const updateProfileImages = ({ credentials, avatar = null, avatarName = null, banner = null, background = null }) => {
   const form = new FormData()
-  if (avatar !== null) form.append('avatar', avatar)
+  if (avatar !== null) {
+    if (avatarName !== null) {
+      form.append('avatar', avatar, avatarName)
+    } else {
+      form.append('avatar', avatar)
+    }
+  }
   if (banner !== null) form.append('header', banner)
   if (background !== null) form.append('pleroma_background_image', background)
   return fetch(MASTODON_PROFILE_UPDATE_URL, {
@@ -192,6 +201,7 @@ const updateProfile = ({ credentials, params }) => {
 // homepage
 // location
 // token
+// language
 const register = ({ params, credentials }) => {
   const { nickname, ...rest } = params
   return fetch(MASTODON_REGISTRATION_URL, {
@@ -789,6 +799,49 @@ const changeEmail = ({ credentials, email, password }) => {
     .then((response) => response.json())
 }
 
+const moveAccount = ({ credentials, password, targetAccount }) => {
+  const form = new FormData()
+
+  form.append('password', password)
+  form.append('target_account', targetAccount)
+
+  return fetch(MOVE_ACCOUNT_URL, {
+    body: form,
+    method: 'POST',
+    headers: authHeaders(credentials)
+  })
+    .then((response) => response.json())
+}
+
+const addAlias = ({ credentials, alias }) => {
+  return promisedRequest({
+    url: ALIASES_URL,
+    method: 'PUT',
+    credentials,
+    payload: { alias }
+  })
+}
+
+const deleteAlias = ({ credentials, alias }) => {
+  return promisedRequest({
+    url: ALIASES_URL,
+    method: 'DELETE',
+    credentials,
+    payload: { alias }
+  })
+}
+
+const listAliases = ({ credentials }) => {
+  return promisedRequest({
+    url: ALIASES_URL,
+    method: 'GET',
+    credentials,
+    params: {
+      _cacheBooster: (new Date()).getTime()
+    }
+  })
+}
+
 const changePassword = ({ credentials, password, newPassword, newPasswordConfirmation }) => {
   const form = new FormData()
 
@@ -873,6 +926,25 @@ const unsubscribeUser = ({ id, credentials }) => {
 const fetchBlocks = ({ credentials }) => {
   return promisedRequest({ url: MASTODON_USER_BLOCKS_URL, credentials })
     .then((users) => users.map(parseUser))
+}
+
+const addBackup = ({ credentials }) => {
+  return promisedRequest({
+    url: PLEROMA_BACKUP_URL,
+    method: 'POST',
+    credentials
+  })
+}
+
+const listBackups = ({ credentials }) => {
+  return promisedRequest({
+    url: PLEROMA_BACKUP_URL,
+    method: 'GET',
+    credentials,
+    params: {
+      _cacheBooster: (new Date()).getTime()
+    }
+  })
 }
 
 const fetchOAuthTokens = ({ credentials }) => {
@@ -1358,12 +1430,18 @@ const apiService = {
   importFollows,
   deleteAccount,
   changeEmail,
+  moveAccount,
+  addAlias,
+  deleteAlias,
+  listAliases,
   changePassword,
   settingsMFA,
   mfaDisableOTP,
   generateMfaBackupCodes,
   mfaSetupOTP,
   mfaConfirmOTP,
+  addBackup,
+  listBackups,
   fetchFollowRequests,
   approveUser,
   denyUser,

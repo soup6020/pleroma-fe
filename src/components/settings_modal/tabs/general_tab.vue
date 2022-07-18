@@ -4,7 +4,11 @@
       <h2>{{ $t('settings.interface') }}</h2>
       <ul class="setting-list">
         <li>
-          <interface-language-switcher />
+          <interface-language-switcher
+            :prompt-text="$t('settings.interfaceLanguage')"
+            :language="language"
+            :set-language="val => language = val"
+          />
         </li>
         <li v-if="instanceSpecificPanelPresent">
           <BooleanSetting path="hideISP">
@@ -59,6 +63,26 @@
           >
             {{ $t('settings.virtual_scrolling') }}
           </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="disableStickyHeaders">
+            {{ $t('settings.disable_sticky_headers') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="showScrollbars">
+            {{ $t('settings.show_scrollbars') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <ChoiceSetting
+            v-if="user"
+            id="thirdColumnMode"
+            path="thirdColumnMode"
+            :options="thirdColumnModeOptions"
+          >
+            {{ $t('settings.third_column_mode') }}
+          </ChoiceSetting>
         </li>
         <li>
           <BooleanSetting

@@ -1,6 +1,9 @@
-import { set, delete as del } from 'vue'
+import Cookies from 'js-cookie'
 import { setPreset, applyTheme } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
+import localeService from '../services/locale/locale.service.js'
+
+const BACKEND_LANGUAGE_COOKIE_NAME = 'userLanguage'
 
 const browserLocale = (window.navigator.language || 'en').split('-')[0]
 
@@ -47,6 +50,7 @@ export const defaultState = {
   pauseOnUnfocused: true,
   stopGifs: true,
   replyVisibility: 'all',
+  thirdColumnMode: 'notifications',
   notificationVisibility: {
     follows: true,
     mentions: true,
@@ -56,7 +60,8 @@ export const defaultState = {
     emojiReactions: true,
     followRequest: true,
     reports: true,
-    chatMention: true
+    chatMention: true,
+    polls: true
   },
   webPushNotifications: false,
   muteWords: [],
@@ -75,6 +80,8 @@ export const defaultState = {
   playVideosInModal: false,
   useOneClickNsfw: false,
   useContainFit: true,
+  disableStickyHeaders: false,
+  showScrollbars: false,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default
@@ -123,14 +130,14 @@ const config = {
   },
   mutations: {
     setOption (state, { name, value }) {
-      set(state, name, value)
+      state[name] = value
     },
     setHighlight (state, { user, color, type }) {
       const data = this.state.config.highlight[user]
       if (color || type) {
-        set(state.highlight, user, { color: color || data.color, type: type || data.type })
+        state.highlight[user] = { color: color || data.color, type: type || data.type }
       } else {
-        del(state.highlight, user)
+        delete state.highlight[user]
       }
     }
   },
@@ -164,6 +171,10 @@ const config = {
           break
         case 'interfaceLanguage':
           messages.setLanguage(this.getters.i18n, value)
+          Cookies.set(BACKEND_LANGUAGE_COOKIE_NAME, localeService.internalToBackendLocale(value))
+          break
+        case 'thirdColumnMode':
+          dispatch('setLayoutWidth', undefined)
           break
       }
     }

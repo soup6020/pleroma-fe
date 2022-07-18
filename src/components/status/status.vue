@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="!hideStatus"
+    ref="root"
     class="Status"
     :class="[{ '-focused': isFocused }, { '-conversation': inlineExpanded }]"
   >
@@ -77,7 +78,7 @@
         <UserAvatar
           v-if="retweet"
           class="left-side repeater-avatar"
-          :bot="botIndicator"
+          :bot="rtBotIndicator"
           :better-shadow="betterShadow"
           :user="statusoid.user"
         />
@@ -100,6 +101,7 @@
               :to="retweeterProfileLink"
             >{{ retweeter }}</router-link>
           </span>
+          {{ ' ' }}
           <FAIcon
             icon="retweet"
             class="repeat-icon"
@@ -120,17 +122,18 @@
           v-if="!noHeading"
           class="left-side"
         >
-          <router-link
-            :to="userProfileLink"
-            @click.stop.prevent.capture.native="toggleUserExpanded"
+          <a
+            :href="$router.resolve(userProfileLink).href"
+            @click.stop.prevent.capture="toggleUserExpanded"
           >
             <UserAvatar
+              class="post-avatar"
               :bot="botIndicator"
               :compact="compact"
               :better-shadow="betterShadow"
               :user="status.user"
             />
-          </router-link>
+          </a>
         </div>
         <div class="right-side">
           <UserCard
@@ -190,7 +193,7 @@
                 <span
                   v-if="status.visibility"
                   class="visibility-icon"
-                  :title="status.visibility | capitalize"
+                  :title="visibilityLocalized"
                 >
                   <FAIcon
                     fixed-width
@@ -273,6 +276,7 @@
                       icon="reply"
                       flip="horizontal"
                     />
+                    {{ ' ' }}
                     <span
                       class="reply-to-text"
                     >
@@ -292,7 +296,6 @@
                   :url="replyProfileLink"
                   :user-id="status.in_reply_to_user_id"
                   :user-screen-name="status.in_reply_to_screen_name"
-                  :first-mention="false"
                 />
               </span>
 
@@ -454,6 +457,7 @@
       >
         <div class="left-side">
           <UserAvatar
+            class="post-avatar"
             :compact="compact"
             :bot="botIndicator"
           />

@@ -1,4 +1,3 @@
-
 <template>
   <label
     class="Select input"
@@ -6,11 +5,12 @@
   >
     <select
       :disabled="disabled"
-      :value="value"
-      @change="$emit('change', $event.target.value)"
+      :value="modelValue"
+      @change="$emit('update:modelValue', $event.target.value)"
     >
       <slot />
     </select>
+    {{ ' ' }}
     <FAIcon
       class="select-down-icon"
       icon="chevron-down"
@@ -23,7 +23,8 @@
 <style lang="scss">
 @import '../../_variables.scss';
 
-.Select {
+/* TODO fix order of styles */
+label.Select {
   padding: 0;
 
   select {
@@ -38,10 +39,10 @@
     padding: 0 2em 0 .2em;
     font-family: sans-serif;
     font-family: var(--inputFont, sans-serif);
-    font-size: 14px;
+    font-size: 1em;
     width: 100%;
     z-index: 1;
-    height: 28px;
+    height: 2em;
     line-height: 16px;
   }
 
@@ -54,7 +55,7 @@
     width: 0.875em;
     color: $fallback--text;
     color: var(--inputText, $fallback--text);
-    line-height: 28px;
+    line-height: 2;
     z-index: 0;
     pointer-events: none;
   }

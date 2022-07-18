@@ -12,6 +12,7 @@
       <div class="reaction-picker-filter">
         <input
           v-model="filterWord"
+          @input="$event.target.composing = false"
           size="1"
           :placeholder="$t('emoji.search_emoji')"
         >
@@ -101,7 +102,7 @@
       cursor: pointer;
 
       flex-basis: 20%;
-      line-height: 1.5em;
+      line-height: 1.5;
       align-content: center;
 
       &:hover {
