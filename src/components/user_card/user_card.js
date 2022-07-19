@@ -37,9 +37,8 @@ export default {
     'hideBio',
     'rounded',
     'bordered',
-    'allowZoomingAvatar',
-    'onClose',
-    'onAvatarClick'
+    'avatarAction', // default - open profile, 'zoom' - zoom, function - call function
+    'onClose'
   ],
   data () {
     return {

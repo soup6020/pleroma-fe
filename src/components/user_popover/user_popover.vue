@@ -3,7 +3,7 @@
   trigger="click"
   popover-class="popover-default user-popover"
   :overlay-centers-selector="overlayCentersSelector || '.user-info .Avatar'"
-  :overlay-centers="overlayCenters"
+  :overlay-centers="overlayCenters && userPopoverOverlay"
   :disabled="disabled"
 >
   <template v-slot:trigger>
@@ -14,8 +14,7 @@
       class="user-popover"
       :user-id="userId"
       :hide-bio="true"
-      :allow-zooming-avatar="userPopoverZoom"
-      :on-avatar-click="userPopoverZoom ? null : close"
+      :avatar-action="userPopoverZoom ? 'zoom' : close"
       :on-close="close"
     />
   </template>

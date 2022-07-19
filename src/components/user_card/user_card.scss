@@ -133,23 +133,27 @@
       min-width: 0;
     }
 
+    > a {
+      vertical-align: middle;
+      display: flex;
+    }
+
     .Avatar {
       --_avatarShadowBox: var(--avatarShadow);
       --_avatarShadowFilter: var(--avatarShadowFilter);
       --_avatarShadowInset: var(--avatarShadowInset);
 
-      flex: 1 0 100%;
       width: 56px;
       height: 56px;
       object-fit: cover;
     }
   }
 
-  &-avatar-link {
+  &-avatar {
     position: relative;
     cursor: pointer;
 
-    &-overlay {
+    &.-overlay {
       position: absolute;
       left: 0;
       top: 0;
@@ -169,7 +173,7 @@
       }
     }
 
-    &:hover &-overlay {
+    &:hover &.-overlay {
       opacity: 1;
     }
   }

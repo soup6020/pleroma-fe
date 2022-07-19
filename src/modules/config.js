@@ -82,6 +82,7 @@ export const defaultState = {
   disableStickyHeaders: false,
   showScrollbars: false,
   userPopoverZoom: false,
+  userPopoverOverlay: true,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default

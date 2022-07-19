@@ -80,6 +80,11 @@
           </BooleanSetting>
         </li>
         <li>
+          <BooleanSetting path="userPopoverOverlay">
+            {{ $t('settings.user_popover_avatar_overlay') }}
+          </BooleanSetting>
+        </li>
+        <li>
           <ChoiceSetting
             v-if="user"
             id="thirdColumnMode"

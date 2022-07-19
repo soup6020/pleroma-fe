@@ -13,6 +13,9 @@ const UserPopover = {
   computed: {
     userPopoverZoom () {
       return this.$store.getters.mergedConfig.userPopoverZoom
+    },
+    userPopoverOverlay () {
+      return this.$store.getters.mergedConfig.userPopoverOverlay
     }
   }
 }

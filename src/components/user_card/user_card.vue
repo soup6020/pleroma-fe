@@ -12,25 +12,31 @@
       <div class="user-info">
         <div class="container">
           <a
-            v-if="allowZoomingAvatar"
-            class="user-info-avatar-link"
+            v-if="avatarAction === 'zoom'"
+            class="user-info-avatar -link"
             @click="zoomAvatar"
           >
             <UserAvatar
               :better-shadow="betterShadow"
               :user="user"
             />
-            <div class="user-info-avatar-link-overlay">
+            <div class="user-info-avatar -link -overlay">
               <FAIcon
                 class="fa-scale-110 fa-old-padding"
                 icon="search-plus"
               />
             </div>
           </a>
+          <UserAvatar
+            v-else-if="typeof avatarAction === 'function'"
+            @click="avatarAction"
+            class="user-info-avatar"
+            :better-shadow="betterShadow"
+            :user="user"
+          />
           <router-link
             v-else
             :to="userProfileLink(user)"
-            @click="onAvatarClickHandler"
           >
             <UserAvatar
               :better-shadow="betterShadow"
