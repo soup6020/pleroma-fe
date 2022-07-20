@@ -317,6 +317,7 @@
                   class="mentions-line-first"
                 />
               </span>
+              {{ ' ' }}
               <MentionsLine
                 v-if="hasMentionsLine"
                 :mentions="mentionsLine.slice(1)"
