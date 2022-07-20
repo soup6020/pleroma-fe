@@ -14,16 +14,16 @@
         v-if="!isCurrentUser"
         class="avatar-wrapper"
       >
-        <router-link
+        <UserPopover
           v-if="chatViewItem.isHead"
-          :to="userProfileLink"
+          :userId="author.id"
         >
           <UserAvatar
             :compact="true"
             :better-shadow="betterShadow"
             :user="author"
           />
-        </router-link>
+        </UserPopover>
       </div>
       <div class="chat-message-inner">
         <div
