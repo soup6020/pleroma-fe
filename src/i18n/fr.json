@@ -51,7 +51,8 @@
         "scope_in_timeline": {
             "direct": "Direct",
             "public": "Publique",
-            "private": "Abonné⋅e⋅s seulement"
+            "private": "Abonné⋅e⋅s seulement",
+            "unlisted": "Non-listé"
         }
     },
     "image_cropper": {
@@ -744,7 +745,7 @@
         "unmute_progress": "Démasquage…",
         "mute_progress": "Masquage…",
         "admin_menu": {
-            "moderation": "Moderation",
+            "moderation": "Modération",
             "grant_admin": "Promouvoir Administrateur⋅ice",
             "revoke_admin": "Dégrader Administrateur⋅ice",
             "grant_moderator": "Promouvoir Modérateur⋅ice",
@@ -859,7 +860,7 @@
             "mrf_policies": "Politiques MRF actives",
             "mrf_policies_desc": "Les politiques MRF modifient la fédération entre les instances. Les politiques suivantes sont activées :"
         },
-        "staff": "Staff"
+        "staff": "Équipe"
     },
     "domain_mute_card": {
         "mute": "Masqué",
