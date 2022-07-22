@@ -824,7 +824,10 @@
         "media_nsfw": "强制设置媒体为敏感内容",
         "media_removal_desc": "本实例移除来自以下实例的媒体内容：",
         "ftl_removal_desc": "该实例在从“已知网络”时间线上移除了下列实例：",
-        "ftl_removal": "从“已知网络”时间线上移除"
+        "ftl_removal": "从“已知网络”时间线上移除",
+        "reason": "理由",
+        "not_applicable": "无",
+        "instance": "实例"
       },
       "mrf_policies_desc": "MRF 策略会影响本实例的互通行为。以下策略已启用：",
       "mrf_policies": "已启用的 MRF 策略",
