@@ -30,7 +30,7 @@ module.exports = {
     }
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.vue'],
+    extensions: ['.mjs', '.js', '.jsx', '.vue'],
     modules: [
       path.join(__dirname, '../node_modules')
     ],
@@ -108,6 +108,11 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
     ]
   },
   plugins: [
