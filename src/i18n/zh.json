@@ -15,7 +15,8 @@
     "title": "功能",
     "who_to_follow": "推荐关注",
     "pleroma_chat_messages": "Pleroma 聊天",
-    "upload_limit": "上传限制"
+    "upload_limit": "上传限制",
+    "shout": "留言板"
   },
   "finder": {
     "error_fetching_user": "获取用户时发生错误",
@@ -628,7 +629,9 @@
     "add_backup_error": "添加新备份时出错：{error}",
     "add_alias_error": "添加别名时出错：{error}",
     "move_account_notes": "如果你想把账号移动到别的地方，你必须去目标账号，然后加一个指向这里的别名。",
-    "wordfilter": "词语过滤器"
+    "wordfilter": "词语过滤器",
+    "user_profiles": "用户资料",
+    "third_column_mode_notifications": "消息栏"
   },
   "time": {
     "day": "{0} 天",
