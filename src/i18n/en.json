@@ -334,6 +334,8 @@
     "select_all": "Select all"
   },
   "settings": {
+    "add_language": "Add another language",
+    "remove_language": "Remove",
     "app_name": "App name",
     "expert_mode": "Show advanced",
     "save": "Save changes",
