@@ -184,7 +184,10 @@ const config = {
         case 'interfaceLanguage':
           messages.setLanguage(this.getters.i18n, value)
           dispatch('loadUnicodeEmojiData', value)
-          Cookies.set(BACKEND_LANGUAGE_COOKIE_NAME, localeService.internalToBackendLocale(value))
+          Cookies.set(
+            BACKEND_LANGUAGE_COOKIE_NAME,
+            localeService.internalToBackendLocaleMulti(value)
+          )
           break
         case 'thirdColumnMode':
           dispatch('setLayoutWidth', undefined)
