@@ -118,7 +118,9 @@
 
   a {
     display: block;
-    padding: 0.6em 0.65em;
+    padding: 0 0.65em;
+    height: 3.5em;
+    line-height: 3.5em;
 
     &:hover {
       background-color: $fallback--lightBg;
