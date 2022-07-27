@@ -8,7 +8,7 @@
         :user-id="userId"
         :switcher="true"
         :selected="timeline.viewing"
-        :avatar-action="zoom"
+        avatar-action="zoom"
         rounded="top"
       />
       <div
