@@ -58,7 +58,9 @@ const Popover = {
       oldSize: { width: 0, height: 0 },
       scrollable: null,
       // used to avoid blinking if hovered onto popover
-      graceTimeout: null
+      graceTimeout: null,
+      parentPopover: null,
+      childrenShown: new Set()
     }
   },
   methods: {
@@ -203,6 +205,7 @@ const Popover = {
       this.pinned = false
       const wasHidden = this.hidden
       this.hidden = false
+      this.parentPopover && this.parentPopover.onChildPopoverState(this, true)
       if (this.trigger === 'click' || this.stayOnClick) {
         document.addEventListener('click', this.onClickOutside)
       }
@@ -217,6 +220,7 @@ const Popover = {
       if (this.disabled) return
       if (!this.hidden) this.$emit('close')
       this.hidden = true
+      this.parentPopover && this.parentPopover.onChildPopoverState(this, false)
       if (this.trigger === 'click') {
         document.removeEventListener('click', this.onClickOutside)
       }
@@ -232,7 +236,7 @@ const Popover = {
       }
     },
     onMouseleave (e) {
-      if (this.trigger === 'hover' && !this.pinned) {
+      if (this.trigger === 'hover' && !this.pinned && this.childrenShown.size > 0) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -245,7 +249,7 @@ const Popover = {
       }
     },
     onMouseleaveContent (e) {
-      if (this.trigger === 'hover' && !this.pinned) {
+      if (this.trigger === 'hover' && !this.pinned && this.childrenShown.size > 0) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -262,7 +266,9 @@ const Popover = {
       if (this.hidden) return
       if (this.$refs.content.contains(e.target)) return
       if (this.$el.contains(e.target)) return
+      if (this.childrenShown.size > 0) return
       this.hidePopover()
+      if (this.parentPopover) this.parentPopover.onClickOutside(e)
     },
     onClickContent (e) {
       if (this.trigger === 'hover' && this.stayOnClick) {
@@ -274,6 +280,13 @@ const Popover = {
     },
     onResize (e) {
       this.updateStyles()
+    },
+    onChildPopoverState (childRef, state) {
+      if (state) {
+        this.childrenShown.add(childRef)
+      } else {
+        this.childrenShown.delete(childRef)
+      }
     }
   },
   updated () {
@@ -292,6 +305,11 @@ const Popover = {
         this.$refs.trigger.closest('.mobile-notifications')
     if (!scrollable) scrollable = window
     this.scrollable = scrollable
+    let parent = this.$parent
+    while (parent && parent.$.type.name !== 'Popover') {
+      parent = parent.$parent
+    }
+    this.parentPopover = parent
   },
   beforeUnmount () {
     this.hidePopover()
