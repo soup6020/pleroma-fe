@@ -28,15 +28,6 @@
             class="popover-inner"
             :close="hidePopover"
           />
-          <div
-            v-if="stayOnClick && pinned"
-            class="pinned-tooltip-icon popover popover-default"
-          >
-            <FAIcon
-              icon="thumbtack"
-              class="faint"
-            />
-          </div>
         </div>
       </transition>
     </teleport>
@@ -59,17 +50,6 @@
   max-width: calc(100vw - 20px);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   box-shadow: var(--popupShadow);
-}
-
-.pinned-tooltip-icon {
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  width: 2em;
-  height: 2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .popover-default {

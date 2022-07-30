@@ -53,7 +53,6 @@ const Popover = {
       // with popovers refusing to be hidden when user wants to interact with something in below popover
       lockReEntry: false,
       hidden: true,
-      pinned: false,
       styles: {},
       oldSize: { width: 0, height: 0 },
       scrollable: null,
@@ -202,7 +201,6 @@ const Popover = {
     },
     showPopover () {
       if (this.disabled) return
-      this.pinned = false
       const wasHidden = this.hidden
       this.hidden = false
       this.parentPopover && this.parentPopover.onChildPopoverState(this, true)
@@ -236,7 +234,7 @@ const Popover = {
       }
     },
     onMouseleave (e) {
-      if (this.trigger === 'hover' && !this.pinned && this.childrenShown.size > 0) {
+      if (this.trigger === 'hover' && this.childrenShown.size > 0) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -249,7 +247,7 @@ const Popover = {
       }
     },
     onMouseleaveContent (e) {
-      if (this.trigger === 'hover' && !this.pinned && this.childrenShown.size > 0) {
+      if (this.trigger === 'hover' && this.childrenShown.size === 0) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -269,11 +267,6 @@ const Popover = {
       if (this.childrenShown.size > 0) return
       this.hidePopover()
       if (this.parentPopover) this.parentPopover.onClickOutside(e)
-    },
-    onClickContent (e) {
-      if (this.trigger === 'hover' && this.stayOnClick) {
-        this.pinned = true
-      }
     },
     onScroll (e) {
       this.updateStyles()
