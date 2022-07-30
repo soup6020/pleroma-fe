@@ -262,7 +262,7 @@ const Popover = {
     },
     onClickOutside (e) {
       if (this.hidden) return
-      if (this.$refs.content.contains(e.target)) return
+      if (this.$refs.content && this.$refs.content.contains(e.target)) return
       if (this.$el.contains(e.target)) return
       if (this.childrenShown.size > 0) return
       this.hidePopover()
