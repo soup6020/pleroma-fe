@@ -124,13 +124,17 @@ const Popover = {
         const leftInnerOffset = overlayCenterScreenBox.left - box.left
         const topInnerOffset = overlayCenterScreenBox.top - box.top
         horizOffset = -leftInnerOffset - overlayCenter.offsetWidth * 0.5
-        vertOffset = -topInnerOffset - overlayCenter.offsetWidth * 0.5
+        vertOffset = -topInnerOffset - overlayCenter.offsetHeight * 0.5
       } else {
         horizOffset = content.offsetWidth * -0.5
-        vertOffset = content.offsetWidth * -0.5
+        vertOffset = content.offsetHeight * -0.5
       }
+
       const leftBorder = origin.x + horizOffset
-      const rightBorder = origin.x - horizOffset
+      const rightBorder = leftBorder + content.offsetWidth
+      const topBorder = origin.y + vertOffset
+      const bottomBorder = topBorder + content.offsetHeight
+
       // If overflowing from left, move it so that it doesn't
       if (leftBorder < xBounds.min) {
         horizOffset += xBounds.min - leftBorder
@@ -139,6 +143,16 @@ const Popover = {
       // If overflowing from right, move it so that it doesn't
       if (rightBorder > xBounds.max) {
         horizOffset -= rightBorder - xBounds.max
+      }
+
+      // If overflowing from top, move it so that it doesn't
+      if (topBorder < yBounds.min) {
+        vertOffset += yBounds.min - topBorder
+      }
+
+      // If overflowing from bottom, move it so that it doesn't
+      if (bottomBorder > yBounds.max) {
+        vertOffset -= bottomBorder - yBounds.max
       }
 
       let translateX = 0
