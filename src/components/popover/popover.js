@@ -40,7 +40,10 @@ const Popover = {
     overlayCenters: Boolean,
 
     // What selector (witin popover!) to use for determining center of popover
-    overlayCentersSelector: String
+    overlayCentersSelector: String,
+
+    // Lets hover popover stay when clicking inside of it
+    stayOnClick: Boolean
   },
   inject: ['popoversZLayer'], // override popover z layer
   data () {
@@ -50,6 +53,7 @@ const Popover = {
       // with popovers refusing to be hidden when user wants to interact with something in below popover
       lockReEntry: false,
       hidden: true,
+      pinned: false,
       styles: {},
       oldSize: { width: 0, height: 0 },
       scrollable: null,
@@ -196,9 +200,10 @@ const Popover = {
     },
     showPopover () {
       if (this.disabled) return
+      this.pinned = false
       const wasHidden = this.hidden
       this.hidden = false
-      if (this.trigger === 'click') {
+      if (this.trigger === 'click' || this.stayOnClick) {
         document.addEventListener('click', this.onClickOutside)
       }
       this.scrollable.addEventListener('scroll', this.onScroll)
@@ -227,7 +232,7 @@ const Popover = {
       }
     },
     onMouseleave (e) {
-      if (this.trigger === 'hover') {
+      if (this.trigger === 'hover' && !this.pinned) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -240,7 +245,7 @@ const Popover = {
       }
     },
     onMouseleaveContent (e) {
-      if (this.trigger === 'hover') {
+      if (this.trigger === 'hover' && !this.pinned) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
@@ -258,6 +263,11 @@ const Popover = {
       if (this.$refs.content.contains(e.target)) return
       if (this.$el.contains(e.target)) return
       this.hidePopover()
+    },
+    onClickContent (e) {
+      if (this.trigger === 'hover' && this.stayOnClick) {
+        this.pinned = true
+      }
     },
     onScroll (e) {
       this.updateStyles()
