@@ -343,6 +343,7 @@ const fetchFriends = ({ id, maxId, sinceId, limit = 20, credentials }) => {
 }
 
 const exportFriends = ({ id, credentials }) => {
+  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
       let friends = []
