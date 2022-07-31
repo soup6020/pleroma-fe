@@ -138,6 +138,7 @@ export const topoSort = (
     if (depsA === depsB || (depsB !== 0 && depsA !== 0)) return ai - bi
     if (depsA === 0 && depsB !== 0) return -1
     if (depsB === 0 && depsA !== 0) return 1
+    return 0 // failsafe, shouldn't happen?
   }).map(({ data }) => data)
 }
 
