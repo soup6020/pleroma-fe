@@ -9,66 +9,58 @@
       class="original"
       target="_blank"
       v-html="content"
-    /><!-- eslint-enable vue/no-v-html --><span
-      v-if="user"
-      class="new"
-      :style="style"
-      :class="classnames"
+    /><!-- eslint-enable vue/no-v-html -->
+    <UserPopover
+      v-else
+      :userId="user.id"
+      :disabled="!shouldShowTooltip"
     >
-      <a
-        class="short button-unstyled"
-        :class="{ '-with-tooltip': shouldShowTooltip }"
-        :href="url"
-        @click.prevent="onClick"
+      <span
+        v-if="user"
+        class="new"
+        :style="style"
+        :class="classnames"
       >
-        <!-- eslint-disable vue/no-v-html -->
-        <UserAvatar
-          v-if="shouldShowAvatar"
-          class="mention-avatar"
-          :user="user"
-        /><span
-          class="shortName"
-        ><FAIcon
-          v-if="useAtIcon"
-          size="sm"
-          icon="at"
-          class="at"
-        />{{ !useAtIcon ? '@' : '' }}<span
-          class="userName"
-          v-html="userName"
-        /><span
-          v-if="shouldShowFullUserName"
-          class="serverName"
-          :class="{ '-faded': shouldFadeDomain }"
-          v-html="'@' + serverName"
-        />
-        </span>
-        <span
-          v-if="isYou && shouldShowYous"
-          :class="{ '-you': shouldBoldenYou }"
-        > {{ ' ' + $t('status.you') }}</span>
-        <!-- eslint-enable vue/no-v-html -->
-      </a><span
-        v-if="shouldShowTooltip"
-        class="full popover-default"
-        :class="[highlightType]"
-      >
-        <span
-          class="userNameFull"
+        <a
+          class="short button-unstyled"
+          :class="{ '-with-tooltip': shouldShowTooltip }"
+          :href="url"
+          @click.prevent="onClick"
         >
           <!-- eslint-disable vue/no-v-html -->
-          @<span
+          <UserAvatar
+            v-if="shouldShowAvatar"
+            class="mention-avatar"
+            :user="user"
+          /><span
+            class="shortName"
+          ><FAIcon
+            v-if="useAtIcon"
+            size="sm"
+            icon="at"
+            class="at"
+          />{{ !useAtIcon ? '@' : '' }}<span
             class="userName"
             v-html="userName"
           /><span
+            v-if="shouldShowFullUserName"
             class="serverName"
             :class="{ '-faded': shouldFadeDomain }"
             v-html="'@' + serverName"
           />
+          </span>
+          <span
+            v-if="isYou && shouldShowYous"
+            :class="{ '-you': shouldBoldenYou }"
+          > {{ ' ' + $t('status.you') }}</span>
           <!-- eslint-enable vue/no-v-html -->
+        </a><span class="full" ref="full">
+            <!-- eslint-disable vue/no-v-html -->
+            @<span v-html="userName" /><span v-html="'@' + serverName" />
+            <!-- eslint-enable vue/no-v-html -->
         </span>
       </span>
-    </span>
+    </UserPopover>
   </span>
 </template>
 

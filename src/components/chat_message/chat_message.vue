@@ -14,16 +14,16 @@
         v-if="!isCurrentUser"
         class="avatar-wrapper"
       >
-        <router-link
+        <UserPopover
           v-if="chatViewItem.isHead"
-          :to="userProfileLink"
+          :userId="author.id"
         >
           <UserAvatar
             :compact="true"
             :better-shadow="betterShadow"
             :user="author"
           />
-        </router-link>
+        </UserPopover>
       </div>
       <div class="chat-message-inner">
         <div
@@ -44,7 +44,7 @@
               <Popover
                 trigger="click"
                 placement="top"
-                :bound-to-selector="isCurrentUser ? '' : '.scrollable-message-list'"
+                bound-to-selector=".chat-view-inner"
                 :bound-to="{ x: 'container' }"
                 :margin="popoverMarginStyle"
                 @show="menuOpened = true"

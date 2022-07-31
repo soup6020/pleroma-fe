@@ -41,11 +41,11 @@ export default {
 .ServerSideIndicator {
   display: inline-block;
   position: relative;
+}
 
-  .serverside-tooltip {
-    margin: 0.5em 1em;
-    min-width: 10em;
-    text-align: center;
-  }
+.serverside-tooltip {
+  margin: 0.5em 1em;
+  min-width: 10em;
+  text-align: center;
 }
 </style>

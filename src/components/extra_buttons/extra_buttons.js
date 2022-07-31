@@ -89,6 +89,9 @@ const ExtraButtons = {
     canMute () {
       return !!this.currentUser
     },
+    canBookmark () {
+      return !!this.currentUser
+    },
     statusLink () {
       return `${this.$store.state.instance.server}${this.$router.resolve({ name: 'conversation', params: { id: this.status.id } }).href}`
     }

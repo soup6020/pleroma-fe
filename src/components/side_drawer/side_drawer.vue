@@ -211,7 +211,7 @@
 
 .side-drawer-container {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--ZI_navbar);
   top: 0;
   left: 0;
   width: 100%;
