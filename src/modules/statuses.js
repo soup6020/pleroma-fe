@@ -341,6 +341,7 @@ const addNewNotifications = (state, { dispatch, notifications, older, visibleNot
     }
 
     // Only add a new notification if we don't have one for the same action
+    // eslint-disable-next-line no-prototype-builtins
     if (!state.notifications.idStore.hasOwnProperty(notification.id)) {
       updateNotificationsMinMaxId(state, notification)
 

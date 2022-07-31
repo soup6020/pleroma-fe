@@ -361,6 +361,7 @@ const Status = {
       return uniqBy(combinedUsers, 'id')
     },
     tags () {
+      // eslint-disable-next-line no-prototype-builtins
       return this.status.tags.filter(tagObj => tagObj.hasOwnProperty('name')).map(tagObj => tagObj.name).join(' ')
     },
     hidePostStats () {

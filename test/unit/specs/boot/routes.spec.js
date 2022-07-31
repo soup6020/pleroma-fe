@@ -19,6 +19,7 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
+    // eslint-disable-next-line no-prototype-builtins
     expect(matchedComponents[0].components.default.components.hasOwnProperty('Timeline')).to.eql(true)
   })
 
@@ -27,6 +28,7 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
+    // eslint-disable-next-line no-prototype-builtins
     expect(matchedComponents[0].components.default.components.hasOwnProperty('UserCard')).to.eql(true)
   })
 
@@ -35,6 +37,7 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
+    // eslint-disable-next-line no-prototype-builtins
     expect(matchedComponents[0].components.default.components.hasOwnProperty('UserCard')).to.eql(true)
   })
 })
