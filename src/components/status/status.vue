@@ -122,27 +122,22 @@
           v-if="!noHeading"
           class="left-side"
         >
-          <a
-            :href="$router.resolve(userProfileLink).href"
-            @click.stop.prevent.capture="toggleUserExpanded"
-          >
-            <UserAvatar
-              class="post-avatar"
-              :bot="botIndicator"
-              :compact="compact"
-              :better-shadow="betterShadow"
-              :user="status.user"
-            />
+          <a :href="$router.resolve(userProfileLink).href" @click.prevent>
+            <UserPopover
+              :userId="status.user.id"
+              :overlayCenters="true"
+            >
+              <UserAvatar
+                class="post-avatar"
+                :bot="botIndicator"
+                :compact="compact"
+                :better-shadow="betterShadow"
+                :user="status.user"
+              />
+            </UserPopover>
           </a>
         </div>
         <div class="right-side">
-          <UserCard
-            v-if="userExpanded"
-            :user-id="status.user.id"
-            :rounded="true"
-            :bordered="true"
-            class="usercard"
-          />
           <div
             v-if="!noHeading"
             class="status-heading"
@@ -322,6 +317,7 @@
                   class="mentions-line-first"
                 />
               </span>
+              {{ ' ' }}
               <MentionsLine
                 v-if="hasMentionsLine"
                 :mentions="mentionsLine.slice(1)"

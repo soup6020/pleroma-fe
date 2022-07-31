@@ -1,24 +1,19 @@
 <template>
   <div class="basic-user-card">
-    <router-link :to="userProfileLink(user)">
-      <UserAvatar
-        class="avatar"
-        :user="user"
-        @click.prevent="toggleUserExpanded"
-      />
+    <router-link @click.prevent :to="userProfileLink(user)">
+      <UserPopover
+        :userId="user.id"
+        :overlayCenters="true"
+        overlayCentersSelector=".avatar"
+      >
+        <UserAvatar
+          class="user-avatar avatar"
+          :user="user"
+          @click.prevent
+        />
+      </UserPopover>
     </router-link>
     <div
-      v-if="userExpanded"
-      class="basic-user-card-expanded-content"
-    >
-      <UserCard
-        :user-id="user.id"
-        :rounded="true"
-        :bordered="true"
-      />
-    </div>
-    <div
-      v-else
       class="basic-user-card-collapsed-content"
     >
       <div
@@ -52,6 +47,8 @@
   flex: 1 0;
   margin: 0;
   padding: 0.6em 1em;
+
+   --emoji-size: 14px;
 
   &-collapsed-content {
     margin-left: 0.7em;

@@ -8,25 +8,32 @@
       :style="style"
       class="background-image"
     />
-    <div class="panel-heading -flexible-height">
+    <div :class="onClose ? '' : panel-heading -flexible-height">
       <div class="user-info">
         <div class="container">
           <a
-            v-if="allowZoomingAvatar"
-            class="user-info-avatar-link"
+            v-if="avatarAction === 'zoom'"
+            class="user-info-avatar -link"
             @click="zoomAvatar"
           >
             <UserAvatar
               :better-shadow="betterShadow"
               :user="user"
             />
-            <div class="user-info-avatar-link-overlay">
+            <div class="user-info-avatar -link -overlay">
               <FAIcon
                 class="fa-scale-110 fa-old-padding"
                 icon="search-plus"
               />
             </div>
           </a>
+          <UserAvatar
+            v-else-if="typeof avatarAction === 'function'"
+            @click="avatarAction"
+            class="user-info-avatar"
+            :better-shadow="betterShadow"
+            :user="user"
+          />
           <router-link
             v-else
             :to="userProfileLink(user)"
@@ -38,12 +45,16 @@
           </router-link>
           <div class="user-summary">
             <div class="top-line">
-              <RichContent
-                :title="user.name"
+              <router-link
+                :to="userProfileLink(user)"
                 class="user-name"
-                :html="user.name"
-                :emoji="user.emoji"
-              />
+              >
+                <RichContent
+                  :title="user.name"
+                  :html="user.name"
+                  :emoji="user.emoji"
+                />
+              </router-link>
               <button
                 v-if="!isOtherUser && user.is_local"
                 class="button-unstyled edit-profile-button"
@@ -72,6 +83,27 @@
                 :user="user"
                 :relationship="relationship"
               />
+              <router-link
+                v-if="onClose"
+                :to="userProfileLink(user)"
+                class="button-unstyled external-link-button"
+                @click="onClose"
+              >
+                <FAIcon
+                  class="icon"
+                  icon="expand-alt"
+                />
+              </router-link>
+              <button
+                v-if="onClose"
+                class="button-unstyled external-link-button"
+                @click="onClose"
+              >
+                <FAIcon
+                  class="icon"
+                  icon="times"
+                />
+              </button>
             </div>
             <div class="bottom-line">
               <router-link

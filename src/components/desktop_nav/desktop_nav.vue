@@ -38,7 +38,7 @@
         />
         <button
           class="button-unstyled nav-icon"
-          @click.stop="openSettingsModal"
+          @click="openSettingsModal"
         >
           <FAIcon
             fixed-width

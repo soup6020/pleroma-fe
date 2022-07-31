@@ -51,28 +51,30 @@
             icon="thumbtack"
           /><span>{{ $t("status.unpin") }}</span>
         </button>
-        <button
-          v-if="!status.bookmarked"
-          class="button-default dropdown-item dropdown-item-icon"
-          @click.prevent="bookmarkStatus"
-          @click="close"
-        >
-          <FAIcon
-            fixed-width
-            :icon="['far', 'bookmark']"
-          /><span>{{ $t("status.bookmark") }}</span>
-        </button>
-        <button
-          v-if="status.bookmarked"
-          class="button-default dropdown-item dropdown-item-icon"
-          @click.prevent="unbookmarkStatus"
-          @click="close"
-        >
-          <FAIcon
-            fixed-width
-            icon="bookmark"
-          /><span>{{ $t("status.unbookmark") }}</span>
-        </button>
+        <template v-if="canBookmark">
+          <button
+            v-if="!status.bookmarked"
+            class="button-default dropdown-item dropdown-item-icon"
+            @click.prevent="bookmarkStatus"
+            @click="close"
+          >
+            <FAIcon
+              fixed-width
+              :icon="['far', 'bookmark']"
+            /><span>{{ $t("status.bookmark") }}</span>
+          </button>
+          <button
+            v-if="status.bookmarked"
+            class="button-default dropdown-item dropdown-item-icon"
+            @click.prevent="unbookmarkStatus"
+            @click="close"
+          >
+            <FAIcon
+              fixed-width
+              icon="bookmark"
+            /><span>{{ $t("status.unbookmark") }}</span>
+          </button>
+        </template>
         <button
           v-if="canDelete"
           class="button-default dropdown-item dropdown-item-icon"
@@ -119,12 +121,12 @@
       </div>
     </template>
     <template v-slot:trigger>
-      <button class="button-unstyled popover-trigger">
+      <span class="button-unstyled popover-trigger">
         <FAIcon
           class="fa-scale-110 fa-old-padding"
           icon="ellipsis-h"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>

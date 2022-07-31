@@ -42,7 +42,7 @@
       </div>
       <div id="notifs-column" class="column -scrollable" :class="{ '-show-scrollbar': showScrollbars }"/>
     </div>
-    <media-modal />
+    <MediaModal />
     <shout-panel
       v-if="currentUser && shout && !hideShoutbox"
       :floating="true"
@@ -55,6 +55,7 @@
     <SettingsModal />
     <div id="modal" />
     <GlobalNoticeList />
+    <div id="popovers" />
   </div>
 </template>
 

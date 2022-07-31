@@ -13,8 +13,7 @@
       <span
         v-if="expanded"
         class="fullExtraMentions"
-      >
-        <MentionLink
+      >{{ ' ' }}<MentionLink
           v-for="mention in extraMentions"
           :key="mention.index"
           class="mention-link"

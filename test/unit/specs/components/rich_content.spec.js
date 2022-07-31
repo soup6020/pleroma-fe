@@ -4,7 +4,15 @@ import RichContent from 'src/components/rich_content/rich_content.jsx'
 const attentions = []
 const global = {
   mocks: {
-    '$store': null
+    '$store': {
+      state: {},
+      getters: {
+        mergedConfig: () => ({
+          mentionLinkShowTooltip: true
+        }),
+        findUserByUrl: () => null
+      }
+    }
   },
   stubs: {
     FAIcon: true
@@ -131,8 +139,7 @@ describe('RichContent', () => {
       ].join(''),
       [
         makeMention('John'),
-        makeMention('Josh'),
-        makeMention('Jeremy')
+        makeMention('Josh'), makeMention('Jeremy')
       ].join('')
     ].join('\n')
 
@@ -349,7 +356,6 @@ describe('RichContent', () => {
       p(
         '<span class="MentionsLine">',
         '<span class="MentionLink mention-link">',
-        '<!-- eslint-disable vue/no-v-html -->',
         '<a href="lol" class="original" target="_blank">',
         '<span>',
         'https://</span>',
@@ -358,10 +364,7 @@ describe('RichContent', () => {
         '<span>',
         '</span>',
         '</a>',
-        '<!-- eslint-enable vue/no-v-html -->',
-        '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
         '</span>',
-        '<!--v-if-->', // v-if placeholder, mentionsline's extra mentions and stuff
         '</span>'
       ),
       p(
@@ -380,7 +383,7 @@ describe('RichContent', () => {
       }
     })
 
-    expect(wrapper.html().replace(/\n/g, '')).to.eql(compwrap(expected))
+    expect(wrapper.html().replace(/\n/g, '').replace(/<!--.*?-->/g, '')).to.eql(compwrap(expected))
   })
 
   it('rich contents of nested mentions are handled properly', () => {
@@ -412,7 +415,6 @@ describe('RichContent', () => {
       '<span class="poast-style">',
       '<span class="MentionsLine">',
       '<span class="MentionLink mention-link">',
-      '<!-- eslint-disable vue/no-v-html -->',
       '<a href="lol" class="original" target="_blank">',
       '<span>',
       'https://</span>',
@@ -421,11 +423,8 @@ describe('RichContent', () => {
       '<span>',
       '</span>',
       '</a>',
-      '<!-- eslint-enable vue/no-v-html -->',
-      '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
       '</span>',
       '<span class="MentionLink mention-link">',
-      '<!-- eslint-disable vue/no-v-html -->',
       '<a href="lol" class="original" target="_blank">',
       '<span>',
       'https://</span>',
@@ -434,10 +433,7 @@ describe('RichContent', () => {
       '<span>',
       '</span>',
       '</a>',
-      '<!-- eslint-enable vue/no-v-html -->',
-      '<!--v-if-->', // v-if placeholder, mentionlink's "new" (i.e. rich) display
       '</span>',
-      '<!--v-if-->', // v-if placeholder, mentionsline's extra mentions and stuff
       '</span>',
       ' ',
       '</span>',
@@ -455,7 +451,7 @@ describe('RichContent', () => {
       }
     })
 
-    expect(wrapper.html().replace(/\n/g, '')).to.eql(compwrap(expected))
+    expect(wrapper.html().replace(/\n/g, '').replace(/<!--.*?-->/g, '')).to.eql(compwrap(expected))
   })
 
   it('rich contents of a link are handled properly', () => {

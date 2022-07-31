@@ -41,11 +41,11 @@ export default {
 .ModifiedIndicator {
   display: inline-block;
   position: relative;
+}
 
-  .modified-tooltip {
-    margin: 0.5em 1em;
-    min-width: 10em;
-    text-align: center;
-  }
+.modified-tooltip {
+  margin: 0.5em 1em;
+  min-width: 10em;
+  text-align: center;
 }
 </style>
