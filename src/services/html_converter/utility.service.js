@@ -50,7 +50,7 @@ export const processTextForEmoji = (text, emojis, processor) => {
     if (char === ':') {
       const next = text.slice(i + 1)
       let found = false
-      for (let emoji of emojis) {
+      for (const emoji of emojis) {
         if (next.slice(0, emoji.shortcode.length + 1) === (emoji.shortcode + ':')) {
           found = emoji
           break

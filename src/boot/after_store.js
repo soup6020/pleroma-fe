@@ -156,7 +156,7 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('hideSitename')
   copyInstanceOption('sidebarRight')
 
-  return store.dispatch('setTheme', config['theme'])
+  return store.dispatch('setTheme', config.theme)
 }
 
 const getTOS = async ({ store }) => {
@@ -197,7 +197,7 @@ const getStickers = async ({ store }) => {
       const stickers = (await Promise.all(
         Object.entries(values).map(async ([name, path]) => {
           const resPack = await window.fetch(path + 'pack.json')
-          var meta = {}
+          let meta = {}
           if (resPack.ok) {
             meta = await resPack.json()
           }

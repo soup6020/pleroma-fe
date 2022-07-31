@@ -12,6 +12,9 @@
 
 <script>
 export default {
+  provide: {
+    popoversZLayer: 'modals'
+  },
   props: {
     isOpen: {
       type: Boolean,
@@ -22,14 +25,11 @@ export default {
       default: false
     }
   },
-  provide: {
-    popoversZLayer: 'modals'
-  },
   computed: {
     classes () {
       return {
         'modal-background': !this.noBackground,
-        'open': this.isOpen
+        open: this.isOpen
       }
     }
   }

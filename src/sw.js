@@ -57,8 +57,8 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close()
 
   event.waitUntil(getWindowClients().then((list) => {
-    for (var i = 0; i < list.length; i++) {
-      var client = list[i]
+    for (let i = 0; i < list.length; i++) {
+      const client = list[i]
       if (client.url === '/' && 'focus' in client) { return client.focus() }
     }
 

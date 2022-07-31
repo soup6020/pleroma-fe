@@ -14,12 +14,12 @@
         v-if="expanded"
         class="fullExtraMentions"
       >{{ ' ' }}<MentionLink
-          v-for="mention in extraMentions"
-          :key="mention.index"
-          class="mention-link"
-          :content="mention.content"
-          :url="mention.url"
-        />
+        v-for="mention in extraMentions"
+        :key="mention.index"
+        class="mention-link"
+        :content="mention.content"
+        :url="mention.url"
+      />
       </span><button
         v-if="!expanded"
         class="button-unstyled showMoreLess"
@@ -36,5 +36,5 @@
     </span>
   </span>
 </template>
-<script src="./mentions_line.js" ></script>
+<script src="./mentions_line.js"></script>
 <style lang="scss" src="./mentions_line.scss" />

@@ -39,7 +39,7 @@ import { LAYERS, DEFAULT_OPACITY, SLOT_INHERITANCE } from './pleromafe.js'
 export const CURRENT_VERSION = 3
 
 export const getLayersArray = (layer, data = LAYERS) => {
-  let array = [layer]
+  const array = [layer]
   let parent = data[layer]
   while (parent) {
     array.unshift(parent)

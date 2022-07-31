@@ -1,16 +1,16 @@
 <template>
   <Popover
+    ref="popover"
     trigger="hover"
     :stay-on-click="true"
     popover-class="popover-default status-popover"
     :bound-to="{ x: 'container' }"
     @show="enter"
-    ref="popover"
   >
-    <template v-slot:trigger>
+    <template #trigger>
       <slot />
     </template>
-    <template v-slot:content>
+    <template #content>
       <Status
         v-if="status"
         :is-preview="true"
@@ -37,7 +37,7 @@
   </Popover>
 </template>
 
-<script src="./status_popover.js" ></script>
+<script src="./status_popover.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';

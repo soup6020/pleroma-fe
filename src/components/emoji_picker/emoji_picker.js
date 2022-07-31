@@ -25,7 +25,7 @@ const filterByKeyword = (list, keyword = '') => {
   if (keyword === '') return list
 
   const keywordLowercase = keyword.toLowerCase()
-  let orderedEmojiList = []
+  const orderedEmojiList = []
   for (const emoji of list) {
     const indexOfKeyword = emoji.displayText.toLowerCase().indexOf(keywordLowercase)
     if (indexOfKeyword > -1) {

@@ -245,10 +245,10 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
   }
 
   const processors = {
-    'status': (status) => {
+    status: (status) => {
       addStatus(status, showImmediately)
     },
-    'retweet': (status) => {
+    retweet: (status) => {
       // RetweetedStatuses are never shown immediately
       const retweetedStatus = addStatus(status.retweeted_status, false, false)
 
@@ -270,7 +270,7 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
 
       retweet.retweeted_status = retweetedStatus
     },
-    'favorite': (favorite) => {
+    favorite: (favorite) => {
       // Only update if this is a new favorite.
       // Ignore our own favorites because we get info about likes as response to like request
       if (!state.favorites.has(favorite.id)) {
@@ -278,7 +278,7 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
         favoriteStatus(favorite)
       }
     },
-    'deletion': (deletion) => {
+    deletion: (deletion) => {
       const uri = deletion.uri
       const status = find(allStatuses, { uri })
       if (!status) {
@@ -292,10 +292,10 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
         remove(timelineObject.visibleStatuses, { uri })
       }
     },
-    'follow': (follow) => {
+    follow: (follow) => {
       // NOOP, it is known status but we don't do anything about it for now
     },
-    'default': (unknown) => {
+    default: (unknown) => {
       console.log('unknown status type')
       console.log(unknown)
     }
@@ -303,7 +303,7 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
 
   each(statuses, (status) => {
     const type = status.type
-    const processor = processors[type] || processors['default']
+    const processor = processors[type] || processors.default
     processor(status)
   })
 
@@ -522,7 +522,7 @@ export const mutations = {
   },
   addEmojiReactionsBy (state, { id, emojiReactions, currentUser }) {
     const status = state.allStatusesObject[id]
-    status['emoji_reactions'] = emojiReactions
+    status.emoji_reactions = emojiReactions
   },
   addOwnReaction (state, { id, emoji, currentUser }) {
     const status = state.allStatusesObject[id]
@@ -543,7 +543,7 @@ export const mutations = {
     if (reactionIndex >= 0) {
       status.emoji_reactions[reactionIndex] = newReaction
     } else {
-      status['emoji_reactions'] = [...status.emoji_reactions, newReaction]
+      status.emoji_reactions = [...status.emoji_reactions, newReaction]
     }
   },
   removeOwnReaction (state, { id, emoji, currentUser }) {
@@ -564,7 +564,7 @@ export const mutations = {
     if (newReaction.count > 0) {
       status.emoji_reactions[reactionIndex] = newReaction
     } else {
-      status['emoji_reactions'] = status.emoji_reactions.filter(r => r.name !== emoji)
+      status.emoji_reactions = status.emoji_reactions.filter(r => r.name !== emoji)
     }
   },
   updateStatusWithPoll (state, { id, poll }) {

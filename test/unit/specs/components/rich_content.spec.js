@@ -4,7 +4,7 @@ import RichContent from 'src/components/rich_content/rich_content.jsx'
 const attentions = []
 const global = {
   mocks: {
-    '$store': {
+    $store: {
       state: {},
       getters: {
         mergedConfig: () => ({

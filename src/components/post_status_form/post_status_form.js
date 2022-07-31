@@ -41,7 +41,7 @@ const buildMentionsString = ({ user, attentions = [] }, currentUser) => {
   allAttentions = uniqBy(allAttentions, 'id')
   allAttentions = reject(allAttentions, { id: currentUser.id })
 
-  let mentions = map(allAttentions, (attention) => {
+  const mentions = map(allAttentions, (attention) => {
     return `@${attention.screen_name}`
   })
 
@@ -242,7 +242,7 @@ const PostStatusForm = {
     })
   },
   watch: {
-    'newStatus': {
+    newStatus: {
       deep: true,
       handler () {
         this.statusChanged()
@@ -273,7 +273,7 @@ const PostStatusForm = {
           this.$refs.textarea.focus()
         })
       }
-      let el = this.$el.querySelector('textarea')
+      const el = this.$el.querySelector('textarea')
       el.style.height = 'auto'
       el.style.height = undefined
       this.error = null
@@ -392,7 +392,7 @@ const PostStatusForm = {
       this.$emit('resize', { delayed: true })
     },
     removeMediaFile (fileInfo) {
-      let index = this.newStatus.files.indexOf(fileInfo)
+      const index = this.newStatus.files.indexOf(fileInfo)
       this.newStatus.files.splice(index, 1)
       this.$emit('resize')
     },
@@ -462,7 +462,7 @@ const PostStatusForm = {
     },
     onEmojiInputInput (e) {
       this.$nextTick(() => {
-        this.resize(this.$refs['textarea'])
+        this.resize(this.$refs.textarea)
       })
     },
     resize (e) {
@@ -477,8 +477,8 @@ const PostStatusForm = {
         return
       }
 
-      const formRef = this.$refs['form']
-      const bottomRef = this.$refs['bottom']
+      const formRef = this.$refs.form
+      const bottomRef = this.$refs.bottom
       /* Scroller is either `window` (replies in TL), sidebar (main post form,
        * replies in notifs) or mobile post form. Note that getting and setting
        * scroll is different for `Window` and `Element`s
@@ -564,7 +564,7 @@ const PostStatusForm = {
       this.$refs['emoji-input'].resize()
     },
     showEmojiPicker () {
-      this.$refs['textarea'].focus()
+      this.$refs.textarea.focus()
       this.$refs['emoji-input'].triggerShowPicker()
     },
     clearError () {

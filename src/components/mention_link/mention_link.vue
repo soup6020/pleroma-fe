@@ -12,7 +12,7 @@
     /><!-- eslint-enable vue/no-v-html -->
     <UserPopover
       v-else
-      :userId="user.id"
+      :user-id="user.id"
       :disabled="!shouldShowTooltip"
     >
       <span
@@ -54,16 +54,19 @@
             :class="{ '-you': shouldBoldenYou }"
           > {{ ' ' + $t('status.you') }}</span>
           <!-- eslint-enable vue/no-v-html -->
-        </a><span class="full" ref="full">
-            <!-- eslint-disable vue/no-v-html -->
-            @<span v-html="userName" /><span v-html="'@' + serverName" />
-            <!-- eslint-enable vue/no-v-html -->
+        </a><span
+          ref="full"
+          class="full"
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          @<span v-html="userName" /><span v-html="'@' + serverName" />
+          <!-- eslint-enable vue/no-v-html -->
         </span>
       </span>
     </UserPopover>
   </span>
 </template>
 
-<script src="./mention_link.js"/>
+<script src="./mention_link.js" />
 
-<style lang="scss" src="./mention_link.scss"/>
+<style lang="scss" src="./mention_link.scss" />

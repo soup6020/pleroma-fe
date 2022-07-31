@@ -5,10 +5,12 @@ import { each, get, set, cloneDeep } from 'lodash'
 let loaded = false
 
 const defaultReducer = (state, paths) => (
-  paths.length === 0 ? state : paths.reduce((substate, path) => {
-    set(substate, path, get(state, path))
-    return substate
-  }, {})
+  paths.length === 0
+    ? state
+    : paths.reduce((substate, path) => {
+      set(substate, path, get(state, path))
+      return substate
+    }, {})
 )
 
 const saveImmedeatelyActions = [
@@ -30,7 +32,7 @@ export default function createPersistedState ({
   key = 'vuex-lz',
   paths = [],
   getState = (key, storage) => {
-    let value = storage.getItem(key)
+    const value = storage.getItem(key)
     return value
   },
   setState = (key, state, storage) => {

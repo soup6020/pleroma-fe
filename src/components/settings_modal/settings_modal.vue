@@ -53,7 +53,7 @@
           :bound-to="{ x: 'container' }"
           remove-padding
         >
-          <template v-slot:trigger>
+          <template #trigger>
             <button
               class="btn button-default"
               :title="$t('general.close')"
@@ -65,7 +65,7 @@
               />
             </button>
           </template>
-          <template v-slot:content="{close}">
+          <template #content="{close}">
             <div class="dropdown-menu">
               <button
                 class="button-default dropdown-item dropdown-item-icon"

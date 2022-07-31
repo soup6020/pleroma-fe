@@ -40,7 +40,7 @@ const Notification = {
       unmuted: false
     }
   },
-  props: [ 'notification' ],
+  props: ['notification'],
   components: {
     StatusContent,
     UserAvatar,

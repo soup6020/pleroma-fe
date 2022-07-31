@@ -16,7 +16,7 @@
       >
         <UserPopover
           v-if="chatViewItem.isHead"
-          :userId="author.id"
+          :user-id="author.id"
         >
           <UserAvatar
             :compact="true"
@@ -50,7 +50,7 @@
                 @show="menuOpened = true"
                 @close="menuOpened = false"
               >
-                <template v-slot:content>
+                <template #content>
                   <div class="dropdown-menu">
                     <button
                       class="button-default dropdown-item dropdown-item-icon"
@@ -60,7 +60,7 @@
                     </button>
                   </div>
                 </template>
-                <template v-slot:trigger>
+                <template #trigger>
                   <button
                     class="button-default menu-icon"
                     :title="$t('chats.more')"
@@ -75,7 +75,7 @@
               :status="messageForStatusContent"
               :full-content="true"
             >
-              <template v-slot:footer>
+              <template #footer>
                 <span
                   class="created-at"
                 >
@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script src="./chat_message.js" ></script>
+<script src="./chat_message.js"></script>
 <style lang="scss">
 @import './chat_message.scss';
 
