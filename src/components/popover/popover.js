@@ -234,7 +234,7 @@ const Popover = {
       }
     },
     onMouseleave (e) {
-      if (this.trigger === 'hover' && this.childrenShown.size > 0) {
+      if (this.trigger === 'hover' && this.childrenShown.size === 0) {
         this.graceTimeout = setTimeout(() => this.hidePopover(), 1)
       }
     },
