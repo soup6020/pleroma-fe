@@ -34,21 +34,22 @@
       <a
         class="avatar-container"
         :href="$router.resolve(userProfileLink).href"
-        @click.stop.prevent.capture="toggleUserExpanded"
+        @click.prevent
       >
-        <UserAvatar
-          :compact="true"
-          :better-shadow="betterShadow"
-          :user="notification.from_profile"
-        />
+        <UserPopover
+          :userId="notification.from_profile.id"
+          :overlayCenters="true"
+        >
+          <UserAvatar
+            class="post-avatar"
+            :bot="botIndicator"
+            :compact="true"
+            :better-shadow="betterShadow"
+            :user="notification.from_profile"
+          />
+        </UserPopover>
       </a>
       <div class="notification-right">
-        <UserCard
-          v-if="userExpanded"
-          :user-id="getUser(notification).id"
-          :rounded="true"
-          :bordered="true"
-        />
         <span class="notification-details">
           <div class="name-and-action">
             <!-- eslint-disable vue/no-v-html -->

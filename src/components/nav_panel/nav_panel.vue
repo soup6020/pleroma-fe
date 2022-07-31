@@ -113,7 +113,9 @@
     border-color: $fallback--border;
     border-color: var(--border, $fallback--border);
     padding: 0;
+  }
 
+  > li {
     &:first-child .menu-item {
       border-top-right-radius: $fallback--panelRadius;
       border-top-right-radius: var(--panelRadius, $fallback--panelRadius);

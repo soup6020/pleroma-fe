@@ -1,9 +1,11 @@
 <template>
   <Popover
     trigger="hover"
+    :stay-on-click="true"
     popover-class="popover-default status-popover"
     :bound-to="{ x: 'container' }"
     @show="enter"
+    ref="popover"
   >
     <template v-slot:trigger>
       <slot />
@@ -52,8 +54,6 @@
   border-width: 1px;
   border-radius: $fallback--tooltipRadius;
   border-radius: var(--tooltipRadius, $fallback--tooltipRadius);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: var(--popupShadow);
 
   /* TODO cleanup this */
   .Status.Status {

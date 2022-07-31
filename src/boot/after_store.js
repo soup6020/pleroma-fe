@@ -396,6 +396,9 @@ const afterStoreSetup = async ({ store, i18n }) => {
   app.component('FAIcon', FontAwesomeIcon)
   app.component('FALayers', FontAwesomeLayers)
 
+  // remove after vue 3.3
+  app.config.unwrapInjectedRef = true
+
   app.mount('#app')
 
   return app

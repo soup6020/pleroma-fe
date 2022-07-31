@@ -75,6 +75,16 @@
           </BooleanSetting>
         </li>
         <li>
+          <BooleanSetting path="userPopoverZoom" expert="1">
+            {{ $t('settings.user_popover_avatar_zoom') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="userPopoverOverlay" expert="1">
+            {{ $t('settings.user_popover_avatar_overlay') }}
+          </BooleanSetting>
+        </li>
+        <li>
           <ChoiceSetting
             v-if="user"
             id="thirdColumnMode"
@@ -261,18 +271,14 @@
             {{ $t('settings.mention_link_display') }}
           </ChoiceSetting>
         </li>
-        <ul
-          class="setting-list suboptions"
-        >
-          <li v-if="mentionLinkDisplay === 'short'">
-            <BooleanSetting
-              path="mentionLinkShowTooltip"
-              expert="1"
-            >
-              {{ $t('settings.mention_link_show_tooltip') }}
-            </BooleanSetting>
-          </li>
-        </ul>
+        <li>
+          <BooleanSetting
+            path="mentionLinkShowTooltip"
+            expert="1"
+          >
+            {{ $t('settings.mention_link_use_tooltip') }}
+          </BooleanSetting>
+        </li>
         <li>
           <BooleanSetting
             path="useAtIcon"

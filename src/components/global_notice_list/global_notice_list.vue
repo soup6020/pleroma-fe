@@ -32,7 +32,7 @@
   top: 50px;
   width: 100%;
   pointer-events: none;
-  z-index: 1001;
+  z-index: var(--ZI_popovers);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -80,7 +80,7 @@
 .floating-shout {
   position: fixed;
   bottom: 0.5em;
-  z-index: 1000;
+  z-index: var(--ZI_popovers);
   max-width: 25em;
 
   &.-left {

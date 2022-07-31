@@ -6,6 +6,7 @@
     :offset="{ y: 5 }"
     :bound-to="{ x: 'container' }"
     remove-padding
+    popover-class="ReactButton popover-default"
     @show="focusInput"
   >
     <template v-slot:content="{close}">
@@ -41,7 +42,7 @@
       </div>
     </template>
     <template v-slot:trigger>
-      <button
+      <span
         class="button-unstyled popover-trigger"
         :title="$t('tool_tip.add_reaction')"
       >
@@ -49,7 +50,7 @@
           class="fa-scale-110 fa-old-padding"
           :icon="['far', 'smile-beam']"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>
