@@ -1,3 +1,9 @@
+<!-- 
+Feel free to submit merge requests that are work-in-progress, but mark them as
+Draft: or WIP:.
+Merge requests that have Draft or WIP status will not be merged and have less chances
+of being reviewed, but you can still ask people to take a look if you need advice.
+-->
 # Changes
 
 *
@@ -20,3 +26,5 @@ If merge request adds some new feature that depends on backend:
 2. Link related BE merge request here 
 -->
 <!-- Screenshots are welcome -->
+
+/label ~needs-review
