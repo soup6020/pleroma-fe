@@ -98,8 +98,8 @@
               >{{ emoji.replacement }}</span>
               <still-image
                 v-else
-                class="emoji-picker-emoji -custom"
                 :ref="setEmojiRef(group.id + emoji.displayText)"
+                class="emoji-picker-emoji -custom"
                 :data-src="emoji.imageUrl"
                 :data-emoji-name="group.id + emoji.displayText"
               />
