@@ -16,7 +16,8 @@
       >
         {{ $t('timeline.up_to_date') }}
       </div>
-      <TimelineQuickSettings v-if="!embedded" />
+      <QuickFilterSettings v-if="!embedded" />
+      <QuickViewSettings v-if="!embedded" />
     </div>
     <div :class="classes.body">
       <div

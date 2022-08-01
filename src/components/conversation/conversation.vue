@@ -17,6 +17,14 @@
       >
         {{ $t('timeline.collapse') }}
       </button>
+      <QuickFilterSettings
+        v-if="!collapsable"
+        :conversation="true"
+        />
+      <QuickViewSettings
+        v-if="!collapsable"
+        :conversation="true"
+        />
     </div>
     <div class="conversation-body panel-body">
       <div

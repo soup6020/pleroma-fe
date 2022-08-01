@@ -1,7 +1,7 @@
 <template>
   <Popover
     trigger="click"
-    class="TimelineQuickSettings"
+    class="QuickViewSettings"
     :bound-to="{ x: 'container' }"
   >
     <template #content>
@@ -9,30 +9,21 @@
         <div v-if="loggedIn">
           <button
             class="button-default dropdown-item"
-            @click="replyVisibilityAll = true"
+            @click="conversationDisplay = 'tree'"
           >
             <span
               class="menu-checkbox -radio"
-              :class="{ 'menu-checkbox-checked': replyVisibilityAll }"
-            />{{ $t('settings.reply_visibility_all') }}
+              :class="{ 'menu-checkbox-checked': conversationDisplay === 'tree' }"
+            /><FAIcon icon="folder-tree"/> {{ $t('settings.conversation_display_tree_quick') }}
           </button>
           <button
             class="button-default dropdown-item"
-            @click="replyVisibilityFollowing = true"
+            @click="conversationDisplay = 'linear'"
           >
             <span
               class="menu-checkbox -radio"
-              :class="{ 'menu-checkbox-checked': replyVisibilityFollowing }"
-            />{{ $t('settings.reply_visibility_following_short') }}
-          </button>
-          <button
-            class="button-default dropdown-item"
-            @click="replyVisibilitySelf = true"
-          >
-            <span
-              class="menu-checkbox -radio"
-              :class="{ 'menu-checkbox-checked': replyVisibilitySelf }"
-            />{{ $t('settings.reply_visibility_self_short') }}
+              :class="{ 'menu-checkbox-checked': conversationDisplay === 'linear' }"
+            /><FAIcon icon="bars"/> {{ $t('settings.conversation_display_linear_quick') }}
           </button>
           <div
             role="separator"
@@ -41,36 +32,32 @@
         </div>
         <button
           class="button-default dropdown-item"
-          @click="muteBotStatuses = !muteBotStatuses"
+          @click="showUserAvatars = !showUserAvatars"
         >
           <span
             class="menu-checkbox"
-            :class="{ 'menu-checkbox-checked': muteBotStatuses }"
-          />{{ $t('settings.mute_bot_posts') }}
+            :class="{ 'menu-checkbox-checked': showUserAvatars }"
+          />{{ $t('settings.mention_link_show_avatar_quick') }}
         </button>
         <button
+          v-if="!conversation"
           class="button-default dropdown-item"
-          @click="hideMedia = !hideMedia"
+          @click="autoUpdate = !autoUpdate"
         >
           <span
             class="menu-checkbox"
-            :class="{ 'menu-checkbox-checked': hideMedia }"
-          />{{ $t('settings.hide_media_previews') }}
+            :class="{ 'menu-checkbox-checked': autoUpdate }"
+          />{{ $t('settings.auto_update') }}
         </button>
         <button
+          v-if="!conversation"
           class="button-default dropdown-item"
-          @click="hideMutedPosts = !hideMutedPosts"
+          @click="collapseWithSubjects = !collapseWithSubjects"
         >
           <span
             class="menu-checkbox"
-            :class="{ 'menu-checkbox-checked': hideMutedPosts }"
-          />{{ $t('settings.hide_all_muted_posts') }}
-        </button>
-        <button
-          class="button-default dropdown-item dropdown-item-icon"
-          @click="openTab('filtering')"
-        >
-          <FAIcon icon="font" />{{ $t('settings.word_filter') }}
+            :class="{ 'menu-checkbox-checked': collapseWithSubjects }"
+          />{{ $t('settings.collapse_subject') }}
         </button>
         <button
           class="button-default dropdown-item dropdown-item-icon"
@@ -82,17 +69,17 @@
     </template>
     <template #trigger>
       <button class="button-unstyled">
-        <FAIcon icon="filter" />
+        <FAIcon icon="table-list" />
       </button>
     </template>
   </Popover>
 </template>
 
-<script src="./timeline_quick_settings.js"></script>
+<script src="./quick_view_settings.js"></script>
 
 <style lang="scss">
 
-.TimelineQuickSettings {
+.QuickViewSettings {
 
   > button {
     line-height: 100%;
