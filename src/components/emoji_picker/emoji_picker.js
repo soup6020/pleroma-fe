@@ -40,10 +40,10 @@ const UNICODE_EMOJI_GROUP_ICON = {
   'animals-and-nature': 'paw',
   'food-and-drink': 'ice-cream',
   'travel-and-places': 'bus',
-  'activities': 'basketball-ball',
-  'objects': 'lightbulb',
-  'symbols': 'code',
-  'flags': 'flag'
+  activities: 'basketball-ball',
+  objects: 'lightbulb',
+  symbols: 'code',
+  flags: 'flag'
 }
 
 const filterByKeyword = (list, keyword = '') => {
