@@ -1121,7 +1121,7 @@ const fetchMutes = ({ credentials }) => {
 const muteUser = ({ id, expiresIn, credentials }) => {
   const payload = {}
   if (expiresIn) {
-    payload['expires_in'] = expiresIn
+    payload.expires_in = expiresIn
   }
   return promisedRequest({ url: MASTODON_MUTE_USER_URL(id), credentials, method: 'POST', payload })
 }
