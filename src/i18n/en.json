@@ -71,6 +71,7 @@
     "optional": "optional",
     "show_more": "Show more",
     "show_less": "Show less",
+    "never_show_again": "Never show again",
     "dismiss": "Dismiss",
     "cancel": "Cancel",
     "disable": "Disable",
@@ -956,5 +957,13 @@
   },
   "display_date": {
     "today": "Today"
+  },
+  "update": {
+    "big_update_title": "Please bear with us",
+    "big_update_content": "We haven't had a release in a while, so there things might look and feel different than what you're used to.",
+    "update_bugs": "Please report any issues and bugs on {pleromaGitlab} we don't have a QA team so some things fall through the cracks, we're also open to feedback and suggestions.",
+    "update_bugs_gitlab": "Pleroma Gitlab",
+    "update_changelog": "You can see the full changelog {here}",
+    "update_changelog_here": "here"
   }
 }
