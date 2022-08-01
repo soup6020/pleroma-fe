@@ -1387,15 +1387,15 @@ const announcementToPayload = ({ content, startsAt, endsAt, allDay }) => {
   const payload = { content }
 
   if (typeof startsAt !== 'undefined') {
-    payload['starts_at'] = startsAt ? new Date(startsAt).toISOString() : null
+    payload.starts_at = startsAt ? new Date(startsAt).toISOString() : null
   }
 
   if (typeof endsAt !== 'undefined') {
-    payload['ends_at'] = endsAt ? new Date(endsAt).toISOString() : null
+    payload.ends_at = endsAt ? new Date(endsAt).toISOString() : null
   }
 
   if (typeof allDay !== 'undefined') {
-    payload['all_day'] = allDay
+    payload.all_day = allDay
   }
 
   return payload

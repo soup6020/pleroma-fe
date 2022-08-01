@@ -42,7 +42,7 @@ const Announcement = {
       return this.formatTimeOrDate(time, localeService.internalToBrowserLocale(this.$i18n.locale))
     },
     startsAt () {
-      const time = this.announcement['starts_at']
+      const time = this.announcement.starts_at
       if (!time) {
         return
       }
@@ -50,7 +50,7 @@ const Announcement = {
       return this.formatTimeOrDate(time, localeService.internalToBrowserLocale(this.$i18n.locale))
     },
     endsAt () {
-      const time = this.announcement['ends_at']
+      const time = this.announcement.ends_at
       if (!time) {
         return
       }
@@ -72,13 +72,13 @@ const Announcement = {
     },
     formatTimeOrDate (time, locale) {
       const d = new Date(time)
-      return this.announcement['all_day'] ? d.toLocaleDateString(locale) : d.toLocaleString(locale)
+      return this.announcement.all_day ? d.toLocaleDateString(locale) : d.toLocaleString(locale)
     },
     enterEditMode () {
-      this.editedAnnouncement.content = this.announcement.pleroma['raw_content']
-      this.editedAnnouncement.startsAt = this.announcement['starts_at']
-      this.editedAnnouncement.endsAt = this.announcement['ends_at']
-      this.editedAnnouncement.allDay = this.announcement['all_day']
+      this.editedAnnouncement.content = this.announcement.pleroma.raw_content
+      this.editedAnnouncement.startsAt = this.announcement.starts_at
+      this.editedAnnouncement.endsAt = this.announcement.ends_at
+      this.editedAnnouncement.allDay = this.announcement.all_day
       this.editing = true
     },
     submitEdit () {
