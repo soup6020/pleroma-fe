@@ -4,13 +4,13 @@
     class="confirm-modal"
     :on-cancel="onCancel"
   >
-    <template v-slot:header>
+    <template #header>
       <span v-text="title" />
     </template>
 
     <slot />
 
-    <template v-slot:footer>
+    <template #footer>
       <button
         class="btn button-default"
         @click.prevent="onAccept"
