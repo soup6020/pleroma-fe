@@ -112,9 +112,11 @@ export default {
       return hex2rgb(this.selected.color)
     },
     style () {
-      return this.ready ? {
-        boxShadow: getCssShadow(this.fallback)
-      } : {}
+      return this.ready
+        ? {
+            boxShadow: getCssShadow(this.fallback)
+          }
+        : {}
     }
   }
 }

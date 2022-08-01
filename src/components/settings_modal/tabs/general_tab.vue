@@ -75,12 +75,18 @@
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting path="userPopoverZoom" expert="1">
+          <BooleanSetting
+            path="userPopoverZoom"
+            expert="1"
+          >
             {{ $t('settings.user_popover_avatar_zoom') }}
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting path="userPopoverOverlay" expert="1">
+          <BooleanSetting
+            path="userPopoverOverlay"
+            expert="1"
+          >
             {{ $t('settings.user_popover_avatar_overlay') }}
           </BooleanSetting>
         </li>

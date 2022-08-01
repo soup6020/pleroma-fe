@@ -104,21 +104,25 @@ const Popover = {
 
       // What are the screen bounds for the popover? Viewport vs container
       // when using viewport, using default margin values to dodge the navbar
-      const xBounds = this.boundTo && this.boundTo.x === 'container' ? {
-        min: parentScreenBox.left + (margin.left || 0),
-        max: parentScreenBox.right - (margin.right || 0)
-      } : {
-        min: 0 + (margin.left || 10),
-        max: window.innerWidth - (margin.right || 10)
-      }
+      const xBounds = this.boundTo && this.boundTo.x === 'container'
+        ? {
+            min: parentScreenBox.left + (margin.left || 0),
+            max: parentScreenBox.right - (margin.right || 0)
+          }
+        : {
+            min: 0 + (margin.left || 10),
+            max: window.innerWidth - (margin.right || 10)
+          }
 
-      const yBounds = this.boundTo && this.boundTo.y === 'container' ? {
-        min: parentScreenBox.top + (margin.top || 0),
-        max: parentScreenBox.bottom - (margin.bottom || 0)
-      } : {
-        min: 0 + (margin.top || 50),
-        max: window.innerHeight - (margin.bottom || 5)
-      }
+      const yBounds = this.boundTo && this.boundTo.y === 'container'
+        ? {
+            min: parentScreenBox.top + (margin.top || 0),
+            max: parentScreenBox.bottom - (margin.bottom || 0)
+          }
+        : {
+            min: 0 + (margin.top || 50),
+            max: window.innerHeight - (margin.bottom || 5)
+          }
 
       let horizOffset = 0
       let vertOffset = 0

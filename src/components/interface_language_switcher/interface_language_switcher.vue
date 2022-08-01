@@ -25,6 +25,7 @@ import Select from '../select/select.vue'
 
 export default {
   components: {
+    // eslint-disable-next-line vue/no-reserved-component-names
     Select
   },
   props: {

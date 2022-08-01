@@ -9,10 +9,10 @@
     @show="openMenu"
     @close="() => isOpen = false"
   >
-    <template v-slot:content>
+    <template #content>
       <TimelineMenuContent />
     </template>
-    <template v-slot:trigger>
+    <template #trigger>
       <span class="button-unstyled title timeline-menu-title">
         <span class="timeline-title">{{ timelineName() }}</span>
         <span>
@@ -30,7 +30,7 @@
   </Popover>
 </template>
 
-<script src="./timeline_menu.js" ></script>
+<script src="./timeline_menu.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';

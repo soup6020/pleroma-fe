@@ -29,7 +29,7 @@ const generateInput = (value, padEmoji = true) => {
       modelValue: value
     },
     slots: {
-      'default': () => h('input', '')
+      default: () => h('input', '')
     }
   })
   return wrapper

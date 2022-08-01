@@ -37,8 +37,8 @@
         @click.prevent
       >
         <UserPopover
-          :userId="notification.from_profile.id"
-          :overlayCenters="true"
+          :user-id="notification.from_profile.id"
+          :overlay-centers="true"
         >
           <UserAvatar
             class="post-avatar"

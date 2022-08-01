@@ -233,7 +233,7 @@ const api = {
 
     // Follow requests
     startFetchingFollowRequests (store) {
-      if (store.state.fetchers['followRequests']) return
+      if (store.state.fetchers.followRequests) return
       const fetcher = store.state.backendInteractor.startFetchingFollowRequests({ store })
 
       store.commit('addFetcher', { fetcherName: 'followRequests', fetcher })
@@ -244,7 +244,7 @@ const api = {
       store.commit('removeFetcher', { fetcherName: 'followRequests', fetcher })
     },
     removeFollowRequest (store, request) {
-      let requests = store.state.followRequests.filter((it) => it !== request)
+      const requests = store.state.followRequests.filter((it) => it !== request)
       store.commit('setFollowRequests', requests)
     },
 

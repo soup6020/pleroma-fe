@@ -9,13 +9,13 @@
     popover-class="ReactButton popover-default"
     @show="focusInput"
   >
-    <template v-slot:content="{close}">
+    <template #content="{close}">
       <div class="reaction-picker-filter">
         <input
           v-model="filterWord"
-          @input="$event.target.composing = false"
           size="1"
           :placeholder="$t('emoji.search_emoji')"
+          @input="$event.target.composing = false"
         >
       </div>
       <div class="reaction-picker">
@@ -41,7 +41,7 @@
         <div class="reaction-bottom-fader" />
       </div>
     </template>
-    <template v-slot:trigger>
+    <template #trigger>
       <span
         class="button-unstyled popover-trigger"
         :title="$t('tool_tip.add_reaction')"
@@ -55,7 +55,7 @@
   </Popover>
 </template>
 
-<script src="./react_button.js" ></script>
+<script src="./react_button.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';

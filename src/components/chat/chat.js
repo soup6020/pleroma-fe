@@ -107,7 +107,7 @@ const Chat = {
         }
       })
     },
-    '$route': function () {
+    $route: function () {
       this.startFetching()
     },
     mastoUserSocketStatus (newValue) {

@@ -34,20 +34,20 @@ const fetchAndUpdate = ({
   const loggedIn = !!rootState.users.currentUser
 
   if (older) {
-    args['until'] = until || timelineData.minId
+    args.until = until || timelineData.minId
   } else {
     if (since === undefined) {
-      args['since'] = timelineData.maxId
+      args.since = timelineData.maxId
     } else if (since !== null) {
-      args['since'] = since
+      args.since = since
     }
   }
 
-  args['userId'] = userId
-  args['tag'] = tag
-  args['withMuted'] = !hideMutedPosts
+  args.userId = userId
+  args.tag = tag
+  args.withMuted = !hideMutedPosts
   if (loggedIn && ['friends', 'public', 'publicAndExternal'].includes(timeline)) {
-    args['replyVisibility'] = replyVisibility
+    args.replyVisibility = replyVisibility
   }
 
   const numStatusesBeforeFetch = timelineData.statuses.length
@@ -60,7 +60,7 @@ const fetchAndUpdate = ({
 
       const { data: statuses, pagination } = response
       if (!older && statuses.length >= 20 && !timelineData.loading && numStatusesBeforeFetch > 0) {
-        store.dispatch('queueFlush', { timeline: timeline, id: timelineData.maxId })
+        store.dispatch('queueFlush', { timeline, id: timelineData.maxId })
       }
       update({ store, statuses, timeline, showImmediately, userId, pagination })
       return { statuses, pagination }

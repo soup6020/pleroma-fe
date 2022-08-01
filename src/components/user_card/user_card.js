@@ -67,7 +67,7 @@ export default {
     style () {
       return {
         backgroundImage: [
-          `linear-gradient(to bottom, var(--profileTint), var(--profileTint))`,
+          'linear-gradient(to bottom, var(--profileTint), var(--profileTint))',
           `url(${this.user.cover_photo})`
         ].join(', ')
       }

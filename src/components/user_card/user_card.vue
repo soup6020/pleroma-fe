@@ -29,10 +29,10 @@
           </a>
           <UserAvatar
             v-else-if="typeof avatarAction === 'function'"
-            @click="avatarAction"
             class="user-info-avatar"
             :better-shadow="betterShadow"
             :user="user"
+            @click="avatarAction"
           />
           <router-link
             v-else

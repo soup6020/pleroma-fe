@@ -1,10 +1,13 @@
 <template>
   <div class="basic-user-card">
-    <router-link @click.prevent :to="userProfileLink(user)">
+    <router-link
+      :to="userProfileLink(user)"
+      @click.prevent
+    >
       <UserPopover
-        :userId="user.id"
-        :overlayCenters="true"
-        overlayCentersSelector=".avatar"
+        :user-id="user.id"
+        :overlay-centers="true"
+        overlay-centers-selector=".avatar"
       >
         <UserAvatar
           class="user-avatar avatar"

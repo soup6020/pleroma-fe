@@ -4,9 +4,9 @@
     :title="title"
   >
     <UserPopover
-      class="avatar-container"
       v-if="withAvatar && user"
-      :userId="user.id"
+      class="avatar-container"
+      :user-id="user.id"
     >
       <UserAvatar
         class="titlebar-avatar"

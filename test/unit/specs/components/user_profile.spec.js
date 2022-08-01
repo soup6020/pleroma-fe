@@ -163,7 +163,7 @@ const localProfileStore = createStore({
       currentUser: {
         credentials: ''
       },
-      usersObject: { 100: localUser, 'testuser': localUser },
+      usersObject: { 100: localUser, testuser: localUser },
       users: [localUser],
       relationships: {}
     }
@@ -175,7 +175,7 @@ describe.skip('UserProfile', () => {
   it('renders external profile', () => {
     const wrapper = mount(UserProfile, {
       global: {
-        plugins: [ externalProfileStore ],
+        plugins: [externalProfileStore],
         mocks: {
           $route: {
             params: { id: 100 },
@@ -192,7 +192,7 @@ describe.skip('UserProfile', () => {
   it('renders local profile', () => {
     const wrapper = mount(UserProfile, {
       global: {
-        plugins: [ localProfileStore ],
+        plugins: [localProfileStore],
         mocks: {
           $route: {
             params: { name: 'testUser' },

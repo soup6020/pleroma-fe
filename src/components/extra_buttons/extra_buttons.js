@@ -25,7 +25,7 @@ library.add(
 )
 
 const ExtraButtons = {
-  props: [ 'status' ],
+  props: ['status'],
   components: { Popover },
   methods: {
     deleteStatus () {

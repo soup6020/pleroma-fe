@@ -122,10 +122,13 @@
           v-if="!noHeading"
           class="left-side"
         >
-          <a :href="$router.resolve(userProfileLink).href" @click.prevent>
+          <a
+            :href="$router.resolve(userProfileLink).href"
+            @click.prevent
+          >
             <UserPopover
-              :userId="status.user.id"
-              :overlayCenters="true"
+              :user-id="status.user.id"
+              :overlay-centers="true"
             >
               <UserAvatar
                 class="post-avatar"
@@ -488,6 +491,6 @@
   </div>
 </template>
 
-<script src="./status.js" ></script>
+<script src="./status.js"></script>
 
 <style src="./status.scss" lang="scss"></style>

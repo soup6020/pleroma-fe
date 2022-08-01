@@ -361,6 +361,7 @@ const Status = {
       return uniqBy(combinedUsers, 'id')
     },
     tags () {
+      // eslint-disable-next-line no-prototype-builtins
       return this.status.tags.filter(tagObj => tagObj.hasOwnProperty('name')).map(tagObj => tagObj.name).join(' ')
     },
     hidePostStats () {
@@ -448,7 +449,7 @@ const Status = {
     scrollIfHighlighted (highlightId) {
       const id = highlightId
       if (this.status.id === id) {
-        let rect = this.$el.getBoundingClientRect()
+        const rect = this.$el.getBoundingClientRect()
         if (rect.top < 100) {
           // Post is above screen, match its top to screen top
           window.scrollBy(0, rect.top - 100)
@@ -463,7 +464,7 @@ const Status = {
     }
   },
   watch: {
-    'highlight': function (id) {
+    highlight: function (id) {
       this.scrollIfHighlighted(id)
     },
     'status.repeat_num': function (num) {
@@ -478,7 +479,7 @@ const Status = {
         this.$store.dispatch('fetchFavs', this.status.id)
       }
     },
-    'isSuspendable': function (val) {
+    isSuspendable: function (val) {
       this.suspendable = val
     }
   }
