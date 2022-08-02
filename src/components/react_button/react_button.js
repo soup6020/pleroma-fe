@@ -45,7 +45,7 @@ const ReactButton = {
     emojis () {
       if (this.filterWord !== '') {
         const filterWordLowercase = trim(this.filterWord.toLowerCase())
-        let orderedEmojiList = []
+        const orderedEmojiList = []
         for (const emoji of this.$store.state.instance.emoji) {
           if (emoji.replacement === this.filterWord) return [emoji]
 

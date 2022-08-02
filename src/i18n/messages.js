@@ -46,7 +46,7 @@ const messages = {
   },
   setLanguage: async (i18n, language) => {
     if (loaders[language]) {
-      let messages = await loaders[language]()
+      const messages = await loaders[language]()
       i18n.setLocaleMessage(language, messages.default)
     }
     i18n.locale = language

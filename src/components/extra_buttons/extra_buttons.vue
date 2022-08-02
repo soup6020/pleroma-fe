@@ -7,7 +7,7 @@
     :bound-to="{ x: 'container' }"
     remove-padding
   >
-    <template v-slot:content="{close}">
+    <template #content="{close}">
       <div class="dropdown-menu">
         <button
           v-if="canMute && !status.thread_muted"
@@ -51,28 +51,30 @@
             icon="thumbtack"
           /><span>{{ $t("status.unpin") }}</span>
         </button>
-        <button
-          v-if="!status.bookmarked"
-          class="button-default dropdown-item dropdown-item-icon"
-          @click.prevent="bookmarkStatus"
-          @click="close"
-        >
-          <FAIcon
-            fixed-width
-            :icon="['far', 'bookmark']"
-          /><span>{{ $t("status.bookmark") }}</span>
-        </button>
-        <button
-          v-if="status.bookmarked"
-          class="button-default dropdown-item dropdown-item-icon"
-          @click.prevent="unbookmarkStatus"
-          @click="close"
-        >
-          <FAIcon
-            fixed-width
-            icon="bookmark"
-          /><span>{{ $t("status.unbookmark") }}</span>
-        </button>
+        <template v-if="canBookmark">
+          <button
+            v-if="!status.bookmarked"
+            class="button-default dropdown-item dropdown-item-icon"
+            @click.prevent="bookmarkStatus"
+            @click="close"
+          >
+            <FAIcon
+              fixed-width
+              :icon="['far', 'bookmark']"
+            /><span>{{ $t("status.bookmark") }}</span>
+          </button>
+          <button
+            v-if="status.bookmarked"
+            class="button-default dropdown-item dropdown-item-icon"
+            @click.prevent="unbookmarkStatus"
+            @click="close"
+          >
+            <FAIcon
+              fixed-width
+              icon="bookmark"
+            /><span>{{ $t("status.unbookmark") }}</span>
+          </button>
+        </template>
         <button
           v-if="ownStatus && editingAvailable"
           class="button-default dropdown-item dropdown-item-icon"
@@ -140,18 +142,18 @@
         </button>
       </div>
     </template>
-    <template v-slot:trigger>
-      <button class="button-unstyled popover-trigger">
+    <template #trigger>
+      <span class="button-unstyled popover-trigger">
         <FAIcon
           class="fa-scale-110 fa-old-padding"
           icon="ellipsis-h"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>
 
-<script src="./extra_buttons.js" ></script>
+<script src="./extra_buttons.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';

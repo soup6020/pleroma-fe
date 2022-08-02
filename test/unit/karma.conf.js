@@ -4,14 +4,14 @@
 //   https://github.com/webpack/karma-webpack
 
 // var path = require('path')
-var merge = require('webpack-merge')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var baseConfig = require('../../build/webpack.base.conf')
-var utils = require('../../build/utils')
-var webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const baseConfig = require('../../build/webpack.base.conf')
+const utils = require('../../build/utils')
+const webpack = require('webpack')
 // var projectRoot = path.resolve(__dirname, '../../')
 
-var webpackConfig = merge(baseConfig, {
+const webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
     rules: utils.styleLoaders()
@@ -63,7 +63,7 @@ module.exports = function (config) {
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['mocha'],
     customLaunchers: {
-      'FirefoxHeadless': {
+      FirefoxHeadless: {
         base: 'Firefox',
         flags: [
           '-headless'

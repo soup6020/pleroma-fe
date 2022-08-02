@@ -204,14 +204,14 @@
   </div>
 </template>
 
-<script src="./side_drawer.js" ></script>
+<script src="./side_drawer.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';
 
 .side-drawer-container {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--ZI_navbar);
   top: 0;
   left: 0;
   width: 100%;

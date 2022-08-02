@@ -32,7 +32,7 @@ library.add(
 )
 
 const SideDrawer = {
-  props: [ 'logout' ],
+  props: ['logout'],
   data: () => ({
     closed: true,
     closeGesture: undefined

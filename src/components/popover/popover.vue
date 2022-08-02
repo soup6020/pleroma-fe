@@ -1,5 +1,5 @@
 <template>
-  <div
+  <span
     @mouseenter="onMouseenter"
     @mouseleave="onMouseleave"
   >
@@ -11,20 +11,27 @@
     >
       <slot name="trigger" />
     </button>
-    <div
-      v-if="!hidden"
-      ref="content"
-      :style="styles"
-      class="popover"
-      :class="popoverClass || 'popover-default'"
-    >
-      <slot
-        name="content"
-        class="popover-inner"
-        :close="hidePopover"
-      />
-    </div>
-  </div>
+    <teleport to="#popovers">
+      <transition name="fade">
+        <div
+          v-if="!hidden"
+          ref="content"
+          :style="styles"
+          class="popover"
+          :class="popoverClass || 'popover-default'"
+          @mouseenter="onMouseenterContent"
+          @mouseleave="onMouseleaveContent"
+          @click="onClickContent"
+        >
+          <slot
+            name="content"
+            class="popover-inner"
+            :close="hidePopover"
+          />
+        </div>
+      </transition>
+    </teleport>
+  </span>
 </template>
 
 <script src="./popover.js" />
@@ -37,14 +44,15 @@
 }
 
 .popover {
-  z-index: 500;
-  position: absolute;
+  z-index: var(--ZI_popover_override, var(--ZI_popovers));
+  position: fixed;
   min-width: 0;
+  max-width: calc(100vw - 20px);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--popupShadow);
 }
 
 .popover-default {
-  transition: opacity 0.3s;
-
   &:after {
     content: '';
     position: absolute;
@@ -80,7 +88,7 @@
   text-align: left;
   list-style: none;
   max-width: 100vw;
-  z-index: 200;
+  z-index: var(--ZI_popover_override, var(--ZI_popovers));
   white-space: nowrap;
 
   .dropdown-divider {

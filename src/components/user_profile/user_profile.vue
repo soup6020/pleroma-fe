@@ -8,7 +8,7 @@
         :user-id="userId"
         :switcher="true"
         :selected="timeline.viewing"
-        :allow-zooming-avatar="true"
+        avatar-action="zoom"
         rounded="top"
       />
       <div
@@ -56,7 +56,7 @@
           :user-id="userId"
           :pinned-status-ids="user.pinnedStatusIds"
           :in-profile="true"
-          :footerSlipgate="footerRef"
+          :footer-slipgate="footerRef"
         />
         <div
           v-if="followsTabVisible"
@@ -65,7 +65,7 @@
           :disabled="!user.friends_count"
         >
           <FriendList :user-id="userId">
-            <template v-slot:item="{item}">
+            <template #item="{item}">
               <FollowCard :user="item" />
             </template>
           </FriendList>
@@ -77,7 +77,7 @@
           :disabled="!user.followers_count"
         >
           <FollowerList :user-id="userId">
-            <template v-slot:item="{item}">
+            <template #item="{item}">
               <FollowCard
                 :user="item"
                 :no-follows-you="isUs"
@@ -95,7 +95,7 @@
           :timeline="media"
           :user-id="userId"
           :in-profile="true"
-          :footerSlipgate="footerRef"
+          :footer-slipgate="footerRef"
         />
         <Timeline
           v-if="isUs"
@@ -107,10 +107,13 @@
           timeline-name="favorites"
           :timeline="favorites"
           :in-profile="true"
-          :footerSlipgate="footerRef"
+          :footer-slipgate="footerRef"
         />
       </tab-switcher>
-      <div class="panel-footer" :ref="setFooterRef"></div>
+      <div
+        :ref="setFooterRef"
+        class="panel-footer"
+      />
     </div>
     <div
       v-else

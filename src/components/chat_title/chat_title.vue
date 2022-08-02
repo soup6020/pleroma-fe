@@ -3,16 +3,16 @@
     class="chat-title"
     :title="title"
   >
-    <router-link
-      class="avatar-container"
+    <UserPopover
       v-if="withAvatar && user"
-      :to="getUserProfileLink(user)"
+      class="avatar-container"
+      :user-id="user.id"
     >
       <UserAvatar
         class="titlebar-avatar"
         :user="user"
       />
-    </router-link>
+    </UserPopover>
     <RichContent
       v-if="user"
       class="username"

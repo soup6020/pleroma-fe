@@ -6,14 +6,14 @@
     <Popover
       trigger="hover"
     >
-      <template v-slot:trigger>
+      <template #trigger>
         &nbsp;
         <FAIcon
           icon="server"
           :aria-label="$t('settings.setting_server_side')"
         />
       </template>
-      <template v-slot:content>
+      <template #content>
         <div class="serverside-tooltip">
           {{ $t('settings.setting_server_side') }}
         </div>
@@ -41,11 +41,11 @@ export default {
 .ServerSideIndicator {
   display: inline-block;
   position: relative;
+}
 
-  .serverside-tooltip {
-    margin: 0.5em 1em;
-    min-width: 10em;
-    text-align: center;
-  }
+.serverside-tooltip {
+  margin: 0.5em 1em;
+  min-width: 10em;
+  text-align: center;
 }
 </style>
