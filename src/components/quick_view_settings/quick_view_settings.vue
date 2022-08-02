@@ -23,7 +23,7 @@
             <span
               class="menu-checkbox -radio"
               :class="{ 'menu-checkbox-checked': conversationDisplay === 'linear' }"
-            /><FAIcon icon="bars"/> {{ $t('settings.conversation_display_linear_quick') }}
+            /><FAIcon icon="list"/> {{ $t('settings.conversation_display_linear_quick') }}
           </button>
           <div
             role="separator"
@@ -69,7 +69,7 @@
     </template>
     <template #trigger>
       <button class="button-unstyled">
-        <FAIcon icon="table-list" />
+        <FAIcon icon="bars-staggered" />
       </button>
     </template>
   </Popover>

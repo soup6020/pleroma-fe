@@ -1,12 +1,12 @@
 import Popover from '../popover/popover.vue'
 import { mapGetters } from 'vuex'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTableList, faFolderTree, faBars, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faList, faFolderTree, faBarsStaggered, faWrench } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faTableList,
+  faList,
   faFolderTree,
-  faBars,
+  faBarsStaggered,
   faWrench
 )
 
