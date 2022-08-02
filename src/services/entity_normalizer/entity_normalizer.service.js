@@ -378,7 +378,7 @@ export const parseStatus = (data) => {
   output.favoritedBy = []
   output.rebloggedBy = []
 
-  if (data.hasOwnProperty('originalStatus')) {
+  if (Object.prototype.hasOwnProperty.call(data, 'originalStatus')) {
     Object.assign(output, data.originalStatus)
   }
 

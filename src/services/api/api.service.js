@@ -417,7 +417,7 @@ const fetchStatus = ({ id, credentials }) => {
 }
 
 const fetchStatusSource = ({ id, credentials }) => {
-  let url = MASTODON_STATUS_SOURCE_URL(id)
+  const url = MASTODON_STATUS_SOURCE_URL(id)
   return fetch(url, { headers: authHeaders(credentials) })
     .then((data) => {
       if (data.ok) {
@@ -430,7 +430,7 @@ const fetchStatusSource = ({ id, credentials }) => {
 }
 
 const fetchStatusHistory = ({ status, credentials }) => {
-  let url = MASTODON_STATUS_HISTORY_URL(status.id)
+  const url = MASTODON_STATUS_HISTORY_URL(status.id)
   return promisedRequest({ url, credentials })
     .then((data) => {
       data.reverse()
@@ -767,7 +767,7 @@ const editStatus = ({
     })
   }
 
-  let putHeaders = authHeaders(credentials)
+  const putHeaders = authHeaders(credentials)
 
   return fetch(MASTODON_STATUS_URL(id), {
     body: form,

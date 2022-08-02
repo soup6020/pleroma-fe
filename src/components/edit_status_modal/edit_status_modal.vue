@@ -11,10 +11,10 @@
       <PostStatusForm
         class="panel-body"
         v-bind="params"
-        @posted="closeModal"
-        :disablePolls="true"
-        :disableVisibilitySelector="true"
         :post-handler="doEditStatus"
+        :disable-polls="true"
+        :disable-visibility-selector="true"
+        @posted="closeModal"
       />
     </div>
   </Modal>

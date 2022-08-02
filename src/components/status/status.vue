@@ -340,13 +340,11 @@
                     keypath="time.in_past"
                     tag="span"
                   >
-                    <template>
-                      <Timeago
-                        :time="status.edited_at"
-                        :auto-update="60"
-                        :long-format="true"
-                      />
-                    </template>
+                    <Timeago
+                      :time="status.edited_at"
+                      :auto-update="60"
+                      :long-format="true"
+                    />
                   </i18n-t>
                 </template>
               </i18n-t>
