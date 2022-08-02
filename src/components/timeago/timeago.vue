@@ -34,6 +34,13 @@ export default {
   unmounted () {
     clearTimeout(this.interval)
   },
+  watch: {
+    time (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.refreshRelativeTimeObject()
+      }
+    }
+  },
   methods: {
     refreshRelativeTimeObject () {
       const nowThreshold = typeof this.nowThreshold === 'number' ? this.nowThreshold : 1
