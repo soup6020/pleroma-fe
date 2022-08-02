@@ -46,9 +46,9 @@
     "vuex": "4.0.2"
   },
   "devDependencies": {
-    "@babel/core": "7.18.9",
-    "@babel/plugin-transform-runtime": "7.18.9",
-    "@babel/preset-env": "7.18.9",
+    "@babel/core": "7.18.10",
+    "@babel/plugin-transform-runtime": "7.18.10",
+    "@babel/preset-env": "7.18.10",
     "@babel/register": "7.18.9",
     "@babel/eslint-parser": "7.18.9",
     "@intlify/vue-i18n-loader": "^5.0.0",
