@@ -40,7 +40,7 @@
         </button>
         <button
           class="button-default"
-          @click.prevent="toggleShowMore"
+          @click.prevent="toggleShow"
           v-if="!showingMore"
           >
           {{ $t("general.show_more") }}

@@ -16,7 +16,7 @@ const UpdateNotification = {
   data () {
     return {
       pleromaTanVariant: Math.random() > 0.5 ? pleromaTan : pleromaTanFox,
-      showingMore: true,
+      showingMore: false,
       contentHeight: 0
     }
   },
@@ -39,13 +39,14 @@ const UpdateNotification = {
       this.showingMore = !this.showingMore
     },
     neverShowAgain () {
-      this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
-      this.$store.commit('setFlag', { flag: 'dontShowUpdateNotifs', value: 1 })
-      this.$store.dispatch('pushServerSideStorage')
+      this.toggleShow()
+      // this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
+      // this.$store.commit('setFlag', { flag: 'dontShowUpdateNotifs', value: 1 })
+      // this.$store.dispatch('pushServerSideStorage')
     },
     dismiss () {
       this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
-      this.$store.dispatch('pushServerSideStorage')
+      // this.$store.dispatch('pushServerSideStorage')
     }
   },
   mounted () {
