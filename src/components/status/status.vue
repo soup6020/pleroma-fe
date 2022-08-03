@@ -336,16 +336,12 @@
                 tag="span"
               >
                 <template #time>
-                  <i18n-t
-                    keypath="time.in_past"
-                    tag="span"
-                  >
-                    <Timeago
-                      :time="status.edited_at"
-                      :auto-update="60"
-                      :long-format="true"
-                    />
-                  </i18n-t>
+                  <Timeago
+                    template-key="time.in_past"
+                    :time="status.edited_at"
+                    :auto-update="60"
+                    :long-format="true"
+                  />
                 </template>
               </i18n-t>
             </div>
