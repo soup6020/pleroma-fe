@@ -17,6 +17,7 @@ const saveImmedeatelyActions = [
   'markNotificationsAsSeen',
   'clearCurrentUser',
   'setCurrentUser',
+  'setServerSideStorage',
   'setHighlight',
   'setOption',
   'setClientData',

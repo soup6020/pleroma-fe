@@ -90,6 +90,9 @@ export const parseUser = (data) => {
     output.bot = data.bot
 
     if (data.pleroma) {
+      if (data.pleroma.settings_store) {
+        output.storage = data.pleroma.settings_store['pleroma-fe']
+      }
       const relationship = data.pleroma.relationship
 
       output.background_image = data.pleroma.background_image
