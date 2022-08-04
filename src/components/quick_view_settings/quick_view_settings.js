@@ -20,7 +20,6 @@ const QuickViewSettings = {
   methods: {
     setConversationDisplay (visibility) {
       this.$store.dispatch('setOption', { name: 'conversationDisplay', value: visibility })
-      this.$store.dispatch('queueFlushAll')
     },
     openTab (tab) {
       this.$store.dispatch('openSettingsModalTab', tab)
