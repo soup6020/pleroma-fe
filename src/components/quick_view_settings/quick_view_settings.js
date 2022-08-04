@@ -1,12 +1,12 @@
 import Popover from '../popover/popover.vue'
 import { mapGetters } from 'vuex'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faList, faFolderTree, faBarsStaggered, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faList, faFolderTree, faBars, faWrench } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faList,
   faFolderTree,
-  faBarsStaggered,
+  faBars,
   faWrench
 )
 
@@ -51,7 +51,8 @@ const QuickViewSettings = {
     showUserAvatars: {
       get () { return this.mergedConfig.mentionLinkShowAvatar },
       set () {
-        const value = !this.mentionLinkShowAvatar
+        const value = !this.showUserAvatars
+        console.log(value)
         this.$store.dispatch('setOption', { name: 'mentionLinkShowAvatar', value })
       }
     },

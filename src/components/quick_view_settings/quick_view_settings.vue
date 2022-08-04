@@ -6,30 +6,28 @@
   >
     <template #content>
       <div class="dropdown-menu">
-        <div v-if="loggedIn">
-          <button
-            class="button-default dropdown-item"
-            @click="conversationDisplay = 'tree'"
-          >
-            <span
-              class="menu-checkbox -radio"
-              :class="{ 'menu-checkbox-checked': conversationDisplay === 'tree' }"
-            /><FAIcon icon="folder-tree"/> {{ $t('settings.conversation_display_tree_quick') }}
-          </button>
-          <button
-            class="button-default dropdown-item"
-            @click="conversationDisplay = 'linear'"
-          >
-            <span
-              class="menu-checkbox -radio"
-              :class="{ 'menu-checkbox-checked': conversationDisplay === 'linear' }"
-            /><FAIcon icon="list"/> {{ $t('settings.conversation_display_linear_quick') }}
-          </button>
-          <div
-            role="separator"
-            class="dropdown-divider"
-          />
-        </div>
+        <button
+          class="button-default dropdown-item"
+          @click="conversationDisplay = 'tree'"
+        >
+          <span
+            class="menu-checkbox -radio"
+            :class="{ 'menu-checkbox-checked': conversationDisplay === 'tree' }"
+          /><FAIcon icon="folder-tree"/> {{ $t('settings.conversation_display_tree_quick') }}
+        </button>
+        <button
+          class="button-default dropdown-item"
+          @click="conversationDisplay = 'linear'"
+        >
+          <span
+            class="menu-checkbox -radio"
+            :class="{ 'menu-checkbox-checked': conversationDisplay === 'linear' }"
+          /><FAIcon icon="list"/> {{ $t('settings.conversation_display_linear_quick') }}
+        </button>
+        <div
+          role="separator"
+          class="dropdown-divider"
+        />
         <button
           class="button-default dropdown-item"
           @click="showUserAvatars = !showUserAvatars"
@@ -69,7 +67,7 @@
     </template>
     <template #trigger>
       <button class="button-unstyled">
-        <FAIcon icon="bars-staggered" />
+        <FAIcon icon="bars" />
       </button>
     </template>
   </Popover>
