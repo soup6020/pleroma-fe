@@ -13,7 +13,7 @@
           <span
             class="menu-checkbox -radio"
             :class="{ 'menu-checkbox-checked': conversationDisplay === 'tree' }"
-          /><FAIcon icon="folder-tree"/> {{ $t('settings.conversation_display_tree_quick') }}
+          /><FAIcon icon="folder-tree" /> {{ $t('settings.conversation_display_tree_quick') }}
         </button>
         <button
           class="button-default dropdown-item"
@@ -22,7 +22,7 @@
           <span
             class="menu-checkbox -radio"
             :class="{ 'menu-checkbox-checked': conversationDisplay === 'linear' }"
-          /><FAIcon icon="list"/> {{ $t('settings.conversation_display_linear_quick') }}
+          /><FAIcon icon="list" /> {{ $t('settings.conversation_display_linear_quick') }}
         </button>
         <div
           role="separator"
