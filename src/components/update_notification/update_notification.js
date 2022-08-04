@@ -10,7 +10,7 @@ library.add(
   faTimes
 )
 
-const CURRENT_UPDATE_COUNTER = 1
+export const CURRENT_UPDATE_COUNTER = 1
 
 const UpdateNotification = {
   data () {
@@ -40,13 +40,13 @@ const UpdateNotification = {
     },
     neverShowAgain () {
       this.toggleShow()
-      // this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
-      // this.$store.commit('setFlag', { flag: 'dontShowUpdateNotifs', value: 1 })
-      // this.$store.dispatch('pushServerSideStorage')
+      this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
+      this.$store.commit('setFlag', { flag: 'dontShowUpdateNotifs', value: 1 })
+      this.$store.dispatch('pushServerSideStorage')
     },
     dismiss () {
       this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
-      // this.$store.dispatch('pushServerSideStorage')
+      this.$store.dispatch('pushServerSideStorage')
     }
   },
   mounted () {
