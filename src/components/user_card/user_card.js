@@ -14,7 +14,9 @@ import {
   faRss,
   faSearchPlus,
   faExternalLinkAlt,
-  faEdit
+  faEdit,
+  faTimes,
+  faExpandAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -22,12 +24,21 @@ library.add(
   faBell,
   faSearchPlus,
   faExternalLinkAlt,
-  faEdit
+  faEdit,
+  faTimes,
+  faExpandAlt
 )
 
 export default {
   props: [
-    'userId', 'switcher', 'selected', 'hideBio', 'rounded', 'bordered', 'allowZoomingAvatar'
+    'userId',
+    'switcher',
+    'selected',
+    'hideBio',
+    'rounded',
+    'bordered',
+    'avatarAction', // default - open profile, 'zoom' - zoom, function - call function
+    'onClose'
   ],
   data () {
     return {
@@ -47,15 +58,16 @@ export default {
     },
     classes () {
       return [{
-        'user-card-rounded-t': this.rounded === 'top', // set border-top-left-radius and border-top-right-radius
-        'user-card-rounded': this.rounded === true, // set border-radius for all sides
-        'user-card-bordered': this.bordered === true // set border for all sides
+        '-rounded-t': this.rounded === 'top', // set border-top-left-radius and border-top-right-radius
+        '-rounded': this.rounded === true, // set border-radius for all sides
+        '-bordered': this.bordered === true, // set border for all sides
+        '-popover': !!this.onClose // set popover rounding
       }]
     },
     style () {
       return {
         backgroundImage: [
-          `linear-gradient(to bottom, var(--profileTint), var(--profileTint))`,
+          'linear-gradient(to bottom, var(--profileTint), var(--profileTint))',
           `url(${this.user.cover_photo})`
         ].join(', ')
       }
@@ -166,10 +178,16 @@ export default {
         mimetype: 'image'
       }
       this.$store.dispatch('setMedia', [attachment])
-      this.$store.dispatch('setCurrent', attachment)
+      this.$store.dispatch('setCurrentMedia', attachment)
     },
     mentionUser () {
       this.$store.dispatch('openPostStatusModal', { replyTo: true, repliedUser: this.user })
+    },
+    onAvatarClickHandler (e) {
+      if (this.onAvatarClick) {
+        e.preventDefault()
+        this.onAvatarClick()
+      }
     }
   }
 }

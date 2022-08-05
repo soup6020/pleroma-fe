@@ -1,3 +1,4 @@
+import { computed } from 'vue'
 import { mapGetters } from 'vuex'
 import Notification from '../notification/notification.vue'
 import NotificationFilters from './notification_filters.vue'
@@ -23,13 +24,13 @@ const Notifications = {
     NotificationFilters
   },
   props: {
-    // Disables display of panel header
-    noHeading: Boolean,
     // Disables panel styles, unread mark, potentially other notification-related actions
     // meant for "Interactions" timeline
     minimalMode: Boolean,
     // Custom filter mode, an array of strings, possible values 'mention', 'repeat', 'like', 'follow', used to override global filter for use in "Interactions" timeline
-    filterMode: Array
+    filterMode: Array,
+    // Disable teleporting (i.e. for /users/user/notifications)
+    disableTeleport: Boolean
   },
   data () {
     return {
@@ -38,6 +39,11 @@ const Notifications = {
       // the heavier the page becomes. This count is increased when loading
       // older notifications, and cut back to default whenever hitting "Read!".
       seenToDisplayCount: DEFAULT_SEEN_TO_DISPLAY_COUNT
+    }
+  },
+  provide () {
+    return {
+      popoversZLayer: computed(() => this.popoversZLayer)
     }
   },
   computed: {
@@ -64,6 +70,22 @@ const Notifications = {
     },
     loading () {
       return this.$store.state.statuses.notifications.loading
+    },
+    noHeading () {
+      const { layoutType } = this.$store.state.interface
+      return this.minimalMode || layoutType === 'mobile'
+    },
+    teleportTarget () {
+      const { layoutType } = this.$store.state.interface
+      const map = {
+        wide: '#notifs-column',
+        mobile: '#mobile-notifications'
+      }
+      return map[layoutType] || '#notifs-sidebar'
+    },
+    popoversZLayer () {
+      const { layoutType } = this.$store.state.interface
+      return layoutType === 'mobile' ? 'navbar' : null
     },
     notificationsToDisplay () {
       return this.filteredNotifications.slice(0, this.unseenCount + this.seenToDisplayCount)

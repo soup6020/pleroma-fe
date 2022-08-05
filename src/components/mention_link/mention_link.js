@@ -2,6 +2,7 @@ import generateProfileLink from 'src/services/user_profile_link_generator/user_p
 import { mapGetters, mapState } from 'vuex'
 import { highlightClass, highlightStyle } from '../../services/user_highlighter/user_highlighter.js'
 import UserAvatar from '../user_avatar/user_avatar.vue'
+import { defineAsyncComponent } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faAt
@@ -14,7 +15,8 @@ library.add(
 const MentionLink = {
   name: 'MentionLink',
   components: {
-    UserAvatar
+    UserAvatar,
+    UserPopover: defineAsyncComponent(() => import('../user_popover/user_popover.vue'))
   },
   props: {
     url: {
@@ -34,14 +36,29 @@ const MentionLink = {
       type: String
     }
   },
+  data () {
+    return {
+      hasSelection: false
+    }
+  },
   methods: {
     onClick () {
+      if (this.shouldShowTooltip) return
       const link = generateProfileLink(
         this.userId || this.user.id,
         this.userScreenName || this.user.screen_name
       )
       this.$router.push(link)
+    },
+    handleSelection () {
+      this.hasSelection = document.getSelection().containsNode(this.$refs.full, true)
     }
+  },
+  mounted () {
+    document.addEventListener('selectionchange', this.handleSelection)
+  },
+  unmounted () {
+    document.removeEventListener('selectionchange', this.handleSelection)
   },
   computed: {
     user () {
@@ -87,8 +104,9 @@ const MentionLink = {
     classnames () {
       return [
         {
-          '-you': this.isYou,
-          '-highlighted': this.highlight
+          '-you': this.isYou && this.shouldBoldenYou,
+          '-highlighted': this.highlight,
+          '-has-selection': this.hasSelection
         },
         this.highlightType
       ]
@@ -110,10 +128,16 @@ const MentionLink = {
       }
     },
     shouldShowTooltip () {
-      return this.mergedConfig.mentionLinkShowTooltip && this.mergedConfig.mentionLinkDisplay === 'short' && this.isRemote
+      return this.mergedConfig.mentionLinkShowTooltip
     },
     shouldShowAvatar () {
       return this.mergedConfig.mentionLinkShowAvatar
+    },
+    shouldShowYous () {
+      return this.mergedConfig.mentionLinkShowYous
+    },
+    shouldBoldenYou () {
+      return this.mergedConfig.mentionLinkBoldenYou
     },
     shouldFadeDomain () {
       return this.mergedConfig.mentionLinkFadeDomain

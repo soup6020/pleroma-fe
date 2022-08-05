@@ -5,26 +5,63 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 ### Fixed
+- AdminFE button no longer scrolls page to top when clicked
+- Pinned statuses no longer appear at bottom of user timeline (still appear as part of the timeline when fetched deep enough)
+- Fixed many many bugs related to new mentions, including spacing and alignment issues
+- Links in profile bios now properly open in new tabs
+- Inline images now respect their intended width/height attributes
+- Links with `&` in them work properly now
+- Interaction list popovers now properly emojify names
 - Completely hidden posts still had 1px border
+- Attachments are ALWAYS in same order as user uploaded, no more "videos first"
+- Attachment description is prefilled with backend-provided default when uploading
+- Proper visual feedback that next image is loading when browsing
+- UI no longer lags when switching between mobile and desktop mode
+- Popovers no longer constrained by DOM hierarchy, shouldn't be cut off by anything
+- "Always show mobile button" is working now
 
 ### Changed
-- Settings window has been throughly rearranged to make make more sense and make navication settings easier.
+- Using Vue 3 now
+- (You)s are optional (opt-in) now, bolding your nickname is also optional (opt-out)
+- User highlight background now also covers the `@`
+- Reverted back to textual `@`, svg version is opt-in.
+- Settings window has been thoroughly rearranged to make more sense and make navigation settings easier.
+- Uploaded attachments are uniform with displayed attachments
+- Flash is watchable in media-modal (takes up nearly full screen though due to sizing issues)
+- Notifications about likes/repeats/emoji reacts are now minimized so they always take up same amount of space irrelevant to size of post.
+- Slight width/spacing adjustments
+- More sizing stuff is font-size dependent now
+- Scrollbars are styled/colorized now
+- Scrollbars are toggleable (for stuff that didn't have visible scrollbars before) (opt-in)
 
 ### Added
+- 3 column mode: only enables when there's space for it (opt-out, customizable)
+- Options to show domains in mentions
+- Option to show user avatars in mention links (opt-in)
+- Option to disable the tooltip for mentions
 - Option to completely hide muted threads
+- Ability to open videos in modal even if you disabled that feature, via an icon button
+- New button on attachment that indicates that attachment has a description and shows a bar filled with description
+- Attachments are truncated just like post contents
+- Media modal now also displays description and counter position in gallery (i.e. 1/5)
+- Ability to rearrange order of attachments when uploading
+- Enabled users to zoom and pan images in media viewer with mouse and touch
+- Timelines/panels and conversations have sticky headers now
+- Added frontend ui for account migration
+
 
 ## [2.4.2] - 2022-01-09
-### Added 
+### Added
 - Added Apply and Reset buttons to the bottom of theme tab to minimize UI travel
 - Implemented user option to always show floating New Post button (normally mobile-only)
-- Display reasons for instance specific policies 
+- Display reasons for instance specific policies
 - Added functionality to cancel follow request
 
 ### Fixed
 - Fixed link to external profile not working on user profiles
-- Fixed mobile shoutbox display 
+- Fixed mobile shoutbox display
 - Fixed favicon badge not working in Chrome
-- Escape html more properly in subject/display name 
+- Escape html more properly in subject/display name
 
 
 ## [2.4.0] - 2021-08-08

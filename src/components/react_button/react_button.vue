@@ -6,14 +6,16 @@
     :offset="{ y: 5 }"
     :bound-to="{ x: 'container' }"
     remove-padding
+    popover-class="ReactButton popover-default"
     @show="focusInput"
   >
-    <template v-slot:content="{close}">
+    <template #content="{close}">
       <div class="reaction-picker-filter">
         <input
           v-model="filterWord"
           size="1"
           :placeholder="$t('emoji.search_emoji')"
+          @input="$event.target.composing = false"
         >
       </div>
       <div class="reaction-picker">
@@ -39,8 +41,8 @@
         <div class="reaction-bottom-fader" />
       </div>
     </template>
-    <template v-slot:trigger>
-      <button
+    <template #trigger>
+      <span
         class="button-unstyled popover-trigger"
         :title="$t('tool_tip.add_reaction')"
       >
@@ -48,12 +50,12 @@
           class="fa-scale-110 fa-old-padding"
           :icon="['far', 'smile-beam']"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>
 
-<script src="./react_button.js" ></script>
+<script src="./react_button.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';
@@ -101,7 +103,7 @@
       cursor: pointer;
 
       flex-basis: 20%;
-      line-height: 1.5em;
+      line-height: 1.5;
       align-content: center;
 
       &:hover {

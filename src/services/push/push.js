@@ -43,7 +43,7 @@ function deleteSubscriptionFromBackEnd (token) {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
   }).then((response) => {
     if (!response.ok) throw new Error('Bad status code from server.')
@@ -56,7 +56,7 @@ function sendSubscriptionToBackEnd (subscription, token, notificationVisibility)
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify({
       subscription,

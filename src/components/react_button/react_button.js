@@ -1,6 +1,7 @@
 import Popover from '../popover/popover.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSmileBeam } from '@fortawesome/free-regular-svg-icons'
+import { trim } from 'lodash'
 
 library.add(faSmileBeam)
 
@@ -43,8 +44,8 @@ const ReactButton = {
     },
     emojis () {
       if (this.filterWord !== '') {
-        const filterWordLowercase = this.filterWord.toLowerCase()
-        let orderedEmojiList = []
+        const filterWordLowercase = trim(this.filterWord.toLowerCase())
+        const orderedEmojiList = []
         for (const emoji of this.$store.state.instance.emoji) {
           if (emoji.replacement === this.filterWord) return [emoji]
 

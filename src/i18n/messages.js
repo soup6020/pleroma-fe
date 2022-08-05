@@ -32,6 +32,7 @@ const loaders = {
   pt: () => import('./pt.json'),
   ro: () => import('./ro.json'),
   ru: () => import('./ru.json'),
+  sk: () => import('./sk.json'),
   te: () => import('./te.json'),
   uk: () => import('./uk.json'),
   zh: () => import('./zh.json'),
@@ -41,12 +42,12 @@ const loaders = {
 const messages = {
   languages: ['en', ...Object.keys(loaders)],
   default: {
-    en: require('./en.json')
+    en: require('./en.json').default
   },
   setLanguage: async (i18n, language) => {
     if (loaders[language]) {
-      let messages = await loaders[language]()
-      i18n.setLocaleMessage(language, messages)
+      const messages = await loaders[language]()
+      i18n.setLocaleMessage(language, messages.default)
     }
     i18n.locale = language
   }

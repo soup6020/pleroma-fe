@@ -4,6 +4,7 @@ import ScopeSelector from '../scope_selector/scope_selector.vue'
 import EmojiInput from '../emoji_input/emoji_input.vue'
 import PollForm from '../poll/poll_form.vue'
 import Attachment from '../attachment/attachment.vue'
+import Gallery from 'src/components/gallery/gallery.vue'
 import StatusContent from '../status_content/status_content.vue'
 import fileTypeService from '../../services/file_type/file_type.service.js'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
@@ -40,7 +41,7 @@ const buildMentionsString = ({ user, attentions = [] }, currentUser) => {
   allAttentions = uniqBy(allAttentions, 'id')
   allAttentions = reject(allAttentions, { id: currentUser.id })
 
-  let mentions = map(allAttentions, (attention) => {
+  const mentions = map(allAttentions, (attention) => {
     return `@${attention.screen_name}`
   })
 
@@ -77,6 +78,12 @@ const PostStatusForm = {
     'emojiPickerPlacement',
     'optimisticPosting'
   ],
+  emits: [
+    'posted',
+    'resize',
+    'mediaplay',
+    'mediapause'
+  ],
   components: {
     MediaUpload,
     EmojiInput,
@@ -85,7 +92,8 @@ const PostStatusForm = {
     Checkbox,
     Select,
     Attachment,
-    StatusContent
+    StatusContent,
+    Gallery
   },
   mounted () {
     this.updateIdempotencyKey()
@@ -234,7 +242,7 @@ const PostStatusForm = {
     })
   },
   watch: {
-    'newStatus': {
+    newStatus: {
       deep: true,
       handler () {
         this.statusChanged()
@@ -265,7 +273,7 @@ const PostStatusForm = {
           this.$refs.textarea.focus()
         })
       }
-      let el = this.$el.querySelector('textarea')
+      const el = this.$el.querySelector('textarea')
       el.style.height = 'auto'
       el.style.height = undefined
       this.error = null
@@ -384,9 +392,24 @@ const PostStatusForm = {
       this.$emit('resize', { delayed: true })
     },
     removeMediaFile (fileInfo) {
-      let index = this.newStatus.files.indexOf(fileInfo)
+      const index = this.newStatus.files.indexOf(fileInfo)
       this.newStatus.files.splice(index, 1)
       this.$emit('resize')
+    },
+    editAttachment (fileInfo, newText) {
+      this.newStatus.mediaDescriptions[fileInfo.id] = newText
+    },
+    shiftUpMediaFile (fileInfo) {
+      const { files } = this.newStatus
+      const index = this.newStatus.files.indexOf(fileInfo)
+      files.splice(index, 1)
+      files.splice(index - 1, 0, fileInfo)
+    },
+    shiftDnMediaFile (fileInfo) {
+      const { files } = this.newStatus
+      const index = this.newStatus.files.indexOf(fileInfo)
+      files.splice(index, 1)
+      files.splice(index + 1, 0, fileInfo)
     },
     uploadFailed (errString, templateArgs) {
       templateArgs = templateArgs || {}
@@ -439,7 +462,7 @@ const PostStatusForm = {
     },
     onEmojiInputInput (e) {
       this.$nextTick(() => {
-        this.resize(this.$refs['textarea'])
+        this.resize(this.$refs.textarea)
       })
     },
     resize (e) {
@@ -454,8 +477,8 @@ const PostStatusForm = {
         return
       }
 
-      const formRef = this.$refs['form']
-      const bottomRef = this.$refs['bottom']
+      const formRef = this.$refs.form
+      const bottomRef = this.$refs.bottom
       /* Scroller is either `window` (replies in TL), sidebar (main post form,
        * replies in notifs) or mobile post form. Note that getting and setting
        * scroll is different for `Window` and `Element`s
@@ -463,7 +486,7 @@ const PostStatusForm = {
       const bottomBottomPaddingStr = window.getComputedStyle(bottomRef)['padding-bottom']
       const bottomBottomPadding = pxStringToNumber(bottomBottomPaddingStr)
 
-      const scrollerRef = this.$el.closest('.sidebar-scroller') ||
+      const scrollerRef = this.$el.closest('.column.-scrollable') ||
             this.$el.closest('.post-form-modal-view') ||
             window
 
@@ -541,7 +564,7 @@ const PostStatusForm = {
       this.$refs['emoji-input'].resize()
     },
     showEmojiPicker () {
-      this.$refs['textarea'].focus()
+      this.$refs.textarea.focus()
       this.$refs['emoji-input'].triggerShowPicker()
     },
     clearError () {

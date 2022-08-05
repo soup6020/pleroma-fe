@@ -33,22 +33,23 @@
     >
       <a
         class="avatar-container"
-        :href="notification.from_profile.statusnet_profile_url"
-        @click.stop.prevent.capture="toggleUserExpanded"
+        :href="$router.resolve(userProfileLink).href"
+        @click.prevent
       >
-        <UserAvatar
-          :compact="true"
-          :better-shadow="betterShadow"
-          :user="notification.from_profile"
-        />
+        <UserPopover
+          :user-id="notification.from_profile.id"
+          :overlay-centers="true"
+        >
+          <UserAvatar
+            class="post-avatar"
+            :bot="botIndicator"
+            :compact="true"
+            :better-shadow="betterShadow"
+            :user="notification.from_profile"
+          />
+        </UserPopover>
       </a>
       <div class="notification-right">
-        <UserCard
-          v-if="userExpanded"
-          :user-id="getUser(notification).id"
-          :rounded="true"
-          :bordered="true"
-        />
         <span class="notification-details">
           <div class="name-and-action">
             <!-- eslint-disable vue/no-v-html -->
@@ -65,12 +66,16 @@
               v-else
               class="username"
               :title="'@'+notification.from_profile.screen_name_ui"
-            >{{ notification.from_profile.name }}</span>
+            >
+              {{ notification.from_profile.name }}
+            </span>
+            {{ ' ' }}
             <span v-if="notification.type === 'like'">
               <FAIcon
                 class="type-icon"
                 icon="star"
               />
+              {{ ' ' }}
               <small>{{ $t('notifications.favorited_you') }}</small>
             </span>
             <span v-if="notification.type === 'repeat'">
@@ -79,6 +84,7 @@
                 icon="retweet"
                 :title="$t('tool_tip.repeat')"
               />
+              {{ ' ' }}
               <small>{{ $t('notifications.repeated_you') }}</small>
             </span>
             <span v-if="notification.type === 'follow'">
@@ -86,6 +92,7 @@
                 class="type-icon"
                 icon="user-plus"
               />
+              {{ ' ' }}
               <small>{{ $t('notifications.followed_you') }}</small>
             </span>
             <span v-if="notification.type === 'follow_request'">
@@ -93,6 +100,7 @@
                 class="type-icon"
                 icon="user"
               />
+              {{ ' ' }}
               <small>{{ $t('notifications.follow_request') }}</small>
             </span>
             <span v-if="notification.type === 'move'">
@@ -100,14 +108,26 @@
                 class="type-icon"
                 icon="suitcase-rolling"
               />
+              {{ ' ' }}
               <small>{{ $t('notifications.migrated_to') }}</small>
             </span>
             <span v-if="notification.type === 'pleroma:emoji_reaction'">
               <small>
-                <i18n path="notifications.reacted_with">
+                <i18n-t
+                  scope="global"
+                  keypath="notifications.reacted_with"
+                >
                   <span class="emoji-reaction-emoji">{{ notification.emoji }}</span>
-                </i18n>
+                </i18n-t>
               </small>
+            </span>
+            <span v-if="notification.type === 'poll'">
+              <FAIcon
+                class="type-icon"
+                icon="poll-h"
+              />
+              {{ ' ' }}
+              <small>{{ $t('notifications.poll_ended') }}</small>
             </span>
           </div>
           <div
@@ -161,18 +181,26 @@
             v-if="notification.type === 'follow_request'"
             style="white-space: nowrap;"
           >
-            <FAIcon
-              icon="check"
-              class="fa-scale-110 fa-old-padding follow-request-accept"
+            <button
+              class="button-unstyled"
               :title="$t('tool_tip.accept_follow_request')"
               @click="approveUser()"
-            />
-            <FAIcon
-              icon="times"
-              class="fa-scale-110 fa-old-padding follow-request-reject"
+            >
+              <FAIcon
+                icon="check"
+                class="fa-scale-110 fa-old-padding follow-request-accept"
+              />
+            </button>
+            <button
+              class="button-unstyled"
               :title="$t('tool_tip.reject_follow_request')"
               @click="denyUser()"
-            />
+            >
+              <FAIcon
+                icon="times"
+                class="fa-scale-110 fa-old-padding follow-request-reject"
+              />
+            </button>
           </div>
         </div>
         <div
@@ -184,8 +212,9 @@
           </router-link>
         </div>
         <template v-else>
-          <status-content
+          <StatusContent
             class="faint"
+            :compact="true"
             :status="notification.action"
           />
         </template>

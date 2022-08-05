@@ -39,11 +39,12 @@ const qvitterStatusType = (status) => {
 
 export const parseUser = (data) => {
   const output = {}
-  const masto = data.hasOwnProperty('acct')
+  const masto = Object.prototype.hasOwnProperty.call(data, 'acct')
   // case for users in "mentions" property for statuses in MastoAPI
-  const mastoShort = masto && !data.hasOwnProperty('avatar')
+  const mastoShort = masto && !Object.prototype.hasOwnProperty.call(data, 'avatar')
 
   output.id = String(data.id)
+  output._original = data // used for server-side settings
 
   if (masto) {
     output.screen_name = data.acct
@@ -227,7 +228,7 @@ export const parseUser = (data) => {
 
 export const parseAttachment = (data) => {
   const output = {}
-  const masto = !data.hasOwnProperty('oembed')
+  const masto = !Object.prototype.hasOwnProperty.call(data, 'oembed')
 
   if (masto) {
     // Not exactly same...
@@ -248,7 +249,7 @@ export const parseAttachment = (data) => {
 
 export const parseStatus = (data) => {
   const output = {}
-  const masto = data.hasOwnProperty('account')
+  const masto = Object.prototype.hasOwnProperty.call(data, 'account')
 
   if (masto) {
     output.favorited = data.favourited
@@ -373,10 +374,10 @@ export const parseStatus = (data) => {
 
 export const parseNotification = (data) => {
   const mastoDict = {
-    'favourite': 'like',
-    'reblog': 'repeat'
+    favourite: 'like',
+    reblog: 'repeat'
   }
-  const masto = !data.hasOwnProperty('ntype')
+  const masto = !Object.prototype.hasOwnProperty.call(data, 'ntype')
   const output = {}
 
   if (masto) {

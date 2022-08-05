@@ -1,3 +1,4 @@
+import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -5,6 +6,7 @@ import {
   faStickyNote,
   faSmileBeam
 } from '@fortawesome/free-solid-svg-icons'
+import { trim } from 'lodash'
 
 library.add(
   faBoxOpen,
@@ -23,7 +25,7 @@ const filterByKeyword = (list, keyword = '') => {
   if (keyword === '') return list
 
   const keywordLowercase = keyword.toLowerCase()
-  let orderedEmojiList = []
+  const orderedEmojiList = []
   for (const emoji of list) {
     const indexOfKeyword = emoji.displayText.toLowerCase().indexOf(keywordLowercase)
     if (indexOfKeyword > -1) {
@@ -57,7 +59,7 @@ const EmojiPicker = {
     }
   },
   components: {
-    StickerPicker: () => import('../sticker_picker/sticker_picker.vue'),
+    StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
     Checkbox
   },
   methods: {
@@ -79,7 +81,7 @@ const EmojiPicker = {
     },
     highlight (key) {
       const ref = this.$refs['group-' + key]
-      const top = ref[0].offsetTop
+      const top = ref.offsetTop
       this.setShowStickers(false)
       this.activeGroup = key
       this.$nextTick(() => {
@@ -96,7 +98,7 @@ const EmojiPicker = {
       }
     },
     triggerLoadMore (target) {
-      const ref = this.$refs['group-end-custom'][0]
+      const ref = this.$refs['group-end-custom']
       if (!ref) return
       const bottom = ref.offsetTop + ref.offsetHeight
 
@@ -119,7 +121,7 @@ const EmojiPicker = {
       this.$nextTick(() => {
         this.emojisView.forEach(group => {
           const ref = this.$refs['group-' + group.id]
-          if (ref[0].offsetTop <= top) {
+          if (ref.offsetTop <= top) {
             this.activeGroup = group.id
           }
         })
@@ -175,7 +177,7 @@ const EmojiPicker = {
     filteredEmoji () {
       return filterByKeyword(
         this.$store.state.instance.customEmoji || [],
-        this.keyword
+        trim(this.keyword)
       )
     },
     customEmojiBuffer () {
@@ -196,7 +198,7 @@ const EmojiPicker = {
           id: 'standard',
           text: this.$t('emoji.unicode'),
           icon: 'box-open',
-          emojis: filterByKeyword(standardEmojis, this.keyword)
+          emojis: filterByKeyword(standardEmojis, trim(this.keyword))
         }
       ]
     },

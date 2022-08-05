@@ -5,7 +5,6 @@
     <nav
       id="nav"
       class="mobile-nav"
-      :class="{ 'mobile-hidden': isChat }"
       @click="scrollToTop()"
     >
       <div class="item">
@@ -51,7 +50,7 @@
     <div
       v-if="currentUser"
       class="mobile-notifications-drawer"
-      :class="{ 'closed': !notificationsOpen }"
+      :class="{ '-closed': !notificationsOpen }"
       @touchstart.stop="notificationsTouchStart"
       @touchmove.stop="notificationsTouchMove"
     >
@@ -68,14 +67,10 @@
         </a>
       </div>
       <div
+        id="mobile-notifications"
         class="mobile-notifications"
         @scroll="onScroll"
-      >
-        <Notifications
-          ref="notifications"
-          :no-heading="true"
-        />
-      </div>
+      />
     </div>
     <SideDrawer
       ref="sideDrawer"
@@ -90,15 +85,18 @@
 @import '../../_variables.scss';
 
 .MobileNav {
+  z-index: var(--ZI_navbar);
+
   .mobile-nav {
     display: grid;
-    line-height: 50px;
-    height: 50px;
+    line-height: var(--navbar-height);
     grid-template-rows: 50px;
     grid-template-columns: 2fr auto;
     width: 100%;
-    position: fixed;
     box-sizing: border-box;
+    a {
+      color: var(--topBarLink, $fallback--link);
+    }
   }
 
   .mobile-inner-nav {
@@ -150,11 +148,12 @@
     transition-property: transform;
     transition-duration: 0.25s;
     transform: translateX(0);
-    z-index: 1001;
+    z-index: var(--ZI_navbar);
     -webkit-overflow-scrolling: touch;
 
-    &.closed {
+    &.-closed {
       transform: translateX(100%);
+      box-shadow: none;
     }
   }
 
@@ -162,7 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    z-index: calc(var(--ZI_navbar) + 100);
     width: 100%;
     height: 50px;
     line-height: 50px;
@@ -182,7 +181,7 @@
   .mobile-notifications {
     margin-top: 50px;
     width: 100vw;
-    height: calc(100vh - 50px);
+    height: calc(100vh - var(--navbar-height));
     overflow-x: hidden;
     overflow-y: scroll;
 

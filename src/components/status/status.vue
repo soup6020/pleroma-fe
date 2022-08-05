@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="!hideStatus"
+    ref="root"
     class="Status"
     :class="[{ '-focused': isFocused }, { '-conversation': inlineExpanded }]"
   >
@@ -77,6 +78,7 @@
         <UserAvatar
           v-if="retweet"
           class="left-side repeater-avatar"
+          :bot="rtBotIndicator"
           :better-shadow="betterShadow"
           :user="statusoid.user"
         />
@@ -99,6 +101,7 @@
               :to="retweeterProfileLink"
             >{{ retweeter }}</router-link>
           </span>
+          {{ ' ' }}
           <FAIcon
             icon="retweet"
             class="repeat-icon"
@@ -119,25 +122,25 @@
           v-if="!noHeading"
           class="left-side"
         >
-          <router-link
-            :to="userProfileLink"
-            @click.stop.prevent.capture.native="toggleUserExpanded"
+          <a
+            :href="$router.resolve(userProfileLink).href"
+            @click.prevent
           >
-            <UserAvatar
-              :compact="compact"
-              :better-shadow="betterShadow"
-              :user="status.user"
-            />
-          </router-link>
+            <UserPopover
+              :user-id="status.user.id"
+              :overlay-centers="true"
+            >
+              <UserAvatar
+                class="post-avatar"
+                :bot="botIndicator"
+                :compact="compact"
+                :better-shadow="betterShadow"
+                :user="status.user"
+              />
+            </UserPopover>
+          </a>
         </div>
         <div class="right-side">
-          <UserCard
-            v-if="userExpanded"
-            :user-id="status.user.id"
-            :rounded="true"
-            :bordered="true"
-            class="usercard"
-          />
           <div
             v-if="!noHeading"
             class="status-heading"
@@ -188,7 +191,7 @@
                 <span
                   v-if="status.visibility"
                   class="visibility-icon"
-                  :title="status.visibility | capitalize"
+                  :title="visibilityLocalized"
                 >
                   <FAIcon
                     fixed-width
@@ -219,6 +222,31 @@
                     class="fa-scale-110"
                   />
                 </button>
+                <button
+                  v-if="inThreadForest && replies && replies.length && !simpleTree"
+                  class="button-unstyled"
+                  :title="threadShowing ? $t('status.thread_hide') : $t('status.thread_show')"
+                  :aria-expanded="threadShowing ? 'true' : 'false'"
+                  @click.prevent="toggleThreadDisplay"
+                >
+                  <FAIcon
+                    fixed-width
+                    class="fa-scale-110"
+                    :icon="threadShowing ? 'chevron-up' : 'chevron-down'"
+                  />
+                </button>
+                <button
+                  v-if="dive && !simpleTree"
+                  class="button-unstyled"
+                  :title="$t('status.show_only_conversation_under_this')"
+                  @click.prevent="dive"
+                >
+                  <FAIcon
+                    fixed-width
+                    class="fa-scale-110"
+                    :icon="'angle-double-right'"
+                  />
+                </button>
               </span>
             </div>
             <div
@@ -227,7 +255,7 @@
             >
               <span
                 v-if="isReply"
-                class="glued-label"
+                class="glued-label reply-glued-label"
               >
                 <StatusPopover
                   v-if="!isPreview"
@@ -246,6 +274,7 @@
                       icon="reply"
                       flip="horizontal"
                     />
+                    {{ ' ' }}
                     <span
                       class="reply-to-text"
                     >
@@ -265,7 +294,6 @@
                   :url="replyProfileLink"
                   :user-id="status.in_reply_to_user_id"
                   :user-screen-name="status.in_reply_to_screen_name"
-                  :first-mention="false"
                 />
               </span>
 
@@ -292,6 +320,7 @@
                   class="mentions-line-first"
                 />
               </span>
+              {{ ' ' }}
               <MentionsLine
                 v-if="hasMentionsLine"
                 :mentions="mentionsLine.slice(1)"
@@ -306,6 +335,12 @@
             :no-heading="noHeading"
             :highlight="highlight"
             :focused="isFocused"
+            :controlled-showing-tall="controlledShowingTall"
+            :controlled-expanding-subject="controlledExpandingSubject"
+            :controlled-showing-long-subject="controlledShowingLongSubject"
+            :controlled-toggle-showing-tall="controlledToggleShowingTall"
+            :controlled-toggle-expanding-subject="controlledToggleExpandingSubject"
+            :controlled-toggle-showing-long-subject="controlledToggleShowingLongSubject"
             @mediaplay="addMediaPlaying($event)"
             @mediapause="removeMediaPlaying($event)"
             @parseReady="setHeadTailLinks"
@@ -315,7 +350,20 @@
             v-if="inConversation && !isPreview && replies && replies.length"
             class="replies"
           >
-            <span class="faint">{{ $t('status.replies_list') }}</span>
+            <button
+              v-if="showOtherRepliesAsButton && replies.length > 1"
+              class="button-unstyled -link faint"
+              :title="$tc('status.ancestor_follow', replies.length - 1, { numReplies: replies.length - 1 })"
+              @click.prevent="dive"
+            >
+              {{ $tc('status.replies_list_with_others', replies.length - 1, { numReplies: replies.length - 1 }) }}
+            </button>
+            <span
+              v-else
+              class="faint"
+            >
+              {{ $t('status.replies_list') }}
+            </span>
             <StatusPopover
               v-for="reply in replies"
               :key="reply.id"
@@ -407,7 +455,11 @@
         class="gravestone"
       >
         <div class="left-side">
-          <UserAvatar :compact="compact" />
+          <UserAvatar
+            class="post-avatar"
+            :compact="compact"
+            :bot="botIndicator"
+          />
         </div>
         <div class="right-side">
           <div class="deleted-text">
@@ -439,6 +491,6 @@
   </div>
 </template>
 
-<script src="./status.js" ></script>
+<script src="./status.js"></script>
 
 <style src="./status.scss" lang="scss"></style>
