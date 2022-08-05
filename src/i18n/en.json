@@ -961,8 +961,8 @@
   "update": {
     "big_update_title": "Please bear with us",
     "big_update_content": "We haven't had a release in a while, so there things might look and feel different than what you're used to.",
-    "update_bugs": "Please report any issues and bugs on {pleromaGitlab} we don't have a QA team so some things fall through the cracks, we're also open to feedback and suggestions.",
-    "update_bugs_gitlab": "Pleroma Gitlab",
+    "update_bugs": "Please report any issues and bugs on {pleromaGitlab}, as we have changed a lot, and although we test thoroughly and use development versions ourselves, we may have missed some things. We welcome your feedback and suggestions on issues you might encounter, or how to improve Pleroma and Pleroma-FE.",
+    "update_bugs_gitlab": "Pleroma GitLab",
     "update_changelog": "You can see the full changelog {here}",
     "update_changelog_here": "here"
   }
