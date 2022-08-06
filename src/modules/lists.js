@@ -57,7 +57,7 @@ const actions = {
     commit('setList', { id, title })
   },
   setListAccounts ({ rootState, commit }, { id, accountIds }) {
-    const saved = rootState.lists.allListsObject[id].accountIds
+    const saved = rootState.lists.allListsObject[id].accountIds || []
     const added = accountIds.filter(id => !saved.includes(id))
     const removed = saved.filter(id => !accountIds.includes(id))
     commit('setListAccounts', { id, accountIds })

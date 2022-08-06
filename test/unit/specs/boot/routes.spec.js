@@ -46,7 +46,7 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
-    expect(matchedComponents[0].components.default.components.hasOwnProperty('ListsCard')).to.eql(true)
+    expect(Object.prototype.hasOwnProperty.call(matchedComponents[0].components.default.components, 'ListsCard')).to.eql(true)
   })
 
   it('list timeline', async () => {
@@ -54,7 +54,7 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
-    expect(matchedComponents[0].components.default.components.hasOwnProperty('Timeline')).to.eql(true)
+    expect(Object.prototype.hasOwnProperty.call(matchedComponents[0].components.default.components, 'Timeline')).to.eql(true)
   })
 
   it('list edit', async () => {
@@ -62,6 +62,6 @@ describe('routes', () => {
 
     const matchedComponents = router.currentRoute.value.matched
 
-    expect(matchedComponents[0].components.default.components.hasOwnProperty('BasicUserCard')).to.eql(true)
+    expect(Object.prototype.hasOwnProperty.call(matchedComponents[0].components.default.components, 'BasicUserCard')).to.eql(true)
   })
 })
