@@ -77,8 +77,7 @@ const ExtraButtons = {
     currentUser () { return this.$store.state.users.currentUser },
     canDelete () {
       if (!this.currentUser) { return }
-      const superuser = this.currentUser.rights.moderator || this.currentUser.rights.admin
-      return superuser || this.status.user.id === this.currentUser.id
+      return this.currentUser.privileges.includes('messages_delete') || this.status.user.id === this.currentUser.id
     },
     ownStatus () {
       return this.status.user.id === this.currentUser.id
