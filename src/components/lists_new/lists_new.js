@@ -70,7 +70,7 @@ const ListsNew = {
       this.$store.dispatch('createList', { title: this.title })
         .then((list) => {
           this.$store.dispatch('setListAccounts', { id: list.id, accountIds: this.selectedUserIds })
-          this.$router.push({ name: 'list-timeline', params: { id: list.id } })
+          this.$router.push({ name: 'lists-timeline', params: { id: list.id } })
         })
     }
   }

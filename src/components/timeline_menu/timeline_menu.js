@@ -58,7 +58,7 @@ const TimelineMenu = {
       if (route === 'tag-timeline') {
         return '#' + this.$route.params.tag
       }
-      if (route === 'list-timeline') {
+      if (route === 'lists-timeline') {
         return this.$store.getters.findListTitle(this.$route.params.id)
       }
       const i18nkey = timelineNames()[this.$route.name]

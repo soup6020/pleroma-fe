@@ -6,7 +6,7 @@
     >
       <router-link
         class="menu-item"
-        :to="{ name: 'list-timeline', params: { id: list.id } }"
+        :to="{ name: 'lists-timeline', params: { id: list.id } }"
       >
         {{ list.title }}
       </router-link>

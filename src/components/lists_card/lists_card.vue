@@ -1,13 +1,13 @@
 <template>
   <div class="list-card">
     <router-link
-      :to="{ name: 'list-timeline', params: { id: list.id } }"
+      :to="{ name: 'lists-timeline', params: { id: list.id } }"
       class="list-name"
     >
       {{ list.title }}
     </router-link>
     <router-link
-      :to="{ name: 'list-edit', params: { id: list.id } }"
+      :to="{ name: 'lists-edit', params: { id: list.id } }"
       class="button-list-edit"
     >
       <FAIcon

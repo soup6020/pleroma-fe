@@ -13,7 +13,7 @@ const ListsTimeline = {
   },
   watch: {
     $route: function (route) {
-      if (route.name === 'list-timeline' && route.params.id !== this.listId) {
+      if (route.name === 'lists-timeline' && route.params.id !== this.listId) {
         this.listId = route.params.id
         this.$store.dispatch('stopFetchingTimeline', 'list')
         this.$store.commit('clearTimeline', { timeline: 'list' })

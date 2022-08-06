@@ -77,8 +77,8 @@ export default (store) => {
     { name: 'about', path: '/about', component: About },
     { name: 'user-profile', path: '/:_(users)?/:name', component: UserProfile },
     { name: 'lists', path: '/lists', component: Lists },
-    { name: 'list-timeline', path: '/lists/:id', component: ListsTimeline },
-    { name: 'list-edit', path: '/lists/:id/edit', component: ListsEdit }
+    { name: 'lists-timeline', path: '/lists/:id', component: ListsTimeline },
+    { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit }
   ]
 
   if (store.state.instance.pleromaChatMessagesAvailable) {
