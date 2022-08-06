@@ -83,6 +83,10 @@ export const defaultState = {
   showScrollbars: false,
   userPopoverZoom: false,
   userPopoverOverlay: true,
+  sidebarColumnWidth: '25rem',
+  contentColumnWidth: '45rem',
+  notifsColumnWidth: '25rem',
+  listsNavigation: false,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default

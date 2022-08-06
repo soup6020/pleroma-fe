@@ -124,6 +124,53 @@
             {{ $t('settings.hide_shoutbox') }}
           </BooleanSetting>
         </li>
+        <li>
+          <BooleanSetting path="listsNavigation">
+            {{ $t('settings.lists_navigation') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <h3>{{ $t('settings.columns') }}</h3>
+        </li>
+        <li>
+          <BooleanSetting path="disableStickyHeaders">
+            {{ $t('settings.disable_sticky_headers') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="showScrollbars">
+            {{ $t('settings.show_scrollbars') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="sidebarRight">
+            {{ $t('settings.right_sidebar') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <ChoiceSetting
+            v-if="user"
+            id="thirdColumnMode"
+            path="thirdColumnMode"
+            :options="thirdColumnModeOptions"
+          >
+            {{ $t('settings.third_column_mode') }}
+          </ChoiceSetting>
+        </li>
+        <li v-if="expertLevel > 0">
+          {{ $t('settings.column_sizes') }}
+          <div class="column-settings">
+            <SizeSetting
+              v-for="column in columns"
+              :key="column"
+              :path="column + 'ColumnWidth'"
+              :units="horizontalUnits"
+              expert="1"
+            >
+              {{ $t('settings.column_sizes_' + column) }}
+            </SizeSetting>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="setting-item">
