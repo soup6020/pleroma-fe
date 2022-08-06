@@ -10,7 +10,7 @@
     >
       <template #content>
         <div class="dropdown-menu">
-          <span v-if="user.is_local">
+          <span v-if="canGrantRole">
             <button
               class="button-default dropdown-item"
               @click="toggleRight(&quot;admin&quot;)"
@@ -24,28 +24,31 @@
               {{ $t(!!user.rights.moderator ? 'user_card.admin_menu.revoke_moderator' : 'user_card.admin_menu.grant_moderator') }}
             </button>
             <div
+              v-if="canChangeActivationState || canDeleteAccount"
               role="separator"
               class="dropdown-divider"
             />
           </span>
           <button
+            v-if="canChangeActivationState"
             class="button-default dropdown-item"
             @click="toggleActivationStatus()"
           >
             {{ $t(!!user.deactivated ? 'user_card.admin_menu.activate_account' : 'user_card.admin_menu.deactivate_account') }}
           </button>
           <button
+            v-if="canDeleteAccount"
             class="button-default dropdown-item"
             @click="deleteUserDialog(true)"
           >
             {{ $t('user_card.admin_menu.delete_account') }}
           </button>
           <div
-            v-if="hasTagPolicy"
+            v-if="canUseTagPolicy"
             role="separator"
             class="dropdown-divider"
           />
-          <span v-if="hasTagPolicy">
+          <span v-if="canUseTagPolicy">
             <button
               class="button-default dropdown-item"
               @click="toggleTag(tags.FORCE_NSFW)"

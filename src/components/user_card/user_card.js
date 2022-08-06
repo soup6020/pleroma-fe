@@ -124,6 +124,10 @@ export default {
     hideFollowersCount () {
       return this.isOtherUser && this.user.hide_followers_count
     },
+    showModerationMenu () {
+      const privileges = this.loggedIn.privileges
+      return this.loggedIn.role === 'admin' || privileges.includes('users_manage_activation_state') || privileges.includes('users_delete') || privileges.includes('users_manage_tags')
+    },
     ...mapGetters(['mergedConfig'])
   },
   components: {
