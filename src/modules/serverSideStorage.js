@@ -140,7 +140,7 @@ export const _doMigrations = (cache) => {
     if (window._PLEROMA_HOTPATCH) {
       if (window._PLEROMA_HOTPATCH.reverseMigrations) {
         console.debug('Found hotpatch migration, applying')
-        return window._PLEROMA_HOTPATCH.reverseMigrations('serverSideStorage', { from: cache._version, to: VERSION }, cache)
+        return window._PLEROMA_HOTPATCH.reverseMigrations.call({}, 'serverSideStorage', { from: cache._version, to: VERSION }, cache)
       }
     }
   }
