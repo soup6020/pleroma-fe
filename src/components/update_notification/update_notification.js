@@ -30,7 +30,9 @@ const UpdateNotification = {
       }
     },
     shouldShow () {
-      return this.$store.state.serverSideStorage.flagStorage.updateCounter < CURRENT_UPDATE_COUNTER &&
+      return !this.$store.state.instance.disableUpdateNotification &&
+        this.$store.state.currentUser &&
+        this.$store.state.serverSideStorage.flagStorage.updateCounter < CURRENT_UPDATE_COUNTER &&
         !this.$store.state.serverSideStorage.flagStorage.dontShowUpdateNotifs
     }
   },

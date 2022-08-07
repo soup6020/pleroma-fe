@@ -1,6 +1,7 @@
 <template>
   <Modal
-    :is-open="shouldShow"
+    v-if="shouldShow"
+    :is-open="!!shouldShow"
     class="UpdateNotification"
     :no-background="true"
   >
