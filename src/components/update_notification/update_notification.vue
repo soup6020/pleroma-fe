@@ -1,6 +1,5 @@
 <template>
   <Modal
-    v-if="shouldShow"
     :is-open="!!shouldShow"
     class="UpdateNotification"
     :no-background="true"
@@ -22,14 +21,18 @@
             <p>
                 {{ $t('update.big_update_content') }}
             </p>
-            <p class="extra-info">
-                {{ $t('update.update_bugs') }}
-            </p>
-            <p class="extra-info">
-                {{ $t('update.update_changelog') }}
-            </p>
-            </div>
-            <div class="spacer-bottom"/>
+            <i18n-t keypath="update.update_bugs" tag="p" class="extra-info">
+              <template #pleromaGitlab>
+                <a target="_blank" href="https://git.pleroma.social/">{{ $t('update.update_bugs_gitlab') }}</a>
+              </template>
+            </i18n-t>
+            <i18n-t keypath="update.update_changelog" tag="p" class="extra-info">
+              <template #theFullChangelog>
+                <a target="_blank" href="https://pleroma.social/announcements/">{{ $t('update.update_changelog_here') }}</a>
+              </template>
+            </i18n-t>
+          </div>
+          <div class="spacer-bottom"/>
         </div>
       </div>
       <div class="panel-footer">
