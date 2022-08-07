@@ -321,7 +321,7 @@ const EmojiInput = {
       }
     },
     scrollIntoView () {
-      const rootRef = this.$refs['picker'].$el
+      const rootRef = this.$refs.picker.$el
       /* Scroller is either `window` (replies in TL), sidebar (main post form,
        * replies in notifs) or mobile post form. Note that getting and setting
        * scroll is different for `Window` and `Element`s

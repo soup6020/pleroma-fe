@@ -90,7 +90,7 @@
   </div>
 </template>
 
-<script src="./nav_panel.js" ></script>
+<script src="./nav_panel.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';
@@ -113,7 +113,9 @@
     border-color: $fallback--border;
     border-color: var(--border, $fallback--border);
     padding: 0;
+  }
 
+  > li {
     &:first-child .menu-item {
       border-top-right-radius: $fallback--panelRadius;
       border-top-right-radius: var(--panelRadius, $fallback--panelRadius);

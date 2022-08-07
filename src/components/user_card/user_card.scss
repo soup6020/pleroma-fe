@@ -42,8 +42,10 @@
     mask-composite: exclude;
     background-size: cover;
     mask-size: 100% 60%;
-    border-top-left-radius: calc(var(--panelRadius) - 1px);
-    border-top-right-radius: calc(var(--panelRadius) - 1px);
+    border-top-left-radius: calc(var(--__roundnessTop, --panelRadius) - 1px);
+    border-top-right-radius: calc(var(--__roundnessTop, --panelRadius) - 1px);
+    border-bottom-left-radius: calc(var(--__roundnessBottom, --panelRadius) - 1px);
+    border-bottom-right-radius: calc(var(--__roundnessBottom, --panelRadius) - 1px);
     background-color: var(--profileBg);
     z-index: -2;
 
@@ -72,21 +74,33 @@
     }
   }
 
-  // Modifiers
-
-  &-rounded-t {
+  &.-rounded-t {
     border-top-left-radius: $fallback--panelRadius;
     border-top-left-radius: var(--panelRadius, $fallback--panelRadius);
     border-top-right-radius: $fallback--panelRadius;
     border-top-right-radius: var(--panelRadius, $fallback--panelRadius);
+
+    --__roundnessTop: var(--panelRadius);
+    --__roundnessBottom: 0;
   }
 
-  &-rounded {
+  &.-rounded {
     border-radius: $fallback--panelRadius;
     border-radius: var(--panelRadius, $fallback--panelRadius);
+
+    --__roundnessTop: var(--panelRadius);
+    --__roundnessBottom: var(--panelRadius);
   }
 
-  &-bordered {
+  &.-popover {
+    border-radius: $fallback--tooltipRadius;
+    border-radius: var(--tooltipRadius, $fallback--tooltipRadius);
+
+    --__roundnessTop: var(--tooltipRadius);
+    --__roundnessBottom: var(--tooltipRadius);
+  }
+
+  &.-bordered {
     border-width: 1px;
     border-style: solid;
     border-color: $fallback--border;
@@ -99,6 +113,15 @@
   color: var(--lightText, $fallback--lightText);
   padding: 0 26px;
 
+  a {
+    color: $fallback--lightText;
+    color: var(--lightText, $fallback--lightText);
+
+    &:hover {
+      color: var(--icon);
+    }
+  }
+
   .container {
     min-width: 0;
     padding: 16px 0 6px;
@@ -110,23 +133,27 @@
       min-width: 0;
     }
 
+    > a {
+      vertical-align: middle;
+      display: flex;
+    }
+
     .Avatar {
       --_avatarShadowBox: var(--avatarShadow);
       --_avatarShadowFilter: var(--avatarShadowFilter);
       --_avatarShadowInset: var(--avatarShadowInset);
 
-      flex: 1 0 100%;
       width: 56px;
       height: 56px;
       object-fit: cover;
     }
   }
 
-  &-avatar-link {
+  &-avatar {
     position: relative;
     cursor: pointer;
 
-    &-overlay {
+    &.-overlay {
       position: absolute;
       left: 0;
       top: 0;
@@ -146,7 +173,7 @@
       }
     }
 
-    &:hover &-overlay {
+    &:hover &.-overlay {
       opacity: 1;
     }
   }
@@ -206,8 +233,6 @@
       flex: 0 1 auto;
       text-overflow: ellipsis;
       overflow: hidden;
-      color: $fallback--lightText;
-      color: var(--lightText, $fallback--lightText);
     }
 
     .dailyAvg {

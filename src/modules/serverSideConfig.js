@@ -39,53 +39,53 @@ const notificationsApi = ({ rootState, commit }, { path, value, oldValue }) => {
  * If no api is specified, defaultApi is used (see above)
  */
 export const settingsMap = {
-  'defaultScope': 'source.privacy',
-  'defaultNSFW': 'source.sensitive', // BROKEN: pleroma/pleroma#2837
-  'stripRichContent': {
+  defaultScope: 'source.privacy',
+  defaultNSFW: 'source.sensitive', // BROKEN: pleroma/pleroma#2837
+  stripRichContent: {
     get: 'source.pleroma.no_rich_text',
     set: 'no_rich_text'
   },
   // Privacy
-  'locked': 'locked',
-  'acceptChatMessages': {
+  locked: 'locked',
+  acceptChatMessages: {
     get: 'pleroma.accepts_chat_messages',
     set: 'accepts_chat_messages'
   },
-  'allowFollowingMove': {
+  allowFollowingMove: {
     get: 'pleroma.allow_following_move',
     set: 'allow_following_move'
   },
-  'discoverable': {
+  discoverable: {
     get: 'source.pleroma.discoverable',
     set: 'discoverable'
   },
-  'hideFavorites': {
+  hideFavorites: {
     get: 'pleroma.hide_favorites',
     set: 'hide_favorites'
   },
-  'hideFollowers': {
+  hideFollowers: {
     get: 'pleroma.hide_followers',
     set: 'hide_followers'
   },
-  'hideFollows': {
+  hideFollows: {
     get: 'pleroma.hide_follows',
     set: 'hide_follows'
   },
-  'hideFollowersCount': {
+  hideFollowersCount: {
     get: 'pleroma.hide_followers_count',
     set: 'hide_followers_count'
   },
-  'hideFollowsCount': {
+  hideFollowsCount: {
     get: 'pleroma.hide_follows_count',
     set: 'hide_follows_count'
   },
   // NotificationSettingsAPIs
-  'webPushHideContents': {
+  webPushHideContents: {
     get: 'pleroma.notification_settings.hide_notification_contents',
     set: 'hide_notification_contents',
     api: notificationsApi
   },
-  'blockNotificationsFromStrangers': {
+  blockNotificationsFromStrangers: {
     get: 'pleroma.notification_settings.block_from_strangers',
     set: 'block_from_strangers',
     api: notificationsApi

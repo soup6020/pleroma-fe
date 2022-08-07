@@ -156,7 +156,7 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('hideSitename')
   copyInstanceOption('sidebarRight')
 
-  return store.dispatch('setTheme', config['theme'])
+  return store.dispatch('setTheme', config.theme)
 }
 
 const getTOS = async ({ store }) => {
@@ -197,7 +197,7 @@ const getStickers = async ({ store }) => {
       const stickers = (await Promise.all(
         Object.entries(values).map(async ([name, path]) => {
           const resPack = await window.fetch(path + 'pack.json')
-          var meta = {}
+          let meta = {}
           if (resPack.ok) {
             meta = await resPack.json()
           }
@@ -319,6 +319,7 @@ const setConfig = async ({ store }) => {
 }
 
 const checkOAuthToken = async ({ store }) => {
+  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     if (store.getters.getUserToken()) {
       try {
@@ -395,6 +396,9 @@ const afterStoreSetup = async ({ store, i18n }) => {
 
   app.component('FAIcon', FontAwesomeIcon)
   app.component('FALayers', FontAwesomeLayers)
+
+  // remove after vue 3.3
+  app.config.unwrapInjectedRef = true
 
   app.mount('#app')
 

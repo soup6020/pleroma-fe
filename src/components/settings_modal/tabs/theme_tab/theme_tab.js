@@ -95,11 +95,11 @@ export default {
 
       ...Object.keys(SLOT_INHERITANCE)
         .map(key => [key, ''])
-        .reduce((acc, [key, val]) => ({ ...acc, [ key + 'ColorLocal' ]: val }), {}),
+        .reduce((acc, [key, val]) => ({ ...acc, [key + 'ColorLocal']: val }), {}),
 
       ...Object.keys(OPACITIES)
         .map(key => [key, ''])
-        .reduce((acc, [key, val]) => ({ ...acc, [ key + 'OpacityLocal' ]: val }), {}),
+        .reduce((acc, [key, val]) => ({ ...acc, [key + 'OpacityLocal']: val }), {}),
 
       shadowSelected: undefined,
       shadowsLocal: {},
@@ -212,12 +212,12 @@ export default {
     currentColors () {
       return Object.keys(SLOT_INHERITANCE)
         .map(key => [key, this[key + 'ColorLocal']])
-        .reduce((acc, [key, val]) => ({ ...acc, [ key ]: val }), {})
+        .reduce((acc, [key, val]) => ({ ...acc, [key]: val }), {})
     },
     currentOpacity () {
       return Object.keys(OPACITIES)
         .map(key => [key, this[key + 'OpacityLocal']])
-        .reduce((acc, [key, val]) => ({ ...acc, [ key ]: val }), {})
+        .reduce((acc, [key, val]) => ({ ...acc, [key]: val }), {})
     },
     currentRadii () {
       return {

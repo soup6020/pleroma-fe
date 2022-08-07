@@ -3,19 +3,17 @@
     trigger="click"
     class="TimelineMenu"
     :class="{ 'open': isOpen }"
-    :margin="{ left: -15, right: -200 }"
     :bound-to="{ x: 'container' }"
-    popover-class="timeline-menu-popover-wrap"
+    bound-to-selector=".Timeline"
+    popover-class="timeline-menu-popover popover-default"
     @show="openMenu"
     @close="() => isOpen = false"
   >
-    <template v-slot:content>
-      <div class="timeline-menu-popover popover-default">
-        <TimelineMenuContent />
-      </div>
+    <template #content>
+      <TimelineMenuContent />
     </template>
-    <template v-slot:trigger>
-      <button class="button-unstyled title timeline-menu-title">
+    <template #trigger>
+      <span class="button-unstyled title timeline-menu-title">
         <span class="timeline-title">{{ timelineName() }}</span>
         <span>
           <FAIcon
@@ -27,51 +25,27 @@
           class="click-blocker"
           @click="blockOpen"
         />
-      </button>
+      </span>
     </template>
   </Popover>
 </template>
 
-<script src="./timeline_menu.js" ></script>
+<script src="./timeline_menu.js"></script>
 
 <style lang="scss">
 @import '../../_variables.scss';
 
 .TimelineMenu {
-  flex-shrink: 1;
   margin-right: auto;
   min-width: 0;
-  width: 24rem;
 
   .popover-trigger-button {
     vertical-align: bottom;
   }
 
-  .timeline-menu-popover-wrap {
-    overflow: hidden;
-    // Match panel heading padding to line up menu with bottom of heading
-    margin-top: 0.6rem;
-    padding: 0 15px 15px 15px;
-  }
-
-  .timeline-menu-popover {
-    width: 24rem;
-    max-width: 100vw;
-    margin: 0;
-    font-size: 1rem;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    transform: translateY(-100%);
-    transition: transform 100ms;
-  }
-
   .panel::after {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-  }
-
-  &.open .timeline-menu-popover {
-    transform: translateY(0);
   }
 
   .timeline-menu-title {
@@ -108,6 +82,16 @@
     box-shadow: var(--popoverShadow);
   }
 
+}
+
+.timeline-menu-popover {
+  min-width: 24rem;
+  max-width: 100vw;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+
   ul {
     list-style: none;
     margin: 0;
@@ -134,7 +118,9 @@
 
   a {
     display: block;
-    padding: 0.6em 0.65em;
+    padding: 0 0.65em;
+    height: 3.5em;
+    line-height: 3.5em;
 
     &:hover {
       background-color: $fallback--lightBg;

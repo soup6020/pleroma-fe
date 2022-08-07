@@ -5,6 +5,8 @@ var projectRoot = path.resolve(__dirname, '../')
 var ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 var CopyPlugin = require('copy-webpack-plugin');
 var { VueLoaderPlugin } = require('vue-loader')
+var ESLintPlugin = require('eslint-webpack-plugin');
+
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -30,7 +32,7 @@ module.exports = {
     }
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.vue'],
+    extensions: ['.mjs', '.js', '.jsx', '.vue'],
     modules: [
       path.join(__dirname, '../node_modules')
     ],
@@ -45,20 +47,6 @@ module.exports = {
   module: {
     noParse: /node_modules\/localforage\/dist\/localforage.js/,
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        include: projectRoot,
-        exclude: /node_modules/,
-        use: {
-          loader: 'eslint-loader',
-          options: {
-            formatter: require('eslint-friendly-formatter'),
-            sourceMap: config.build.productionSourceMap,
-            extract: true
-          }
-        }
-      },
       {
         enforce: 'post',
         test: /\.(json5?|ya?ml)$/, // target json, json5, yaml and yml files
@@ -108,6 +96,11 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
     ]
   },
   plugins: [
@@ -115,12 +108,16 @@ module.exports = {
       entry: path.join(__dirname, '..', 'src/sw.js'),
       filename: 'sw-pleroma.js'
     }),
+    new ESLintPlugin({
+      extensions: ['js', 'vue'],
+      formatter: require('eslint-formatter-friendly')
+    }),
     new VueLoaderPlugin(),
     // This copies Ruffle's WASM to a directory so that JS side can access it
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/ruffle-mirror/*",
+          from: "node_modules/@ruffle-rs/ruffle/*",
           to: "static/ruffle",
           flatten: true
         },

@@ -17,8 +17,8 @@ const StaffPanel = {
       const groupedStaffAccounts = groupBy(staffAccounts, 'role')
 
       return [
-        { role: 'admin', users: groupedStaffAccounts['admin'] },
-        { role: 'moderator', users: groupedStaffAccounts['moderator'] }
+        { role: 'admin', users: groupedStaffAccounts.admin },
+        { role: 'moderator', users: groupedStaffAccounts.moderator }
       ].filter(group => group.users)
     },
     ...mapGetters([

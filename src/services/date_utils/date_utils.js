@@ -10,7 +10,7 @@ export const relativeTime = (date, nowThreshold = 1) => {
   if (typeof date === 'string') date = Date.parse(date)
   const round = Date.now() > date ? Math.floor : Math.ceil
   const d = Math.abs(Date.now() - date)
-  let r = { num: round(d / YEAR), key: 'time.unit.years' }
+  const r = { num: round(d / YEAR), key: 'time.unit.years' }
   if (d < nowThreshold * SECOND) {
     r.num = 0
     r.key = 'time.now'

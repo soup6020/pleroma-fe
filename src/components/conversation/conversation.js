@@ -271,7 +271,7 @@ const conversation = {
           result[irid] = result[irid] || []
           result[irid].push({
             name: `#${i}`,
-            id: id
+            id
           })
         }
         i++

@@ -121,7 +121,7 @@ $modal-view-button-icon-width: 3em;
 $modal-view-button-icon-margin: 0.5em;
 
 .modal-view.media-modal-view {
-  z-index: 9000;
+  z-index: var(--ZI_media_modal);
   flex-direction: column;
 
   .modal-view-button-arrow,

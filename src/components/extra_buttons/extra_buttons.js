@@ -25,7 +25,7 @@ library.add(
 )
 
 const ExtraButtons = {
-  props: [ 'status' ],
+  props: ['status'],
   components: { Popover },
   methods: {
     deleteStatus () {
@@ -87,6 +87,9 @@ const ExtraButtons = {
       return this.ownStatus && (this.status.visibility === 'public' || this.status.visibility === 'unlisted')
     },
     canMute () {
+      return !!this.currentUser
+    },
+    canBookmark () {
       return !!this.currentUser
     },
     statusLink () {

@@ -76,7 +76,7 @@ const MASTODON_PIN_OWN_STATUS = id => `/api/v1/statuses/${id}/pin`
 const MASTODON_UNPIN_OWN_STATUS = id => `/api/v1/statuses/${id}/unpin`
 const MASTODON_MUTE_CONVERSATION = id => `/api/v1/statuses/${id}/mute`
 const MASTODON_UNMUTE_CONVERSATION = id => `/api/v1/statuses/${id}/unmute`
-const MASTODON_SEARCH_2 = `/api/v2/search`
+const MASTODON_SEARCH_2 = '/api/v2/search'
 const MASTODON_USER_SEARCH_URL = '/api/v1/accounts/search'
 const MASTODON_DOMAIN_BLOCKS_URL = '/api/v1/domain_blocks'
 const MASTODON_STREAMING = '/api/v1/streaming'
@@ -84,7 +84,7 @@ const MASTODON_KNOWN_DOMAIN_LIST_URL = '/api/v1/instance/peers'
 const PLEROMA_EMOJI_REACTIONS_URL = id => `/api/v1/pleroma/statuses/${id}/reactions`
 const PLEROMA_EMOJI_REACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
 const PLEROMA_EMOJI_UNREACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
-const PLEROMA_CHATS_URL = `/api/v1/pleroma/chats`
+const PLEROMA_CHATS_URL = '/api/v1/pleroma/chats'
 const PLEROMA_CHAT_URL = id => `/api/v1/pleroma/chats/by-account-id/${id}`
 const PLEROMA_CHAT_MESSAGES_URL = id => `/api/v1/pleroma/chats/${id}/messages`
 const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
@@ -94,7 +94,7 @@ const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 
 const oldfetch = window.fetch
 
-let fetch = (url, options) => {
+const fetch = (url, options) => {
   options = options || {}
   const baseUrl = ''
   const fullUrl = baseUrl + url
@@ -106,7 +106,7 @@ const promisedRequest = ({ method, url, params, payload, credentials, headers = 
   const options = {
     method,
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       ...headers
     }
@@ -230,16 +230,16 @@ const getCaptcha = () => fetch('/api/pleroma/captcha').then(resp => resp.json())
 
 const authHeaders = (accessToken) => {
   if (accessToken) {
-    return { 'Authorization': `Bearer ${accessToken}` }
+    return { Authorization: `Bearer ${accessToken}` }
   } else {
     return { }
   }
 }
 
 const followUser = ({ id, credentials, ...options }) => {
-  let url = MASTODON_FOLLOW_URL(id)
+  const url = MASTODON_FOLLOW_URL(id)
   const form = {}
-  if (options.reblogs !== undefined) { form['reblogs'] = options.reblogs }
+  if (options.reblogs !== undefined) { form.reblogs = options.reblogs }
   return fetch(url, {
     body: JSON.stringify(form),
     headers: {
@@ -251,7 +251,7 @@ const followUser = ({ id, credentials, ...options }) => {
 }
 
 const unfollowUser = ({ id, credentials }) => {
-  let url = MASTODON_UNFOLLOW_URL(id)
+  const url = MASTODON_UNFOLLOW_URL(id)
   return fetch(url, {
     headers: authHeaders(credentials),
     method: 'POST'
@@ -293,7 +293,7 @@ const unblockUser = ({ id, credentials }) => {
 }
 
 const approveUser = ({ id, credentials }) => {
-  let url = MASTODON_APPROVE_USER_URL(id)
+  const url = MASTODON_APPROVE_USER_URL(id)
   return fetch(url, {
     headers: authHeaders(credentials),
     method: 'POST'
@@ -301,7 +301,7 @@ const approveUser = ({ id, credentials }) => {
 }
 
 const denyUser = ({ id, credentials }) => {
-  let url = MASTODON_DENY_USER_URL(id)
+  const url = MASTODON_DENY_USER_URL(id)
   return fetch(url, {
     headers: authHeaders(credentials),
     method: 'POST'
@@ -309,13 +309,13 @@ const denyUser = ({ id, credentials }) => {
 }
 
 const fetchUser = ({ id, credentials }) => {
-  let url = `${MASTODON_USER_URL}/${id}`
+  const url = `${MASTODON_USER_URL}/${id}`
   return promisedRequest({ url, credentials })
     .then((data) => parseUser(data))
 }
 
 const fetchUserRelationship = ({ id, credentials }) => {
-  let url = `${MASTODON_USER_RELATIONSHIPS_URL}/?id=${id}`
+  const url = `${MASTODON_USER_RELATIONSHIPS_URL}/?id=${id}`
   return fetch(url, { headers: authHeaders(credentials) })
     .then((response) => {
       return new Promise((resolve, reject) => response.json()
@@ -334,7 +334,7 @@ const fetchFriends = ({ id, maxId, sinceId, limit = 20, credentials }) => {
     maxId && `max_id=${maxId}`,
     sinceId && `since_id=${sinceId}`,
     limit && `limit=${limit}`,
-    `with_relationships=true`
+    'with_relationships=true'
   ].filter(_ => _).join('&')
 
   url = url + (args ? '?' + args : '')
@@ -344,6 +344,7 @@ const fetchFriends = ({ id, maxId, sinceId, limit = 20, credentials }) => {
 }
 
 const exportFriends = ({ id, credentials }) => {
+  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
       let friends = []
@@ -369,7 +370,7 @@ const fetchFollowers = ({ id, maxId, sinceId, limit = 20, credentials }) => {
     maxId && `max_id=${maxId}`,
     sinceId && `since_id=${sinceId}`,
     limit && `limit=${limit}`,
-    `with_relationships=true`
+    'with_relationships=true'
   ].filter(_ => _).join('&')
 
   url += args ? '?' + args : ''
@@ -386,7 +387,7 @@ const fetchFollowRequests = ({ credentials }) => {
 }
 
 const fetchConversation = ({ id, credentials }) => {
-  let urlContext = MASTODON_STATUS_CONTEXT_URL(id)
+  const urlContext = MASTODON_STATUS_CONTEXT_URL(id)
   return fetch(urlContext, { headers: authHeaders(credentials) })
     .then((data) => {
       if (data.ok) {
@@ -402,7 +403,7 @@ const fetchConversation = ({ id, credentials }) => {
 }
 
 const fetchStatus = ({ id, credentials }) => {
-  let url = MASTODON_STATUS_URL(id)
+  const url = MASTODON_STATUS_URL(id)
   return fetch(url, { headers: authHeaders(credentials) })
     .then((data) => {
       if (data.ok) {
@@ -426,7 +427,7 @@ const tagUser = ({ tag, credentials, user }) => {
 
   return fetch(TAG_USER_URL, {
     method: 'PUT',
-    headers: headers,
+    headers,
     body: JSON.stringify(form)
   })
 }
@@ -443,7 +444,7 @@ const untagUser = ({ tag, credentials, user }) => {
 
   return fetch(TAG_USER_URL, {
     method: 'DELETE',
-    headers: headers,
+    headers,
     body: JSON.stringify(body)
   })
 }
@@ -496,7 +497,7 @@ const deleteUser = ({ credentials, user }) => {
 
   return fetch(`${ADMIN_USERS_URL}?nickname=${screenName}`, {
     method: 'DELETE',
-    headers: headers
+    headers
   })
 }
 
@@ -516,7 +517,7 @@ const fetchTimeline = ({
     friends: MASTODON_USER_HOME_TIMELINE_URL,
     dms: MASTODON_DIRECT_MESSAGES_TIMELINE_URL,
     notifications: MASTODON_USER_NOTIFICATIONS_URL,
-    'publicAndExternal': MASTODON_PUBLIC_TIMELINE,
+    publicAndExternal: MASTODON_PUBLIC_TIMELINE,
     user: MASTODON_USER_TIMELINE_URL,
     media: MASTODON_USER_TIMELINE_URL,
     favorites: MASTODON_USER_FAVORITES_TIMELINE_URL,
@@ -695,7 +696,7 @@ const postStatus = ({
     form.append('preview', 'true')
   }
 
-  let postHeaders = authHeaders(credentials)
+  const postHeaders = authHeaders(credentials)
   if (idempotencyKey) {
     postHeaders['idempotency-key'] = idempotencyKey
   }
@@ -1000,7 +1001,7 @@ const vote = ({ pollId, choices, credentials }) => {
     method: 'POST',
     credentials,
     payload: {
-      choices: choices
+      choices
     }
   })
 }
@@ -1060,8 +1061,8 @@ const reportUser = ({ credentials, userId, statusIds, comment, forward }) => {
     url: MASTODON_REPORT_USER_URL,
     method: 'POST',
     payload: {
-      'account_id': userId,
-      'status_ids': statusIds,
+      account_id: userId,
+      status_ids: statusIds,
       comment,
       forward
     },
@@ -1083,7 +1084,7 @@ const searchUsers = ({ credentials, query }) => {
 
 const search2 = ({ credentials, q, resolve, limit, offset, following }) => {
   let url = MASTODON_SEARCH_2
-  let params = []
+  const params = []
 
   if (q) {
     params.push(['q', encodeURIComponent(q)])
@@ -1107,7 +1108,7 @@ const search2 = ({ credentials, q, resolve, limit, offset, following }) => {
 
   params.push(['with_relationships', true])
 
-  let queryString = map(params, (param) => `${param[0]}=${param[1]}`).join('&')
+  const queryString = map(params, (param) => `${param[0]}=${param[1]}`).join('&')
   url += `?${queryString}`
 
   return fetch(url, { headers: authHeaders(credentials) })
@@ -1261,12 +1262,12 @@ export const handleMastoWS = (wsEvent) => {
 }
 
 export const WSConnectionStatus = Object.freeze({
-  'JOINED': 1,
-  'CLOSED': 2,
-  'ERROR': 3,
-  'DISABLED': 4,
-  'STARTING': 5,
-  'STARTING_INITIAL': 6
+  JOINED: 1,
+  CLOSED: 2,
+  ERROR: 3,
+  DISABLED: 4,
+  STARTING: 5,
+  STARTING_INITIAL: 6
 })
 
 const chats = ({ credentials }) => {
@@ -1304,11 +1305,11 @@ const chatMessages = ({ id, credentials, maxId, sinceId, limit = 20 }) => {
 
 const sendChatMessage = ({ id, content, mediaId = null, idempotencyKey, credentials }) => {
   const payload = {
-    'content': content
+    content
   }
 
   if (mediaId) {
-    payload['media_id'] = mediaId
+    payload.media_id = mediaId
   }
 
   const headers = {}
@@ -1320,7 +1321,7 @@ const sendChatMessage = ({ id, content, mediaId = null, idempotencyKey, credenti
   return promisedRequest({
     url: PLEROMA_CHAT_MESSAGES_URL(id),
     method: 'POST',
-    payload: payload,
+    payload,
     credentials,
     headers
   })
@@ -1331,7 +1332,7 @@ const readChat = ({ id, lastReadId, credentials }) => {
     url: PLEROMA_CHAT_READ_URL(id),
     method: 'POST',
     payload: {
-      'last_read_id': lastReadId
+      last_read_id: lastReadId
     },
     credentials
   })
@@ -1351,7 +1352,7 @@ const setReportState = ({ id, state, credentials }) => {
   return fetch(PLEROMA_ADMIN_REPORTS, {
     headers: {
       ...authHeaders(credentials),
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     },
     method: 'PATCH',

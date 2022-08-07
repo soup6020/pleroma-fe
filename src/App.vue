@@ -15,8 +15,12 @@
       class="app-layout container"
       :class="classes"
     >
-      <div class="underlay"/>
-      <div id="sidebar" class="column -scrollable" :class="{ '-show-scrollbar': showScrollbars }">
+      <div class="underlay" />
+      <div
+        id="sidebar"
+        class="column -scrollable"
+        :class="{ '-show-scrollbar': showScrollbars }"
+      >
         <user-panel />
         <template v-if="layoutType !== 'mobile'">
           <nav-panel />
@@ -26,7 +30,11 @@
           <div id="notifs-sidebar" />
         </template>
       </div>
-      <div id="main-scroller" class="column main" :class="{ '-full-height': isChats }">
+      <div
+        id="main-scroller"
+        class="column main"
+        :class="{ '-full-height': isChats }"
+      >
         <div
           v-if="!currentUser"
           class="login-hint panel panel-default"
@@ -40,9 +48,13 @@
         </div>
         <router-view />
       </div>
-      <div id="notifs-column" class="column -scrollable" :class="{ '-show-scrollbar': showScrollbars }"/>
+      <div
+        id="notifs-column"
+        class="column -scrollable"
+        :class="{ '-show-scrollbar': showScrollbars }"
+      />
     </div>
-    <media-modal />
+    <MediaModal />
     <shout-panel
       v-if="currentUser && shout && !hideShoutbox"
       :floating="true"
@@ -55,6 +67,7 @@
     <SettingsModal />
     <div id="modal" />
     <GlobalNoticeList />
+    <div id="popovers" />
   </div>
 </template>
 
