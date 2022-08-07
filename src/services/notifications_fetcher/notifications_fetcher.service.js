@@ -25,20 +25,20 @@ const fetchAndUpdate = ({ store, credentials, older = false, since }) => {
   const hideMutedPosts = getters.mergedConfig.hideMutedPosts
 
   args['includeTypes'] = mastoApiNotificationTypes
-  args['withMuted'] = !hideMutedPosts
+  args.withMuted = !hideMutedPosts
 
-  args['timeline'] = 'notifications'
+  args.timeline = 'notifications'
   if (older) {
     if (timelineData.minId !== Number.POSITIVE_INFINITY) {
-      args['until'] = timelineData.minId
+      args.until = timelineData.minId
     }
     return fetchNotifications({ store, args, older })
   } else {
     // fetch new notifications
     if (since === undefined && timelineData.maxId !== Number.POSITIVE_INFINITY) {
-      args['since'] = timelineData.maxId
+      args.since = timelineData.maxId
     } else if (since !== null) {
-      args['since'] = since
+      args.since = since
     }
     const result = fetchNotifications({ store, args, older })
 
@@ -51,7 +51,7 @@ const fetchAndUpdate = ({ store, credentials, older = false, since }) => {
     const readNotifsIds = notifications.filter(n => n.seen).map(n => n.id)
     const numUnseenNotifs = notifications.length - readNotifsIds.length
     if (numUnseenNotifs > 0 && readNotifsIds.length > 0) {
-      args['since'] = Math.max(...readNotifsIds)
+      args.since = Math.max(...readNotifsIds)
       fetchNotifications({ store, args, older })
     }
 

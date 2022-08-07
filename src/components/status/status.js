@@ -4,13 +4,13 @@ import ReactButton from '../react_button/react_button.vue'
 import RetweetButton from '../retweet_button/retweet_button.vue'
 import ExtraButtons from '../extra_buttons/extra_buttons.vue'
 import PostStatusForm from '../post_status_form/post_status_form.vue'
-import UserCard from '../user_card/user_card.vue'
 import UserAvatar from '../user_avatar/user_avatar.vue'
 import AvatarList from '../avatar_list/avatar_list.vue'
 import Timeago from '../timeago/timeago.vue'
 import StatusContent from '../status_content/status_content.vue'
 import RichContent from 'src/components/rich_content/rich_content.jsx'
 import StatusPopover from '../status_popover/status_popover.vue'
+import UserPopover from '../user_popover/user_popover.vue'
 import UserListPopover from '../user_list_popover/user_list_popover.vue'
 import EmojiReactions from '../emoji_reactions/emoji_reactions.vue'
 import MentionsLine from 'src/components/mentions_line/mentions_line.vue'
@@ -105,7 +105,6 @@ const Status = {
     RetweetButton,
     ExtraButtons,
     PostStatusForm,
-    UserCard,
     UserAvatar,
     AvatarList,
     Timeago,
@@ -115,7 +114,8 @@ const Status = {
     StatusContent,
     RichContent,
     MentionLink,
-    MentionsLine
+    MentionsLine,
+    UserPopover
   },
   props: [
     'statusoid',
@@ -361,6 +361,7 @@ const Status = {
       return uniqBy(combinedUsers, 'id')
     },
     tags () {
+      // eslint-disable-next-line no-prototype-builtins
       return this.status.tags.filter(tagObj => tagObj.hasOwnProperty('name')).map(tagObj => tagObj.name).join(' ')
     },
     hidePostStats () {
@@ -448,7 +449,7 @@ const Status = {
     scrollIfHighlighted (highlightId) {
       const id = highlightId
       if (this.status.id === id) {
-        let rect = this.$el.getBoundingClientRect()
+        const rect = this.$el.getBoundingClientRect()
         if (rect.top < 100) {
           // Post is above screen, match its top to screen top
           window.scrollBy(0, rect.top - 100)
@@ -463,7 +464,7 @@ const Status = {
     }
   },
   watch: {
-    'highlight': function (id) {
+    highlight: function (id) {
       this.scrollIfHighlighted(id)
     },
     'status.repeat_num': function (num) {
@@ -478,7 +479,7 @@ const Status = {
         this.$store.dispatch('fetchFavs', this.status.id)
       }
     },
-    'isSuspendable': function (val) {
+    isSuspendable: function (val) {
       this.suspendable = val
     }
   }

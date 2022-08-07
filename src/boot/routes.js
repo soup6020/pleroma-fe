@@ -31,7 +31,8 @@ export default (store) => {
   }
 
   let routes = [
-    { name: 'root',
+    {
+      name: 'root',
       path: '/',
       redirect: _to => {
         return (store.state.users.currentUser
@@ -45,12 +46,14 @@ export default (store) => {
     { name: 'tag-timeline', path: '/tag/:tag', component: TagTimeline },
     { name: 'bookmarks', path: '/bookmarks', component: BookmarkTimeline },
     { name: 'conversation', path: '/notice/:id', component: ConversationPage, meta: { dontScroll: true } },
-    { name: 'remote-user-profile-acct',
+    {
+      name: 'remote-user-profile-acct',
       path: '/remote-users/:_(@)?:username([^/@]+)@:hostname([^/@]+)',
       component: RemoteUserResolver,
       beforeEnter: validateAuthenticatedRoute
     },
-    { name: 'remote-user-profile',
+    {
+      name: 'remote-user-profile',
       path: '/remote-users/:hostname/:username',
       component: RemoteUserResolver,
       beforeEnter: validateAuthenticatedRoute

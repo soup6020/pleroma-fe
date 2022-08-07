@@ -103,23 +103,23 @@ export const mutations = {
     const user = state.usersObject[id]
     const tags = user.tags || []
     const newTags = tags.concat([tag])
-    user['tags'] = newTags
+    user.tags = newTags
   },
   untagUser (state, { user: { id }, tag }) {
     const user = state.usersObject[id]
     const tags = user.tags || []
     const newTags = tags.filter(t => t !== tag)
-    user['tags'] = newTags
+    user.tags = newTags
   },
   updateRight (state, { user: { id }, right, value }) {
     const user = state.usersObject[id]
-    let newRights = user.rights
+    const newRights = user.rights
     newRights[right] = value
-    user['rights'] = newRights
+    user.rights = newRights
   },
   updateActivationStatus (state, { user: { id }, deactivated }) {
     const user = state.usersObject[id]
-    user['deactivated'] = deactivated
+    user.deactivated = deactivated
   },
   setCurrentUser (state, user) {
     state.lastLoginName = user.screen_name
@@ -148,13 +148,13 @@ export const mutations = {
   clearFriends (state, userId) {
     const user = state.usersObject[userId]
     if (user) {
-      user['friendIds'] = []
+      user.friendIds = []
     }
   },
   clearFollowers (state, userId) {
     const user = state.usersObject[userId]
     if (user) {
-      user['followerIds'] = []
+      user.followerIds = []
     }
   },
   addNewUsers (state, users) {
@@ -222,7 +222,7 @@ export const mutations = {
   },
   setColor (state, { user: { id }, highlighted }) {
     const user = state.usersObject[id]
-    user['highlight'] = highlighted
+    user.highlight = highlighted
   },
   signUpPending (state) {
     state.signUpPending = true
@@ -393,7 +393,7 @@ const users = {
     toggleActivationStatus ({ rootState, commit }, { user }) {
       const api = user.deactivated ? rootState.api.backendInteractor.activateUser : rootState.api.backendInteractor.deactivateUser
       api({ user })
-        .then((user) => { let deactivated = !user.is_active; commit('updateActivationStatus', { user, deactivated }) })
+        .then((user) => { const deactivated = !user.is_active; commit('updateActivationStatus', { user, deactivated }) })
     },
     registerPushNotifications (store) {
       const token = store.state.currentUser.credentials
@@ -457,17 +457,17 @@ const users = {
     async signUp (store, userInfo) {
       store.commit('signUpPending')
 
-      let rootState = store.rootState
+      const rootState = store.rootState
 
       try {
-        let data = await rootState.api.backendInteractor.register(
+        const data = await rootState.api.backendInteractor.register(
           { params: { ...userInfo } }
         )
         store.commit('signUpSuccess')
         store.commit('setToken', data.access_token)
         store.dispatch('loginUser', data.access_token)
       } catch (e) {
-        let errors = e.message
+        const errors = e.message
         store.commit('signUpFailure', errors)
         throw e
       }

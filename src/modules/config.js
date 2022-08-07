@@ -82,6 +82,8 @@ export const defaultState = {
   useContainFit: true,
   disableStickyHeaders: false,
   showScrollbars: false,
+  userPopoverZoom: false,
+  userPopoverOverlay: true,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default
@@ -146,7 +148,7 @@ const config = {
       const knownKeys = new Set(Object.keys(defaultState))
       const presentKeys = new Set(Object.keys(data))
       const intersection = new Set()
-      for (let elem of presentKeys) {
+      for (const elem of presentKeys) {
         if (knownKeys.has(elem)) {
           intersection.add(elem)
         }

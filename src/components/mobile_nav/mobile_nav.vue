@@ -67,11 +67,10 @@
         </a>
       </div>
       <div
-        class="mobile-notifications"
         id="mobile-notifications"
+        class="mobile-notifications"
         @scroll="onScroll"
-      >
-      </div>
+      />
     </div>
     <SideDrawer
       ref="sideDrawer"
@@ -86,6 +85,8 @@
 @import '../../_variables.scss';
 
 .MobileNav {
+  z-index: var(--ZI_navbar);
+
   .mobile-nav {
     display: grid;
     line-height: var(--navbar-height);
@@ -147,7 +148,7 @@
     transition-property: transform;
     transition-duration: 0.25s;
     transform: translateX(0);
-    z-index: 1001;
+    z-index: var(--ZI_navbar);
     -webkit-overflow-scrolling: touch;
 
     &.-closed {
@@ -160,7 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    z-index: calc(var(--ZI_navbar) + 100);
     width: 100%;
     height: 50px;
     line-height: 50px;

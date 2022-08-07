@@ -63,4 +63,4 @@
   </ul>
 </template>
 
-<script src="./timeline_menu_content.js" ></script>
+<script src="./timeline_menu_content.js"></script>

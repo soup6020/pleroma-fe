@@ -23,6 +23,7 @@
                 v-model.trim="v$.user.username.$model"
                 :disabled="isPending"
                 class="form-control"
+                :aria-required="true"
                 :placeholder="$t('registration.username_placeholder')"
               >
             </div>
@@ -50,6 +51,7 @@
                 v-model.trim="v$.user.fullname.$model"
                 :disabled="isPending"
                 class="form-control"
+                :aria-required="true"
                 :placeholder="$t('registration.fullname_placeholder')"
               >
             </div>
@@ -71,13 +73,14 @@
               <label
                 class="form--label"
                 for="email"
-              >{{ $t('registration.email') }}</label>
+              >{{ accountActivationRequired ? $t('registration.email') : $t('registration.email_optional') }}</label>
               <input
                 id="email"
                 v-model="v$.user.email.$model"
                 :disabled="isPending"
                 class="form-control"
                 type="email"
+                :aria-required="accountActivationRequired"
               >
             </div>
             <div
@@ -95,7 +98,7 @@
               <label
                 class="form--label"
                 for="bio"
-              >{{ $t('registration.bio') }} ({{ $t('general.optional') }})</label>
+              >{{ $t('registration.bio_optional') }}</label>
               <textarea
                 id="bio"
                 v-model="user.bio"
@@ -119,6 +122,7 @@
                 :disabled="isPending"
                 class="form-control"
                 type="password"
+                :aria-required="true"
               >
             </div>
             <div
@@ -146,6 +150,7 @@
                 :disabled="isPending"
                 class="form-control"
                 type="password"
+                :aria-required="true"
               >
             </div>
             <div

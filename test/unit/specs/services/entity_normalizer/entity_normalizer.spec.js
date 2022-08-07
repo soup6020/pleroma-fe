@@ -314,8 +314,8 @@ describe('API Entities normalizer', () => {
       const linkHeader = '<https://example.com/api/v1/notifications?max_id=861676>; rel="next", <https://example.com/api/v1/notifications?min_id=861741>; rel="prev"'
       const result = parseLinkHeaderPagination(linkHeader)
       expect(result).to.eql({
-        'maxId': 861676,
-        'minId': 861741
+        maxId: 861676,
+        minId: 861741
       })
     })
 
@@ -323,8 +323,8 @@ describe('API Entities normalizer', () => {
       const linkHeader = '<http://example.com/api/v1/timelines/home?max_id=9waQx5IIS48qVue2Ai>; rel="next", <http://example.com/api/v1/timelines/home?min_id=9wi61nIPnfn674xgie>; rel="prev"'
       const result = parseLinkHeaderPagination(linkHeader, { flakeId: true })
       expect(result).to.eql({
-        'maxId': '9waQx5IIS48qVue2Ai',
-        'minId': '9wi61nIPnfn674xgie'
+        maxId: '9waQx5IIS48qVue2Ai',
+        minId: '9wi61nIPnfn674xgie'
       })
     })
   })

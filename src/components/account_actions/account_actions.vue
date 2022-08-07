@@ -6,7 +6,7 @@
       :bound-to="{ x: 'container' }"
       remove-padding
     >
-      <template v-slot:content>
+      <template #content>
         <div class="dropdown-menu">
           <template v-if="relationship.following">
             <button
@@ -57,7 +57,7 @@
           </button>
         </div>
       </template>
-      <template v-slot:trigger>
+      <template #trigger>
         <button class="button-unstyled ellipsis-button">
           <FAIcon
             class="icon"
