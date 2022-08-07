@@ -1352,7 +1352,7 @@ const setReportState = ({ id, state, credentials }) => {
   return fetch(PLEROMA_ADMIN_REPORTS, {
     headers: {
       ...authHeaders(credentials),
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     },
     method: 'PATCH',

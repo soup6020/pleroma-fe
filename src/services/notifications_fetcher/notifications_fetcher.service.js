@@ -24,7 +24,7 @@ const fetchAndUpdate = ({ store, credentials, older = false, since }) => {
   const timelineData = rootState.statuses.notifications
   const hideMutedPosts = getters.mergedConfig.hideMutedPosts
 
-  args['includeTypes'] = mastoApiNotificationTypes
+  args.includeTypes = mastoApiNotificationTypes
   args.withMuted = !hideMutedPosts
 
   args.timeline = 'notifications'
