@@ -1,6 +1,8 @@
 import { reduce, filter, findIndex, clone, get } from 'lodash'
 import Status from '../status/status.vue'
 import ThreadTree from '../thread_tree/thread_tree.vue'
+import QuickFilterSettings from '../quick_filter_settings/quick_filter_settings.vue'
+import QuickViewSettings from '../quick_view_settings/quick_view_settings.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -343,7 +345,9 @@ const conversation = {
   },
   components: {
     Status,
-    ThreadTree
+    ThreadTree,
+    QuickFilterSettings,
+    QuickViewSettings
   },
   watch: {
     statusId (newVal, oldVal) {
