@@ -7,6 +7,7 @@
     <div
       class="UpdateNotificationModal panel"
       :class="{ '-peek': !showingMore }"
+      :style="dynamicStyles"
     >
       <div class="panel-heading">
         <span class="title">
@@ -14,10 +15,7 @@
         </span>
       </div>
       <div class="panel-body">
-        <div
-          ref="content"
-          class="content"
-        >
+        <div class="content">
           <img
             class="pleroma-tan"
             :src="pleromaTanVariant"
@@ -28,30 +26,32 @@
             <p>
               {{ $t('update.big_update_content') }}
             </p>
-            <i18n-t
-              keypath="update.update_bugs"
-              tag="p"
-              class="extra-info"
-            >
-              <template #pleromaGitlab>
-                <a
-                  target="_blank"
-                  href="https://git.pleroma.social/"
-                >{{ $t('update.update_bugs_gitlab') }}</a>
-              </template>
-            </i18n-t>
-            <i18n-t
-              keypath="update.update_changelog"
-              tag="p"
-              class="extra-info"
-            >
-              <template #theFullChangelog>
-                <a
-                  target="_blank"
-                  href="https://pleroma.social/announcements/"
-                >{{ $t('update.update_changelog_here') }}</a>
-              </template>
-            </i18n-t>
+            <div class="extra-info-group" ref="animatedText">
+              <i18n-t
+                keypath="update.update_bugs"
+                tag="p"
+                class="extra-info"
+              >
+                <template #pleromaGitlab>
+                  <a
+                    target="_blank"
+                    href="https://git.pleroma.social/"
+                  >{{ $t('update.update_bugs_gitlab') }}</a>
+                </template>
+              </i18n-t>
+              <i18n-t
+                keypath="update.update_changelog"
+                tag="p"
+                class="extra-info"
+              >
+                <template #theFullChangelog>
+                  <a
+                    target="_blank"
+                    href="https://pleroma.social/announcements/"
+                  >{{ $t('update.update_changelog_here') }}</a>
+                </template>
+              </i18n-t>
+            </div>
           </div>
           <div class="spacer-bottom" />
         </div>

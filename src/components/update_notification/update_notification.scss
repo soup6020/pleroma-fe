@@ -2,27 +2,20 @@
 .UpdateNotification {
   overflow: hidden;
 }
+
 .UpdateNotificationModal {
   --__top-fringe: 18em; // how much pleroma-tan should stick her head above
   --__bottom-fringe: 80em; // just reserving as much as we can, number is mostly irrelevant
   --__right-fringe: 8em;
 
   font-size: 15px;
-  /* Explanation:
-   * Modal is positioned vertically centered.
-   * 100vh - 100% = Distance between modal's top+bottom boundaries and screen
-   * (100vh - 100%) / 2 = Distance between bottom (or top) boundary and screen
-   * + 10% - we move modal completely off-screen, it's top boundary touches
-   *   bottom of the screen
-   * - 50px - leaving tiny amount of space so that titlebar + tiny amount of modal is visible
-   */
   position: relative;
   transition: transform;
   transition-timing-function: ease-in-out;
   transition-duration: 500ms;
 
   .text {
-    width: 40em;
+    max-width: 40em;
     padding-left: 1em;
   }
 
@@ -80,15 +73,21 @@
     min-height: var(--__bottom-fringe);
   }
 
-  .extra-info {
+  .extra-info-group {
     transition: max-height, padding, height;
     transition-timing-function: ease-in-out;
     transition-duration: 500ms;
-    max-height: auto;
-    height: auto;
+    max-height: calc(var(--____extraInfoGroupHeight) + 1em); // include bottom padding
+    mask:
+      linear-gradient(to top, white, transparent) bottom/100% 2px no-repeat,
+      linear-gradient(to top, white, white);
   }
 
   &.-peek {
+  /* Explanation:
+   * 100vh - 100% = Distance between modal's top+bottom boundaries and screen
+   * (100vh - 100%) / 2 = Distance between bottom (or top) boundary and screen
+   */
     transform: translateY(calc(((100vh - 100%) / 2)));
 
     .pleroma-tan {
@@ -97,11 +96,8 @@
       shape-image-threshold: 0.7;
     }
 
-    .extra-info {
+    .extra-info-group {
       max-height: 0;
-      height: 0;
-      display: none;
-      overflow: hidden;
     }
   }
 }

@@ -29,6 +29,11 @@ const UpdateNotification = {
         'shape-outside': 'url(' + this.pleromaTanVariant + ')'
       }
     },
+    dynamicStyles () {
+      return {
+        '--____extraInfoGroupHeight': this.contentHeight + 'px'
+      }
+    },
     shouldShow () {
       return !this.$store.state.instance.disableUpdateNotification &&
         this.$store.state.users.currentUser &&
@@ -53,8 +58,8 @@ const UpdateNotification = {
   },
   mounted () {
     setTimeout(() => {
-      this.contentHeight = this.$refs.content.offsetHeight
-    }, 10)
+      this.contentHeight = this.$refs.animatedText.scrollHeight
+    }, 1000)
   }
 }
 
