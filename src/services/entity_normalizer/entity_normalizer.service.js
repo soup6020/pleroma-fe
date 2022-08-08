@@ -141,7 +141,8 @@ export const parseUser = (data) => {
         ]
       } else if (data.pleroma.is_moderator) {
         output.privileges = [
-          'messages_delete'
+          'messages_delete',
+          'reports_manage_reports'
         ]
       } else {
         output.privileges = []
