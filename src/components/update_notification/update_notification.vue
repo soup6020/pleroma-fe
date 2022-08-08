@@ -26,7 +26,10 @@
             <p>
               {{ $t('update.big_update_content') }}
             </p>
-            <div class="extra-info-group" ref="animatedText">
+            <div
+              ref="animatedText"
+              class="extra-info-group"
+            >
               <i18n-t
                 keypath="update.update_bugs"
                 tag="p"
