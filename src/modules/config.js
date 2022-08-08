@@ -81,7 +81,7 @@ export const defaultState = {
   useContainFit: true,
   disableStickyHeaders: false,
   showScrollbars: false,
-  userPopoverZoom: false,
+  userPopoverAvatarAction: 'close',
   userPopoverOverlay: true,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default

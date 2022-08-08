@@ -75,12 +75,15 @@
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting
-            path="userPopoverZoom"
+          <ChoiceSetting
+            v-if="user"
+            id="userPopoverAvatarAction"
+            path="userPopoverAvatarAction"
+            :options="userPopoverAvatarActionOptions"
             expert="1"
           >
-            {{ $t('settings.user_popover_avatar_zoom') }}
-          </BooleanSetting>
+            {{ $t('settings.user_popover_avatar_action') }}
+          </ChoiceSetting>
         </li>
         <li>
           <BooleanSetting
