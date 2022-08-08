@@ -33,7 +33,6 @@
               <i18n-t
                 keypath="update.update_bugs"
                 tag="p"
-                class="extra-info"
               >
                 <template #pleromaGitlab>
                   <a
@@ -45,7 +44,6 @@
               <i18n-t
                 keypath="update.update_changelog"
                 tag="p"
-                class="extra-info"
               >
                 <template #theFullChangelog>
                   <a
@@ -54,6 +52,19 @@
                   >{{ $t('update.update_changelog_here') }}</a>
                 </template>
               </i18n-t>
+              <p class="art-credit">
+                <i18n-t
+                  keypath="update.art_by"
+                  tag="small"
+                >
+                  <template #linkToArtist>
+                    <a
+                      target="_blank"
+                      href="https://post.ebin.club/pipivovott"
+                    >pipivovott</a>
+                  </template>
+                </i18n-t>
+              </p>
             </div>
           </div>
           <div class="spacer-bottom" />

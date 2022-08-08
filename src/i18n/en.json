@@ -969,6 +969,7 @@
     "update_bugs": "Please report any issues and bugs on {pleromaGitlab}, as we have changed a lot, and although we test thoroughly and use development versions ourselves, we may have missed some things. We welcome your feedback and suggestions on issues you might encounter, or how to improve Pleroma and Pleroma-FE.",
     "update_bugs_gitlab": "Pleroma GitLab",
     "update_changelog": "For more details on what's changed, see {theFullChangelog}.",
-    "update_changelog_here": "the full changelog"
+    "update_changelog_here": "the full changelog",
+    "art_by": "Art by {linkToArtist}"
   }
 }

@@ -83,6 +83,10 @@
       linear-gradient(to top, white, white);
   }
 
+  .art-credit {
+    text-align: right;
+  }
+
   &.-peek {
   /* Explanation:
    * 100vh - 100% = Distance between modal's top+bottom boundaries and screen
