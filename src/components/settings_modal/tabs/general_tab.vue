@@ -76,7 +76,6 @@
         </li>
         <li>
           <ChoiceSetting
-            v-if="user"
             id="userPopoverAvatarAction"
             path="userPopoverAvatarAction"
             :options="userPopoverAvatarActionOptions"

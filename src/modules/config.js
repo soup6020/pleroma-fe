@@ -17,7 +17,8 @@ export const multiChoiceProperties = [
   'subjectLineBehavior',
   'conversationDisplay', // tree | linear
   'conversationOtherRepliesButton', // below | inside
-  'mentionLinkDisplay' // short | full_for_remote | full
+  'mentionLinkDisplay', // short | full_for_remote | full
+  'userPopoverAvatarAction' // close | zoom | open
 ]
 
 export const defaultState = {
