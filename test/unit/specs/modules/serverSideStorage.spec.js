@@ -7,6 +7,7 @@ import {
   _getRecentData,
   _getAllFlags,
   _mergeFlags,
+  _mergePrefs,
   _resetFlags,
   mutations,
   defaultState,
@@ -28,6 +29,7 @@ describe('The serverSideStorage module', () => {
         expect(state.cache._version).to.eql(VERSION)
         expect(state.cache._timestamp).to.be.a('number')
         expect(state.cache.flagStorage).to.eql(defaultState.flagStorage)
+        expect(state.cache.prefsStorage).to.eql(defaultState.prefsStorage)
       })
 
       it('should initialize storage with proper flags for new users if none present', () => {
@@ -36,6 +38,7 @@ describe('The serverSideStorage module', () => {
         expect(state.cache._version).to.eql(VERSION)
         expect(state.cache._timestamp).to.be.a('number')
         expect(state.cache.flagStorage).to.eql(newUserFlags)
+        expect(state.cache.prefsStorage).to.eql(defaultState.prefsStorage)
       })
 
       it('should merge flags even if remote timestamp is older', () => {
@@ -57,6 +60,9 @@ describe('The serverSideStorage module', () => {
               flagStorage: {
                 ...defaultState.flagStorage,
                 updateCounter: 1
+              },
+              prefsStorage: {
+                ...defaultState.flagStorage,
               }
             }
           }
@@ -154,6 +160,94 @@ describe('The serverSideStorage module', () => {
             { flagStorage: { b: 1, c: 4, d: 9 } },
             ['a', 'b', 'c', 'd'])
         ).to.eql({ a: 0, b: 3, c: 4, d: 9 })
+      })
+    })
+
+    describe('_mergePrefs', () => {
+      it('should prefer recent and apply journal to it', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 1, b: 0, c: true },
+              _journal: [
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 2 },
+                { path: 'simple.c', operation: 'set', args: [true], timestamp: 4 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 1, b: 1, c: false },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: [1], timestamp: 1 },
+                { path: 'simple.b', operation: 'set', args: [1], timestamp: 3 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 1, b: 1, c: true },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: [1], timestamp: 1 },
+            { path: 'simple.b', operation: 'set', args: [1], timestamp: 3 },
+            { path: 'simple.c', operation: 'set', args: [true], timestamp: 4 }
+          ]
+        })
+      })
+
+      it('should allow setting falsy values', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 1, b: 0, c: false },
+              _journal: [
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 2 },
+                { path: 'simple.c', operation: 'set', args: [false], timestamp: 4 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 0, b: 0, c: true },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: [0], timestamp: 1 },
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 3 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 0, b: 0, c: false },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: [0], timestamp: 1 },
+            { path: 'simple.b', operation: 'set', args: [0], timestamp: 3 },
+            { path: 'simple.c', operation: 'set', args: [false], timestamp: 4 }
+          ]
+        })
+      })
+
+      it('should work with strings', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 'foo' },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: ['foo'], timestamp: 2 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 'bar' },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: ['bar'], timestamp: 4 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 'bar' },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: ['bar'], timestamp: 4 }
+          ]
+        })
       })
     })
 

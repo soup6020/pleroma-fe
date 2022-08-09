@@ -1,5 +1,5 @@
 import { toRaw } from 'vue'
-import { isEqual, cloneDeep } from 'lodash'
+import { isEqual, uniqBy, cloneDeep, set } from 'lodash'
 import { CURRENT_UPDATE_COUNTER } from 'src/components/update_notification/update_notification.js'
 
 export const VERSION = 1
@@ -21,6 +21,10 @@ export const defaultState = {
     // special reset codes:
     // 1000: trim keys to those known by currently running FE
     // 1001: same as above + reset everything to 0
+  },
+  prefsStorage: {
+    _journal: [],
+    simple: {}
   },
   // raw data
   raw: null,
@@ -91,6 +95,42 @@ export const _mergeFlags = (recent, stale, allFlagKeys) => {
     // use flag that is of higher value
     return [flag, Number((recentFlag > staleFlag ? recentFlag : staleFlag) || 0)]
   }))
+}
+
+export const _mergePrefs = (recent, stale, allFlagKeys) => {
+  if (!stale) return recent
+  if (!recent) return stale
+  const { _journal: recentJournal, ...recentData } = recent
+  const { _journal: staleJournal } = stale
+  /** Journal entry format:
+   * path: path to entry in prefsStorage
+   * timestamp: timestamp of the change
+   * operation: operation type
+   * arguments: array of arguments, depends on operation type
+   *
+   * currently only supported operation type is "set" which just sets the value
+   * to requested one. Intended only to be used with simple preferences (boolean, number)
+   * shouldn't be used with collections!
+   */
+  const resultOutput = { ...recentData }
+  const totalJournal = uniqBy(
+    [...recentJournal, ...staleJournal].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
+    'path'
+  ).reverse()
+  totalJournal.forEach(({ path, timestamp, operation, args }) => {
+    if (path.startsWith('_')) {
+      console.error(`journal contains entry to edit internal (starts with _) field '${path}', something is incorrect here, ignoring.`)
+      return
+    }
+    switch (operation) {
+      case 'set':
+        set(resultOutput, path, args[0])
+        break
+      default:
+        console.error(`Unknown journal operation: '${operation}', did we forget to run reverse migrations beforehand?`)
+    }
+  })
+  return { ...resultOutput, _journal: totalJournal }
 }
 
 export const _resetFlags = (totalFlags, knownKeys = defaultState.flagStorage) => {
@@ -165,7 +205,8 @@ export const mutations = {
     if (recent === null) {
       console.debug(`Data is empty, initializing for ${userNew ? 'new' : 'existing'} user`)
       recent = _wrapData({
-        flagStorage: { ...flagsTemplate }
+        flagStorage: { ...flagsTemplate },
+        prefsStorage: { ...defaultState.prefsStorage }
       })
     }
 
@@ -180,17 +221,21 @@ export const mutations = {
 
     const allFlagKeys = _getAllFlags(recent, stale)
     let totalFlags
+    let totalPrefs
     if (dirty) {
       // Merge the flags
-      console.debug('Merging the flags...')
+      console.debug('Merging the data...')
       totalFlags = _mergeFlags(recent, stale, allFlagKeys)
+      totalPrefs = _mergePrefs(recent.prefsStorage, stale.prefsStorage)
     } else {
       totalFlags = recent.flagStorage
+      totalPrefs = recent.prefsStorage
     }
 
     totalFlags = _resetFlags(totalFlags)
 
     recent.flagStorage = totalFlags
+    recent.prefsStorage = totalPrefs
 
     state.dirty = dirty || needsUpload
     state.cache = recent
@@ -216,7 +261,8 @@ const serverSideStorage = {
       const needPush = state.dirty || force
       if (!needPush) return
       state.cache = _wrapData({
-        flagStorage: toRaw(state.flagStorage)
+        flagStorage: toRaw(state.flagStorage),
+        prefsStorage: toRaw(state.flagStorage)
       })
       const params = { pleroma_settings_store: { 'pleroma-fe': state.cache } }
       rootState.api.backendInteractor
