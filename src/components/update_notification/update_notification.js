@@ -38,7 +38,7 @@ const UpdateNotification = {
       return !this.$store.state.instance.disableUpdateNotification &&
         this.$store.state.users.currentUser &&
         this.$store.state.serverSideStorage.flagStorage.updateCounter < CURRENT_UPDATE_COUNTER &&
-        !this.$store.state.serverSideStorage.flagStorage.dontShowUpdateNotifs
+        !this.$store.state.serverSideStorage.prefsStorage.simple.dontShowUpdateNotifs
     }
   },
   methods: {
@@ -48,7 +48,7 @@ const UpdateNotification = {
     neverShowAgain () {
       this.toggleShow()
       this.$store.commit('setFlag', { flag: 'updateCounter', value: CURRENT_UPDATE_COUNTER })
-      this.$store.commit('setFlag', { flag: 'dontShowUpdateNotifs', value: 1 })
+      this.$store.commit('setPreference', { path: 'simple.dontShowUpdateNotifs', value: true })
       this.$store.dispatch('pushServerSideStorage')
     },
     dismiss () {

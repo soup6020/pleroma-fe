@@ -14,9 +14,6 @@ export const defaultState = {
   // storage of flags - stuff that can only be set and incremented
   flagStorage: {
     updateCounter: 0, // Counter for most recent update notification seen
-    // TODO move to prefsStorage when that becomes a thing since only way
-    // this can be reset is by complete reset of all flags
-    dontShowUpdateNotifs: 0, // if user chose to not show update notifications ever again
     reset: 0 // special flag that can be used to force-reset all flags, debug purposes only
     // special reset codes:
     // 1000: trim keys to those known by currently running FE
@@ -24,7 +21,9 @@ export const defaultState = {
   },
   prefsStorage: {
     _journal: [],
-    simple: {}
+    simple: {
+      dontShowUpdateNotifs: false
+    }
   },
   // raw data
   raw: null,
@@ -248,6 +247,20 @@ export const mutations = {
   setFlag (state, { flag, value }) {
     state.flagStorage[flag] = value
     state.dirty = true
+  },
+  setPreference (state, { path, value }) {
+    if (path.startsWith('_')) {
+      console.error(`tried to edit internal (starts with _) field '${path}', ignoring.`)
+      return
+    }
+    set(state.prefsStorage, path, value)
+    state.prefsStorage._journal = uniqBy(
+      [
+        ...state.prefsStorage._journal,
+        { command: 'set', path, args: [value], timestamp: Date.now() }
+      ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
+      'path'
+    ).reverse()
   }
 }
 
@@ -262,7 +275,7 @@ const serverSideStorage = {
       if (!needPush) return
       state.cache = _wrapData({
         flagStorage: toRaw(state.flagStorage),
-        prefsStorage: toRaw(state.flagStorage)
+        prefsStorage: toRaw(state.prefsStorage)
       })
       const params = { pleroma_settings_store: { 'pleroma-fe': state.cache } }
       rootState.api.backendInteractor

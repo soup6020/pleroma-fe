@@ -105,6 +105,38 @@ describe('The serverSideStorage module', () => {
         expect(state.cache.flagStorage).to.eql(defaultState.flagStorage)
       })
     })
+    describe('setPreference', () => {
+      const { setPreference } = mutations
+
+      it('should set preference and update journal log accordingly', () => {
+        const state = cloneDeep(defaultState)
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        expect(state.prefsStorage.simple.testing).to.eql(1)
+        expect(state.prefsStorage._journal.length).to.eql(1)
+        expect(state.prefsStorage._journal[0]).to.eql({
+          path: 'simple.testing',
+          command: 'set',
+          args: [1],
+          // should have A timestamp, we don't really care what it is
+          timestamp: state.prefsStorage._journal[0].timestamp
+        })
+      })
+
+      it('should keep journal to a minimum (one entry per path)', () => {
+        const state = cloneDeep(defaultState)
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        setPreference(state, { path: 'simple.testing', value: 2 })
+        expect(state.prefsStorage.simple.testing).to.eql(1)
+        expect(state.prefsStorage._journal.length).to.eql(1)
+        expect(state.prefsStorage._journal[0]).to.eql({
+          path: 'simple.testing',
+          command: 'set',
+          args: [2],
+          // should have A timestamp, we don't really care what it is
+          timestamp: state.prefsStorage._journal[0].timestamp
+        })
+      })
+    })
   })
 
   describe('helper functions', () => {
