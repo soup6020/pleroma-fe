@@ -32,6 +32,7 @@ export default {
     MobileNav,
     DesktopNav,
     SettingsModal: defineAsyncComponent(() => import('./components/settings_modal/settings_modal.vue')),
+    UpdateNotification: defineAsyncComponent(() => import('./components/update_notification/update_notification.vue')),
     UserReportingModal,
     PostStatusModal,
     GlobalNoticeList

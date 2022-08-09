@@ -65,6 +65,7 @@
     <UserReportingModal />
     <PostStatusModal />
     <SettingsModal />
+    <UpdateNotification />
     <div id="modal" />
     <GlobalNoticeList />
     <div id="popovers" />

@@ -525,6 +525,7 @@ const users = {
               user.muteIds = []
               user.domainMutes = []
               commit('setCurrentUser', user)
+              commit('setServerSideStorage', user)
               commit('addNewUsers', [user])
 
               store.dispatch('fetchEmoji')
@@ -534,6 +535,7 @@ const users = {
 
               // Set our new backend interactor
               commit('setBackendInteractor', backendInteractorService(accessToken))
+              store.dispatch('pushServerSideStorage')
 
               if (user.token) {
                 store.dispatch('setWsToken', user.token)
