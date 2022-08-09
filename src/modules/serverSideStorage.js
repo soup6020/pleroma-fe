@@ -88,6 +88,8 @@ export const _getAllFlags = (recent, stale) => {
 }
 
 export const _mergeFlags = (recent, stale, allFlagKeys) => {
+  if (!stale.flagStorage) return recent.flagStorage
+  if (!recent.flagStorage) return stale.flagStorage
   return Object.fromEntries(allFlagKeys.map(flag => {
     const recentFlag = recent.flagStorage[flag]
     const staleFlag = stale.flagStorage[flag]
@@ -113,7 +115,10 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
    */
   const resultOutput = { ...recentData }
   const totalJournal = uniqBy(
-    [...recentJournal, ...staleJournal].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
+    [
+      ...(Array.isArray(recentJournal) ? recentJournal : []),
+      ...(Array.isArray(staleJournal) ? staleJournal : [])
+    ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
     'path'
   ).reverse()
   totalJournal.forEach(({ path, timestamp, operation, args }) => {
@@ -243,6 +248,7 @@ export const mutations = {
       state.cache._timestamp = Math.min(stale._timestamp, recent._timestamp)
     }
     state.flagStorage = state.cache.flagStorage
+    state.prefsStorage = state.cache.prefsStorage
   },
   setFlag (state, { flag, value }) {
     state.flagStorage[flag] = value
