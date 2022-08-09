@@ -34,7 +34,7 @@ const Announcement = {
       return this.announcement.read
     },
     publishedAt () {
-      const time = this.announcement['published_at']
+      const time = this.announcement.published_at
       if (!time) {
         return
       }
