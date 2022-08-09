@@ -66,6 +66,7 @@
     "more": "More",
     "loading": "Loading…",
     "generic_error": "An error occured",
+    "generic_error_message": "An error occured: {0}",
     "error_retry": "Please try again",
     "retry": "Try again",
     "optional": "optional",
@@ -163,6 +164,7 @@
     "no_more_notifications": "No more notifications",
     "migrated_to": "migrated to",
     "reacted_with": "reacted with {0}",
+    "submitted_report": "submitted a report",
     "poll_ended": "poll has ended"
   },
   "polls": {
@@ -198,6 +200,8 @@
   "interactions": {
     "favs_repeats": "Repeats and favorites",
     "follows": "New follows",
+    "emoji_reactions": "Emoji Reactions",
+    "reports": "Reports",
     "moves": "User migrates",
     "load_older": "Load older interactions"
   },
@@ -265,6 +269,16 @@
     "remote_user_resolver": "Remote user resolver",
     "searching_for": "Searching for",
     "error": "Not found."
+  },
+  "report": {
+    "reporter": "Reporter:",
+    "reported_user": "Reported user:",
+    "reported_statuses": "Reported statuses:",
+    "notes": "Notes:",
+    "state": "State:",
+    "state_open": "Open",
+    "state_closed": "Closed",
+    "state_resolved": "Resolved"
   },
   "selectable_list": {
     "select_all": "Select all"

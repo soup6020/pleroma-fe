@@ -59,6 +59,7 @@ export const defaultState = {
     moves: true,
     emojiReactions: true,
     followRequest: true,
+    reports: true,
     chatMention: true,
     polls: true
   },

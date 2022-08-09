@@ -121,6 +121,9 @@
                 </i18n-t>
               </small>
             </span>
+            <span v-if="notification.type === 'pleroma:report'">
+              <small>{{ $t('notifications.submitted_report') }}</small>
+            </span>
             <span v-if="notification.type === 'poll'">
               <FAIcon
                 class="type-icon"
@@ -211,6 +214,10 @@
             @{{ notification.target.screen_name_ui }}
           </router-link>
         </div>
+        <Report
+          v-else-if="notification.type === 'pleroma:report'"
+          :report-id="notification.report.id"
+        />
         <template v-else>
           <StatusContent
             class="faint"

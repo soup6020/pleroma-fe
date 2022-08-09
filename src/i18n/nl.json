@@ -744,6 +744,8 @@
     "favs_repeats": "Herhalingen en favorieten",
     "follows": "Nieuwe gevolgden",
     "moves": "Gebruikermigraties",
+    "emoji_reactions": "Emoji Reacties",
+    "reports": "Rapportages",
     "load_older": "Oudere interacties laden"
   },
   "remote_user_resolver": {
@@ -751,6 +753,17 @@
     "error": "Niet gevonden.",
     "remote_user_resolver": "Externe gebruikers-zoeker"
   },
+  "report": {
+    "reporter": "Reporteerder:",
+    "reported_user": "Gerapporteerde gebruiker:",
+    "reported_statuses": "Gerapporteerde statussen:",
+    "notes": "Notas:",
+    "state": "Status:",
+    "state_open": "Open",
+    "state_closed": "Gesloten",
+    "state_resolved": "Opgelost"
+  },
+
   "selectable_list": {
     "select_all": "Alles selecteren"
   },

@@ -93,6 +93,7 @@ const PLEROMA_CHAT_URL = id => `/api/v1/pleroma/chats/by-account-id/${id}`
 const PLEROMA_CHAT_MESSAGES_URL = id => `/api/v1/pleroma/chats/${id}/messages`
 const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
+const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 
 const oldfetch = window.fetch
@@ -588,7 +589,8 @@ const fetchTimeline = ({
   listId = false,
   tag = false,
   withMuted = false,
-  replyVisibility = 'all'
+  replyVisibility = 'all',
+  includeTypes = []
 }) => {
   const timelineUrls = {
     public: MASTODON_PUBLIC_TIMELINE,
@@ -639,6 +641,11 @@ const fetchTimeline = ({
   }
   if (replyVisibility !== 'all') {
     params.push(['reply_visibility', replyVisibility])
+  }
+  if (includeTypes.length > 0) {
+    includeTypes.forEach(type => {
+      params.push(['include_types[]', type])
+    })
   }
 
   params.push(['limit', 20])
@@ -1424,6 +1431,38 @@ const deleteChatMessage = ({ chatId, messageId, credentials }) => {
   })
 }
 
+const setReportState = ({ id, state, credentials }) => {
+  // TODO: Can't use promisedRequest because on OK this does not return json
+  // See https://git.pleroma.social/pleroma/pleroma-fe/-/merge_requests/1322
+  return fetch(PLEROMA_ADMIN_REPORTS, {
+    headers: {
+      ...authHeaders(credentials),
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PATCH',
+    body: JSON.stringify({
+      reports: [{
+        id,
+        state
+      }]
+    })
+  })
+    .then(data => {
+      if (data.status >= 500) {
+        throw Error(data.statusText)
+      } else if (data.status >= 400) {
+        return data.json()
+      }
+      return data
+    })
+    .then(data => {
+      if (data.errors) {
+        throw Error(data.errors[0].message)
+      }
+    })
+}
+
 const apiService = {
   verifyCredentials,
   fetchTimeline,
@@ -1523,7 +1562,8 @@ const apiService = {
   chatMessages,
   sendChatMessage,
   readChat,
-  deleteChatMessage
+  deleteChatMessage,
+  setReportState
 }
 
 export default apiService
