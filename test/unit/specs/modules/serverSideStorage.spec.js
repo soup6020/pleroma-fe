@@ -4,6 +4,7 @@ import {
   VERSION,
   COMMAND_TRIM_FLAGS,
   COMMAND_TRIM_FLAGS_AND_RESET,
+  _moveItemInArray,
   _getRecentData,
   _getAllFlags,
   _mergeFlags,
@@ -62,7 +63,7 @@ describe('The serverSideStorage module', () => {
                 updateCounter: 1
               },
               prefsStorage: {
-                ...defaultState.flagStorage,
+                ...defaultState.prefsStorage
               }
             }
           }
@@ -106,7 +107,7 @@ describe('The serverSideStorage module', () => {
       })
     })
     describe('setPreference', () => {
-      const { setPreference } = mutations
+      const { setPreference, updateCache } = mutations
 
       it('should set preference and update journal log accordingly', () => {
         const state = cloneDeep(defaultState)
@@ -122,11 +123,12 @@ describe('The serverSideStorage module', () => {
         })
       })
 
-      it('should keep journal to a minimum (one entry per path)', () => {
+      it('should keep journal to a minimum (one entry per path for sets)', () => {
         const state = cloneDeep(defaultState)
         setPreference(state, { path: 'simple.testing', value: 1 })
         setPreference(state, { path: 'simple.testing', value: 2 })
-        expect(state.prefsStorage.simple.testing).to.eql(1)
+        updateCache(state)
+        expect(state.prefsStorage.simple.testing).to.eql(2)
         expect(state.prefsStorage._journal.length).to.eql(1)
         expect(state.prefsStorage._journal[0]).to.eql({
           path: 'simple.testing',
@@ -140,6 +142,16 @@ describe('The serverSideStorage module', () => {
   })
 
   describe('helper functions', () => {
+    describe('_moveItemInArray', () => {
+      it('should move item according to movement value', () => {
+        expect(_moveItemInArray([1, 2, 3, 4], 4, -1)).to.eql([1, 2, 4, 3])
+        expect(_moveItemInArray([1, 2, 3, 4], 1, 2)).to.eql([2, 3, 1, 4])
+      })
+      it('should clamp movement to within array', () => {
+        expect(_moveItemInArray([1, 2, 3, 4], 4, -10)).to.eql([4, 1, 2, 3])
+        expect(_moveItemInArray([1, 2, 3, 4], 3, 99)).to.eql([1, 2, 4, 3])
+      })
+    })
     describe('_getRecentData', () => {
       it('should handle nulls correctly', () => {
         expect(_getRecentData(null, null)).to.eql({ recent: null, stale: null, needUpload: true })

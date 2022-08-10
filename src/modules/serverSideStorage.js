@@ -1,5 +1,5 @@
 import { toRaw } from 'vue'
-import { isEqual, uniqBy, cloneDeep, set } from 'lodash'
+import { isEqual, uniqWith, cloneDeep, set, get, clamp } from 'lodash'
 import { CURRENT_UPDATE_COUNTER } from 'src/components/update_notification/update_notification.js'
 
 export const VERSION = 1
@@ -34,6 +34,17 @@ export const defaultState = {
 export const newUserFlags = {
   ...defaultState.flagStorage,
   updateCounter: CURRENT_UPDATE_COUNTER // new users don't need to see update notification
+}
+
+export const _moveItemInArray = (array, value, movement) => {
+  const oldIndex = array.indexOf(value)
+  const newIndex = oldIndex + movement
+  const newArray = [...array]
+  // remove old
+  newArray.splice(oldIndex, 1)
+  // add new
+  newArray.splice(clamp(newIndex, 0, newArray.length + 1), 0, value)
+  return newArray
 }
 
 const _wrapData = (data) => ({
@@ -98,6 +109,23 @@ export const _mergeFlags = (recent, stale, allFlagKeys) => {
   }))
 }
 
+const _mergeJournal = (a, b) => uniqWith(
+  [
+    ...(Array.isArray(a) ? a : []),
+    ...(Array.isArray(b) ? b : [])
+  ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
+  (a, b) => {
+    if (a.operation !== b.operation) return false
+    switch (a.operation) {
+      case 'set':
+      case 'arrangeSet':
+        return a.path === b.path
+      default:
+        return a.path === b.path && a.timestamp === b.timestamp
+    }
+  }
+).reverse()
+
 export const _mergePrefs = (recent, stale, allFlagKeys) => {
   if (!stale) return recent
   if (!recent) return stale
@@ -114,13 +142,7 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
    * shouldn't be used with collections!
    */
   const resultOutput = { ...recentData }
-  const totalJournal = uniqBy(
-    [
-      ...(Array.isArray(recentJournal) ? recentJournal : []),
-      ...(Array.isArray(staleJournal) ? staleJournal : [])
-    ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
-    'path'
-  ).reverse()
+  const totalJournal = _mergeJournal(staleJournal, recentJournal)
   totalJournal.forEach(({ path, timestamp, operation, args }) => {
     if (path.startsWith('_')) {
       console.error(`journal contains entry to edit internal (starts with _) field '${path}', something is incorrect here, ignoring.`)
@@ -130,6 +152,17 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
       case 'set':
         set(resultOutput, path, args[0])
         break
+      case 'addToCollection':
+        set(resultOutput, path, Array.from(new Set(get(resultOutput, path)).add(args[0])))
+        break
+      case 'removeFromCollection':
+        set(resultOutput, path, Array.from(new Set(get(resultOutput, path)).remove(args[0])))
+        break
+      case 'reorderCollection': {
+        const [value, movement] = args
+        set(resultOutput, path, _moveItemInArray(get(resultOutput, path), value, movement))
+        break
+      }
       default:
         console.error(`Unknown journal operation: '${operation}', did we forget to run reverse migrations beforehand?`)
     }
@@ -260,13 +293,56 @@ export const mutations = {
       return
     }
     set(state.prefsStorage, path, value)
-    state.prefsStorage._journal = uniqBy(
-      [
-        ...state.prefsStorage._journal,
-        { command: 'set', path, args: [value], timestamp: Date.now() }
-      ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
-      'path'
-    ).reverse()
+    state.prefsStorage._journal = [
+      ...state.prefsStorage._journal,
+      { command: 'set', path, args: [value], timestamp: Date.now() }
+    ]
+  },
+  addCollectionPreference (state, { path, value }) {
+    if (path.startsWith('_')) {
+      console.error(`tried to edit internal (starts with _) field '${path}', ignoring.`)
+      return
+    }
+    const collection = new Set(get(state.prefsStorage, path))
+    collection.add(value)
+    set(state.prefsStorage, path, collection)
+    state.prefsStorage._journal = [
+      ...state.prefsStorage._journal,
+      { command: 'addToCollection', path, args: [value], timestamp: Date.now() }
+    ]
+  },
+  removeCollectionPreference (state, { path, value }) {
+    if (path.startsWith('_')) {
+      console.error(`tried to edit internal (starts with _) field '${path}', ignoring.`)
+      return
+    }
+    const collection = new Set(get(state.prefsStorage, path))
+    collection.remove(value)
+    set(state.prefsStorage, path, collection)
+    state.prefsStorage._journal = [
+      ...state.prefsStorage._journal,
+      { command: 'removeFromCollection', path, args: [value], timestamp: Date.now() }
+    ]
+  },
+  reorderCollectionPreference (state, { path, value, movement }) {
+    if (path.startsWith('_')) {
+      console.error(`tried to edit internal (starts with _) field '${path}', ignoring.`)
+      return
+    }
+    const collection = get(state.prefsStorage, path)
+    const newCollection = _moveItemInArray(collection, value, movement)
+    set(state.prefsStorage, path, newCollection)
+    state.prefsStorage._journal = [
+      ...state.prefsStorage._journal,
+      { command: 'arrangeCollection', path, args: [value], timestamp: Date.now() }
+    ]
+  },
+  updateCache (state) {
+    state.prefsStorage._journal = _mergeJournal(state.prefsStorage._journal)
+    state.cache = _wrapData({
+      flagStorage: toRaw(state.flagStorage),
+      prefsStorage: toRaw(state.prefsStorage)
+    })
   }
 }
 
@@ -279,10 +355,7 @@ const serverSideStorage = {
     pushServerSideStorage ({ state, rootState, commit }, { force = false } = {}) {
       const needPush = state.dirty || force
       if (!needPush) return
-      state.cache = _wrapData({
-        flagStorage: toRaw(state.flagStorage),
-        prefsStorage: toRaw(state.prefsStorage)
-      })
+      commit('updateCache')
       const params = { pleroma_settings_store: { 'pleroma-fe': state.cache } }
       rootState.api.backendInteractor
         .updateProfile({ params })
