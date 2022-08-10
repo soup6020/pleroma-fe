@@ -110,6 +110,9 @@ export const _mergeFlags = (recent, stale, allFlagKeys) => {
 }
 
 const _mergeJournal = (a, b) => uniqWith(
+  // TODO use groupBy to group by path, then trim them depending on operations,
+  // i.e. if field got removed in the end - no need to sort it beforehand, if field
+  // got re-added no need to remove it and add it etc.
   [
     ...(Array.isArray(a) ? a : []),
     ...(Array.isArray(b) ? b : [])
