@@ -110,7 +110,7 @@ const UserProfile = {
       const maybeName = userNameOrId.name
 
       // Check if user data is already loaded in store
-      const user = this.$store.getters.findUser(maybeId || maybeName)
+      const user = maybeId ? this.$store.getters.findUser(maybeId) : this.$store.getters.findUserByName(maybeName)
       if (user) {
         loadById(user.id)
       } else {
