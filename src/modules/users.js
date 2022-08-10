@@ -285,6 +285,13 @@ const users = {
           return user
         })
     },
+    fetchUserByName (store, name) {
+      return store.rootState.api.backendInteractor.fetchUserByName({ name })
+        .then((user) => {
+          store.commit('addNewUsers', [user])
+          return user
+        })
+    },
     fetchUserRelationship (store, id) {
       if (store.state.currentUser) {
         store.rootState.api.backendInteractor.fetchUserRelationship({ id })

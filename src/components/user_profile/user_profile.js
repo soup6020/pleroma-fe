@@ -45,7 +45,7 @@ const UserProfile = {
   },
   created () {
     const routeParams = this.$route.params
-    this.load(routeParams.name || routeParams.id)
+    this.load({ name: routeParams.name, id: routeParams.id })
     this.tab = get(this.$route, 'query.tab', defaultTabKey)
   },
   unmounted () {
@@ -106,12 +106,17 @@ const UserProfile = {
       this.userId = null
       this.error = false
 
+      const maybeId = userNameOrId.id
+      const maybeName = userNameOrId.name
+
       // Check if user data is already loaded in store
-      const user = this.$store.getters.findUser(userNameOrId)
+      const user = this.$store.getters.findUser(maybeId || maybeName)
       if (user) {
         loadById(user.id)
       } else {
-        this.$store.dispatch('fetchUser', userNameOrId)
+        (maybeId
+          ? this.$store.dispatch('fetchUser', maybeId)
+          : this.$store.dispatch('fetchUserByName', maybeName))
           .then(({ id }) => loadById(id))
           .catch((reason) => {
             const errorMessage = get(reason, 'error.error')
@@ -150,12 +155,12 @@ const UserProfile = {
   watch: {
     '$route.params.id': function (newVal) {
       if (newVal) {
-        this.switchUser(newVal)
+        this.switchUser({ id: newVal })
       }
     },
     '$route.params.name': function (newVal) {
       if (newVal) {
-        this.switchUser(newVal)
+        this.switchUser({ name: newVal })
       }
     },
     '$route.query': function (newVal) {
