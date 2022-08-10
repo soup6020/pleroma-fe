@@ -60,7 +60,7 @@
                   <template #linkToArtist>
                     <a
                       target="_blank"
-                      href="https://post.ebin.club/pipivovott"
+                      href="https://post.ebin.club/users/pipivovott"
                     >pipivovott</a>
                   </template>
                 </i18n-t>
