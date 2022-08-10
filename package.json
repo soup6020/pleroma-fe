@@ -104,7 +104,7 @@
     "ora": "0.4.1",
     "postcss-loader": "3.0.0",
     "raw-loader": "0.5.1",
-    "sass": "1.54.0",
+    "sass": "1.54.4",
     "sass-loader": "7.3.1",
     "selenium-server": "2.53.1",
     "semver": "5.7.1",
