@@ -100,14 +100,14 @@ const NavPanel = {
       return filterNavigation(
         [
           ...Object
-            .entries({
-              ...TIMELINES,
-              ...ROOT_ITEMS
-            })
+            .entries({ ...TIMELINES })
             .filter(([k]) => this.pinnedItems.has(k))
             .map(([k, v]) => ({ ...v, name: k })),
-          ...this.lists.filter((k) => this.pinnedItems.has(k.name))
-
+          ...this.lists.filter((k) => this.pinnedItems.has(k.name)),
+          ...Object
+            .entries({ ...ROOT_ITEMS })
+            .filter(([k]) => this.pinnedItems.has(k))
+            .map(([k, v]) => ({ ...v, name: k }))
         ],
         {
           isFederating: this.federating,
