@@ -1,7 +1,33 @@
 <template>
   <div class="NavPanel">
     <div class="panel panel-default">
-      <ul>
+      <div class="panel-heading">
+        <span>
+          <span v-for="item in pinnedList" :key="item.name" class="pinned-item">
+            <router-link
+              :to="{ name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
+            >
+              <FAIcon
+                fixed-width
+                class="fa-scale-110 fa-old-padding "
+                :icon="item.icon"
+              />
+            </router-link>
+          </span>
+        </span>
+        <div class="spacer"/>
+        <button
+          class="button-unstyled"
+          @click="toggleCollapse"
+        >
+          <FAIcon
+            class="timelines-chevron"
+            fixed-width
+            :icon="collapsed ? 'chevron-down' : 'chevron-up'"
+          />
+        </button>
+      </div>
+      <ul class="panel-body" v-if="!collapsed">
         <li v-if="currentUser || !privateMode">
           <button
             class="button-unstyled menu-item"
@@ -22,29 +48,34 @@
             v-show="showTimelines"
             class="timelines-background"
           >
-            <TimelineMenuContent class="timelines" />
+            <TimelineMenuContent class="timelines" :content="timelinesList" />
           </div>
         </li>
-        <li v-if="currentUser && listsNavigation">
+        <li v-if="currentUser">
           <button
             class="button-unstyled menu-item"
             @click="toggleLists"
           >
-            <router-link
-              :to="{ name: 'lists' }"
-              @click.stop
-            >
               <FAIcon
                 fixed-width
                 class="fa-scale-110"
                 icon="list"
               />{{ $t("nav.lists") }}
-            </router-link>
             <FAIcon
               class="timelines-chevron"
               fixed-width
               :icon="showLists ? 'chevron-up' : 'chevron-down'"
             />
+            <router-link
+              :to="{ name: 'lists' }"
+              @click.stop
+            >
+              <FAIcon
+                class="timelines-chevron"
+                fixed-width
+                icon="wrench"
+              />
+            </router-link>
           </button>
           <div
             v-show="showLists"
@@ -53,81 +84,29 @@
             <ListsMenuContent class="timelines" />
           </div>
         </li>
-        <li v-if="currentUser && !listsNavigation">
+        <li v-for="item in rootItems" :key="item.name">
           <router-link
-            :to="{ name: 'lists' }"
-            @click.stop
+            class="menu-item"
+            :to="{ name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
           >
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding "
+              :icon="item.icon"
+            />{{ $t(item.label) }}
             <button
-              class="button-unstyled menu-item"
-              @click="toggleLists"
-            >
+              type="button"
+              class="button-unstyled"
+              @click.stop.prevent="togglePin(item.name)"
+              >
               <FAIcon
                 fixed-width
-                class="fa-scale-110"
-                icon="list"
-              />{{ $t("nav.lists") }}
+                class="fa-scale-110 fa-old-padding "
+                :class="{ 'veryfaint': !isPinned(item.name) }"
+                :transform="!isPinned(item.name) ? 'rotate-45' : ''"
+                icon="thumbtack"
+              />
             </button>
-          </router-link>
-        </li>
-        <li v-if="currentUser">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'interactions', params: { username: currentUser.screen_name } }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="bell"
-            />{{ $t("nav.interactions") }}
-          </router-link>
-        </li>
-        <li v-if="currentUser && pleromaChatMessagesAvailable">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'chats', params: { username: currentUser.screen_name } }"
-          >
-            <div
-              v-if="unreadChatCount"
-              class="badge badge-notification"
-            >
-              {{ unreadChatCount }}
-            </div>
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="comments"
-            />{{ $t("nav.chats") }}
-          </router-link>
-        </li>
-        <li v-if="currentUser && currentUser.locked">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'friend-requests' }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="user-plus"
-            />{{ $t("nav.friend_requests") }}
-            <span
-              v-if="followRequestCount > 0"
-              class="badge badge-notification"
-            >
-              {{ followRequestCount }}
-            </span>
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            class="menu-item"
-            :to="{ name: 'about' }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="info-circle"
-            />{{ $t("nav.about") }}
           </router-link>
         </li>
       </ul>
@@ -245,6 +224,13 @@
     position: absolute;
     right: 0.6rem;
     top: 1.25em;
+  }
+
+  .pinned-item {
+    .router-link-exact-active .svg-inline--fa {
+      color: $fallback--text;
+      color: var(--selectedMenuText, $fallback--text);
+    }
   }
 }
 </style>

@@ -10,7 +10,7 @@
     @close="() => isOpen = false"
   >
     <template #content>
-      <TimelineMenuContent />
+      <TimelineMenuContent :content="timelinesList" />
     </template>
     <template #trigger>
       <span class="button-unstyled title timeline-menu-title">

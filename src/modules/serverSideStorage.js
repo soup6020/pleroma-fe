@@ -23,6 +23,9 @@ export const defaultState = {
     _journal: [],
     simple: {
       dontShowUpdateNotifs: false
+    },
+    collections: {
+      pinnedNavItems: ['home', 'dms', 'chats', 'about']
     }
   },
   // raw data
@@ -274,8 +277,8 @@ export const mutations = {
 
     totalFlags = _resetFlags(totalFlags)
 
-    recent.flagStorage = totalFlags
-    recent.prefsStorage = totalPrefs
+    recent.flagStorage = { ...flagsTemplate, ...totalFlags }
+    recent.prefsStorage = { ...defaultState.prefsStorage, ...totalPrefs }
 
     state.dirty = dirty || needsUpload
     state.cache = recent
@@ -320,7 +323,7 @@ export const mutations = {
       return
     }
     const collection = new Set(get(state.prefsStorage, path))
-    collection.remove(value)
+    collection.delete(value)
     set(state.prefsStorage, path, collection)
     state.prefsStorage._journal = [
       ...state.prefsStorage._journal,

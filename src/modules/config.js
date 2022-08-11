@@ -87,7 +87,6 @@ export const defaultState = {
   sidebarColumnWidth: '25rem',
   contentColumnWidth: '45rem',
   notifsColumnWidth: '25rem',
-  listsNavigation: false,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default
