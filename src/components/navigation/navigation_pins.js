@@ -28,6 +28,7 @@ library.add(
   faList
 )
 const NavPanel = {
+  props: ['limit'],
   computed: {
     getters () {
       return this.$store.getters
@@ -67,7 +68,7 @@ const NavPanel = {
           isPrivate: this.privateMode,
           currentUser: this.currentUser
         }
-      )
+      ).slice(0, this.limit)
     }
   }
 }

@@ -5,7 +5,7 @@
         v-if="!forceExpand"
         class="panel-heading"
       >
-        <NavigationPins />
+        <NavigationPins :limit="6" />
         <div class="spacer"/>
         <button
           class="button-unstyled"
