@@ -2,24 +2,7 @@
   <div class="NavPanel">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <span>
-          <span v-for="item in pinnedList" :key="item.name" class="pinned-item">
-            <router-link
-              :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
-            >
-              <FAIcon
-                v-if="item.icon"
-                fixed-width
-                class="fa-scale-110 fa-old-padding"
-                :icon="item.icon"
-              />
-              <span
-                v-if="item.iconLetter"
-                class="iconLetter fa-scale-110 fa-old-padding"
-              >{{ item.iconLetter }}</span>
-            </router-link>
-          </span>
-        </span>
+        <NavigationPins />
         <div class="spacer"/>
         <button
           class="button-unstyled"
@@ -203,14 +186,5 @@
     margin-right: 0.8em;
   }
 
-  .pinned-item {
-    .router-link-active {
-      & .svg-inline--fa,
-      & .iconLetter {
-        color: $fallback--text;
-        color: var(--selectedMenuText, $fallback--text);
-      }
-    }
-  }
 }
 </style>

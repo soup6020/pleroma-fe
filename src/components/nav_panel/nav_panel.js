@@ -3,6 +3,7 @@ import { mapState, mapGetters } from 'vuex'
 import { TIMELINES, ROOT_ITEMS } from 'src/components/navigation/navigation.js'
 import { filterNavigation } from 'src/components/navigation/filter.js'
 import NavigationEntry from 'src/components/navigation/navigation_entry.vue'
+import NavigationPins from 'src/components/navigation/navigation_pins.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -40,7 +41,8 @@ const NavPanel = {
   },
   components: {
     ListsMenuContent,
-    NavigationEntry
+    NavigationEntry,
+    NavigationPins
   },
   data () {
     return {
@@ -90,26 +92,7 @@ const NavPanel = {
           .entries({ ...ROOT_ITEMS })
           .map(([k, v]) => ({ ...v, name: k })),
         {
-          isFederating: this.federating,
-          isPrivate: this.private,
-          currentUser: this.currentUser
-        }
-      )
-    },
-    pinnedList () {
-      return filterNavigation(
-        [
-          ...Object
-            .entries({ ...TIMELINES })
-            .filter(([k]) => this.pinnedItems.has(k))
-            .map(([k, v]) => ({ ...v, name: k })),
-          ...this.lists.filter((k) => this.pinnedItems.has(k.name)),
-          ...Object
-            .entries({ ...ROOT_ITEMS })
-            .filter(([k]) => this.pinnedItems.has(k))
-            .map(([k, v]) => ({ ...v, name: k }))
-        ],
-        {
+          hasChats: this.pleromaChatMessagesAvailable,
           isFederating: this.federating,
           isPrivate: this.private,
           currentUser: this.currentUser

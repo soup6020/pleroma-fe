@@ -17,20 +17,12 @@
             icon="bars"
           />
           <div
-            v-if="unreadChatCount"
+            v-if="unreadChatCount && !chatsPinned"
             class="alert-dot"
           />
         </button>
-        <router-link
-          v-if="!hideSitename"
-          class="site-name"
-          :to="{ name: 'root' }"
-          active-class="home"
-        >
-          {{ sitename }}
-        </router-link>
-      </div>
-      <div class="item right">
+        <NavigationPins class="pins"/>
+      </div> <div class="item right">
         <button
           v-if="currentUser"
           class="button-unstyled mobile-nav-button"
@@ -178,13 +170,21 @@
     }
   }
 
+  .pins {
+    flex: 1;
+
+    .pinned-item {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+
   .mobile-notifications {
     margin-top: 50px;
     width: 100vw;
     height: calc(100vh - var(--navbar-height));
     overflow-x: hidden;
     overflow-y: scroll;
-
     color: $fallback--text;
     color: var(--text, $fallback--text);
     background-color: $fallback--bg;
@@ -194,14 +194,17 @@
       padding: 0;
       border-radius: 0;
       box-shadow: none;
+
       .panel {
         border-radius: 0;
         margin: 0;
         box-shadow: none;
       }
-      .panel:after {
+
+      .panel::after {
         border-radius: 0;
       }
+
       .panel .panel-heading {
         border-radius: 0;
         box-shadow: none;
