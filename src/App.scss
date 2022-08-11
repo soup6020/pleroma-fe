@@ -117,8 +117,15 @@ h4 {
   margin: 0;
 }
 
+.iconLetter {
+  display: inline-block;
+  text-align: center;
+  font-weight: 1000;
+}
+
 i[class*=icon-],
-.svg-inline--fa {
+.svg-inline--fa,
+.iconLetter {
   color: $fallback--icon;
   color: var(--icon, $fallback--icon);
 }
@@ -746,13 +753,15 @@ option {
 }
 
 .fa-scale-110 {
-  &.svg-inline--fa {
+  &.svg-inline--fa,
+  &.iconLetter {
     font-size: 1.1em;
   }
 }
 
 .fa-old-padding {
-  &.svg-inline--fa {
+  &.svg-inline--fa,
+  &.iconLetter {
     padding: 0 0.3em;
   }
 }

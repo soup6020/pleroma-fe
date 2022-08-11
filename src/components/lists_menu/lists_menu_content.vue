@@ -1,17 +1,7 @@
 <template>
-  <ul>
-    <li
-      v-for="list in lists.slice().reverse()"
-      :key="list.id"
-    >
-      <router-link
-        class="menu-item"
-        :to="{ name: 'lists-timeline', params: { id: list.id } }"
-      >
-        {{ list.title }}
-      </router-link>
-    </li>
-  </ul>
+<ul>
+  <NavigationEntry v-for="item in lists" :key="item.name" :show-pin="showPin" :item="item" />
+</ul>
 </template>
 
 <script src="./lists_menu_content.js"></script>

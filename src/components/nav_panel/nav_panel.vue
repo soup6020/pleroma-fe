@@ -5,13 +5,18 @@
         <span>
           <span v-for="item in pinnedList" :key="item.name" class="pinned-item">
             <router-link
-              :to="{ name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
+              :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
             >
               <FAIcon
+                v-if="item.icon"
                 fixed-width
-                class="fa-scale-110 fa-old-padding "
+                class="fa-scale-110 fa-old-padding"
                 :icon="item.icon"
               />
+              <span
+                v-if="item.iconLetter"
+                class="iconLetter fa-scale-110 fa-old-padding"
+              >{{ item.iconLetter }}</span>
             </router-link>
           </span>
         </span>
@@ -48,7 +53,9 @@
             v-show="showTimelines"
             class="timelines-background"
           >
-            <TimelineMenuContent class="timelines" :content="timelinesList" />
+            <ul class="timelines">
+              <NavigationEntry v-for="item in timelinesList" :key="item.name" :show-pin="true" :item="item" />
+            </ul>
           </div>
         </li>
         <li v-if="currentUser">
@@ -81,34 +88,10 @@
             v-show="showLists"
             class="timelines-background"
           >
-            <ListsMenuContent class="timelines" />
+            <ListsMenuContent :showPin="true" class="timelines" />
           </div>
         </li>
-        <li v-for="item in rootItems" :key="item.name">
-          <router-link
-            class="menu-item"
-            :to="{ name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110 fa-old-padding "
-              :icon="item.icon"
-            />{{ $t(item.label) }}
-            <button
-              type="button"
-              class="button-unstyled"
-              @click.stop.prevent="togglePin(item.name)"
-              >
-              <FAIcon
-                fixed-width
-                class="fa-scale-110 fa-old-padding "
-                :class="{ 'veryfaint': !isPinned(item.name) }"
-                :transform="!isPinned(item.name) ? 'rotate-45' : ''"
-                icon="thumbtack"
-              />
-            </button>
-          </router-link>
-        </li>
+        <NavigationEntry v-for="item in rootItems" :key="item.name" :show-pin="true" :item="item" />
       </ul>
     </div>
   </div>
@@ -220,16 +203,13 @@
     margin-right: 0.8em;
   }
 
-  .badge {
-    position: absolute;
-    right: 0.6rem;
-    top: 1.25em;
-  }
-
   .pinned-item {
-    .router-link-exact-active .svg-inline--fa {
-      color: $fallback--text;
-      color: var(--selectedMenuText, $fallback--text);
+    .router-link-active {
+      & .svg-inline--fa,
+      & .iconLetter {
+        color: $fallback--text;
+        color: var(--selectedMenuText, $fallback--text);
+      }
     }
   }
 }

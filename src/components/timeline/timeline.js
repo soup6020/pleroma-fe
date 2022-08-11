@@ -28,6 +28,7 @@ const Timeline = {
     'footerSlipgate' // reference to an element where we should put our footer
   ],
   data () {
+    console.log(this.timelineName)
     return {
       paused: false,
       unfocused: false,

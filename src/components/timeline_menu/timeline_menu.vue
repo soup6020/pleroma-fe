@@ -10,7 +10,10 @@
     @close="() => isOpen = false"
   >
     <template #content>
-      <TimelineMenuContent :content="timelinesList" />
+    <ListsMenuContent v-if="useListsMenu" :showPin="false" class="timelines" />
+    <ul v-else>
+      <NavigationEntry v-for="item in timelinesList" :key="item.name" :show-pin="false" :item="item" />
+    </ul>
     </template>
     <template #trigger>
       <span class="button-unstyled title timeline-menu-title">
@@ -138,8 +141,7 @@
       background-color: $fallback--lightBg;
       background-color: var(--selectedMenu, $fallback--lightBg);
       color: $fallback--text;
-      color: var(--selectedMenuText, $fallback--text);
-      --faint: var(--selectedMenuFaintText, $fallback--faint);
+      color: var(--selectedMenuText, $fallback--text); --faint: var(--selectedMenuFaintText, $fallback--faint);
       --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
       --lightText: var(--selectedMenuLightText, $fallback--lightText);
       --icon: var(--selectedMenuIcon, $fallback--icon);
