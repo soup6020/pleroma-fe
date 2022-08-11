@@ -191,8 +191,8 @@ nav {
   position: relative;
   display: grid;
   grid-template-columns:
-    var(--sidebarColumnWidth, var(--miniColumn))
-    minmax(var(--contentColumnWidth, var(--maxiColumn), var(--sidebarColumnWidth, var(--miniColumn))));
+    minmax(var(--miniColumn), var(--sidebarColumnWidth, var(--miniColumn)))
+    var(--effectiveContentColumnWidth);
   grid-template-areas: "sidebar content";
   grid-template-rows: 1fr;
   box-sizing: border-box;
@@ -287,23 +287,23 @@ nav {
 
   &.-reverse:not(.-wide):not(.-mobile) {
     grid-template-columns:
-      minmax(var(--contentColumnWidth, var(--maxiColumn), var(--sidebarColumnWidth, var(--miniColumn))))
-      var(--sidebarColumnWidth, var(--miniColumn));
+      var(--effectiveContentColumnWidth)
+      minmax(var(--miniColumn), var(--sidebarColumnWidth, var(--miniColumn)));
     grid-template-areas: "content sidebar";
   }
 
   &.-wide {
     grid-template-columns:
-      var(--sidebarColumnWidth, var(--miniColumn))
-      minmax(var(--contentColumnWidth, var(--maxiColumn), var(--sidebarColumnWidth, var(--miniColumn))))
-      var(--notifsColumnWidth, var(--miniColumn));
+      minmax(var(--miniColumn), var(--sidebarColumnWidth, var(--miniColumn)))
+      var(--effectiveContentColumnWidth)
+      minmax(var(--miniColumn), var(--notifsColumnWidth, var(--miniColumn)));
     grid-template-areas: "sidebar content notifs";
 
     &.-reverse {
       grid-template-columns:
-        var(--notifsColumnWidth, var(--miniColumn))
-        minmax(var(--contentColumnWidth, var(--maxiColumn), var(--sidebarColumnWidth, var(--miniColumn))))
-        var(--sidebarColumnWidth, var(--miniColumn));
+        minmax(var(--miniColumn), var(--notifsColumnWidth, var(--miniColumn)))
+        var(--effectiveContentColumnWidth)
+        minmax(var(--miniColumn), var(--sidebarColumnWidth, var(--miniColumn)));
       grid-template-areas: "notifs content sidebar";
     }
   }
