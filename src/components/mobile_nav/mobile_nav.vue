@@ -21,7 +21,7 @@
             class="alert-dot"
           />
         </button>
-        <NavigationPins class="pins"/>
+        <NavigationPins class="pins" />
       </div> <div class="item right">
         <button
           v-if="currentUser"

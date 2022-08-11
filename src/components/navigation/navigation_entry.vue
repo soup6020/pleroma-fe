@@ -1,42 +1,42 @@
 <template>
-<li class="NavigationEntry">
-  <router-link
-    class="menu-item"
-    :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
+  <li class="NavigationEntry">
+    <router-link
+      class="menu-item"
+      :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
     >
-    <FAIcon
-      v-if="item.icon"
-      fixed-width
-      class="fa-scale-110"
-      :icon="item.icon"
-      />
-    <span
-      class="icon iconLetter fa-scale-110"
-      v-if="item.iconLetter"
-      >{{ item.iconLetter }}
-    </span>{{ item.labelRaw || $t(item.label) }}
-    <button
-      type="button"
-      class="button-unstyled"
-      @click.stop.prevent="togglePin(item.name)"
-      >
       <FAIcon
-        v-if="showPin && currentUser"
+        v-if="item.icon"
         fixed-width
         class="fa-scale-110"
-        :class="{ 'veryfaint': !isPinned(item.name) }"
-        :transform="!isPinned(item.name) ? 'rotate-45' : ''"
-        icon="thumbtack"
+        :icon="item.icon"
+      />
+      <span
+        v-if="item.iconLetter"
+        class="icon iconLetter fa-scale-110"
+      >{{ item.iconLetter }}
+      </span>{{ item.labelRaw || $t(item.label) }}
+      <button
+        type="button"
+        class="button-unstyled"
+        @click.stop.prevent="togglePin(item.name)"
+      >
+        <FAIcon
+          v-if="showPin && currentUser"
+          fixed-width
+          class="fa-scale-110"
+          :class="{ 'veryfaint': !isPinned(item.name) }"
+          :transform="!isPinned(item.name) ? 'rotate-45' : ''"
+          icon="thumbtack"
         />
-      <div
-        v-if="item.badgeGetter && getters[item.badgeGetter]"
-        class="badge badge-notification"
+        <div
+          v-if="item.badgeGetter && getters[item.badgeGetter]"
+          class="badge badge-notification"
         >
-        {{ getters[item.badgeGetter] }}
-      </div>
-    </button>
-  </router-link>
-</li>
+          {{ getters[item.badgeGetter] }}
+        </div>
+      </button>
+    </router-link>
+  </li>
 </template>
 
 <script src="./navigation_entry.js"></script>

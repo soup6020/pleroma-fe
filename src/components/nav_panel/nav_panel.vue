@@ -6,7 +6,7 @@
         class="panel-heading"
       >
         <NavigationPins :limit="6" />
-        <div class="spacer"/>
+        <div class="spacer" />
         <button
           class="button-unstyled"
           @click="toggleCollapse"
@@ -18,7 +18,10 @@
           />
         </button>
       </div>
-      <ul class="panel-body" v-if="!collapsed || forceExpand">
+      <ul
+        v-if="!collapsed || forceExpand"
+        class="panel-body"
+      >
         <li v-if="currentUser || !privateMode">
           <button
             class="button-unstyled menu-item"
@@ -40,7 +43,12 @@
             class="timelines-background"
           >
             <ul class="timelines">
-              <NavigationEntry v-for="item in timelinesItems" :key="item.name" :show-pin="true" :item="item" />
+              <NavigationEntry
+                v-for="item in timelinesItems"
+                :key="item.name"
+                :show-pin="true"
+                :item="item"
+              />
             </ul>
           </div>
         </li>
@@ -49,11 +57,11 @@
             class="button-unstyled menu-item"
             @click="toggleLists"
           >
-              <FAIcon
-                fixed-width
-                class="fa-scale-110"
-                icon="list"
-              />{{ $t("nav.lists") }}
+            <FAIcon
+              fixed-width
+              class="fa-scale-110"
+              icon="list"
+            />{{ $t("nav.lists") }}
             <FAIcon
               class="timelines-chevron"
               fixed-width
@@ -74,10 +82,18 @@
             v-show="showLists"
             class="timelines-background"
           >
-            <ListsMenuContent :showPin="true" class="timelines" />
+            <ListsMenuContent
+              :show-pin="true"
+              class="timelines"
+            />
           </div>
         </li>
-        <NavigationEntry v-for="item in rootItems" :key="item.name" :show-pin="true" :item="item" />
+        <NavigationEntry
+          v-for="item in rootItems"
+          :key="item.name"
+          :show-pin="true"
+          :item="item"
+        />
       </ul>
     </div>
   </div>

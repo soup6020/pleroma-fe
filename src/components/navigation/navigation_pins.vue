@@ -1,22 +1,24 @@
 <template>
   <span class="NavigationPins">
     <router-link
-      v-for="item in pinnedList" :key="item.name" class="pinned-item"
+      v-for="item in pinnedList"
+      :key="item.name"
+      class="pinned-item"
       :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
-      >
+    >
       <FAIcon
         v-if="item.icon"
         fixed-width
         :icon="item.icon"
-            />
+      />
       <span
         v-if="item.iconLetter"
         class="iconLetter fa-scale-110 fa-old-padding"
-        >{{ item.iconLetter }}</span>
+      >{{ item.iconLetter }}</span>
       <div
         v-if="item.badgeGetter && getters[item.badgeGetter]"
         class="alert-dot"
-        />
+      />
     </router-link>
   </span>
 </template>

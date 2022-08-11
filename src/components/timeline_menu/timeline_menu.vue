@@ -10,10 +10,19 @@
     @close="() => isOpen = false"
   >
     <template #content>
-    <ListsMenuContent v-if="useListsMenu" :showPin="false" class="timelines" />
-    <ul v-else>
-      <NavigationEntry v-for="item in timelinesList" :key="item.name" :show-pin="false" :item="item" />
-    </ul>
+      <ListsMenuContent
+        v-if="useListsMenu"
+        :show-pin="false"
+        class="timelines"
+      />
+      <ul v-else>
+        <NavigationEntry
+          v-for="item in timelinesList"
+          :key="item.name"
+          :show-pin="false"
+          :item="item"
+        />
+      </ul>
     </template>
     <template #trigger>
       <span class="button-unstyled title timeline-menu-title">
