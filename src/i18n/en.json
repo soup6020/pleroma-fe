@@ -149,7 +149,8 @@
     "preferences": "Preferences",
     "timelines": "Timelines",
     "chats": "Chats",
-    "lists": "Lists"
+    "lists": "Lists",
+    "edit_nav_mobile": "Customize navigation bar"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",

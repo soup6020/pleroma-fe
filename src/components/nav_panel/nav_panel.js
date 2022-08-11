@@ -34,6 +34,7 @@ library.add(
   faList
 )
 const NavPanel = {
+  props: ['forceExpand'],
   created () {
     if (this.currentUser && this.currentUser.locked) {
       this.$store.dispatch('startFetchingFollowRequests')

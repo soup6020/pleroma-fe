@@ -195,6 +195,18 @@
           v-if="currentUser"
           @click="toggleDrawer"
         >
+          <router-link :to="{ name: 'edit-navigation' }">
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="compass"
+            /> {{ $t("nav.edit_nav_mobile") }}
+          </router-link>
+        </li>
+        <li
+          v-if="currentUser"
+          @click="toggleDrawer"
+        >
           <button
             class="button-unstyled -link -fullwidth"
             @click="doLogout"

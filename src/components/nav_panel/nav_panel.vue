@@ -1,7 +1,10 @@
 <template>
   <div class="NavPanel">
     <div class="panel panel-default">
-      <div class="panel-heading">
+      <div
+        v-if="!forceExpand"
+        class="panel-heading"
+      >
         <NavigationPins />
         <div class="spacer"/>
         <button
@@ -15,7 +18,7 @@
           />
         </button>
       </div>
-      <ul class="panel-body" v-if="!collapsed">
+      <ul class="panel-body" v-if="!collapsed || forceExpand">
         <li v-if="currentUser || !privateMode">
           <button
             class="button-unstyled menu-item"

@@ -23,6 +23,7 @@ import RemoteUserResolver from 'components/remote_user_resolver/remote_user_reso
 import Lists from 'components/lists/lists.vue'
 import ListsTimeline from 'components/lists_timeline/lists_timeline.vue'
 import ListsEdit from 'components/lists_edit/lists_edit.vue'
+import NavPanel from 'src/components/nav_panel/nav_panel.vue'
 
 export default (store) => {
   const validateAuthenticatedRoute = (to, from, next) => {
@@ -78,7 +79,8 @@ export default (store) => {
     { name: 'user-profile', path: '/:_(users)?/:name', component: UserProfile },
     { name: 'lists', path: '/lists', component: Lists },
     { name: 'lists-timeline', path: '/lists/:id', component: ListsTimeline },
-    { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit }
+    { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit },
+    { name: 'edit-navigation', path: '/nav-edit', component: NavPanel, props: () => ({ forceExpand: true }), beforeEnter: validateAuthenticatedRoute }
   ]
 
   if (store.state.instance.pleromaChatMessagesAvailable) {

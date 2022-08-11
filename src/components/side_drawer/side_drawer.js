@@ -15,6 +15,7 @@ import {
   faTachometerAlt,
   faCog,
   faInfoCircle,
+  faCompass,
   faList
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -30,6 +31,7 @@ library.add(
   faTachometerAlt,
   faCog,
   faInfoCircle,
+  faCompass,
   faList
 )
 
