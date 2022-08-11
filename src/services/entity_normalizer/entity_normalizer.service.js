@@ -48,6 +48,7 @@ export const parseUser = (data) => {
 
   if (masto) {
     output.screen_name = data.acct
+    output.fqn = data.fqn
     output.statusnet_profile_url = data.url
 
     // There's nothing else to get

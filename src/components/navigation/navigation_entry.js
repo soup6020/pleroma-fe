@@ -16,6 +16,7 @@ const NavigationEntry = {
       } else {
         this.$store.commit('addCollectionPreference', { path: 'collections.pinnedNavItems', value })
       }
+      this.$store.dispatch('pushServerSideStorage')
     }
   },
   computed: {

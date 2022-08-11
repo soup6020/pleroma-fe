@@ -95,7 +95,7 @@ const NavPanel = {
         {
           hasChats: this.pleromaChatMessagesAvailable,
           isFederating: this.federating,
-          isPrivate: this.private,
+          isPrivate: this.privateMode,
           currentUser: this.currentUser
         }
       )
@@ -108,7 +108,7 @@ const NavPanel = {
         {
           hasChats: this.pleromaChatMessagesAvailable,
           isFederating: this.federating,
-          isPrivate: this.private,
+          isPrivate: this.privateMode,
           currentUser: this.currentUser
         }
       )

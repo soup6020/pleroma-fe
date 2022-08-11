@@ -51,8 +51,9 @@ export const _moveItemInArray = (array, value, movement) => {
   return newArray
 }
 
-const _wrapData = (data) => ({
+const _wrapData = (data, userName) => ({
   ...data,
+  _user: userName,
   _timestamp: Date.now(),
   _version: VERSION
 })
@@ -254,10 +255,17 @@ export const _doMigrations = (cache) => {
 }
 
 export const mutations = {
+  clearServerSideStorage (state, userData) {
+    state = { ...cloneDeep(defaultState) }
+  },
   setServerSideStorage (state, userData) {
     const live = userData.storage
     state.raw = live
     let cache = state.cache
+    if (cache._user !== userData.fqn) {
+      console.warn('cache belongs to another user! reinitializing local cache!')
+      cache = null
+    }
 
     cache = _doMigrations(cache)
 
@@ -371,12 +379,12 @@ export const mutations = {
     ]
     state.dirty = true
   },
-  updateCache (state) {
+  updateCache (state, { username }) {
     state.prefsStorage._journal = _mergeJournal(state.prefsStorage._journal)
     state.cache = _wrapData({
       flagStorage: toRaw(state.flagStorage),
       prefsStorage: toRaw(state.prefsStorage)
-    })
+    }, username)
   }
 }
 
@@ -388,8 +396,9 @@ const serverSideStorage = {
   actions: {
     pushServerSideStorage ({ state, rootState, commit }, { force = false } = {}) {
       const needPush = state.dirty || force
+      console.log(needPush)
       if (!needPush) return
-      commit('updateCache')
+      commit('updateCache', { username: rootState.users.currentUser.fqn })
       const params = { pleroma_settings_store: { 'pleroma-fe': state.cache } }
       rootState.api.backendInteractor
         .updateProfile({ params })

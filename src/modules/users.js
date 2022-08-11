@@ -509,6 +509,7 @@ const users = {
           store.dispatch('setLastTimeline', 'public-timeline')
           store.dispatch('setLayoutWidth', windowWidth())
           store.dispatch('setLayoutHeight', windowHeight())
+          store.commit('clearServerSideStorage')
         })
     },
     loginUser (store, accessToken) {

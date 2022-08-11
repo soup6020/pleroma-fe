@@ -127,7 +127,7 @@ describe('The serverSideStorage module', () => {
         const state = cloneDeep(defaultState)
         setPreference(state, { path: 'simple.testing', value: 1 })
         setPreference(state, { path: 'simple.testing', value: 2 })
-        updateCache(state)
+        updateCache(state, { username: 'test' })
         expect(state.prefsStorage.simple.testing).to.eql(2)
         expect(state.prefsStorage._journal.length).to.eql(1)
         expect(state.prefsStorage._journal[0]).to.eql({
