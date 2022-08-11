@@ -103,7 +103,6 @@ const NavPanel = {
   },
   data () {
     return {
-      collapsed: false,
       showTimelines: false,
       showLists: false,
       timelinesList: Object.entries(TIMELINES).map(([k, v]) => ({ ...v, name: k })),
@@ -118,7 +117,8 @@ const NavPanel = {
       this.showLists = !this.showLists
     },
     toggleCollapse () {
-      this.collapsed = !this.collapsed
+      this.$store.commit('setPreference', { path: 'simple.collapseNav', value: !this.collapsed })
+      this.$store.dispatch('pushServerSideStorage')
     },
     isPinned (item) {
       return this.pinnedItems.has(item)
@@ -129,6 +129,7 @@ const NavPanel = {
       } else {
         this.$store.commit('addCollectionPreference', { path: 'collections.pinnedNavItems', value: item })
       }
+      this.$store.dispatch('pushServerSideStorage')
     }
   },
   computed: {
@@ -138,7 +139,8 @@ const NavPanel = {
       privateMode: state => state.instance.private,
       federating: state => state.instance.federating,
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable,
-      pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems)
+      pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems),
+      collapsed: state => state.serverSideStorage.prefsStorage.simple.collapseNav
     }),
     rootItems () {
       return Object

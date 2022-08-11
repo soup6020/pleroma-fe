@@ -22,7 +22,8 @@ export const defaultState = {
   prefsStorage: {
     _journal: [],
     simple: {
-      dontShowUpdateNotifs: false
+      dontShowUpdateNotifs: false,
+      collapseNav: false
     },
     collections: {
       pinnedNavItems: ['home', 'dms', 'chats', 'about']
@@ -57,6 +58,23 @@ const _wrapData = (data) => ({
 })
 
 const _checkValidity = (data) => data._timestamp > 0 && data._version > 0
+
+const _verifyPrefs = (state) => {
+  state.prefsStorage = state.prefsStorage || {
+    simple: {},
+    collections: {}
+  }
+  Object.entries(defaultState.prefsStorage.simple).forEach(([k, v]) => {
+    if (typeof v === 'number' || typeof v === 'boolean') return
+    console.warn(`Preference simple.${k} as invalid type, reinitializing`)
+    set(state.prefsStorage.simple, k, defaultState.prefsStorage.simple[k])
+  })
+  Object.entries(defaultState.prefsStorage.collections).forEach(([k, v]) => {
+    if (Array.isArray(v)) return
+    console.warn(`Preference collections.${k} as invalid type, reinitializing`)
+    set(state.prefsStorage.collections, k, defaultState.prefsStorage.collections[k])
+  })
+}
 
 export const _getRecentData = (cache, live) => {
   const result = { recent: null, stale: null, needUpload: false }
@@ -149,7 +167,8 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
    */
   const resultOutput = { ...recentData }
   const totalJournal = _mergeJournal(staleJournal, recentJournal)
-  totalJournal.forEach(({ path, timestamp, operation, args }) => {
+  totalJournal.forEach(({ path, timestamp, operation, command, args }) => {
+    operation = operation || command
     if (path.startsWith('_')) {
       console.error(`journal contains entry to edit internal (starts with _) field '${path}', something is incorrect here, ignoring.`)
       return
@@ -161,9 +180,12 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
       case 'addToCollection':
         set(resultOutput, path, Array.from(new Set(get(resultOutput, path)).add(args[0])))
         break
-      case 'removeFromCollection':
-        set(resultOutput, path, Array.from(new Set(get(resultOutput, path)).remove(args[0])))
+      case 'removeFromCollection': {
+        const newSet = new Set(get(resultOutput, path))
+        newSet.delete(args[0])
+        set(resultOutput, path, Array.from(newSet))
         break
+      }
       case 'reorderCollection': {
         const [value, movement] = args
         set(resultOutput, path, _moveItemInArray(get(resultOutput, path), value, movement))
@@ -269,6 +291,8 @@ export const mutations = {
       // Merge the flags
       console.debug('Merging the data...')
       totalFlags = _mergeFlags(recent, stale, allFlagKeys)
+      _verifyPrefs(recent)
+      _verifyPrefs(stale)
       totalPrefs = _mergePrefs(recent.prefsStorage, stale.prefsStorage)
     } else {
       totalFlags = recent.flagStorage
@@ -301,8 +325,9 @@ export const mutations = {
     set(state.prefsStorage, path, value)
     state.prefsStorage._journal = [
       ...state.prefsStorage._journal,
-      { command: 'set', path, args: [value], timestamp: Date.now() }
+      { operation: 'set', path, args: [value], timestamp: Date.now() }
     ]
+    state.dirty = true
   },
   addCollectionPreference (state, { path, value }) {
     if (path.startsWith('_')) {
@@ -311,11 +336,12 @@ export const mutations = {
     }
     const collection = new Set(get(state.prefsStorage, path))
     collection.add(value)
-    set(state.prefsStorage, path, collection)
+    set(state.prefsStorage, path, [...collection])
     state.prefsStorage._journal = [
       ...state.prefsStorage._journal,
-      { command: 'addToCollection', path, args: [value], timestamp: Date.now() }
+      { operation: 'addToCollection', path, args: [value], timestamp: Date.now() }
     ]
+    state.dirty = true
   },
   removeCollectionPreference (state, { path, value }) {
     if (path.startsWith('_')) {
@@ -324,11 +350,12 @@ export const mutations = {
     }
     const collection = new Set(get(state.prefsStorage, path))
     collection.delete(value)
-    set(state.prefsStorage, path, collection)
+    set(state.prefsStorage, path, [...collection])
     state.prefsStorage._journal = [
       ...state.prefsStorage._journal,
-      { command: 'removeFromCollection', path, args: [value], timestamp: Date.now() }
+      { operation: 'removeFromCollection', path, args: [value], timestamp: Date.now() }
     ]
+    state.dirty = true
   },
   reorderCollectionPreference (state, { path, value, movement }) {
     if (path.startsWith('_')) {
@@ -340,8 +367,9 @@ export const mutations = {
     set(state.prefsStorage, path, newCollection)
     state.prefsStorage._journal = [
       ...state.prefsStorage._journal,
-      { command: 'arrangeCollection', path, args: [value], timestamp: Date.now() }
+      { operation: 'arrangeCollection', path, args: [value], timestamp: Date.now() }
     ]
+    state.dirty = true
   },
   updateCache (state) {
     state.prefsStorage._journal = _mergeJournal(state.prefsStorage._journal)
@@ -365,8 +393,10 @@ const serverSideStorage = {
       const params = { pleroma_settings_store: { 'pleroma-fe': state.cache } }
       rootState.api.backendInteractor
         .updateProfile({ params })
-        .then((user) => commit('setServerSideStorage', user))
-      state.dirty = false
+        .then((user) => {
+          commit('setServerSideStorage', user)
+          state.dirty = false
+        })
     }
   }
 }
