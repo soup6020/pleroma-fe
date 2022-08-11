@@ -86,6 +86,19 @@ const NavPanel = {
       pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems),
       collapsed: state => state.serverSideStorage.prefsStorage.simple.collapseNav
     }),
+    timelinesItems () {
+      return filterNavigation(
+        Object
+          .entries({ ...TIMELINES })
+          .map(([k, v]) => ({ ...v, name: k })),
+        {
+          hasChats: this.pleromaChatMessagesAvailable,
+          isFederating: this.federating,
+          isPrivate: this.private,
+          currentUser: this.currentUser
+        }
+      )
+    },
     rootItems () {
       return filterNavigation(
         Object

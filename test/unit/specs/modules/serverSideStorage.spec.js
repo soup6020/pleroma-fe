@@ -116,7 +116,7 @@ describe('The serverSideStorage module', () => {
         expect(state.prefsStorage._journal.length).to.eql(1)
         expect(state.prefsStorage._journal[0]).to.eql({
           path: 'simple.testing',
-          command: 'set',
+          operation: 'set',
           args: [1],
           // should have A timestamp, we don't really care what it is
           timestamp: state.prefsStorage._journal[0].timestamp
@@ -132,7 +132,7 @@ describe('The serverSideStorage module', () => {
         expect(state.prefsStorage._journal.length).to.eql(1)
         expect(state.prefsStorage._journal[0]).to.eql({
           path: 'simple.testing',
-          command: 'set',
+          operation: 'set',
           args: [2],
           // should have A timestamp, we don't really care what it is
           timestamp: state.prefsStorage._journal[0].timestamp

@@ -46,6 +46,7 @@
     position: relative;
     flex: 0 0 3em;
     min-width: 2em;
+    text-align: center;
 
     & .svg-inline--fa,
     & .iconLetter {

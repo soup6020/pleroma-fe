@@ -37,7 +37,7 @@
             class="timelines-background"
           >
             <ul class="timelines">
-              <NavigationEntry v-for="item in timelinesList" :key="item.name" :show-pin="true" :item="item" />
+              <NavigationEntry v-for="item in timelinesItems" :key="item.name" :show-pin="true" :item="item" />
             </ul>
           </div>
         </li>

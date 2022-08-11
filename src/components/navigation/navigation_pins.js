@@ -42,6 +42,13 @@ const NavPanel = {
       pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems)
     }),
     pinnedList () {
+      if (!this.currentUser) {
+        return [
+          { ...TIMELINES.public, name: 'public' },
+          { ...TIMELINES.twkn, name: 'twkn' },
+          { ...ROOT_ITEMS.about, name: 'about' }
+        ]
+      }
       return filterNavigation(
         [
           ...Object

@@ -21,7 +21,7 @@
       @click.stop.prevent="togglePin(item.name)"
       >
       <FAIcon
-        v-if="showPin"
+        v-if="showPin && currentUser"
         fixed-width
         class="fa-scale-110"
         :class="{ 'veryfaint': !isPinned(item.name) }"

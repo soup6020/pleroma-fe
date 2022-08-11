@@ -1,7 +1,6 @@
 export const TIMELINES = {
   home: {
     route: 'friends',
-    anonRoute: 'public-timeline',
     icon: 'home',
     label: 'nav.home_timeline',
     criteria: ['!private']
