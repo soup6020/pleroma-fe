@@ -68,7 +68,7 @@
     "cross-spawn": "4.0.2",
     "css-loader": "0.28.11",
     "custom-event-polyfill": "1.0.7",
-    "eslint": "8.21.0",
+    "eslint": "8.22.0",
     "eslint-config-standard": "17.0.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-webpack-plugin": "2.7.0",
