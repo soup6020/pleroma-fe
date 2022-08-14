@@ -24,7 +24,7 @@
     "@fortawesome/vue-fontawesome": "3.0.1",
     "@kazvmoe-infra/pinch-zoom-element": "1.2.0",
     "@ruffle-rs/ruffle": "^0.1.0-nightly.2022.7.12",
-    "@vuelidate/core": "2.0.0-alpha.43",
+    "@vuelidate/core": "2.0.0-alpha.44",
     "@vuelidate/validators": "2.0.0-alpha.31",
     "body-scroll-lock": "3.1.5",
     "chromatism": "3.0.0",
