@@ -69,6 +69,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "cross-spawn": "7.0.3",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "custom-event-polyfill": "1.0.7",
     "eslint": "8.22.0",
     "eslint-config-standard": "17.0.0",

@@ -5,6 +5,7 @@ var webpack = require('webpack')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var env = process.env.NODE_ENV === 'testing'
     ? require('../config/test.env')
@@ -24,7 +25,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     minimize: true,
     splitChunks: {
       chunks: 'all'
-    }
+    },
+    minimizer: [
+      `...`,
+      new CssMinimizerPlugin()
+    ]
   },
   output: {
     path: config.build.assetsRoot,
