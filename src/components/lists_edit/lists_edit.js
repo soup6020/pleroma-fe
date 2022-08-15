@@ -27,9 +27,9 @@ const ListsNew = {
     }
   },
   created () {
-    this.$store.dispatch('fetchList', { id: this.id })
+    this.$store.dispatch('fetchList', { listId: this.id })
       .then(() => { this.title = this.findListTitle(this.id) })
-    this.$store.dispatch('fetchListAccounts', { id: this.id })
+    this.$store.dispatch('fetchListAccounts', { listId: this.id })
       .then(() => {
         this.selectedUserIds = this.findListAccounts(this.id)
         this.selectedUserIds.forEach(userId => {
@@ -76,13 +76,13 @@ const ListsNew = {
       this.userIds = results
     },
     updateList () {
-      this.$store.dispatch('setList', { id: this.id, title: this.title })
-      this.$store.dispatch('setListAccounts', { id: this.id, accountIds: this.selectedUserIds })
+      this.$store.dispatch('setList', { listId: this.id, title: this.title })
+      this.$store.dispatch('setListAccounts', { listId: this.id, accountIds: this.selectedUserIds })
 
       this.$router.push({ name: 'lists-timeline', params: { id: this.id } })
     },
     deleteList () {
-      this.$store.dispatch('deleteList', { id: this.id })
+      this.$store.dispatch('deleteList', { listId: this.id })
       this.$router.push({ name: 'lists' })
     }
   }

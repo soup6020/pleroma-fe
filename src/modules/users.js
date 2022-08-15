@@ -170,6 +170,9 @@ export const mutations = {
       state.relationships[relationship.id] = relationship
     })
   },
+  updateUserInLists (state, { id, inLists }) {
+    state.usersObject[id].inLists = inLists
+  },
   saveBlockIds (state, blockIds) {
     state.currentUser.blockIds = blockIds
   },
@@ -289,6 +292,12 @@ const users = {
       if (store.state.currentUser) {
         store.rootState.api.backendInteractor.fetchUserRelationship({ id })
           .then((relationships) => store.commit('updateUserRelationship', relationships))
+      }
+    },
+    fetchUserInLists (store, id) {
+      if (store.state.currentUser) {
+        store.rootState.api.backendInteractor.fetchUserInLists({ id })
+          .then((inLists) => store.commit('updateUserInLists', { id, inLists }))
       }
     },
     fetchBlocks (store) {

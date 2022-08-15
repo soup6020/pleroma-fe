@@ -980,7 +980,8 @@
     "create": "Create",
     "save": "Save changes",
     "delete": "Delete list",
-    "following_only": "Limit to Following"
+    "following_only": "Limit to Following",
+    "manage_lists": "Manage lists"
   },
   "file_type": {
     "audio": "Audio",

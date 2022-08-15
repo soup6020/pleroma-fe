@@ -1,6 +1,7 @@
 import { mapState } from 'vuex'
 import ProgressButton from '../progress_button/progress_button.vue'
 import Popover from '../popover/popover.vue'
+import UserListMenu from 'src/components/user_list_menu/user_list_menu.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faEllipsisV
@@ -19,7 +20,8 @@ const AccountActions = {
   },
   components: {
     ProgressButton,
-    Popover
+    Popover,
+    UserListMenu
   },
   methods: {
     showRepeats () {

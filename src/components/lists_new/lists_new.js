@@ -69,8 +69,8 @@ const ListsNew = {
       // and "updating the accounts on the list".
       this.$store.dispatch('createList', { title: this.title })
         .then((list) => {
-          this.$store.dispatch('setListAccounts', { id: list.id, accountIds: this.selectedUserIds })
-          this.$router.push({ name: 'lists-timeline', params: { id: list.id } })
+          this.$store.dispatch('setListAccounts', { listId: list.id, accountIds: this.selectedUserIds })
+          this.$router.push({ name: 'lists-timeline', params: { listId: list.id } })
         })
     }
   }

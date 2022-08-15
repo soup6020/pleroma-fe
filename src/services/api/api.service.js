@@ -52,6 +52,7 @@ const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
 const MASTODON_USER_URL = '/api/v1/accounts'
 const MASTODON_USER_RELATIONSHIPS_URL = '/api/v1/accounts/relationships'
 const MASTODON_USER_TIMELINE_URL = id => `/api/v1/accounts/${id}/statuses`
+const MASTODON_USER_IN_LISTS = id => `/api/v1/accounts/${id}/lists`
 const MASTODON_LIST_URL = id => `/api/v1/lists/${id}`
 const MASTODON_LIST_TIMELINE_URL = id => `/api/v1/timelines/list/${id}`
 const MASTODON_LIST_ACCOUNTS_URL = id => `/api/v1/lists/${id}/accounts`
@@ -262,6 +263,13 @@ const unfollowUser = ({ id, credentials }) => {
   }).then((data) => data.json())
 }
 
+const fetchUserInLists = ({ id, credentials }) => {
+  const url = MASTODON_USER_IN_LISTS(id)
+  return fetch(url, {
+    headers: authHeaders(credentials)
+  }).then((data) => data.json())
+}
+
 const pinOwnStatus = ({ id, credentials }) => {
   return promisedRequest({ url: MASTODON_PIN_OWN_STATUS(id), credentials, method: 'POST' })
     .then((data) => parseStatus(data))
@@ -408,14 +416,14 @@ const createList = ({ title, credentials }) => {
   }).then((data) => data.json())
 }
 
-const getList = ({ id, credentials }) => {
-  const url = MASTODON_LIST_URL(id)
+const getList = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
   return fetch(url, { headers: authHeaders(credentials) })
     .then((data) => data.json())
 }
 
-const updateList = ({ id, title, credentials }) => {
-  const url = MASTODON_LIST_URL(id)
+const updateList = ({ listId, title, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
   const headers = authHeaders(credentials)
   headers['Content-Type'] = 'application/json'
 
@@ -426,15 +434,15 @@ const updateList = ({ id, title, credentials }) => {
   })
 }
 
-const getListAccounts = ({ id, credentials }) => {
-  const url = MASTODON_LIST_ACCOUNTS_URL(id)
+const getListAccounts = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
   return fetch(url, { headers: authHeaders(credentials) })
     .then((data) => data.json())
     .then((data) => data.map(({ id }) => id))
 }
 
-const addAccountsToList = ({ id, accountIds, credentials }) => {
-  const url = MASTODON_LIST_ACCOUNTS_URL(id)
+const addAccountsToList = ({ listId, accountIds, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
   const headers = authHeaders(credentials)
   headers['Content-Type'] = 'application/json'
 
@@ -445,8 +453,8 @@ const addAccountsToList = ({ id, accountIds, credentials }) => {
   })
 }
 
-const removeAccountsFromList = ({ id, accountIds, credentials }) => {
-  const url = MASTODON_LIST_ACCOUNTS_URL(id)
+const removeAccountsFromList = ({ listId, accountIds, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
   const headers = authHeaders(credentials)
   headers['Content-Type'] = 'application/json'
 
@@ -457,8 +465,8 @@ const removeAccountsFromList = ({ id, accountIds, credentials }) => {
   })
 }
 
-const deleteList = ({ id, credentials }) => {
-  const url = MASTODON_LIST_URL(id)
+const deleteList = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
   return fetch(url, {
     method: 'DELETE',
     headers: authHeaders(credentials)
@@ -1563,7 +1571,8 @@ const apiService = {
   sendChatMessage,
   readChat,
   deleteChatMessage,
-  setReportState
+  setReportState,
+  fetchUserInLists
 }
 
 export default apiService
