@@ -80,7 +80,7 @@ export default (store) => {
     { name: 'lists', path: '/lists', component: Lists },
     { name: 'lists-timeline', path: '/lists/:id', component: ListsTimeline },
     { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit },
-    { name: 'edit-navigation', path: '/nav-edit', component: NavPanel, props: () => ({ forceExpand: true }), beforeEnter: validateAuthenticatedRoute }
+    { name: 'edit-navigation', path: '/nav-edit', component: NavPanel, props: () => ({ forceExpand: true, forceEditMode: true }), beforeEnter: validateAuthenticatedRoute }
   ]
 
   if (store.state.instance.pleromaChatMessagesAvailable) {

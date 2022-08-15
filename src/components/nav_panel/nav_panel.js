@@ -4,6 +4,7 @@ import { TIMELINES, ROOT_ITEMS } from 'src/components/navigation/navigation.js'
 import { getListEntries, filterNavigation } from 'src/components/navigation/filter.js'
 import NavigationEntry from 'src/components/navigation/navigation_entry.vue'
 import NavigationPins from 'src/components/navigation/navigation_pins.vue'
+import Checkbox from 'src/components/checkbox/checkbox.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -34,16 +35,18 @@ library.add(
   faList
 )
 const NavPanel = {
-  props: ['forceExpand'],
+  props: ['forceExpand', 'forceEditMode'],
   created () {
   },
   components: {
     ListsMenuContent,
     NavigationEntry,
-    NavigationPins
+    NavigationPins,
+    Checkbox
   },
   data () {
     return {
+      editMode: false,
       showTimelines: false,
       showLists: false,
       timelinesList: Object.entries(TIMELINES).map(([k, v]) => ({ ...v, name: k })),
@@ -56,6 +59,9 @@ const NavPanel = {
     },
     toggleLists () {
       this.showLists = !this.showLists
+    },
+    toggleEditMode () {
+      this.editMode = !this.editMode
     },
     toggleCollapse () {
       this.$store.commit('setPreference', { path: 'simple.collapseNav', value: !this.collapsed })

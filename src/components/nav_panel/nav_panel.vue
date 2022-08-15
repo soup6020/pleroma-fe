@@ -46,7 +46,7 @@
               <NavigationEntry
                 v-for="item in timelinesItems"
                 :key="item.name"
-                :show-pin="true"
+                :show-pin="editMode"
                 :item="item"
               />
             </ul>
@@ -83,7 +83,7 @@
             class="timelines-background"
           >
             <ListsMenuContent
-              :show-pin="true"
+              :show-pin="editMode"
               class="timelines"
             />
           </div>
@@ -91,9 +91,17 @@
         <NavigationEntry
           v-for="item in rootItems"
           :key="item.name"
-          :show-pin="true"
+          :show-pin="editMode || forceEditMode"
           :item="item"
         />
+        <div
+          v-if="!forceEditMode"
+          class="panel-footer"
+        >
+          <Checkbox v-model="editMode">
+            {{ $t('nav.edit_pinned') }}
+          </Checkbox>
+        </div>
       </ul>
     </div>
   </div>
