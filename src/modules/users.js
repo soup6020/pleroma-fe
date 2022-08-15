@@ -502,6 +502,7 @@ const users = {
           store.dispatch('stopFetchingTimeline', 'friends')
           store.commit('setBackendInteractor', backendInteractorService(store.getters.getToken()))
           store.dispatch('stopFetchingNotifications')
+          store.dispatch('stopFetchingLists')
           store.dispatch('stopFetchingFollowRequests')
           store.commit('clearNotifications')
           store.commit('resetStatuses')
@@ -554,6 +555,12 @@ const users = {
 
                 // Start fetching chats
                 store.dispatch('startFetchingChats')
+              }
+
+              store.dispatch('startFetchingLists')
+
+              if (user.locked) {
+                store.dispatch('startFetchingFollowRequests')
               }
 
               if (store.getters.mergedConfig.useStreamingApi) {

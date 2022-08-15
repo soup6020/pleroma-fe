@@ -36,9 +36,6 @@ library.add(
 const NavPanel = {
   props: ['forceExpand'],
   created () {
-    if (this.currentUser && this.currentUser.locked) {
-      this.$store.dispatch('startFetchingFollowRequests')
-    }
   },
   components: {
     ListsMenuContent,

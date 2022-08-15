@@ -11,9 +11,6 @@ const Lists = {
     ListsCard,
     ListsNew
   },
-  created () {
-    this.$store.dispatch('startFetchingLists')
-  },
   computed: {
     lists () {
       return this.$store.state.lists.allLists
