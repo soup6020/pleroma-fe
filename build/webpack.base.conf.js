@@ -2,7 +2,7 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
-var ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+var ServiceWorkerWebpackPlugin = require('serviceworker-webpack5-plugin')
 var CopyPlugin = require('copy-webpack-plugin');
 var { VueLoaderPlugin } = require('vue-loader')
 var ESLintPlugin = require('eslint-webpack-plugin');
@@ -42,6 +42,10 @@ module.exports = {
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
       'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js'
+    },
+    fallback: {
+      'querystring': require.resolve('querystring-es3'),
+      'url': require.resolve('url/')
     }
   },
   module: {
