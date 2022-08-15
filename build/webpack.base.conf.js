@@ -115,9 +115,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/@ruffle-rs/ruffle/*",
-          to: "static/ruffle",
-          flatten: true
+          from: "node_modules/@ruffle-rs/ruffle/**/*",
+          to: "static/ruffle/[name][ext]"
         },
       ],
       options: {
