@@ -84,14 +84,14 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         type: 'asset',
         generator: {
-          filename: utils.assetsPath('img/[name].[hash:7].[ext]')
+          filename: utils.assetsPath('img/[name].[hash:7][ext]')
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         type: 'asset',
         generator: {
-          filename: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          filename: utils.assetsPath('fonts/[name].[hash:7][ext]')
         }
       },
       {
