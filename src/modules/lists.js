@@ -15,10 +15,10 @@ export const mutations = {
     }
     state.allListsObject[listId].title = title
 
-    if (!find(state.allLists, { listId })) {
-      state.allLists.push({ listId, title })
+    if (!find(state.allLists, { id: listId })) {
+      state.allLists.push({ id: listId, title })
     } else {
-      find(state.allLists, { listId }).title = title
+      find(state.allLists, { id: listId }).title = title
     }
   },
   setListAccounts (state, { listId, accountIds }) {
@@ -61,7 +61,7 @@ const actions = {
   },
   fetchList ({ rootState, commit }, { listId }) {
     return rootState.api.backendInteractor.getList({ listId })
-      .then((list) => commit('setList', { id: list.id, title: list.title }))
+      .then((list) => commit('setList', { listId: list.id, title: list.title }))
   },
   fetchListAccounts ({ rootState, commit }, { listId }) {
     return rootState.api.backendInteractor.getListAccounts({ listId })
