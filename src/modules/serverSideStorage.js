@@ -26,7 +26,7 @@ export const defaultState = {
       collapseNav: false
     },
     collections: {
-      pinnedNavItems: ['home', 'dms', 'chats', 'about']
+      pinnedNavItems: ['home', 'dms', 'chats']
     }
   },
   // raw data
@@ -262,7 +262,7 @@ export const mutations = {
     const live = userData.storage
     state.raw = live
     let cache = state.cache
-    if (cache._user !== userData.fqn) {
+    if (cache && cache._user !== userData.fqn) {
       console.warn('cache belongs to another user! reinitializing local cache!')
       cache = null
     }
