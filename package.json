@@ -82,7 +82,7 @@
     "function-bind": "1.1.1",
     "html-webpack-plugin": "4.5.2",
     "http-proxy-middleware": "2.0.6",
-    "inject-loader": "2.0.1",
+    "inject-loader": "4.0.1",
     "iso-639-1": "2.1.15",
     "isparta-loader": "2.0.0",
     "json-loader": "0.5.7",
