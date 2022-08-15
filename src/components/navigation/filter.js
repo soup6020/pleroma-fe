@@ -9,3 +9,10 @@ export const filterNavigation = (list = [], { hasChats, isFederating, isPrivate,
     return true
   })
 }
+
+export const getListEntries = state => state.lists.allLists.map(list => ({
+  name: 'list-' + list.id,
+  routeObject: { name: 'lists-timeline', params: { id: list.id } },
+  labelRaw: list.title,
+  iconLetter: list.title[0]
+}))

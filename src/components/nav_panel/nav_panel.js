@@ -1,7 +1,7 @@
-import { getListEntries, ListsMenuContent } from '../lists_menu/lists_menu_content.vue'
+import ListsMenuContent from 'src/components/lists_menu/lists_menu_content.vue'
 import { mapState, mapGetters } from 'vuex'
 import { TIMELINES, ROOT_ITEMS } from 'src/components/navigation/navigation.js'
-import { filterNavigation } from 'src/components/navigation/filter.js'
+import { getListEntries, filterNavigation } from 'src/components/navigation/filter.js'
 import NavigationEntry from 'src/components/navigation/navigation_entry.vue'
 import NavigationPins from 'src/components/navigation/navigation_pins.vue'
 

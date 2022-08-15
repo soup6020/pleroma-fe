@@ -1,7 +1,6 @@
-import { getListEntries } from '../lists_menu/lists_menu_content.vue'
 import { mapState } from 'vuex'
 import { TIMELINES, ROOT_ITEMS } from 'src/components/navigation/navigation.js'
-import { filterNavigation } from 'src/components/navigation/filter.js'
+import { getListEntries, filterNavigation } from 'src/components/navigation/filter.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
