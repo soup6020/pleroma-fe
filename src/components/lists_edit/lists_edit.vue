@@ -14,11 +14,13 @@
         />
       </button>
       <div class="title">
-      <i18n-t
-        keypath="lists.editing_list"
-      >
-        <template #listTitle>{{ title }}</template>
-      </i18n-t>
+        <i18n-t
+          keypath="lists.editing_list"
+        >
+          <template #listTitle>
+            {{ title }}
+          </template>
+        </i18n-t>
       </div>
     </div>
     <div class="panel-body">
@@ -40,11 +42,11 @@
       <tab-switcher
         class="list-member-management"
         :scrollable-tabs="true"
-        >
+      >
         <div
           :label="$t('lists.manage_members')"
           class="members-list"
-          >
+        >
           <div class="users-list">
             <div
               v-for="user in membersUsers"
@@ -68,16 +70,22 @@
         <div
           class="search-list"
           :label="$t('lists.add_members')"
-          >
+        >
           <ListsUserSearch
             @results="onSearchResults"
             @loading="onSearchLoading"
             @loadingDone="onSearchLoadingDone"
           />
-          <div v-if="searchLoading" class="loading">
+          <div
+            v-if="searchLoading"
+            class="loading"
+          >
             <PanelLoading />
           </div>
-          <div v-else class="users-list">
+          <div
+            v-else
+            class="users-list"
+          >
             <div
               v-for="user in searchUsers"
               :key="user.id"
@@ -114,9 +122,9 @@
     <div class="panel-footer">
       <span class="spacer" />
       <button
+        v-if="!reallyDelete"
         class="btn button-default delete-button"
         @click="reallyDelete = true"
-        v-if="!reallyDelete"
       >
         {{ $t('lists.delete') }}
       </button>
@@ -126,13 +134,13 @@
           class="btn button-default delete-button"
           @click="deleteList"
         >
-        {{ $t('general.yes') }}
+          {{ $t('general.yes') }}
         </button>
         <button
           class="btn button-default delete-button"
           @click="reallyDelete = false"
         >
-        {{ $t('general.no') }}
+          {{ $t('general.no') }}
         </button>
       </template>
     </div>
