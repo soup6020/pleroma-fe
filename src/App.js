@@ -85,8 +85,12 @@ export default {
     isChats () {
       return this.$route.name === 'chat' || this.$route.name === 'chats'
     },
+    isListEdit () {
+      return this.$route.name === 'lists-edit'
+    },
     newPostButtonShown () {
       if (this.isChats) return false
+      if (this.isListEdit) return false
       return this.$store.getters.mergedConfig.alwaysShowNewPostButton || this.layoutType === 'mobile'
     },
     showFeaturesPanel () { return this.$store.state.instance.showFeaturesPanel },

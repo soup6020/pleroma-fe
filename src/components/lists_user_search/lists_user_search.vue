@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ListsUserSearch">
     <div class="input-wrap">
       <div class="input-search">
         <FAIcon
@@ -29,17 +29,19 @@
 <style lang="scss">
 @import '../../_variables.scss';
 
-.input-wrap {
-  display: flex;
-  margin: 0.7em 0.5em 0.7em 0.5em;
+.ListsUserSearch {
+  .input-wrap {
+    display: flex;
+    margin: 0.7em 0.5em 0.7em 0.5em;
 
-  input {
-    width: 100%;
+    input {
+      width: 100%;
+    }
   }
-}
 
-.search-icon {
-  margin-right: 0.3em;
+  .search-icon {
+    margin-right: 0.3em;
+  }
 }
 
 </style>

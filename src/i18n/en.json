@@ -80,6 +80,9 @@
     "confirm": "Confirm",
     "verify": "Verify",
     "close": "Close",
+    "undo": "Undo",
+    "yes": "Yes",
+    "no": "No",
     "peek": "Peek",
     "role": {
       "admin": "Admin",
@@ -981,7 +984,15 @@
     "save": "Save changes",
     "delete": "Delete list",
     "following_only": "Limit to Following",
-    "manage_lists": "Manage lists"
+    "manage_lists": "Manage lists",
+    "manage_members": "Manage list members",
+    "add_members": "Search for more users",
+    "remove_from_list": "Remove from list",
+    "add_to_list": "Add to list",
+    "is_in_list": "Already in list",
+    "editing_list": "Editing list {listTitle}",
+    "update_title": "Save Title",
+    "really_delete": "Really delete list?"
   },
   "file_type": {
     "audio": "Audio",
