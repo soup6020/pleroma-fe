@@ -412,6 +412,7 @@
     "hide_isp": "Hide instance-specific panel",
     "hide_shoutbox": "Hide instance shoutbox",
     "right_sidebar": "Reverse order of columns",
+    "navbar_column_stretch": "Stretch navbar to columns width",
     "always_show_post_button": "Always show floating New Post button",
     "hide_wallpaper": "Hide instance wallpaper",
     "preload_images": "Preload images",

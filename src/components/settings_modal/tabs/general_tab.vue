@@ -123,6 +123,11 @@
           </BooleanSetting>
         </li>
         <li>
+          <BooleanSetting path="navbarColumnStretch">
+            {{ $t('settings.navbar_column_stretch') }}
+          </BooleanSetting>
+        </li>
+        <li>
           <ChoiceSetting
             v-if="user"
             id="thirdColumnMode"
