@@ -107,7 +107,7 @@ describe('The serverSideStorage module', () => {
       })
     })
     describe('setPreference', () => {
-      const { setPreference, updateCache, addToCollection, removeFromCollection } = mutations
+      const { setPreference, updateCache, addCollectionPreference, removeCollectionPreference } = mutations
 
       it('should set preference and update journal log accordingly', () => {
         const state = cloneDeep(defaultState)
@@ -127,12 +127,12 @@ describe('The serverSideStorage module', () => {
         const state = cloneDeep(defaultState)
         setPreference(state, { path: 'simple.testing', value: 1 })
         setPreference(state, { path: 'simple.testing', value: 2 })
-        addToCollection(state, { path: 'collections.testing', value: 2 })
-        removeFromCollection(state, { path: 'collections.testing', value: 2 })
+        addCollectionPreference(state, { path: 'collections.testing', value: 2 })
+        removeCollectionPreference(state, { path: 'collections.testing', value: 2 })
         updateCache(state, { username: 'test' })
         expect(state.prefsStorage.simple.testing).to.eql(2)
         expect(state.prefsStorage.collections.testing).to.eql([])
-        expect(state.prefsStorage._journal.length).to.eql(1)
+        expect(state.prefsStorage._journal.length).to.eql(2)
         expect(state.prefsStorage._journal[0]).to.eql({
           path: 'simple.testing',
           operation: 'set',
@@ -141,8 +141,8 @@ describe('The serverSideStorage module', () => {
           timestamp: state.prefsStorage._journal[0].timestamp
         })
         expect(state.prefsStorage._journal[1]).to.eql({
-          path: 'collection.testing',
-          operation: 'remove',
+          path: 'collections.testing',
+          operation: 'removeFromCollection',
           args: [2],
           // should have A timestamp, we don't really care what it is
           timestamp: state.prefsStorage._journal[1].timestamp
