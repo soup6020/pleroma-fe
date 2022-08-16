@@ -66,9 +66,6 @@ var webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       }
-      // ,
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      // chunksSortMode: 'dependency'
     }),
     // split vendor js into its own file
     // extract webpack runtime and module manifest to its own file in order to
