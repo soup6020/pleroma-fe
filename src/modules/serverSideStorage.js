@@ -1,5 +1,5 @@
 import { toRaw } from 'vue'
-import { isEqual, uniqWith, cloneDeep, set, get, clamp } from 'lodash'
+import { isEqual, cloneDeep, set, get, clamp, flatten, groupBy, findLastIndex, takeRight } from 'lodash'
 import { CURRENT_UPDATE_COUNTER } from 'src/components/update_notification/update_notification.js'
 
 export const VERSION = 1
@@ -131,25 +131,32 @@ export const _mergeFlags = (recent, stale, allFlagKeys) => {
   }))
 }
 
-const _mergeJournal = (a, b) => uniqWith(
-  // TODO use groupBy to group by path, then trim them depending on operations,
-  // i.e. if field got removed in the end - no need to sort it beforehand, if field
-  // got re-added no need to remove it and add it etc.
-  [
-    ...(Array.isArray(a) ? a : []),
-    ...(Array.isArray(b) ? b : [])
-  ].sort((a, b) => a.timestamp > b.timestamp ? -1 : 1),
-  (a, b) => {
-    if (a.operation !== b.operation) return false
-    switch (a.operation) {
-      case 'set':
-      case 'arrangeSet':
-        return a.path === b.path
-      default:
-        return a.path === b.path && a.timestamp === b.timestamp
+const _mergeJournal = (...journals) => {
+  const allJournals = flatten(journals.map(j => Array.isArray(j) ? j : []))
+  const grouped = groupBy(allJournals, 'path')
+  const trimmedGrouped = Object.entries(grouped).map(([path, journal]) => {
+    // side effect
+    journal.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1)
+
+    if (path.startsWith('collections')) {
+      const lastRemoveIndex = findLastIndex(journal, ({ operation }) => operation === 'removeFromCollection')
+      // everything before last remove is unimportant
+      if (lastRemoveIndex > 0) {
+        return journal.slice(lastRemoveIndex)
+      } else {
+        // everything else doesn't need trimming
+        return journal
+      }
+    } else if (path.startsWith('simple')) {
+      // Only the last record is important
+      return takeRight(journal)
+    } else {
+      return journal
     }
-  }
-).reverse()
+  })
+  return flatten(trimmedGrouped)
+    .sort((a, b) => a.timestamp > b.timestamp ? 1 : -1)
+}
 
 export const _mergePrefs = (recent, stale, allFlagKeys) => {
   if (!stale) return recent
@@ -169,7 +176,6 @@ export const _mergePrefs = (recent, stale, allFlagKeys) => {
   const resultOutput = { ...recentData }
   const totalJournal = _mergeJournal(staleJournal, recentJournal)
   totalJournal.forEach(({ path, timestamp, operation, command, args }) => {
-    operation = operation || command
     if (path.startsWith('_')) {
       console.error(`journal contains entry to edit internal (starts with _) field '${path}', something is incorrect here, ignoring.`)
       return
