@@ -15,10 +15,11 @@ export const mutations = {
     }
     state.allListsObject[listId].title = title
 
-    if (!find(state.allLists, { id: listId })) {
+    const entry = find(state.allLists, { id: listId })
+    if (!entry) {
       state.allLists.push({ id: listId, title })
     } else {
-      find(state.allLists, { id: listId }).title = title
+      entry.title = title
     }
   },
   setListAccounts (state, { listId, accountIds }) {

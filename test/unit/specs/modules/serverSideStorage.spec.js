@@ -148,7 +148,6 @@ describe('The serverSideStorage module', () => {
           timestamp: state.prefsStorage._journal[1].timestamp
         })
       })
-      })
     })
   })
 
