@@ -95,7 +95,7 @@
           :item="item"
         />
         <div
-          v-if="!forceEditMode"
+          v-if="!forceEditMode && currentUser"
           class="panel-footer"
         >
           <Checkbox v-model="editMode">
