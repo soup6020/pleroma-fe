@@ -83,7 +83,7 @@
             class="timelines-background"
           >
             <ListsMenuContent
-              :show-pin="editMode"
+              :show-pin="editMode || forceEditMode"
               class="timelines"
             />
           </div>
