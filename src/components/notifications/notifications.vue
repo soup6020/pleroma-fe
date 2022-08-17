@@ -34,7 +34,7 @@
             type="button"
             @click.prevent="markAsSeen"
           >
-        <FAIcon icon="filter" />
+            {{ $t('notifications.read') }}
           </button>
           <NotificationFilters />
         </div>
