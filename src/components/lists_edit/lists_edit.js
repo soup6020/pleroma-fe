@@ -36,6 +36,7 @@ const ListsNew = {
     }
   },
   created () {
+    if (!this.id) return
     this.$store.dispatch('fetchList', { listId: this.id })
       .then(() => {
         this.title = this.findListTitle(this.id)
@@ -71,19 +72,19 @@ const ListsNew = {
     },
     toggleRemoveMember (user) {
       if (this.removedUserIds.has(user.id)) {
-        this.addUser(user)
+        this.id && this.addUser(user)
         this.removedUserIds.delete(user.id)
       } else {
-        this.removeUser(user.id)
+        this.id && this.removeUser(user.id)
         this.removedUserIds.add(user.id)
       }
     },
     toggleAddFromSearch (user) {
       if (this.addedUserIds.has(user.id)) {
-        this.removeUser(user.id)
+        this.id && this.removeUser(user.id)
         this.addedUserIds.delete(user.id)
       } else {
-        this.addUser(user)
+        this.id && this.addUser(user)
         this.addedUserIds.add(user.id)
       }
     },
@@ -113,6 +114,25 @@ const ListsNew = {
       this.$store.dispatch('setList', { listId: this.id, title: this.titleDraft })
         .then(() => {
           this.title = this.findListTitle(this.id)
+        })
+    },
+    createList () {
+      this.$store.dispatch('createList', { title: this.titleDraft })
+        .then((list) => {
+          return this
+            .$store
+            .dispatch('setListAccounts', { listId: list.id, accountIds: [...this.addedUserIds] })
+            .then(() => list.id)
+        })
+        .then((listId) => {
+          this.$router.push({ name: 'lists-timeline', params: { id: listId } })
+        })
+        .catch((e) => {
+          this.$store.dispatch('pushGlobalNotice', {
+            messageKey: 'lists.error',
+            messageArgs: [e.message],
+            level: 'error'
+          })
         })
     },
     deleteList () {

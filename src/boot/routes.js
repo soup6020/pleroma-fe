@@ -80,6 +80,7 @@ export default (store) => {
     { name: 'lists', path: '/lists', component: Lists },
     { name: 'lists-timeline', path: '/lists/:id', component: ListsTimeline },
     { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit },
+    { name: 'lists-edit', path: '/lists/new', component: ListsEdit },
     { name: 'edit-navigation', path: '/nav-edit', component: NavPanel, props: () => ({ forceExpand: true, forceEditMode: true }), beforeEnter: validateAuthenticatedRoute }
   ]
 

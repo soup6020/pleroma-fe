@@ -15,12 +15,17 @@
       </button>
       <div class="title">
         <i18n-t
+          v-if="id"
           keypath="lists.editing_list"
         >
           <template #listTitle>
             {{ title }}
           </template>
         </i18n-t>
+        <i18n-t
+          v-else
+          keypath="lists.creating_list"
+        />
       </div>
     </div>
     <div class="panel-body">
@@ -33,6 +38,7 @@
           v-model="titleDraft"
         >
         <button
+          v-if="id"
           class="btn button-default follow-button"
           @click="updateListTitle"
         >
@@ -44,6 +50,7 @@
         :scrollable-tabs="true"
       >
         <div
+          v-if="id || addedUserIds.size > 0"
           :label="$t('lists.manage_members')"
           class="members-list"
         >
@@ -122,8 +129,15 @@
     <div class="panel-footer">
       <span class="spacer" />
       <button
-        v-if="!reallyDelete"
-        class="btn button-default delete-button"
+        v-if="!id"
+        class="btn button-default footer-button"
+        @click="createList"
+      >
+        {{ $t('lists.create') }}
+      </button>
+      <button
+        v-else-if="!reallyDelete"
+        class="btn button-default footer-button"
         @click="reallyDelete = true"
       >
         {{ $t('lists.delete') }}
@@ -131,13 +145,13 @@
       <template v-else>
         {{ $t('lists.really_delete') }}
         <button
-          class="btn button-default delete-button"
+          class="btn button-default footer-button"
           @click="deleteList"
         >
           {{ $t('general.yes') }}
         </button>
         <button
-          class="btn button-default delete-button"
+          class="btn button-default footer-button"
           @click="reallyDelete = false"
         >
           {{ $t('general.no') }}
@@ -206,7 +220,7 @@
   .panel-footer {
     grid-template-columns: minmax(10%, 1fr);
 
-    .delete-button {
+    .footer-button {
       min-width: 9em;
     }
   }

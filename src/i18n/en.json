@@ -991,8 +991,10 @@
     "add_to_list": "Add to list",
     "is_in_list": "Already in list",
     "editing_list": "Editing list {listTitle}",
+    "creating_list": "Creating new list",
     "update_title": "Save Title",
-    "really_delete": "Really delete list?"
+    "really_delete": "Really delete list?",
+    "error": "Error manipulating lists: {0}"
   },
   "file_type": {
     "audio": "Audio",

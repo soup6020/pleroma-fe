@@ -1,5 +1,4 @@
 import ListsCard from '../lists_card/lists_card.vue'
-import ListsNew from '../lists_new/lists_new.vue'
 
 const Lists = {
   data () {
@@ -8,8 +7,7 @@ const Lists = {
     }
   },
   components: {
-    ListsCard,
-    ListsNew
+    ListsCard
   },
   computed: {
     lists () {

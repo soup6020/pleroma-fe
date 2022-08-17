@@ -1,21 +1,15 @@
 <template>
-  <div v-if="isNew">
-    <ListsNew @cancel="cancelNewList" />
-  </div>
-  <div
-    v-else
-    class="settings panel panel-default"
-  >
+  <div class="Lists panel panel-default">
     <div class="panel-heading">
       <div class="title">
         {{ $t('lists.lists') }}
       </div>
-      <button
-        class="button-default"
-        @click="newList"
+      <router-link
+        :to="{ name: 'lists-edit' }"
+        class="button-default btn new-list-button"
       >
         {{ $t("lists.new") }}
-      </button>
+      </router-link>
     </div>
     <div class="panel-body">
       <ListsCard
@@ -29,3 +23,11 @@
 </template>
 
 <script src="./lists.js"></script>
+
+<style lang="scss">
+.Lists {
+  .new-list-button {
+    padding: 0 0.5em;
+  }
+}
+</style>
