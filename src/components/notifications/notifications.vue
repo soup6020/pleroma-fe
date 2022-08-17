@@ -6,6 +6,7 @@
     <div
       :class="{ minimal: minimalMode }"
       class="Notifications"
+      ref="root"
     >
       <div :class="mainClass">
         <div
@@ -20,11 +21,20 @@
             >{{ unseenCount }}</span>
           </div>
           <button
+            v-if="showScrollTop"
+            class="button-unstyled scroll-to-top-button"
+            type="button"
+            @click="scrollToTop"
+          >
+            <FAIcon icon="circle-up" />
+          </button>
+          <button
             v-if="unseenCount"
             class="button-default read-button"
+            type="button"
             @click.prevent="markAsSeen"
           >
-            {{ $t('notifications.read') }}
+        <FAIcon icon="filter" />
           </button>
           <NotificationFilters />
         </div>

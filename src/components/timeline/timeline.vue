@@ -3,6 +3,14 @@
     <div :class="classes.header">
       <TimelineMenu v-if="!embedded" />
       <button
+        v-if="showScrollTop"
+        class="button-unstyled scroll-to-top-button"
+        type="button"
+        @click="scrollToTop"
+      >
+        <FAIcon icon="circle-up" />
+      </button>
+      <button
         v-if="showLoadButton"
         class="button-default loadmore-button"
         @click.prevent="showNewStatuses"

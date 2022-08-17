@@ -10,10 +10,11 @@ import {
 } from '../../services/notification_utils/notification_utils.js'
 import FaviconService from '../../services/favicon_service/favicon_service.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faCircleUp } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faCircleNotch
+  faCircleNotch,
+  faCircleUp
 )
 
 const DEFAULT_SEEN_TO_DISPLAY_COUNT = 30
@@ -34,6 +35,7 @@ const Notifications = {
   },
   data () {
     return {
+      showScrollTop: false,
       bottomedOut: false,
       // How many seen notifications to display in the list. The more there are,
       // the heavier the page becomes. This count is increased when loading
@@ -90,7 +92,15 @@ const Notifications = {
     notificationsToDisplay () {
       return this.filteredNotifications.slice(0, this.unseenCount + this.seenToDisplayCount)
     },
+    noSticky () { return this.$store.getters.mergedConfig.disableStickyHeaders },
     ...mapGetters(['unreadChatCount'])
+  },
+  mounted () {
+    this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+    this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
+  },
+  unmounted () {
+    this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
   },
   watch: {
     unseenCountTitle (count) {
@@ -104,6 +114,14 @@ const Notifications = {
     }
   },
   methods: {
+    scrollToTop () {
+      const scrollable = this.scrollerRef
+      scrollable.scrollTo({ top: this.$refs.root.offsetTop })
+      // this.$refs.root.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    updateScrollPosition () {
+      this.showScrollTop = this.$refs.root.offsetTop < this.scrollerRef.scrollTop
+    },
     markAsSeen () {
       this.$store.dispatch('markNotificationsAsSeen')
       this.seenToDisplayCount = DEFAULT_SEEN_TO_DISPLAY_COUNT

@@ -29,6 +29,7 @@ const Timeline = {
   ],
   data () {
     return {
+      showScrollTop: false,
       paused: false,
       unfocused: false,
       bottomedOut: false,
@@ -123,6 +124,9 @@ const Timeline = {
     this.$store.commit('setLoading', { timeline: this.timelineName, value: false })
   },
   methods: {
+    scrollToTop () {
+      window.scrollTo({ top: this.$el.offsetTop })
+    },
     stopBlockingClicks: debounce(function () {
       this.blockingClicks = false
     }, 1000),
@@ -222,6 +226,7 @@ const Timeline = {
       }
     },
     handleScroll: throttle(function (e) {
+      this.showScrollTop = this.$el.offsetTop < window.scrollY
       this.determineVisibleStatuses()
       this.scrollLoad(e)
     }, 200),
