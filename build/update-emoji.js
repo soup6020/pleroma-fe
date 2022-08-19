@@ -20,8 +20,8 @@ module.exports = {
         res[groupId] = emojis[k]
       })
 
-    console.log('Updating emojis...')
+    console.info('Updating emojis...')
     fs.writeFileSync('static/emoji.json', JSON.stringify(res))
-    console.log('Done.')
+    console.info('Done.')
   }
 }
