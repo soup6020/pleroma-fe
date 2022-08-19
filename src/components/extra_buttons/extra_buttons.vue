@@ -169,6 +169,9 @@
       color: var(--text, $fallback--text);
     }
 
+  }
+
+  .popover-trigger-button {
     @include unfocused-style {
       .focus-marker {
         visibility: hidden;
