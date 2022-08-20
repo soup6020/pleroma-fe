@@ -6,7 +6,8 @@ const UserNote = {
   data () {
     return {
       localNote: '',
-      editing: false
+      editing: false,
+      frozen: false
     }
   },
   computed: {
@@ -23,7 +24,19 @@ const UserNote = {
       this.editing = false
     },
     finalizeEditing () {
-      this.editing = false
+      this.frozen = true
+
+      this.$store.dispatch('editUserNote', {
+        id: this.user.id,
+        comment: this.localNote
+      })
+        .then(() => {
+          this.frozen = false
+          this.editing = false
+        })
+        .catch(() => {
+          this.frozen = false
+        })
     }
   }
 }

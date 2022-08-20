@@ -56,6 +56,11 @@ const removeUserFromFollowers = (store, id) => {
     .then((relationship) => store.commit('updateUserRelationship', [relationship]))
 }
 
+const editUserNote = (store, { id, comment }) => {
+  return store.rootState.api.backendInteractor.editUserNote({ id, comment })
+    .then((relationship) => store.commit('updateUserRelationship', [relationship]))
+}
+
 const muteUser = (store, id) => {
   const predictedRelationship = store.state.relationships[id] || { id }
   predictedRelationship.muting = true
@@ -334,6 +339,9 @@ const users = {
     },
     unblockUsers (store, ids = []) {
       return Promise.all(ids.map(id => unblockUser(store, id)))
+    },
+    editUserNote (store, args) {
+      return editUserNote(store, args)
     },
     fetchMutes (store) {
       return store.rootState.api.backendInteractor.fetchMutes()

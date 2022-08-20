@@ -15,6 +15,7 @@
         <button
           v-show="editing"
           class="button-default btn"
+          :disabled="frozen"
           @click="finalizeEditing"
         >
           {{ $t('user_card.edit_note_apply') }}
@@ -22,6 +23,7 @@
         <button
           v-show="editing"
           class="button-default btn"
+          :disabled="frozen"
           @click="cancelEditing"
         >
           {{ $t('user_card.edit_note_cancel') }}
@@ -30,9 +32,8 @@
     </div>
     <input
       v-show="editing"
+      v-model="localNote"
       class="note-text"
-      type="string"
-      :model="localNote"
     >
     <span
       v-show="!editing"
