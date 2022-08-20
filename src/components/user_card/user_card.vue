@@ -269,7 +269,7 @@
           <RemoteFollow :user="user" />
         </div>
         <UserNote
-          v-if="loggedIn && isOtherUser"
+          v-if="loggedIn && isOtherUser && supportsNote"
           :user="user"
           :relationship="relationship"
           :editing="isEditingNote"
