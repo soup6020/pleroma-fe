@@ -88,7 +88,7 @@
     "isparta-loader": "2.0.0",
     "json-loader": "0.5.7",
     "karma": "6.4.0",
-    "karma-coverage": "1.1.2",
+    "karma-coverage": "2.2.0",
     "karma-firefox-launcher": "2.1.2",
     "karma-mocha": "2.0.1",
     "karma-mocha-reporter": "2.2.5",
