@@ -4,6 +4,7 @@ import ProgressButton from '../progress_button/progress_button.vue'
 import FollowButton from '../follow_button/follow_button.vue'
 import ModerationTools from '../moderation_tools/moderation_tools.vue'
 import AccountActions from '../account_actions/account_actions.vue'
+import UserNote from '../user_note/user_note.vue'
 import Select from '../select/select.vue'
 import UserLink from '../user_link/user_link.vue'
 import RichContent from 'src/components/rich_content/rich_content.jsx'
@@ -140,7 +141,8 @@ export default {
     FollowButton,
     Select,
     RichContent,
-    UserLink
+    UserLink,
+    UserNote
   },
   methods: {
     muteUser () {
