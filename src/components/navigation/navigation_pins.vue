@@ -30,6 +30,7 @@
 .NavigationPins {
   display: flex;
   overflow: hidden;
+  height: 100%;
 
   .alert-dot {
     border-radius: 100%;
@@ -49,6 +50,7 @@
     flex: 0 0 3em;
     min-width: 2em;
     text-align: center;
+    overflow: visible;
 
     & .svg-inline--fa,
     & .iconLetter {
@@ -56,10 +58,13 @@
     }
 
     &.router-link-active {
+      color: $fallback--text;
+      color: var(--selectedMenuText, $fallback--text);
+      border-bottom: 4px solid;
+
       & .svg-inline--fa,
       & .iconLetter {
-        color: $fallback--text;
-        color: var(--selectedMenuText, $fallback--text);
+        color: inherit;
       }
     }
   }

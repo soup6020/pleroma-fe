@@ -3,7 +3,7 @@
     <div class="panel panel-default">
       <div
         v-if="!forceExpand"
-        class="panel-heading"
+        class="panel-heading nav-panel-heading"
       >
         <NavigationPins :limit="6" />
         <div class="spacer" />
@@ -192,6 +192,7 @@
 
   .timelines-chevron {
     margin-left: 0.8em;
+    margin-right: 0.8em;
     font-size: 1.1em;
   }
 
@@ -209,9 +210,13 @@
     background-color: var(--bg, $fallback--bg);
   }
 
+  .nav-panel-heading {
+   // breaks without a unit
+   --panel-heading-height-padding: 0em;
+  }
+
   .fa-scale-110 {
     margin-right: 0.8em;
   }
-
 }
 </style>
