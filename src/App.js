@@ -60,6 +60,13 @@ export default {
         '-' + this.layoutType
       ]
     },
+    navClasses () {
+      const { navbarColumnStretch } = this.$store.getters.mergedConfig
+      return [
+        '-' + this.layoutType,
+        ...(navbarColumnStretch ? ['-column-stretch'] : [])
+      ]
+    },
     currentUser () { return this.$store.state.users.currentUser },
     userBackground () { return this.currentUser.background_image },
     instanceBackground () {

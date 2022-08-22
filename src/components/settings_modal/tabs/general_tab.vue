@@ -15,11 +15,6 @@
             {{ $t('settings.hide_isp') }}
           </BooleanSetting>
         </li>
-        <li>
-          <BooleanSetting path="sidebarRight">
-            {{ $t('settings.right_sidebar') }}
-          </BooleanSetting>
-        </li>
         <li v-if="instanceWallpaperUsed">
           <BooleanSetting path="hideInstanceWallpaper">
             {{ $t('settings.hide_wallpaper') }}
@@ -65,16 +60,6 @@
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting path="disableStickyHeaders">
-            {{ $t('settings.disable_sticky_headers') }}
-          </BooleanSetting>
-        </li>
-        <li>
-          <BooleanSetting path="showScrollbars">
-            {{ $t('settings.show_scrollbars') }}
-          </BooleanSetting>
-        </li>
-        <li>
           <BooleanSetting
             path="userPopoverZoom"
             expert="1"
@@ -89,16 +74,6 @@
           >
             {{ $t('settings.user_popover_avatar_overlay') }}
           </BooleanSetting>
-        </li>
-        <li>
-          <ChoiceSetting
-            v-if="user"
-            id="thirdColumnMode"
-            path="thirdColumnMode"
-            :options="thirdColumnModeOptions"
-          >
-            {{ $t('settings.third_column_mode') }}
-          </ChoiceSetting>
         </li>
         <li>
           <BooleanSetting
@@ -145,6 +120,11 @@
         <li>
           <BooleanSetting path="sidebarRight">
             {{ $t('settings.right_sidebar') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="navbarColumnStretch">
+            {{ $t('settings.navbar_column_stretch') }}
           </BooleanSetting>
         </li>
         <li>
@@ -480,3 +460,16 @@
 </template>
 
 <script src="./general_tab.js"></script>
+
+<style lang="scss">
+.column-settings {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.column-settings .size-label {
+  display: block;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+</style>
