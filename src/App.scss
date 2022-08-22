@@ -752,7 +752,7 @@ option {
 }
 
 .fa-old-padding {
-  &.svg-inline--fa {
+  &.svg-inline--fa, &-layer {
     padding: 0 0.3em;
   }
 }
