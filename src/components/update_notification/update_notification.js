@@ -60,9 +60,14 @@ const UpdateNotification = {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.contentHeight = this.$refs.animatedText.scrollHeight
-    }, 1000)
+    // Workaround to get the text height only after mask loaded. A bit hacky.
+    const newImg = new Image()
+    newImg.onload = () => {
+      setTimeout(() => {
+        this.contentHeight = this.$refs.animatedText.scrollHeight
+      }, 100)
+    }
+    newImg.src = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
   }
 }
 
