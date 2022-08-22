@@ -36,6 +36,9 @@ export default {
   methods: {
     update (e) {
       set(this.$parent, this.path, parseInt(e.target.value))
+    },
+    reset () {
+      set(this.$parent, this.path, this.defaultState)
     }
   }
 }

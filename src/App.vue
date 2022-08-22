@@ -8,7 +8,10 @@
       class="app-bg-wrapper"
     />
     <MobileNav v-if="layoutType === 'mobile'" />
-    <DesktopNav v-else />
+    <DesktopNav
+      v-else
+      :class="navClasses"
+    />
     <Notifications v-if="currentUser" />
     <div
       id="content"
@@ -65,6 +68,7 @@
     <UserReportingModal />
     <PostStatusModal />
     <SettingsModal />
+    <UpdateNotification />
     <div id="modal" />
     <GlobalNoticeList />
     <div id="popovers" />

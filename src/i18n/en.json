@@ -66,11 +66,13 @@
     "more": "More",
     "loading": "Loading…",
     "generic_error": "An error occured",
+    "generic_error_message": "An error occured: {0}",
     "error_retry": "Please try again",
     "retry": "Try again",
     "optional": "optional",
     "show_more": "Show more",
     "show_less": "Show less",
+    "never_show_again": "Never show again",
     "dismiss": "Dismiss",
     "cancel": "Cancel",
     "disable": "Disable",
@@ -146,7 +148,8 @@
     "who_to_follow": "Who to follow",
     "preferences": "Preferences",
     "timelines": "Timelines",
-    "chats": "Chats"
+    "chats": "Chats",
+    "lists": "Lists"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",
@@ -161,6 +164,7 @@
     "no_more_notifications": "No more notifications",
     "migrated_to": "migrated to",
     "reacted_with": "reacted with {0}",
+    "submitted_report": "submitted a report",
     "poll_ended": "poll has ended"
   },
   "polls": {
@@ -196,6 +200,8 @@
   "interactions": {
     "favs_repeats": "Repeats and favorites",
     "follows": "New follows",
+    "emoji_reactions": "Emoji Reactions",
+    "reports": "Reports",
     "moves": "User migrates",
     "load_older": "Load older interactions"
   },
@@ -264,6 +270,16 @@
     "searching_for": "Searching for",
     "error": "Not found."
   },
+  "report": {
+    "reporter": "Reporter:",
+    "reported_user": "Reported user:",
+    "reported_statuses": "Reported statuses:",
+    "notes": "Notes:",
+    "state": "State:",
+    "state_open": "Open",
+    "state_closed": "Closed",
+    "state_resolved": "Resolved"
+  },
   "selectable_list": {
     "select_all": "Select all"
   },
@@ -298,6 +314,7 @@
         "desc": "To enable two-factor authentication, enter the code from your two-factor app:"
       }
     },
+    "lists_navigation": "Show lists in navigation",
     "allow_following_move": "Allow auto-follow when following account moves",
     "attachmentRadius": "Attachments",
     "attachments": "Attachments",
@@ -395,6 +412,7 @@
     "hide_isp": "Hide instance-specific panel",
     "hide_shoutbox": "Hide instance shoutbox",
     "right_sidebar": "Reverse order of columns",
+    "navbar_column_stretch": "Stretch navbar to columns width",
     "always_show_post_button": "Always show floating New Post button",
     "hide_wallpaper": "Hide instance wallpaper",
     "preload_images": "Preload images",
@@ -516,6 +534,11 @@
     "third_column_mode_none": "Don't show third column at all",
     "third_column_mode_notifications": "Notifications column",
     "third_column_mode_postform": "Main post form and navigation",
+    "columns": "Columns",
+    "column_sizes": "Column sizes",
+    "column_sizes_sidebar": "Sidebar",
+    "column_sizes_content": "Content",
+    "column_sizes_notifs": "Notifications",
     "tree_advanced": "Allow more flexible navigation in tree view",
     "tree_fade_ancestors": "Display ancestors of the current status in faint text",
     "conversation_display_linear": "Linear-style",
@@ -956,6 +979,16 @@
     "error_sending_message": "Something went wrong when sending the message.",
     "empty_chat_list_placeholder": "You don't have any chats yet. Start a new chat!"
   },
+  "lists": {
+    "lists": "Lists",
+    "new": "New List",
+    "title": "List title",
+    "search": "Search users",
+    "create": "Create",
+    "save": "Save changes",
+    "delete": "Delete list",
+    "following_only": "Limit to Following"
+  },
   "file_type": {
     "audio": "Audio",
     "video": "Video",
@@ -964,5 +997,14 @@
   },
   "display_date": {
     "today": "Today"
+  },
+  "update": {
+    "big_update_title": "Please bear with us",
+    "big_update_content": "We haven't had a release in a while, so things might look and feel different than what you're used to.",
+    "update_bugs": "Please report any issues and bugs on {pleromaGitlab}, as we have changed a lot, and although we test thoroughly and use development versions ourselves, we may have missed some things. We welcome your feedback and suggestions on issues you might encounter, or how to improve Pleroma and Pleroma-FE.",
+    "update_bugs_gitlab": "Pleroma GitLab",
+    "update_changelog": "For more details on what's changed, see {theFullChangelog}.",
+    "update_changelog_here": "the full changelog",
+    "art_by": "Art by {linkToArtist}"
   }
 }

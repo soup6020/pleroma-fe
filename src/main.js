@@ -6,10 +6,12 @@ import './lib/event_target_polyfill.js'
 import interfaceModule from './modules/interface.js'
 import instanceModule from './modules/instance.js'
 import statusesModule from './modules/statuses.js'
+import listsModule from './modules/lists.js'
 import usersModule from './modules/users.js'
 import apiModule from './modules/api.js'
 import configModule from './modules/config.js'
 import serverSideConfigModule from './modules/serverSideConfig.js'
+import serverSideStorageModule from './modules/serverSideStorage.js'
 import shoutModule from './modules/shout.js'
 import oauthModule from './modules/oauth.js'
 import authFlowModule from './modules/auth_flow.js'
@@ -42,6 +44,7 @@ messages.setLanguage(i18n, currentLocale)
 
 const persistedStateOptions = {
   paths: [
+    'serverSideStorage.cache',
     'config',
     'users.lastLoginName',
     'oauth'
@@ -70,9 +73,11 @@ const persistedStateOptions = {
       // TODO refactor users/statuses modules, they depend on each other
       users: usersModule,
       statuses: statusesModule,
+      lists: listsModule,
       api: apiModule,
       config: configModule,
       serverSideConfig: serverSideConfigModule,
+      serverSideStorage: serverSideStorageModule,
       shout: shoutModule,
       oauth: oauthModule,
       authFlow: authFlowModule,

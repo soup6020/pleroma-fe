@@ -90,6 +90,9 @@ export const parseUser = (data) => {
     output.bot = data.bot
 
     if (data.pleroma) {
+      if (data.pleroma.settings_store) {
+        output.storage = data.pleroma.settings_store['pleroma-fe']
+      }
       const relationship = data.pleroma.relationship
 
       output.background_image = data.pleroma.background_image
@@ -387,6 +390,13 @@ export const parseNotification = (data) => {
       : parseUser(data.target)
     output.from_profile = parseUser(data.account)
     output.emoji = data.emoji
+    if (data.report) {
+      output.report = data.report
+      output.report.content = data.report.content
+      output.report.acct = parseUser(data.report.account)
+      output.report.actor = parseUser(data.report.actor)
+      output.report.statuses = data.report.statuses.map(parseStatus)
+    }
   } else {
     const parsedNotice = parseStatus(data.notice)
     output.type = data.ntype

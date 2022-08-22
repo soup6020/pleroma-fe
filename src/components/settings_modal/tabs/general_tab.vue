@@ -15,11 +15,6 @@
             {{ $t('settings.hide_isp') }}
           </BooleanSetting>
         </li>
-        <li>
-          <BooleanSetting path="sidebarRight">
-            {{ $t('settings.right_sidebar') }}
-          </BooleanSetting>
-        </li>
         <li v-if="instanceWallpaperUsed">
           <BooleanSetting path="hideInstanceWallpaper">
             {{ $t('settings.hide_wallpaper') }}
@@ -65,16 +60,6 @@
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting path="disableStickyHeaders">
-            {{ $t('settings.disable_sticky_headers') }}
-          </BooleanSetting>
-        </li>
-        <li>
-          <BooleanSetting path="showScrollbars">
-            {{ $t('settings.show_scrollbars') }}
-          </BooleanSetting>
-        </li>
-        <li>
           <ChoiceSetting
             id="userPopoverAvatarAction"
             path="userPopoverAvatarAction"
@@ -91,16 +76,6 @@
           >
             {{ $t('settings.user_popover_avatar_overlay') }}
           </BooleanSetting>
-        </li>
-        <li>
-          <ChoiceSetting
-            v-if="user"
-            id="thirdColumnMode"
-            path="thirdColumnMode"
-            :options="thirdColumnModeOptions"
-          >
-            {{ $t('settings.third_column_mode') }}
-          </ChoiceSetting>
         </li>
         <li>
           <BooleanSetting
@@ -125,6 +100,58 @@
           >
             {{ $t('settings.hide_shoutbox') }}
           </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="listsNavigation">
+            {{ $t('settings.lists_navigation') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <h3>{{ $t('settings.columns') }}</h3>
+        </li>
+        <li>
+          <BooleanSetting path="disableStickyHeaders">
+            {{ $t('settings.disable_sticky_headers') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="showScrollbars">
+            {{ $t('settings.show_scrollbars') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="sidebarRight">
+            {{ $t('settings.right_sidebar') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path="navbarColumnStretch">
+            {{ $t('settings.navbar_column_stretch') }}
+          </BooleanSetting>
+        </li>
+        <li>
+          <ChoiceSetting
+            v-if="user"
+            id="thirdColumnMode"
+            path="thirdColumnMode"
+            :options="thirdColumnModeOptions"
+          >
+            {{ $t('settings.third_column_mode') }}
+          </ChoiceSetting>
+        </li>
+        <li v-if="expertLevel > 0">
+          {{ $t('settings.column_sizes') }}
+          <div class="column-settings">
+            <SizeSetting
+              v-for="column in columns"
+              :key="column"
+              :path="column + 'ColumnWidth'"
+              :units="horizontalUnits"
+              expert="1"
+            >
+              {{ $t('settings.column_sizes_' + column) }}
+            </SizeSetting>
+          </div>
         </li>
       </ul>
     </div>
@@ -435,3 +462,16 @@
 </template>
 
 <script src="./general_tab.js"></script>
+
+<style lang="scss">
+.column-settings {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.column-settings .size-label {
+  display: block;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+</style>

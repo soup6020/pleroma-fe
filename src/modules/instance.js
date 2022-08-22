@@ -41,6 +41,7 @@ const defaultState = {
   logoMargin: '.2em',
   logoMask: true,
   logoLeft: false,
+  disableUpdateNotification: false,
   minimalScopesMode: false,
   nsfwCensorImage: undefined,
   postContentType: 'text/plain',
