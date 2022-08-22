@@ -2,6 +2,8 @@ import Modal from 'src/components/modal/modal.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import pleromaTan from 'src/assets/pleromatan_apology.png'
 import pleromaTanFox from 'src/assets/pleromatan_apology_fox.png'
+import pleromaTanMask from 'src/assets/pleromatan_apology_mask.png'
+import pleromaTanFoxMask from 'src/assets/pleromatan_apology_fox_mask.png'
 
 import {
   faTimes
@@ -25,8 +27,9 @@ const UpdateNotification = {
   },
   computed: {
     pleromaTanStyles () {
+      const mask = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
       return {
-        'shape-outside': 'url(' + this.pleromaTanVariant + ')'
+        'shape-outside': 'url(' + mask + ')'
       }
     },
     dynamicStyles () {
