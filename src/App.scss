@@ -141,6 +141,11 @@ nav {
   grid-area: sidebar;
 }
 
+#modal {
+  position: absolute;
+  z-index: var(--ZI_modals);
+}
+
 .column.-scrollable {
   top: var(--navbar-height);
   position: sticky;
