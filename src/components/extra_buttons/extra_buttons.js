@@ -6,7 +6,9 @@ import {
   faEyeSlash,
   faThumbtack,
   faShareAlt,
-  faExternalLinkAlt
+  faExternalLinkAlt,
+  faPlus,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faBookmark as faBookmarkReg,
@@ -21,13 +23,26 @@ library.add(
   faThumbtack,
   faShareAlt,
   faExternalLinkAlt,
-  faFlag
+  faFlag,
+  faPlus,
+  faTimes
 )
 
 const ExtraButtons = {
   props: ['status'],
   components: { Popover },
+  data () {
+    return {
+      expanded: false
+    }
+  },
   methods: {
+    onShow () {
+      this.expanded = true
+    },
+    onClose () {
+      this.expanded = false
+    },
     deleteStatus () {
       const confirmed = window.confirm(this.$t('status.delete_confirm'))
       if (confirmed) {

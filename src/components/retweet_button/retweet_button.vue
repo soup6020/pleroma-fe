@@ -7,11 +7,31 @@
       :title="$t('tool_tip.repeat')"
       @click.prevent="retweet()"
     >
-      <FAIcon
-        class="fa-scale-110 fa-old-padding"
-        icon="retweet"
-        :spin="animated"
-      />
+      <FALayers class="fa-old-padding-layer">
+        <FAIcon
+          class="fa-scale-110"
+          icon="retweet"
+          :spin="animated"
+        />
+        <FAIcon
+          v-if="status.repeated"
+          class="active-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="check"
+        />
+        <FAIcon
+          v-if="!status.repeated"
+          class="focus-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="plus"
+        />
+        <FAIcon
+          v-else
+          class="focus-marker"
+          transform="shrink-6 up-9 right-12"
+          icon="minus"
+        />
+      </FALayers>
     </button>
     <span v-else-if="loggedIn">
       <FAIcon
@@ -40,6 +60,7 @@
 
 <style lang="scss">
 @import '../../_variables.scss';
+@import '../../_mixins.scss';
 
 .RetweetButton {
   display: flex;
@@ -63,6 +84,26 @@
     &.-repeated .svg-inline--fa {
       color: $fallback--cGreen;
       color: var(--cGreen, $fallback--cGreen);
+    }
+
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
+
+      .active-marker {
+        visibility: visible;
+      }
+    }
+
+    @include focused-style {
+      .focus-marker {
+        visibility: visible;
+      }
+
+      .active-marker {
+        visibility: hidden;
+      }
     }
   }
 }
