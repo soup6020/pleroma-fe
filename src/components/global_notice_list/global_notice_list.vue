@@ -29,10 +29,10 @@
 
 .global-notice-list {
   position: fixed;
-  top: 50px;
+  top: calc(var(--navbar-height) + 0.5em);
   width: 100%;
   pointer-events: none;
-  z-index: var(--ZI_popovers);
+  z-index: var(--ZI_navbar_popovers);
   display: flex;
   flex-direction: column;
   align-items: center;
