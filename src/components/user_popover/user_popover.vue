@@ -14,7 +14,7 @@
         class="user-popover"
         :user-id="userId"
         :hide-bio="true"
-        :avatar-action="userPopoverZoom ? 'zoom' : close"
+        :avatar-action="userPopoverAvatarAction == 'close' ? close : userPopoverAvatarAction"
         :on-close="close"
       />
     </template>
