@@ -16,7 +16,7 @@ const webpackConfig = merge(baseConfig, {
   module: {
     rules: utils.styleLoaders()
   },
-  devtool: '#inline-source-map',
+  devtool: 'inline-source-map',
   // vue: {
   //   loaders: {
   //     js: 'isparta'

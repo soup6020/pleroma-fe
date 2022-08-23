@@ -34,6 +34,7 @@ export default {
     MobileNav,
     DesktopNav,
     SettingsModal: defineAsyncComponent(() => import('./components/settings_modal/settings_modal.vue')),
+    UpdateNotification: defineAsyncComponent(() => import('./components/update_notification/update_notification.vue')),
     UserReportingModal,
     PostStatusModal,
     EditStatusModal,
@@ -61,6 +62,13 @@ export default {
           '-has-new-post-button': this.newPostButtonShown
         },
         '-' + this.layoutType
+      ]
+    },
+    navClasses () {
+      const { navbarColumnStretch } = this.$store.getters.mergedConfig
+      return [
+        '-' + this.layoutType,
+        ...(navbarColumnStretch ? ['-column-stretch'] : [])
       ]
     },
     currentUser () { return this.$store.state.users.currentUser },

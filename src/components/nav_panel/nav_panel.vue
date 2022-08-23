@@ -25,6 +25,51 @@
             <TimelineMenuContent class="timelines" />
           </div>
         </li>
+        <li v-if="currentUser && listsNavigation">
+          <button
+            class="button-unstyled menu-item"
+            @click="toggleLists"
+          >
+            <router-link
+              :to="{ name: 'lists' }"
+              @click.stop
+            >
+              <FAIcon
+                fixed-width
+                class="fa-scale-110"
+                icon="list"
+              />{{ $t("nav.lists") }}
+            </router-link>
+            <FAIcon
+              class="timelines-chevron"
+              fixed-width
+              :icon="showLists ? 'chevron-up' : 'chevron-down'"
+            />
+          </button>
+          <div
+            v-show="showLists"
+            class="timelines-background"
+          >
+            <ListsMenuContent class="timelines" />
+          </div>
+        </li>
+        <li v-if="currentUser && !listsNavigation">
+          <router-link
+            :to="{ name: 'lists' }"
+            @click.stop
+          >
+            <button
+              class="button-unstyled menu-item"
+              @click="toggleLists"
+            >
+              <FAIcon
+                fixed-width
+                class="fa-scale-110"
+                icon="list"
+              />{{ $t("nav.lists") }}
+            </button>
+          </router-link>
+        </li>
         <li v-if="currentUser">
           <router-link
             class="menu-item"

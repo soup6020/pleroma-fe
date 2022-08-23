@@ -11,8 +11,8 @@ const UserPopover = {
     Popover: defineAsyncComponent(() => import('../popover/popover.vue'))
   },
   computed: {
-    userPopoverZoom () {
-      return this.$store.getters.mergedConfig.userPopoverZoom
+    userPopoverAvatarAction () {
+      return this.$store.getters.mergedConfig.userPopoverAvatarAction
     },
     userPopoverOverlay () {
       return this.$store.getters.mergedConfig.userPopoverOverlay

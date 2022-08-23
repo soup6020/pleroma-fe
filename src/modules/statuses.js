@@ -62,7 +62,8 @@ export const defaultState = () => ({
     friends: emptyTl(),
     tag: emptyTl(),
     dms: emptyTl(),
-    bookmarks: emptyTl()
+    bookmarks: emptyTl(),
+    list: emptyTl()
   }
 })
 
@@ -337,6 +338,10 @@ const addNewNotifications = (state, { dispatch, notifications, older, visibleNot
     if (isStatusNotification(notification.type)) {
       notification.action = addStatusToGlobalStorage(state, notification.action).item
       notification.status = notification.status && addStatusToGlobalStorage(state, notification.status).item
+    }
+
+    if (notification.type === 'pleroma:report') {
+      dispatch('addReport', notification.report)
     }
 
     if (notification.type === 'pleroma:emoji_reaction') {

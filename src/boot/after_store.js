@@ -12,7 +12,7 @@ import { windowWidth, windowHeight } from '../services/window_utils/window_utils
 import { getOrCreateApp, getClientToken } from '../services/new_api/oauth.js'
 import backendInteractorService from '../services/backend_interactor_service/backend_interactor_service.js'
 import { CURRENT_VERSION } from '../services/theme_data/theme_data.service.js'
-import { applyTheme } from '../services/style_setter/style_setter.js'
+import { applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import FaviconService from '../services/favicon_service/favicon_service.js'
 
 let staticInitialResults = null
@@ -360,6 +360,8 @@ const afterStoreSetup = async ({ store, i18n }) => {
   } else {
     console.error('Failed to load any theme!')
   }
+
+  applyConfig(store.state.config)
 
   // Now we can try getting the server settings and logging in
   // Most of these are preloaded into the index.html so blocking is minimized

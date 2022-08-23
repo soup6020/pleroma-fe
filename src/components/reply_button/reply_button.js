@@ -1,7 +1,15 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faReply } from '@fortawesome/free-solid-svg-icons'
+import {
+  faReply,
+  faPlus,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faReply)
+library.add(
+  faReply,
+  faPlus,
+  faTimes
+)
 
 const ReplyButton = {
   name: 'ReplyButton',
