@@ -25,8 +25,8 @@
         <li v-if="currentUser || !privateMode">
           <button
             class="button-unstyled menu-item"
-            @click="toggleTimelines"
             :aria-expanded="showTimelines ? 'true' : 'false'"
+            @click="toggleTimelines"
           >
             <FAIcon
               fixed-width
@@ -56,8 +56,8 @@
         <li v-if="currentUser">
           <button
             class="button-unstyled menu-item"
-            @click="toggleLists"
             :aria-expanded="showLists ? 'true' : 'false'"
+            @click="toggleLists"
           >
             <FAIcon
               fixed-width

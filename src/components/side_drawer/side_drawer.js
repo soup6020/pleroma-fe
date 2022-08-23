@@ -89,7 +89,7 @@ const SideDrawer = {
       }
       name = this.currentUser ? 'friends' : 'public-timeline'
       if (USERNAME_ROUTES.has(name)) {
-        return { name, params: { username: this.currentUser.screen_name }}
+        return { name, params: { username: this.currentUser.screen_name } }
       } else {
         return { name }
       }
