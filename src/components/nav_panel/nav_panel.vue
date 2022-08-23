@@ -26,6 +26,7 @@
           <button
             class="button-unstyled menu-item"
             @click="toggleTimelines"
+            :aria-expanded="showTimelines ? 'true' : 'false'"
           >
             <FAIcon
               fixed-width
@@ -56,6 +57,7 @@
           <button
             class="button-unstyled menu-item"
             @click="toggleLists"
+            :aria-expanded="showLists ? 'true' : 'false'"
           >
             <FAIcon
               fixed-width
