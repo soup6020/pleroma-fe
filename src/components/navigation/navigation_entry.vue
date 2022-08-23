@@ -2,7 +2,7 @@
   <li class="NavigationEntry">
     <router-link
       class="menu-item"
-      :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
+      :to="routeTo"
     >
       <FAIcon
         v-if="item.icon"

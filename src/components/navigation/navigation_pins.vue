@@ -4,7 +4,7 @@
       v-for="item in pinnedList"
       :key="item.name"
       class="pinned-item"
-      :to="item.routeObject || { name: (currentUser || item.anon) ? item.route : item.anonRoute, params: { username: currentUser.screen_name } }"
+      :to="getRouteTo(item)"
     >
       <FAIcon
         v-if="item.icon"

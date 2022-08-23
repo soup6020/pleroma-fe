@@ -4,6 +4,15 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faThumbtack)
 
+const USERNAME_ROUTES = new Set([
+  'bookmarks',
+  'dms',
+  'interactions',
+  'notifications',
+  'chat',
+  'chats'
+])
+
 const NavigationEntry = {
   props: ['item', 'showPin'],
   methods: {
@@ -20,6 +29,16 @@ const NavigationEntry = {
     }
   },
   computed: {
+    routeTo () {
+      if (this.item.routeObject) {
+        return this.item.routeObject
+      }
+      const route = { name: (this.item.anon || this.currentUser) ? this.item.route : this.item.anonRoute }
+      if (USERNAME_ROUTES.has(route.name)) {
+        route.params = { username: this.currentUser.screen_name }
+      }
+      return route
+    },
     getters () {
       return this.$store.getters
     },

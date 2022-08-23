@@ -26,8 +26,30 @@ library.add(
   faStream,
   faList
 )
+
+const USERNAME_ROUTES = new Set([
+  'bookmarks',
+  'dms',
+  'interactions',
+  'notifications',
+  'chat',
+  'chats'
+])
+
 const NavPanel = {
   props: ['limit'],
+  methods: {
+    getRouteTo (item) {
+      if (item.routeObject) {
+        return item.routeObject
+      }
+      const route = { name: (item.anon || this.currentUser) ? item.route : item.anonRoute }
+      if (USERNAME_ROUTES.has(route.name)) {
+        route.params = { username: this.currentUser.screen_name }
+      }
+      return route
+    }
+  },
   computed: {
     getters () {
       return this.$store.getters
