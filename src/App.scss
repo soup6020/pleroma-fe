@@ -130,6 +130,16 @@ i[class*=icon-],
   color: var(--icon, $fallback--icon);
 }
 
+.button-unstyled:hover,
+a:hover {
+  i[class*=icon-],
+  .svg-inline--fa,
+  .iconLetter {
+    color: $fallback--text;
+    color: var(--text, $fallback--text);
+  }
+}
+
 nav {
   z-index: var(--ZI_navbar);
   color: var(--topBarText);

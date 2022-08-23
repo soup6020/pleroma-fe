@@ -147,6 +147,15 @@
     color: var(--panelLink, $fallback--link);
   }
 
+  .button-unstyled:hover,
+  a:hover {
+    i[class*=icon-],
+    .svg-inline--fa,
+    .iconLetter {
+      color: var(--panelText);
+    }
+  }
+
   .faint {
     background-color: transparent;
     color: $fallback--faint;

@@ -1,7 +1,7 @@
 <template>
   <div class="UserListMenu">
     <Popover
-      trigger="click"
+      trigger="hover"
       placement="left"
       remove-padding
     >
@@ -22,9 +22,10 @@
         </div>
       </template>
       <template #trigger>
-        <button class="btn button-default dropdown-item">
+        <button class="btn button-default dropdown-item -has-submenu">
           {{ $t('lists.manage_lists') }}
           <FAIcon
+            class="chevron-icon"
             size="lg"
             icon="chevron-right"
           />
