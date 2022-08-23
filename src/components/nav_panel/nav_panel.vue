@@ -47,7 +47,7 @@
               <NavigationEntry
                 v-for="item in timelinesItems"
                 :key="item.name"
-                :show-pin="editMode"
+                :show-pin="editMode || forceEditMode"
                 :item="item"
               />
             </ul>
