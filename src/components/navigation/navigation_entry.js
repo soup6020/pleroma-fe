@@ -1,17 +1,9 @@
 import { mapState } from 'vuex'
+import { USERNAME_ROUTES } from 'src/components/navigation/navigation.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faThumbtack } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faThumbtack)
-
-const USERNAME_ROUTES = new Set([
-  'bookmarks',
-  'dms',
-  'interactions',
-  'notifications',
-  'chat',
-  'chats'
-])
 
 const NavigationEntry = {
   props: ['item', 'showPin'],

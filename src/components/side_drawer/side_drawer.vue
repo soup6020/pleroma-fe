@@ -47,7 +47,7 @@
           v-if="currentUser || !privateMode"
           @click="toggleDrawer"
         >
-          <router-link :to="{ name: timelinesRoute }">
+          <router-link :to="timelinesRoute">
             <FAIcon
               fixed-width
               class="fa-scale-110 fa-old-padding"

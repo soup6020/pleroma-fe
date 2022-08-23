@@ -1,3 +1,12 @@
+export const USERNAME_ROUTES = new Set([
+  'bookmarks',
+  'dms',
+  'interactions',
+  'notifications',
+  'chat',
+  'chats'
+])
+
 export const TIMELINES = {
   home: {
     route: 'friends',

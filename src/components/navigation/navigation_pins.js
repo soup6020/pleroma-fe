@@ -1,5 +1,5 @@
 import { mapState } from 'vuex'
-import { TIMELINES, ROOT_ITEMS } from 'src/components/navigation/navigation.js'
+import { TIMELINES, ROOT_ITEMS, USERNAME_ROUTES } from 'src/components/navigation/navigation.js'
 import { getListEntries, filterNavigation } from 'src/components/navigation/filter.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -26,15 +26,6 @@ library.add(
   faStream,
   faList
 )
-
-const USERNAME_ROUTES = new Set([
-  'bookmarks',
-  'dms',
-  'interactions',
-  'notifications',
-  'chat',
-  'chats'
-])
 
 const NavPanel = {
   props: ['limit'],
