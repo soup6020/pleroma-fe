@@ -62,7 +62,7 @@ export default (store) => {
       component: RemoteUserResolver,
       beforeEnter: validateAuthenticatedRoute
     },
-    { name: 'external-user-profile', path: '/users/:id', component: UserProfile },
+    { name: 'external-user-profile', path: '/users/$:id', component: UserProfile },
     { name: 'interactions', path: '/users/:username/interactions', component: Interactions, beforeEnter: validateAuthenticatedRoute },
     { name: 'dms', path: '/users/:username/dms', component: DMs, beforeEnter: validateAuthenticatedRoute },
     { name: 'registration', path: '/registration', component: Registration },
@@ -76,7 +76,8 @@ export default (store) => {
     { name: 'search', path: '/search', component: Search, props: (route) => ({ query: route.query.query }) },
     { name: 'who-to-follow', path: '/who-to-follow', component: WhoToFollow, beforeEnter: validateAuthenticatedRoute },
     { name: 'about', path: '/about', component: About },
-    { name: 'user-profile', path: '/:_(users)?/:name', component: UserProfile },
+    { name: 'user-profile', path: '/users/:name', component: UserProfile },
+    { name: 'legacy-user-profile', path: '/:name', component: UserProfile },
     { name: 'lists', path: '/lists', component: Lists },
     { name: 'lists-timeline', path: '/lists/:id', component: ListsTimeline },
     { name: 'lists-edit', path: '/lists/:id/edit', component: ListsEdit },

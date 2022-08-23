@@ -16,9 +16,6 @@ export const mergeOrAdd = (arr, obj, item) => {
     // This is a new item, prepare it
     arr.push(item)
     obj[item.id] = item
-    if (item.screen_name && !item.screen_name.includes('@')) {
-      obj[item.screen_name.toLowerCase()] = item
-    }
     return { item, new: true }
   }
 }
@@ -162,7 +159,11 @@ export const mutations = {
       if (user.relationship) {
         state.relationships[user.relationship.id] = user.relationship
       }
-      mergeOrAdd(state.users, state.usersObject, user)
+      const res = mergeOrAdd(state.users, state.usersObject, user)
+      const item = res.item
+      if (res.new && item.screen_name && !item.screen_name.includes('@')) {
+        state.usersByNameObject[item.screen_name.toLowerCase()] = item
+      }
     })
   },
   updateUserRelationship (state, relationships) {
@@ -242,12 +243,10 @@ export const mutations = {
 
 export const getters = {
   findUser: state => query => {
-    const result = state.usersObject[query]
-    // In case it's a screen_name, we can try searching case-insensitive
-    if (!result && typeof query === 'string') {
-      return state.usersObject[query.toLowerCase()]
-    }
-    return result
+    return state.usersObject[query]
+  },
+  findUserByName: state => query => {
+    return state.usersByNameObject[query.toLowerCase()]
   },
   findUserByUrl: state => query => {
     return state.users
@@ -266,6 +265,7 @@ export const defaultState = {
   currentUser: false,
   users: [],
   usersObject: {},
+  usersByNameObject: {},
   signUpPending: false,
   signUpErrors: [],
   relationships: {}
@@ -283,6 +283,13 @@ const users = {
     },
     fetchUser (store, id) {
       return store.rootState.api.backendInteractor.fetchUser({ id })
+        .then((user) => {
+          store.commit('addNewUsers', [user])
+          return user
+        })
+    },
+    fetchUserByName (store, name) {
+      return store.rootState.api.backendInteractor.fetchUserByName({ name })
         .then((user) => {
           store.commit('addNewUsers', [user])
           return user

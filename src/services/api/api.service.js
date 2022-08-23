@@ -50,6 +50,7 @@ const MASTODON_USER_HOME_TIMELINE_URL = '/api/v1/timelines/home'
 const MASTODON_STATUS_URL = id => `/api/v1/statuses/${id}`
 const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
 const MASTODON_USER_URL = '/api/v1/accounts'
+const MASTODON_USER_LOOKUP_URL = '/api/v1/accounts/lookup'
 const MASTODON_USER_RELATIONSHIPS_URL = '/api/v1/accounts/relationships'
 const MASTODON_USER_TIMELINE_URL = id => `/api/v1/accounts/${id}/statuses`
 const MASTODON_USER_IN_LISTS = id => `/api/v1/accounts/${id}/lists`
@@ -324,6 +325,25 @@ const fetchUser = ({ id, credentials }) => {
   const url = `${MASTODON_USER_URL}/${id}`
   return promisedRequest({ url, credentials })
     .then((data) => parseUser(data))
+}
+
+const fetchUserByName = ({ name, credentials }) => {
+  return promisedRequest({
+    url: MASTODON_USER_LOOKUP_URL,
+    credentials,
+    params: { acct: name }
+  })
+    .then(data => data.id)
+    .catch(error => {
+      if (error && error.statusCode === 404) {
+        // Either the backend does not support lookup endpoint,
+        // or there is no user with such name. Fallback and treat name as id.
+        return name
+      } else {
+        throw error
+      }
+    })
+    .then(id => fetchUser({ id, credentials }))
 }
 
 const fetchUserRelationship = ({ id, credentials }) => {
@@ -1489,6 +1509,7 @@ const apiService = {
   blockUser,
   unblockUser,
   fetchUser,
+  fetchUserByName,
   fetchUserRelationship,
   favorite,
   unfavorite,
