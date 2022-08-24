@@ -28,7 +28,7 @@ const MobileNav = {
   created () {
     this.notificationsCloseGesture = GestureService.swipeGesture(
       GestureService.DIRECTION_RIGHT,
-      this.closeMobileNotifications,
+      () => this.closeMobileNotifications(true),
       50
     )
   },
@@ -56,12 +56,14 @@ const MobileNav = {
     openMobileNotifications () {
       this.notificationsOpen = true
     },
-    closeMobileNotifications () {
+    closeMobileNotifications (markRead) {
       if (this.notificationsOpen) {
         // make sure to mark notifs seen only when the notifs were open and not
         // from close-calls.
         this.notificationsOpen = false
-        this.markNotificationsAsSeen()
+        if (markRead) {
+          this.markNotificationsAsSeen()
+        }
       }
     },
     notificationsTouchStart (e) {

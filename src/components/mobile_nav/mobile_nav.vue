@@ -56,15 +56,15 @@
     >
       <div class="mobile-notifications-header">
         <span class="title">{{ $t('notifications.notifications') }}</span>
-        <a
-          class="mobile-nav-button"
-          @click.stop.prevent="closeMobileNotifications()"
+        <button
+          class="button-unstyled mobile-nav-button"
+          @click.stop.prevent="closeMobileNotifications(true)"
         >
           <FAIcon
             class="fa-scale-110 fa-old-padding"
             icon="times"
           />
-        </a>
+        </button>
       </div>
       <div
         id="mobile-notifications"
