@@ -98,9 +98,13 @@ const Notifications = {
   },
   mounted () {
     this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+    if (!this.scrollerRef) {
+      this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
+    }
     this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
   },
   unmounted () {
+    if (!this.scrollerRef) return
     this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
   },
   watch: {
@@ -112,6 +116,16 @@ const Notifications = {
         FaviconService.clearFaviconBadge()
         this.$store.dispatch('setPageTitle', '')
       }
+    },
+    teleportTarget () {
+      // handle scroller change
+      this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
+      this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+      if (!this.scrollerRef) {
+        this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
+      }
+      this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
+      this.updateScrollPosition()
     }
   },
   methods: {
