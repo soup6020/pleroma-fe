@@ -29,6 +29,7 @@
 @import '../../_variables.scss';
 .NavigationPins {
   display: flex;
+  flex-wrap: wrap;
   overflow: hidden;
   height: 100%;
 
@@ -47,10 +48,12 @@
 
   .pinned-item {
     position: relative;
-    flex: 0 0 3em;
+    flex: 1 0 3em;
     min-width: 2em;
     text-align: center;
     overflow: visible;
+    box-sizing: border-box;
+    height: 100%;
 
     & .svg-inline--fa,
     & .iconLetter {
