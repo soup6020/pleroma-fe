@@ -4,9 +4,9 @@
     :to="teleportTarget"
   >
     <div
+      ref="root"
       :class="{ minimal: minimalMode }"
       class="Notifications"
-      ref="root"
     >
       <div :class="mainClass">
         <div
@@ -26,13 +26,13 @@
             type="button"
             @click="scrollToTop"
           >
-          <FALayers class="fa-scale-110 fa-old-padding-layer">
-            <FAIcon icon="arrow-up" />
-            <FAIcon
-              icon="minus"
-              transform="up-7"
-            />
-          </FALayers>
+            <FALayers class="fa-scale-110 fa-old-padding-layer">
+              <FAIcon icon="arrow-up" />
+              <FAIcon
+                icon="minus"
+                transform="up-7"
+              />
+            </FALayers>
           </button>
           <button
             v-if="unseenCount"

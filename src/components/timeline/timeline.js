@@ -95,7 +95,7 @@ const Timeline = {
       return this.$store.getters.mergedConfig.virtualScrolling
     },
     ...mapState({
-      mobileLayout: state => state.interface.layoutType === 'mobile',
+      mobileLayout: state => state.interface.layoutType === 'mobile'
     })
   },
   created () {
