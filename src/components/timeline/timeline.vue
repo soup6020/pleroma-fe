@@ -8,22 +8,53 @@
         type="button"
         @click="scrollToTop"
       >
-        <FAIcon icon="circle-up" />
+        <FALayers class="fa-scale-110 fa-old-padding-layer">
+          <FAIcon icon="arrow-up" />
+          <FAIcon
+            icon="minus"
+            transform="up-7"
+          />
+        </FALayers>
       </button>
-      <button
-        v-if="showLoadButton"
-        class="button-default loadmore-button"
-        @click.prevent="showNewStatuses"
-      >
-        {{ loadButtonString }}
-      </button>
-      <div
-        v-else-if="!embedded"
-        class="loadmore-text faint"
-        @click.prevent
-      >
-        {{ $t('timeline.up_to_date') }}
-      </div>
+      <template v-if="mobileLayout">
+        <button
+          v-if="showLoadButton"
+          class="button-unstyled loadmore-button"
+          @click.prevent="showNewStatuses"
+        >
+          <FAIcon
+            fixed-width
+            icon="circle-plus"
+          />
+          <div class="alert-dot" />
+        </button>
+        <div
+          v-else-if="!embedded"
+          class="loadmore-text faint"
+          @click.prevent
+        >
+          <FAIcon
+            fixed-width
+            icon="check"
+          />
+        </div>
+      </template>
+      <template v-else>
+        <button
+          v-if="showLoadButton"
+          class="button-default loadmore-button"
+          @click.prevent="showNewStatuses"
+        >
+          {{ loadButtonString }}
+        </button>
+        <div
+          v-else-if="!embedded"
+          class="loadmore-text faint"
+          @click.prevent
+        >
+          {{ $t('timeline.up_to_date') }}
+        </div>
+      </template>
       <QuickFilterSettings v-if="!embedded" />
       <QuickViewSettings v-if="!embedded" />
     </div>

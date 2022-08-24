@@ -10,11 +10,12 @@ import {
 } from '../../services/notification_utils/notification_utils.js'
 import FaviconService from '../../services/favicon_service/favicon_service.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch, faCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faArrowUp, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faCircleNotch,
-  faCircleUp
+  faArrowUp,
+  faMinus
 )
 
 const DEFAULT_SEEN_TO_DISPLAY_COUNT = 30

@@ -26,7 +26,13 @@
             type="button"
             @click="scrollToTop"
           >
-            <FAIcon icon="circle-up" />
+          <FALayers class="fa-scale-110 fa-old-padding-layer">
+            <FAIcon icon="arrow-up" />
+            <FAIcon
+              icon="minus"
+              transform="up-7"
+            />
+          </FALayers>
           </button>
           <button
             v-if="unseenCount"
