@@ -5,6 +5,7 @@
       :key="item.name"
       class="pinned-item"
       :to="getRouteTo(item)"
+      :title="item.labelRaw || $t(item.label)"
     >
       <FAIcon
         v-if="item.icon"

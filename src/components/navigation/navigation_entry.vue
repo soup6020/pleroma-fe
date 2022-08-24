@@ -18,6 +18,8 @@
       <button
         type="button"
         class="button-unstyled"
+        :title="$t(isPinned ? 'general.unpin' : 'general.pin' )"
+        :aria-pressed="!!isPinned"
         @click.stop.prevent="togglePin(item.name)"
       >
         <FAIcon
