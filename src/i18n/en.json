@@ -156,7 +156,8 @@
     "chats": "Chats",
     "lists": "Lists",
     "edit_nav_mobile": "Customize navigation bar",
-    "edit_pinned": "Edit pinned items"
+    "edit_pinned": "Edit pinned items",
+    "edit_finish": "Done editing"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",

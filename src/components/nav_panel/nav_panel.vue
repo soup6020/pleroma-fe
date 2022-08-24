@@ -96,14 +96,21 @@
           :show-pin="editMode || forceEditMode"
           :item="item"
         />
-        <div
+        <li
           v-if="!forceEditMode && currentUser"
-          class="panel-footer"
         >
-          <Checkbox v-model="editMode">
-            {{ $t('nav.edit_pinned') }}
-          </Checkbox>
-        </div>
+          <button
+            class="menu-item button-unstyled"
+            @click="toggleEditMode"
+          >
+            <FAIcon
+              fixed-width
+              class="fa-scale-110"
+              :icon="editMode ? 'check' : 'wrench'"
+            />
+            {{ editMode ? $t('nav.edit_finish') : $t('nav.edit_pinned') }}
+          </button>
+        </li>
       </ul>
     </div>
   </div>
