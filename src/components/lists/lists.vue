@@ -5,7 +5,7 @@
         {{ $t('lists.lists') }}
       </div>
       <router-link
-        :to="{ name: 'lists-edit' }"
+        :to="{ name: 'lists-new' }"
         class="button-default btn new-list-button"
       >
         {{ $t("lists.new") }}
