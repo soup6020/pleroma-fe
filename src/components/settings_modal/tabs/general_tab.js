@@ -2,6 +2,7 @@ import BooleanSetting from '../helpers/boolean_setting.vue'
 import ChoiceSetting from '../helpers/choice_setting.vue'
 import ScopeSelector from 'src/components/scope_selector/scope_selector.vue'
 import IntegerSetting from '../helpers/integer_setting.vue'
+import SizeSetting, { defaultHorizontalUnits } from '../helpers/size_setting.vue'
 import InterfaceLanguageSwitcher from 'src/components/interface_language_switcher/interface_language_switcher.vue'
 
 import SharedComputedObject from '../helpers/shared_computed_object.js'
@@ -43,6 +44,11 @@ const GeneralTab = {
         value: mode,
         label: this.$t(`settings.third_column_mode_${mode}`)
       })),
+      userPopoverAvatarActionOptions: ['close', 'zoom', 'open'].map(mode => ({
+        key: mode,
+        value: mode,
+        label: this.$t(`settings.user_popover_avatar_action_${mode}`)
+      })),
       loopSilentAvailable:
       // Firefox
       Object.getOwnPropertyDescriptor(HTMLVideoElement.prototype, 'mozHasAudio') ||
@@ -56,11 +62,15 @@ const GeneralTab = {
     BooleanSetting,
     ChoiceSetting,
     IntegerSetting,
+    SizeSetting,
     InterfaceLanguageSwitcher,
     ScopeSelector,
     ServerSideIndicator
   },
   computed: {
+    horizontalUnits () {
+      return defaultHorizontalUnits
+    },
     postFormats () {
       return this.$store.state.instance.postFormats || []
     },
@@ -70,6 +80,17 @@ const GeneralTab = {
         value: format,
         label: this.$t(`post_status.content_type["${format}"]`)
       }))
+    },
+    columns () {
+      const mode = this.$store.getters.mergedConfig.thirdColumnMode
+
+      const notif = mode === 'none' ? [] : ['notifs']
+
+      if (this.$store.getters.mergedConfig.sidebarRight || mode === 'postform') {
+        return [...notif, 'content', 'sidebar']
+      } else {
+        return ['sidebar', 'content', ...notif]
+      }
     },
     instanceSpecificPanelPresent () { return this.$store.state.instance.showInstanceSpecificPanel },
     instanceWallpaperUsed () {

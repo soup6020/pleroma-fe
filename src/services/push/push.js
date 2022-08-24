@@ -1,4 +1,4 @@
-import runtime from 'serviceworker-webpack-plugin/lib/runtime'
+import runtime from 'serviceworker-webpack5-plugin/lib/runtime'
 
 function urlBase64ToUint8Array (base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4)
