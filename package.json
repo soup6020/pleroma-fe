@@ -55,7 +55,7 @@
     "@babel/register": "7.18.9",
     "@intlify/vue-i18n-loader": "5.0.0",
     "@ungap/event-target": "0.2.3",
-    "@vue/babel-helper-vue-jsx-merge-props": "1.2.1",
+    "@vue/babel-helper-vue-jsx-merge-props": "1.4.0",
     "@vue/babel-plugin-jsx": "1.1.1",
     "@vue/compiler-sfc": "3.2.37",
     "@vue/test-utils": "2.0.2",
