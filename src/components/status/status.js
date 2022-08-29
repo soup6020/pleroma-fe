@@ -13,6 +13,7 @@ import StatusPopover from '../status_popover/status_popover.vue'
 import UserPopover from '../user_popover/user_popover.vue'
 import UserListPopover from '../user_list_popover/user_list_popover.vue'
 import EmojiReactions from '../emoji_reactions/emoji_reactions.vue'
+import UserLink from '../user_link/user_link.vue'
 import MentionsLine from 'src/components/mentions_line/mentions_line.vue'
 import MentionLink from 'src/components/mention_link/mention_link.vue'
 import generateProfileLink from 'src/services/user_profile_link_generator/user_profile_link_generator'
@@ -115,7 +116,8 @@ const Status = {
     RichContent,
     MentionLink,
     MentionsLine,
-    UserPopover
+    UserPopover,
+    UserLink
   },
   props: [
     'statusoid',
