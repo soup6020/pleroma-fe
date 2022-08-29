@@ -214,12 +214,14 @@ export const parseUser = (data) => {
   output.screen_name_ui = output.screen_name
   if (output.screen_name && output.screen_name.includes('@')) {
     const parts = output.screen_name.split('@')
-    let unicodeDomain = punycode.toUnicode(parts[1])
+    const unicodeDomain = punycode.toUnicode(parts[1])
     if (unicodeDomain !== parts[1]) {
       // Add some identifier so users can potentially spot spoofing attempts:
       // lain.com and xn--lin-6cd.com would appear identical otherwise.
-      unicodeDomain = '🌏' + unicodeDomain
+      output.screen_name_ui_contains_non_ascii = true
       output.screen_name_ui = [parts[0], unicodeDomain].join('@')
+    } else {
+      output.screen_name_ui_contains_non_ascii = false
     }
   }
 

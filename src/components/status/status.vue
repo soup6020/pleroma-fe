@@ -25,9 +25,10 @@
             class="fa-scale-110 fa-old-padding repeat-icon"
             icon="retweet"
           />
-          <router-link :to="userProfileLink">
-            {{ status.user.screen_name_ui }}
-          </router-link>
+          <user-link
+            :user="status.user"
+            :at="false"
+          />
         </small>
         <small
           v-if="showReasonMutedThread"
@@ -164,13 +165,12 @@
                 >
                   {{ status.user.name }}
                 </h4>
-                <router-link
+                <user-link
                   class="account-name"
                   :title="status.user.screen_name_ui"
-                  :to="userProfileLink"
-                >
-                  {{ status.user.screen_name_ui }}
-                </router-link>
+                  :user="status.user"
+                  :at="false"
+                />
                 <img
                   v-if="!!(status.user && status.user.favicon)"
                   class="status-favicon"

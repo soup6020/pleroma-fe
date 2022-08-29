@@ -1006,5 +1006,8 @@
     "update_changelog": "For more details on what's changed, see {theFullChangelog}.",
     "update_changelog_here": "the full changelog",
     "art_by": "Art by {linkToArtist}"
+  },
+  "unicode_domain_indicator": {
+    "tooltip": "This domain contains non-ascii characters."
   }
 }

@@ -269,7 +269,8 @@ describe('API Entities normalizer', () => {
     it('converts IDN to unicode and marks it as internatonal', () => {
       const user = makeMockUserMasto({ acct: 'lain@xn--lin-6cd.com' })
 
-      expect(parseUser(user)).to.have.property('screen_name_ui').that.equal('lain@🌏lаin.com')
+      expect(parseUser(user)).to.have.property('screen_name_ui').that.equal('lain@lаin.com')
+      expect(parseUser(user)).to.have.property('screen_name_ui_contains_non_ascii').that.equal(true)
     })
   })
 

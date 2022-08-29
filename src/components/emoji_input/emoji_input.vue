@@ -50,7 +50,21 @@
             <span v-else>{{ suggestion.replacement }}</span>
           </span>
           <div class="label">
-            <span class="displayText">{{ suggestion.displayText }}</span>
+            <span
+              v-if="suggestion.user"
+              class="displayText"
+            >
+              {{ suggestion.displayText }}<UnicodeDomainIndicator
+                :user="suggestion.user"
+                :at="false"
+              />
+            </span>
+            <span
+              v-if="!suggestion.user"
+              class="displayText"
+            >
+              {{ suggestion.displayText }}
+            </span>
             <span class="detailText">{{ suggestion.detailText }}</span>
           </div>
         </div>

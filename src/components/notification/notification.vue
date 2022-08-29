@@ -11,9 +11,10 @@
       class="Notification container -muted"
     >
       <small>
-        <router-link :to="userProfileLink">
-          {{ notification.from_profile.screen_name_ui }}
-        </router-link>
+        <user-link
+          :user="notification.from_profile"
+          :at="false"
+        />
       </small>
       <button
         class="button-unstyled unmute"
@@ -174,12 +175,10 @@
           v-if="notification.type === 'follow' || notification.type === 'follow_request'"
           class="follow-text"
         >
-          <router-link
-            :to="userProfileLink"
+          <user-link
             class="follow-name"
-          >
-            @{{ notification.from_profile.screen_name_ui }}
-          </router-link>
+            :user="notification.from_profile"
+          />
           <div
             v-if="notification.type === 'follow_request'"
             style="white-space: nowrap;"
@@ -210,9 +209,9 @@
           v-else-if="notification.type === 'move'"
           class="move-text"
         >
-          <router-link :to="targetUserProfileLink">
-            @{{ notification.target.screen_name_ui }}
-          </router-link>
+          <user-link
+            :user="notification.target"
+          />
         </div>
         <Report
           v-else-if="notification.type === 'pleroma:report'"
