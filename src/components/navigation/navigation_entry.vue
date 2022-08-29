@@ -1,23 +1,37 @@
 <template>
   <li class="NavigationEntry">
-    <router-link
-      class="menu-item"
+    <component
+      :is="routeTo ? 'router-link' : 'button'"
+      class="menu-item button-unstyled"
       :to="routeTo"
     >
-      <FAIcon
-        v-if="item.icon"
-        fixed-width
-        class="fa-scale-110"
-        :icon="item.icon"
-      />
+      <span>
+        <FAIcon
+          v-if="item.icon"
+          fixed-width
+          class="fa-scale-110 menu-icon"
+          :icon="item.icon"
+        />
+      </span>
       <span
         v-if="item.iconLetter"
-        class="icon iconLetter fa-scale-110"
+        class="icon iconLetter fa-scale-110 menu-icon"
       >{{ item.iconLetter }}
-      </span>{{ item.labelRaw || $t(item.label) }}
+      </span>
+      <span class="label">
+      {{ item.labelRaw || $t(item.label) }}
+      </span>
+      <slot />
+      <div
+        v-if="item.badgeGetter && getters[item.badgeGetter]"
+        class="badge badge-notification"
+      >
+        {{ getters[item.badgeGetter] }}
+      </div>
       <button
+        v-if="showPin && currentUser"
         type="button"
-        class="button-unstyled"
+        class="button-unstyled extra-button"
         :title="$t(isPinned ? 'general.unpin' : 'general.pin' )"
         :aria-pressed="!!isPinned"
         @click.stop.prevent="togglePin(item.name)"
@@ -30,14 +44,8 @@
           :transform="!isPinned(item.name) ? 'rotate-45' : ''"
           icon="thumbtack"
         />
-        <div
-          v-if="item.badgeGetter && getters[item.badgeGetter]"
-          class="badge badge-notification"
-        >
-          {{ getters[item.badgeGetter] }}
-        </div>
       </button>
-    </router-link>
+    </component>
   </li>
 </template>
 
@@ -47,19 +55,27 @@
 @import '../../_variables.scss';
 
 .NavigationEntry {
-  .fa-scale-110 {
+  .label {
+    flex: 1;
+  }
+
+  .menu-icon {
     margin-right: 0.8em;
   }
 
-  .badge {
-    position: absolute;
-    right: 0.6rem;
-    top: 1.25em;
+  .extra-button {
+    width: 3em;
+    text-align: center;
+
+    &:last-child {
+      margin-right: -0.8em;
+    }
   }
 
   .menu-item {
-    display: block;
+    display: flex;
     box-sizing: border-box;
+    align-items: baseline;
     height: 3.5em;
     line-height: 3.5em;
     padding: 0 1em;
@@ -75,7 +91,10 @@
       --faint: var(--selectedMenuFaintText, $fallback--faint);
       --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
       --lightText: var(--selectedMenuLightText, $fallback--lightText);
-      --icon: var(--selectedMenuIcon, $fallback--icon);
+
+      .menu-icon {
+        --icon: var(--text, $fallback--icon);
+      }
     }
 
     &.router-link-active {
@@ -87,7 +106,10 @@
       --faint: var(--selectedMenuFaintText, $fallback--faint);
       --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
       --lightText: var(--selectedMenuLightText, $fallback--lightText);
-      --icon: var(--selectedMenuIcon, $fallback--icon);
+
+      .menu-icon {
+        --icon: var(--text, $fallback--icon);
+      }
 
       &:hover {
         text-decoration: underline;

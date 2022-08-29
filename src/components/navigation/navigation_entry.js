@@ -22,6 +22,7 @@ const NavigationEntry = {
   },
   computed: {
     routeTo () {
+      if (!this.item.route && !this.item.routeObject) return null
       if (this.item.routeObject) {
         return this.item.routeObject
       }

@@ -22,95 +22,77 @@
         v-if="!collapsed || forceExpand"
         class="panel-body"
       >
-        <li v-if="currentUser || !privateMode">
-          <button
-            class="button-unstyled menu-item"
-            :aria-expanded="showTimelines ? 'true' : 'false'"
-            @click="toggleTimelines"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="stream"
-            />{{ $t("nav.timelines") }}
-            <FAIcon
-              class="timelines-chevron"
-              fixed-width
-              :icon="showTimelines ? 'chevron-up' : 'chevron-down'"
-            />
-          </button>
-          <div
-            v-show="showTimelines"
-            class="timelines-background"
-          >
-            <ul class="timelines">
-              <NavigationEntry
-                v-for="item in timelinesItems"
-                :key="item.name"
-                :show-pin="editMode || forceEditMode"
-                :item="item"
-              />
-            </ul>
-          </div>
-        </li>
-        <li v-if="currentUser">
-          <button
-            class="button-unstyled menu-item"
-            :aria-expanded="showLists ? 'true' : 'false'"
-            @click="toggleLists"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="list"
-            />{{ $t("nav.lists") }}
-            <FAIcon
-              class="timelines-chevron"
-              fixed-width
-              :icon="showLists ? 'chevron-up' : 'chevron-down'"
-            />
-            <router-link
-              :to="{ name: 'lists' }"
-              @click.stop
-            >
-              <FAIcon
-                class="timelines-chevron"
-                fixed-width
-                icon="wrench"
-              />
-            </router-link>
-          </button>
-          <div
-            v-show="showLists"
-            class="timelines-background"
-          >
-            <ListsMenuContent
+        <NavigationEntry
+          v-if="currentUser || !privateMode"
+          :show-pin="false"
+          :item="{ icon: 'stream', label: 'nav.timelines' }"
+          :aria-expanded="showTimelines ? 'true' : 'false'"
+          @click="toggleTimelines"
+        >
+          <FAIcon
+            class="timelines-chevron"
+            fixed-width
+            :icon="showTimelines ? 'chevron-up' : 'chevron-down'"
+          />
+        </NavigationEntry>
+        <div
+          v-show="showTimelines"
+          class="timelines-background"
+        >
+          <div class="timelines">
+            <NavigationEntry
+              v-for="item in timelinesItems"
+              :key="item.name"
               :show-pin="editMode || forceEditMode"
-              class="timelines"
+              :item="item"
             />
           </div>
-        </li>
+        </div>
+        <NavigationEntry
+          v-if="currentUser"
+          :show-pin="false"
+          :item="{ icon: 'list', label: 'nav.lists' }"
+          :aria-expanded="showLists ? 'true' : 'false'"
+          @click="toggleLists"
+        >
+          <router-link
+            class="extra-button"
+            :to="{ name: 'lists' }"
+            @click.stop
+          >
+            <FAIcon
+              class="extra-button"
+              fixed-width
+              icon="wrench"
+            />
+          </router-link>
+          <FAIcon
+            class="timelines-chevron"
+            fixed-width
+            :icon="showLists ? 'chevron-up' : 'chevron-down'"
+          />
+        </NavigationEntry>
+        <div
+          v-show="showLists"
+          class="timelines-background"
+        >
+          <ListsMenuContent
+            :show-pin="editMode || forceEditMode"
+            class="timelines"
+          />
+        </div>
         <NavigationEntry
           v-for="item in rootItems"
           :key="item.name"
           :show-pin="editMode || forceEditMode"
           :item="item"
         />
-        <li
+        <NavigationEntry
           v-if="!forceEditMode && currentUser"
-        >
-          <button
-            class="menu-item button-unstyled"
-            @click="toggleEditMode"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              :icon="editMode ? 'check' : 'wrench'"
-            />
-            {{ editMode ? $t('nav.edit_finish') : $t('nav.edit_pinned') }}
-          </button>
-        </li>
+          :show-pin="false"
+          :item="{ label: editMode ? $t('nav.edit_finish') : $t('nav.edit_pinned'), icon: editMode ? 'check' : 'wrench' }"
+          @click="toggleEditMode"
+        />
       </ul>
     </div>
   </div>
@@ -161,55 +143,23 @@
     border: none;
   }
 
-  .menu-item {
-    display: block;
-    box-sizing: border-box;
-    height: 3.5em;
-    line-height: 3.5em;
-    padding: 0 1em;
-    width: 100%;
-    color: $fallback--link;
-    color: var(--link, $fallback--link);
-
-    &:hover {
-      background-color: $fallback--lightBg;
-      background-color: var(--selectedMenu, $fallback--lightBg);
-      color: $fallback--link;
-      color: var(--selectedMenuText, $fallback--link);
-      --faint: var(--selectedMenuFaintText, $fallback--faint);
-      --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
-      --lightText: var(--selectedMenuLightText, $fallback--lightText);
-      --icon: var(--selectedMenuIcon, $fallback--icon);
-    }
-
-    &.router-link-active {
-      font-weight: bolder;
-      background-color: $fallback--lightBg;
-      background-color: var(--selectedMenu, $fallback--lightBg);
-      color: $fallback--text;
-      color: var(--selectedMenuText, $fallback--text);
-      --faint: var(--selectedMenuFaintText, $fallback--faint);
-      --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
-      --lightText: var(--selectedMenuLightText, $fallback--lightText);
-      --icon: var(--selectedMenuIcon, $fallback--icon);
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .timelines-chevron {
     margin-left: 0.8em;
     margin-right: 0.8em;
     font-size: 1.1em;
   }
 
+  .menu-item {
+    .timelines-chevron {
+      margin-right: 0;
+    }
+  }
+
   .timelines-background {
     padding: 0 0 0 0.6em;
     background-color: $fallback--lightBg;
     background-color: var(--selectedMenu, $fallback--lightBg);
-    border-top: 1px solid;
+    border-bottom: 1px solid;
     border-color: $fallback--border;
     border-color: var(--border, $fallback--border);
   }
@@ -222,10 +172,6 @@
   .nav-panel-heading {
    // breaks without a unit
    --panel-heading-height-padding: 0em;
-  }
-
-  .fa-scale-110 {
-    margin-right: 0.8em;
   }
 }
 </style>

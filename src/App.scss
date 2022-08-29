@@ -132,11 +132,10 @@ i[class*=icon-],
 
 .button-unstyled:hover,
 a:hover {
-  i[class*=icon-],
-  .svg-inline--fa,
-  .iconLetter {
-    color: $fallback--text;
-    color: var(--text, $fallback--text);
+  > i[class*=icon-],
+  > .svg-inline--fa,
+  > .iconLetter {
+    color: var(--text);
   }
 }
 
