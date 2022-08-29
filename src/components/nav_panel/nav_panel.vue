@@ -56,6 +56,7 @@
           @click="toggleLists"
         >
           <router-link
+            :title="$t('lists.manage_lists')"
             class="extra-button"
             :to="{ name: 'lists' }"
             @click.stop
