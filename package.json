@@ -111,7 +111,7 @@
     "serviceworker-webpack5-plugin": "2.0.0",
     "shelljs": "0.8.5",
     "sinon": "2.4.1",
-    "sinon-chai": "2.14.0",
+    "sinon-chai": "3.7.0",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "20.0.0",
     "stylelint-rscss": "0.4.0",
