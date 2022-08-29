@@ -23,12 +23,14 @@ const NavigationEntry = {
   computed: {
     routeTo () {
       if (!this.item.route && !this.item.routeObject) return null
+      let route
       if (this.item.routeObject) {
-        return this.item.routeObject
+        route = this.item.routeObject
+      } else {
+        route = { name: (this.item.anon || this.currentUser) ? this.item.route : this.item.anonRoute }
       }
-      const route = { name: (this.item.anon || this.currentUser) ? this.item.route : this.item.anonRoute }
       if (USERNAME_ROUTES.has(route.name)) {
-        route.params = { username: this.currentUser.screen_name }
+        route.params = { username: this.currentUser.screen_name, name: this.currentUser.screen_name }
       }
       return route
     },

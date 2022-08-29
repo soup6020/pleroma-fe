@@ -4,7 +4,8 @@ export const USERNAME_ROUTES = new Set([
   'interactions',
   'notifications',
   'chat',
-  'chats'
+  'chats',
+  'user-profile'
 ])
 
 export const TIMELINES = {
@@ -32,6 +33,11 @@ export const TIMELINES = {
     route: 'bookmarks',
     icon: 'bookmark',
     label: 'nav.bookmarks'
+  },
+  favorites: {
+    routeObject: { name: 'user-profile', query: { tab: 'favorites' } },
+    icon: 'star',
+    label: 'user_card.favorites'
   },
   dms: {
     route: 'dms',
