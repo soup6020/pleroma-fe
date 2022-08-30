@@ -33,7 +33,7 @@
         </button>
         <div
           v-else-if="!embedded"
-          class="loadmore-text faint"
+          class="loadmore-text faint veryfaint"
           @click.prevent
         >
           <FAIcon
