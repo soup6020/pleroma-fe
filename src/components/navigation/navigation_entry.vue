@@ -1,8 +1,8 @@
 <template>
   <OptionalRouterLink
+    v-slot="{ isActive, href, navigate } = {}"
     ass="ass"
     :to="routeTo"
-    v-slot="{ isActive, href, navigate } = {}"
   >
     <li
       class="NavigationEntry menu-item"
@@ -10,8 +10,8 @@
       v-bind="$attrs"
     >
       <component
-        class="main-link button-unstyled"
         :is="routeTo ? 'a' : 'button'"
+        class="main-link button-unstyled"
         :href="href"
         @click="navigate"
       >
@@ -29,7 +29,7 @@
         >{{ item.iconLetter }}
         </span>
         <span class="label">
-        {{ item.labelRaw || $t(item.label) }}
+          {{ item.labelRaw || $t(item.label) }}
         </span>
       </component>
       <slot />

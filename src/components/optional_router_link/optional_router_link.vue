@@ -1,10 +1,10 @@
 <template>
-<!-- eslint-disable vue/no-multiple-template-root -->
+  <!-- eslint-disable vue/no-multiple-template-root -->
   <router-link
     v-if="to"
+    v-slot="props"
     :to="to"
     custom
-    v-slot="props"
   >
     <slot
       v-bind="props"
