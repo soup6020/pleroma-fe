@@ -47,6 +47,9 @@
             class="serverName"
             :class="{ '-faded': shouldFadeDomain }"
             v-html="'@' + serverName"
+          /><UnicodeDomainIndicator
+            v-if="shouldShowFullUserName"
+            :user="user"
           />
           </span>
           <span

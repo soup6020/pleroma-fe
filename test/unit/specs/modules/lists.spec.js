@@ -17,13 +17,13 @@ describe('The lists module', () => {
       const list = { id: '1', title: 'testList' }
       const modList = { id: '1', title: 'anotherTestTitle' }
 
-      mutations.setList(state, list)
-      expect(state.allListsObject[list.id]).to.eql({ title: list.title })
+      mutations.setList(state, { listId: list.id, title: list.title })
+      expect(state.allListsObject[list.id]).to.eql({ title: list.title, accountIds: [] })
       expect(state.allLists).to.have.length(1)
       expect(state.allLists[0]).to.eql(list)
 
-      mutations.setList(state, modList)
-      expect(state.allListsObject[modList.id]).to.eql({ title: modList.title })
+      mutations.setList(state, { listId: modList.id, title: modList.title })
+      expect(state.allListsObject[modList.id]).to.eql({ title: modList.title, accountIds: [] })
       expect(state.allLists).to.have.length(1)
       expect(state.allLists[0]).to.eql(modList)
     })
@@ -33,10 +33,10 @@ describe('The lists module', () => {
       const list = { id: '1', accountIds: ['1', '2', '3'] }
       const modList = { id: '1', accountIds: ['3', '4', '5'] }
 
-      mutations.setListAccounts(state, list)
+      mutations.setListAccounts(state, { listId: list.id, accountIds: list.accountIds })
       expect(state.allListsObject[list.id]).to.eql({ accountIds: list.accountIds })
 
-      mutations.setListAccounts(state, modList)
+      mutations.setListAccounts(state, { listId: modList.id, accountIds: modList.accountIds })
       expect(state.allListsObject[modList.id]).to.eql({ accountIds: modList.accountIds })
     })
 
@@ -47,9 +47,9 @@ describe('The lists module', () => {
           1: { title: 'testList', accountIds: ['1', '2', '3'] }
         }
       }
-      const id = '1'
+      const listId = '1'
 
-      mutations.deleteList(state, { id })
+      mutations.deleteList(state, { listId })
       expect(state.allLists).to.have.length(0)
       expect(state.allListsObject).to.eql({})
     })

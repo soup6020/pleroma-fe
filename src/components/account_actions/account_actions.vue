@@ -28,6 +28,7 @@
               class="dropdown-divider"
             />
           </template>
+          <UserListMenu :user="user" />
           <button
             v-if="relationship.blocking"
             class="btn button-default btn-block dropdown-item"

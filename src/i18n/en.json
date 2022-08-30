@@ -80,11 +80,16 @@
     "confirm": "Confirm",
     "verify": "Verify",
     "close": "Close",
+    "undo": "Undo",
+    "yes": "Yes",
+    "no": "No",
     "peek": "Peek",
     "role": {
       "admin": "Admin",
       "moderator": "Moderator"
     },
+    "unpin": "Unpin item",
+    "pin": "Pin item",
     "flash_content": "Click to show Flash content using Ruffle (Experimental, may not work).",
     "flash_security": "Note that this can be potentially dangerous since Flash content is still arbitrary code.",
     "flash_fail": "Failed to load flash content, see console for details.",
@@ -149,7 +154,10 @@
     "preferences": "Preferences",
     "timelines": "Timelines",
     "chats": "Chats",
-    "lists": "Lists"
+    "lists": "Lists",
+    "edit_nav_mobile": "Customize navigation bar",
+    "edit_pinned": "Edit pinned items",
+    "edit_finish": "Done editing"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",
@@ -987,7 +995,18 @@
     "create": "Create",
     "save": "Save changes",
     "delete": "Delete list",
-    "following_only": "Limit to Following"
+    "following_only": "Limit to Following",
+    "manage_lists": "Manage lists",
+    "manage_members": "Manage list members",
+    "add_members": "Search for more users",
+    "remove_from_list": "Remove from list",
+    "add_to_list": "Add to list",
+    "is_in_list": "Already in list",
+    "editing_list": "Editing list {listTitle}",
+    "creating_list": "Creating new list",
+    "update_title": "Save Title",
+    "really_delete": "Really delete list?",
+    "error": "Error manipulating lists: {0}"
   },
   "file_type": {
     "audio": "Audio",
@@ -1006,5 +1025,8 @@
     "update_changelog": "For more details on what's changed, see {theFullChangelog}.",
     "update_changelog_here": "the full changelog",
     "art_by": "Art by {linkToArtist}"
+  },
+  "unicode_domain_indicator": {
+    "tooltip": "This domain contains non-ascii characters."
   }
 }

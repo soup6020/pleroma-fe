@@ -117,10 +117,26 @@ h4 {
   margin: 0;
 }
 
+.iconLetter {
+  display: inline-block;
+  text-align: center;
+  font-weight: 1000;
+}
+
 i[class*=icon-],
-.svg-inline--fa {
+.svg-inline--fa,
+.iconLetter {
   color: $fallback--icon;
   color: var(--icon, $fallback--icon);
+}
+
+.button-unstyled:hover,
+a:hover {
+  > i[class*=icon-],
+  > .svg-inline--fa,
+  > .iconLetter {
+    color: var(--text);
+  }
 }
 
 nav {
@@ -765,15 +781,21 @@ option {
 }
 
 .fa-scale-110 {
-  &.svg-inline--fa {
+  &.svg-inline--fa,
+  &.iconLetter {
     font-size: 1.1em;
   }
 }
 
 .fa-old-padding {
+  &.iconLetter,
   &.svg-inline--fa, &-layer {
     padding: 0 0.3em;
   }
+}
+
+.veryfaint {
+  opacity: 0.25;
 }
 
 .login-hint {

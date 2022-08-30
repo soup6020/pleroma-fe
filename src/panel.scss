@@ -46,7 +46,7 @@
 .panel-footer {
   --panel-heading-height-padding: 0.6em;
   --__panel-heading-height: 3.2em;
-  --__panel-heading-height-inner: calc(var(--__panel-heading-height) - 2 * var(--panel-heading-height-padding));
+  --__panel-heading-height-inner: calc(var(--__panel-heading-height) - 2 * var(--panel-heading-height-padding, 0));
 
   position: relative;
   box-sizing: border-box;
@@ -57,7 +57,7 @@
   grid-column-gap: 0.5em;
   flex: none;
   background-size: cover;
-  padding: 0.6em;
+  padding: var(--panel-heading-height-padding);
   height: var(--__panel-heading-height);
   line-height: var(--__panel-heading-height-inner);
   z-index: 4;
@@ -145,6 +145,15 @@
   .-link {
     color: $fallback--link;
     color: var(--panelLink, $fallback--link);
+  }
+
+  .button-unstyled:hover,
+  a:hover {
+    i[class*=icon-],
+    .svg-inline--fa,
+    .iconLetter {
+      color: var(--panelText);
+    }
   }
 
   .faint {

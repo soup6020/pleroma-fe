@@ -30,12 +30,10 @@
         />
       </div>
       <div>
-        <router-link
+        <user-link
           class="basic-user-card-screen-name"
-          :to="userProfileLink(user)"
-        >
-          @{{ user.screen_name_ui }}
-        </router-link>
+          :user="user"
+        />
       </div>
       <slot />
     </div>

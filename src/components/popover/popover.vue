@@ -126,6 +126,13 @@
       }
     }
 
+    &.-has-submenu {
+      .chevron-icon {
+        margin-right: 0.25rem;
+        margin-left: 2rem;
+      }
+    }
+
     &:active, &:hover {
       background-color: $fallback--lightBg;
       background-color: var(--selectedMenuPopover, $fallback--lightBg);

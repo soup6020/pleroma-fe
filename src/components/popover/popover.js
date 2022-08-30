@@ -4,7 +4,7 @@ const Popover = {
     // Action to trigger popover: either 'hover' or 'click'
     trigger: String,
 
-    // Either 'top' or 'bottom'
+    // 'top', 'bottom', 'left', 'right'
     placement: String,
 
     // Takes object with properties 'x' and 'y', values of these can be
@@ -84,6 +84,8 @@ const Popover = {
       const anchorStyle = getComputedStyle(anchorEl)
       const topPadding = parseFloat(anchorStyle.paddingTop)
       const bottomPadding = parseFloat(anchorStyle.paddingBottom)
+      const rightPadding = parseFloat(anchorStyle.paddingRight)
+      const leftPadding = parseFloat(anchorStyle.paddingLeft)
 
       // Screen position of the origin point for popover = center of the anchor
       const origin = {
@@ -170,7 +172,7 @@ const Popover = {
       if (overlayCenter) {
         translateX = origin.x + horizOffset
         translateY = origin.y + vertOffset
-      } else {
+      } else if (this.placement !== 'right' && this.placement !== 'left') {
         // Default to whatever user wished with placement prop
         let usingTop = this.placement !== 'bottom'
 
@@ -189,6 +191,25 @@ const Popover = {
 
         const xOffset = (this.offset && this.offset.x) || 0
         translateX = origin.x + horizOffset + xOffset
+      } else {
+        // Default to whatever user wished with placement prop
+        let usingRight = this.placement !== 'left'
+
+        // Handle special cases, first force to displaying on top if there's not space on bottom,
+        // regardless of what placement value was. Then check if there's not space on top, and
+        // force to bottom, again regardless of what placement value was.
+        const rightBoundary = origin.x - anchorWidth * 0.5 + (this.removePadding ? rightPadding : 0)
+        const leftBoundary = origin.x + anchorWidth * 0.5 - (this.removePadding ? leftPadding : 0)
+        if (leftBoundary + content.offsetWidth > xBounds.max) usingRight = true
+        if (rightBoundary - content.offsetWidth < xBounds.min) usingRight = false
+
+        const xOffset = (this.offset && this.offset.x) || 0
+        translateX = usingRight
+          ? rightBoundary - xOffset - content.offsetWidth
+          : leftBoundary + xOffset
+
+        const yOffset = (this.offset && this.offset.y) || 0
+        translateY = origin.y + vertOffset + yOffset
       }
 
       this.styles = {

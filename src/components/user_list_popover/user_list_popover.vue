@@ -29,7 +29,7 @@
                 :emoji="user.emoji"
               />
               <!-- eslint-enable vue/no-v-html -->
-              <span class="user-list-screen-name">{{ user.screen_name_ui }}</span>
+              <span class="user-list-screen-name">{{ user.screen_name_ui }}</span><UnicodeDomainIndicator :user="user" />
             </div>
           </div>
         </template>

@@ -171,6 +171,9 @@ export const mutations = {
       state.relationships[relationship.id] = relationship
     })
   },
+  updateUserInLists (state, { id, inLists }) {
+    state.usersObject[id].inLists = inLists
+  },
   saveBlockIds (state, blockIds) {
     state.currentUser.blockIds = blockIds
   },
@@ -296,6 +299,12 @@ const users = {
       if (store.state.currentUser) {
         store.rootState.api.backendInteractor.fetchUserRelationship({ id })
           .then((relationships) => store.commit('updateUserRelationship', relationships))
+      }
+    },
+    fetchUserInLists (store, id) {
+      if (store.state.currentUser) {
+        store.rootState.api.backendInteractor.fetchUserInLists({ id })
+          .then((inLists) => store.commit('updateUserInLists', { id, inLists }))
       }
     },
     fetchBlocks (store) {
@@ -509,6 +518,7 @@ const users = {
           store.dispatch('stopFetchingTimeline', 'friends')
           store.commit('setBackendInteractor', backendInteractorService(store.getters.getToken()))
           store.dispatch('stopFetchingNotifications')
+          store.dispatch('stopFetchingLists')
           store.dispatch('stopFetchingFollowRequests')
           store.commit('clearNotifications')
           store.commit('resetStatuses')
@@ -516,6 +526,7 @@ const users = {
           store.dispatch('setLastTimeline', 'public-timeline')
           store.dispatch('setLayoutWidth', windowWidth())
           store.dispatch('setLayoutHeight', windowHeight())
+          store.commit('clearServerSideStorage')
         })
     },
     loginUser (store, accessToken) {
@@ -560,6 +571,12 @@ const users = {
 
                 // Start fetching chats
                 store.dispatch('startFetchingChats')
+              }
+
+              store.dispatch('startFetchingLists')
+
+              if (user.locked) {
+                store.dispatch('startFetchingFollowRequests')
               }
 
               if (store.getters.mergedConfig.useStreamingApi) {

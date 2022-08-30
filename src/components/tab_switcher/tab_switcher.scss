@@ -17,6 +17,7 @@
       overflow-x: auto;
       padding-top: 5px;
       flex-direction: row;
+      flex: 0 0 auto;
 
       &::after, &::before {
         content: '';
