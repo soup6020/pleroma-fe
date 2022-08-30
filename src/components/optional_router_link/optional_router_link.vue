@@ -1,4 +1,5 @@
 <template>
+<!-- eslint-disable vue/no-multiple-template-root -->
   <router-link
     v-if="to"
     :to="to"
