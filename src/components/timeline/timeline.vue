@@ -1,7 +1,10 @@
 <template>
   <div :class="['Timeline', classes.root]">
     <div :class="classes.header">
-      <TimelineMenu v-if="!embedded" />
+      <TimelineMenu
+        v-if="!embedded"
+        :timeline-name="timelineName"
+      />
       <button
         v-if="showLoadButton"
         class="button-default loadmore-button"

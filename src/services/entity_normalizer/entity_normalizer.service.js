@@ -43,11 +43,13 @@ export const parseUser = (data) => {
   // case for users in "mentions" property for statuses in MastoAPI
   const mastoShort = masto && !Object.prototype.hasOwnProperty.call(data, 'avatar')
 
+  output.inLists = null
   output.id = String(data.id)
   output._original = data // used for server-side settings
 
   if (masto) {
     output.screen_name = data.acct
+    output.fqn = data.fqn
     output.statusnet_profile_url = data.url
 
     // There's nothing else to get

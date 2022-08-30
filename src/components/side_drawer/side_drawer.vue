@@ -47,7 +47,7 @@
           v-if="currentUser || !privateMode"
           @click="toggleDrawer"
         >
-          <router-link :to="{ name: timelinesRoute }">
+          <router-link :to="timelinesRoute">
             <FAIcon
               fixed-width
               class="fa-scale-110 fa-old-padding"
@@ -190,6 +190,18 @@
               icon="tachometer-alt"
             /> {{ $t("nav.administration") }}
           </a>
+        </li>
+        <li
+          v-if="currentUser"
+          @click="toggleDrawer"
+        >
+          <router-link :to="{ name: 'edit-navigation' }">
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="compass"
+            /> {{ $t("nav.edit_nav_mobile") }}
+          </router-link>
         </li>
         <li
           v-if="currentUser"

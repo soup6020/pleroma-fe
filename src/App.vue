@@ -36,7 +36,7 @@
       <div
         id="main-scroller"
         class="column main"
-        :class="{ '-full-height': isChats }"
+        :class="{ '-full-height': isChats || isListEdit }"
       >
         <div
           v-if="!currentUser"

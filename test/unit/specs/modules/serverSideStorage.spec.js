@@ -4,9 +4,11 @@ import {
   VERSION,
   COMMAND_TRIM_FLAGS,
   COMMAND_TRIM_FLAGS_AND_RESET,
+  _moveItemInArray,
   _getRecentData,
   _getAllFlags,
   _mergeFlags,
+  _mergePrefs,
   _resetFlags,
   mutations,
   defaultState,
@@ -28,6 +30,7 @@ describe('The serverSideStorage module', () => {
         expect(state.cache._version).to.eql(VERSION)
         expect(state.cache._timestamp).to.be.a('number')
         expect(state.cache.flagStorage).to.eql(defaultState.flagStorage)
+        expect(state.cache.prefsStorage).to.eql(defaultState.prefsStorage)
       })
 
       it('should initialize storage with proper flags for new users if none present', () => {
@@ -36,6 +39,7 @@ describe('The serverSideStorage module', () => {
         expect(state.cache._version).to.eql(VERSION)
         expect(state.cache._timestamp).to.be.a('number')
         expect(state.cache.flagStorage).to.eql(newUserFlags)
+        expect(state.cache.prefsStorage).to.eql(defaultState.prefsStorage)
       })
 
       it('should merge flags even if remote timestamp is older', () => {
@@ -57,6 +61,9 @@ describe('The serverSideStorage module', () => {
               flagStorage: {
                 ...defaultState.flagStorage,
                 updateCounter: 1
+              },
+              prefsStorage: {
+                ...defaultState.prefsStorage
               }
             }
           }
@@ -99,9 +106,62 @@ describe('The serverSideStorage module', () => {
         expect(state.cache.flagStorage).to.eql(defaultState.flagStorage)
       })
     })
+    describe('setPreference', () => {
+      const { setPreference, updateCache, addCollectionPreference, removeCollectionPreference } = mutations
+
+      it('should set preference and update journal log accordingly', () => {
+        const state = cloneDeep(defaultState)
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        expect(state.prefsStorage.simple.testing).to.eql(1)
+        expect(state.prefsStorage._journal.length).to.eql(1)
+        expect(state.prefsStorage._journal[0]).to.eql({
+          path: 'simple.testing',
+          operation: 'set',
+          args: [1],
+          // should have A timestamp, we don't really care what it is
+          timestamp: state.prefsStorage._journal[0].timestamp
+        })
+      })
+
+      it('should keep journal to a minimum', () => {
+        const state = cloneDeep(defaultState)
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        setPreference(state, { path: 'simple.testing', value: 2 })
+        addCollectionPreference(state, { path: 'collections.testing', value: 2 })
+        removeCollectionPreference(state, { path: 'collections.testing', value: 2 })
+        updateCache(state, { username: 'test' })
+        expect(state.prefsStorage.simple.testing).to.eql(2)
+        expect(state.prefsStorage.collections.testing).to.eql([])
+        expect(state.prefsStorage._journal.length).to.eql(2)
+        expect(state.prefsStorage._journal[0]).to.eql({
+          path: 'simple.testing',
+          operation: 'set',
+          args: [2],
+          // should have A timestamp, we don't really care what it is
+          timestamp: state.prefsStorage._journal[0].timestamp
+        })
+        expect(state.prefsStorage._journal[1]).to.eql({
+          path: 'collections.testing',
+          operation: 'removeFromCollection',
+          args: [2],
+          // should have A timestamp, we don't really care what it is
+          timestamp: state.prefsStorage._journal[1].timestamp
+        })
+      })
+    })
   })
 
   describe('helper functions', () => {
+    describe('_moveItemInArray', () => {
+      it('should move item according to movement value', () => {
+        expect(_moveItemInArray([1, 2, 3, 4], 4, -1)).to.eql([1, 2, 4, 3])
+        expect(_moveItemInArray([1, 2, 3, 4], 1, 2)).to.eql([2, 3, 1, 4])
+      })
+      it('should clamp movement to within array', () => {
+        expect(_moveItemInArray([1, 2, 3, 4], 4, -10)).to.eql([4, 1, 2, 3])
+        expect(_moveItemInArray([1, 2, 3, 4], 3, 99)).to.eql([1, 2, 4, 3])
+      })
+    })
     describe('_getRecentData', () => {
       it('should handle nulls correctly', () => {
         expect(_getRecentData(null, null)).to.eql({ recent: null, stale: null, needUpload: true })
@@ -154,6 +214,94 @@ describe('The serverSideStorage module', () => {
             { flagStorage: { b: 1, c: 4, d: 9 } },
             ['a', 'b', 'c', 'd'])
         ).to.eql({ a: 0, b: 3, c: 4, d: 9 })
+      })
+    })
+
+    describe('_mergePrefs', () => {
+      it('should prefer recent and apply journal to it', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 1, b: 0, c: true },
+              _journal: [
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 2 },
+                { path: 'simple.c', operation: 'set', args: [true], timestamp: 4 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 1, b: 1, c: false },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: [1], timestamp: 1 },
+                { path: 'simple.b', operation: 'set', args: [1], timestamp: 3 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 1, b: 1, c: true },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: [1], timestamp: 1 },
+            { path: 'simple.b', operation: 'set', args: [1], timestamp: 3 },
+            { path: 'simple.c', operation: 'set', args: [true], timestamp: 4 }
+          ]
+        })
+      })
+
+      it('should allow setting falsy values', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 1, b: 0, c: false },
+              _journal: [
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 2 },
+                { path: 'simple.c', operation: 'set', args: [false], timestamp: 4 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 0, b: 0, c: true },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: [0], timestamp: 1 },
+                { path: 'simple.b', operation: 'set', args: [0], timestamp: 3 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 0, b: 0, c: false },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: [0], timestamp: 1 },
+            { path: 'simple.b', operation: 'set', args: [0], timestamp: 3 },
+            { path: 'simple.c', operation: 'set', args: [false], timestamp: 4 }
+          ]
+        })
+      })
+
+      it('should work with strings', () => {
+        expect(
+          _mergePrefs(
+            // RECENT
+            {
+              simple: { a: 'foo' },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: ['foo'], timestamp: 2 }
+              ]
+            },
+            // STALE
+            {
+              simple: { a: 'bar' },
+              _journal: [
+                { path: 'simple.a', operation: 'set', args: ['bar'], timestamp: 4 }
+              ]
+            }
+          )
+        ).to.eql({
+          simple: { a: 'bar' },
+          _journal: [
+            { path: 'simple.a', operation: 'set', args: ['bar'], timestamp: 4 }
+          ]
+        })
       })
     })
 

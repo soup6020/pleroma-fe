@@ -15,6 +15,7 @@ const ListsUserSearch = {
   components: {
     Checkbox
   },
+  emits: ['loading', 'loadingDone', 'results'],
   data () {
     return {
       loading: false,
@@ -33,11 +34,15 @@ const ListsUserSearch = {
       }
 
       this.loading = true
+      this.$emit('loading')
       this.userIds = []
       this.$store.dispatch('search', { q: query, resolve: true, type: 'accounts', following: this.followingOnly })
         .then(data => {
-          this.loading = false
           this.$emit('results', data.accounts.map(a => a.id))
+        })
+        .finally(() => {
+          this.loading = false
+          this.$emit('loadingDone')
         })
     }
   }

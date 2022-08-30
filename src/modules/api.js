@@ -15,6 +15,9 @@ const api = {
     mastoUserSocketStatus: null,
     followRequests: []
   },
+  getters: {
+    followRequestCount: state => state.api.followRequests.length
+  },
   mutations: {
     setBackendInteractor (state, backendInteractor) {
       state.backendInteractor = backendInteractor

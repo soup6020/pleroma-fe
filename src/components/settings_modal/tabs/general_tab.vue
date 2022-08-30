@@ -102,11 +102,6 @@
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting path="listsNavigation">
-            {{ $t('settings.lists_navigation') }}
-          </BooleanSetting>
-        </li>
-        <li>
           <h3>{{ $t('settings.columns') }}</h3>
         </li>
         <li>

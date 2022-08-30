@@ -9,27 +9,43 @@ export const mutations = {
   setLists (state, value) {
     state.allLists = value
   },
-  setList (state, { id, title }) {
-    if (!state.allListsObject[id]) {
-      state.allListsObject[id] = {}
+  setList (state, { listId, title }) {
+    if (!state.allListsObject[listId]) {
+      state.allListsObject[listId] = { accountIds: [] }
     }
-    state.allListsObject[id].title = title
+    state.allListsObject[listId].title = title
 
-    if (!find(state.allLists, { id })) {
-      state.allLists.push({ id, title })
+    const entry = find(state.allLists, { id: listId })
+    if (!entry) {
+      state.allLists.push({ id: listId, title })
     } else {
-      find(state.allLists, { id }).title = title
+      entry.title = title
     }
   },
-  setListAccounts (state, { id, accountIds }) {
-    if (!state.allListsObject[id]) {
-      state.allListsObject[id] = {}
+  setListAccounts (state, { listId, accountIds }) {
+    if (!state.allListsObject[listId]) {
+      state.allListsObject[listId] = { accountIds: [] }
     }
-    state.allListsObject[id].accountIds = accountIds
+    state.allListsObject[listId].accountIds = accountIds
   },
-  deleteList (state, { id }) {
-    delete state.allListsObject[id]
-    remove(state.allLists, list => list.id === id)
+  addListAccount (state, { listId, accountId }) {
+    if (!state.allListsObject[listId]) {
+      state.allListsObject[listId] = { accountIds: [] }
+    }
+    state.allListsObject[listId].accountIds.push(accountId)
+  },
+  removeListAccount (state, { listId, accountId }) {
+    if (!state.allListsObject[listId]) {
+      state.allListsObject[listId] = { accountIds: [] }
+    }
+    const { accountIds } = state.allListsObject[listId]
+    const set = new Set(accountIds)
+    set.delete(accountId)
+    state.allListsObject[listId].accountIds = [...set]
+  },
+  deleteList (state, { listId }) {
+    delete state.allListsObject[listId]
+    remove(state.allLists, list => list.id === listId)
   }
 }
 
@@ -40,37 +56,57 @@ const actions = {
   createList ({ rootState, commit }, { title }) {
     return rootState.api.backendInteractor.createList({ title })
       .then((list) => {
-        commit('setList', { id: list.id, title })
+        commit('setList', { listId: list.id, title })
         return list
       })
   },
-  fetchList ({ rootState, commit }, { id }) {
-    return rootState.api.backendInteractor.getList({ id })
-      .then((list) => commit('setList', { id: list.id, title: list.title }))
+  fetchList ({ rootState, commit }, { listId }) {
+    return rootState.api.backendInteractor.getList({ listId })
+      .then((list) => commit('setList', { listId: list.id, title: list.title }))
   },
-  fetchListAccounts ({ rootState, commit }, { id }) {
-    return rootState.api.backendInteractor.getListAccounts({ id })
-      .then((accountIds) => commit('setListAccounts', { id, accountIds }))
+  fetchListAccounts ({ rootState, commit }, { listId }) {
+    return rootState.api.backendInteractor.getListAccounts({ listId })
+      .then((accountIds) => commit('setListAccounts', { listId, accountIds }))
   },
-  setList ({ rootState, commit }, { id, title }) {
-    rootState.api.backendInteractor.updateList({ id, title })
-    commit('setList', { id, title })
+  setList ({ rootState, commit }, { listId, title }) {
+    rootState.api.backendInteractor.updateList({ listId, title })
+    commit('setList', { listId, title })
   },
-  setListAccounts ({ rootState, commit }, { id, accountIds }) {
-    const saved = rootState.lists.allListsObject[id].accountIds || []
+  setListAccounts ({ rootState, commit }, { listId, accountIds }) {
+    const saved = rootState.lists.allListsObject[listId].accountIds || []
     const added = accountIds.filter(id => !saved.includes(id))
     const removed = saved.filter(id => !accountIds.includes(id))
-    commit('setListAccounts', { id, accountIds })
+    commit('setListAccounts', { listId, accountIds })
     if (added.length > 0) {
-      rootState.api.backendInteractor.addAccountsToList({ id, accountIds: added })
+      rootState.api.backendInteractor.addAccountsToList({ listId, accountIds: added })
     }
     if (removed.length > 0) {
-      rootState.api.backendInteractor.removeAccountsFromList({ id, accountIds: removed })
+      rootState.api.backendInteractor.removeAccountsFromList({ listId, accountIds: removed })
     }
   },
-  deleteList ({ rootState, commit }, { id }) {
-    rootState.api.backendInteractor.deleteList({ id })
-    commit('deleteList', { id })
+  addListAccount ({ rootState, commit }, { listId, accountId }) {
+    return rootState
+      .api
+      .backendInteractor
+      .addAccountsToList({ listId, accountIds: [accountId] })
+      .then((result) => {
+        commit('addListAccount', { listId, accountId })
+        return result
+      })
+  },
+  removeListAccount ({ rootState, commit }, { listId, accountId }) {
+    return rootState
+      .api
+      .backendInteractor
+      .removeAccountsFromList({ listId, accountIds: [accountId] })
+      .then((result) => {
+        commit('removeListAccount', { listId, accountId })
+        return result
+      })
+  },
+  deleteList ({ rootState, commit }, { listId }) {
+    rootState.api.backendInteractor.deleteList({ listId })
+    commit('deleteList', { listId })
   }
 }
 
