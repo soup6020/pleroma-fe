@@ -190,7 +190,7 @@ const instance = {
           const values = await res.json()
           const emoji = Object.keys(values).reduce((res, groupId) => {
             res[groupId] = values[groupId].map(e => ({
-              displayText: e.name,
+              displayText: e.slug,
               imageUrl: false,
               replacement: e.emoji
             }))
