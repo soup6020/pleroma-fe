@@ -30,11 +30,11 @@
         </button>
       </div>
     </div>
-    <input
+    <textarea
       v-show="editing"
       v-model="localNote"
       class="note-text"
-    >
+    />
     <span
       v-show="!editing"
       class="note-text"
