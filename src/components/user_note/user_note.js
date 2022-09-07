@@ -1,7 +1,8 @@
 const UserNote = {
   props: {
     user: Object,
-    relationship: Object
+    relationship: Object,
+    editable: Boolean
   },
   data () {
     return {

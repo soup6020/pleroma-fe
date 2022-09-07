@@ -6,7 +6,7 @@
       <span>{{ $t('user_card.note') }}</span>
       <div class="buttons">
         <button
-          v-show="!editing"
+          v-show="!editing && editable"
           class="button-default btn"
           @click="startEditing"
         >
@@ -77,7 +77,6 @@
   }
 
   .note-text {
-    line-height: 2;
     align-self: stretch;
   }
 

@@ -40,7 +40,8 @@ export default {
     'rounded',
     'bordered',
     'avatarAction', // default - open profile, 'zoom' - zoom, function - call function
-    'onClose'
+    'onClose',
+    'hasNoteEditor'
   ],
   data () {
     return {
@@ -129,6 +130,9 @@ export default {
     showModerationMenu () {
       const privileges = this.loggedIn.privileges
       return this.loggedIn.role === 'admin' || privileges.includes('users_manage_activation_state') || privileges.includes('users_delete') || privileges.includes('users_manage_tags')
+    },
+    hasNote () {
+      return this.relationship.note
     },
     supportsNote () {
       return 'note' in this.relationship
