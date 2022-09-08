@@ -16,7 +16,7 @@ const api = {
     followRequests: []
   },
   getters: {
-    followRequestCount: state => state.api.followRequests.length
+    followRequestCount: state => state.followRequests.length
   },
   mutations: {
     setBackendInteractor (state, backendInteractor) {
