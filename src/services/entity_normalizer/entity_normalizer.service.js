@@ -251,6 +251,16 @@ export const parseAttachment = (data) => {
   return output
 }
 
+export const parseSource = (data) => {
+  const output = {}
+
+  output.text = data.text
+  output.spoiler_text = data.spoiler_text
+  output.content_type = data.content_type
+
+  return output
+}
+
 export const parseStatus = (data) => {
   const output = {}
   const masto = Object.prototype.hasOwnProperty.call(data, 'account')
@@ -271,6 +281,8 @@ export const parseStatus = (data) => {
     output.emojis = data.emojis
 
     output.tags = data.tags
+
+    output.edited_at = data.edited_at
 
     if (data.pleroma) {
       const { pleroma } = data
@@ -372,6 +384,10 @@ export const parseStatus = (data) => {
 
   output.favoritedBy = []
   output.rebloggedBy = []
+
+  if (Object.prototype.hasOwnProperty.call(data, 'originalStatus')) {
+    Object.assign(output, data.originalStatus)
+  }
 
   return output
 }

@@ -214,6 +214,7 @@
     "load_older": "Load older interactions"
   },
   "post_status": {
+    "edit_status": "Edit status",
     "new_status": "Post new status",
     "account_not_locked_warning": "Your account is not {0}. Anyone can follow you to view your follower-only posts.",
     "account_not_locked_warning_link": "locked",
@@ -229,6 +230,8 @@
     "default": "Just landed in L.A.",
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
     "direct_warning_to_first_only": "This post will only be visible to the mentioned users at the beginning of the message.",
+    "edit_remote_warning": "Other remote instances may not support editing and unable to receive the latest version of your post.",
+    "edit_unsupported_warning": "Pleroma does not support editing mentions or polls.",
     "posting": "Posting",
     "post": "Post",
     "preview": "Preview",
@@ -797,6 +800,8 @@
     "favorites": "Favorites",
     "repeats": "Repeats",
     "delete": "Delete status",
+    "edit": "Edit status",
+    "edited_at": "(last edited {time})",
     "pin": "Pin on profile",
     "unpin": "Unpin from profile",
     "pinned": "Pinned",
@@ -844,7 +849,8 @@
     "ancestor_follow_with_icon": "{icon} {text}",
     "show_all_conversation_with_icon": "{icon} {text}",
     "show_all_conversation": "Show full conversation ({numStatus} other status) | Show full conversation ({numStatus} other statuses)",
-    "show_only_conversation_under_this": "Only show replies to this status"
+    "show_only_conversation_under_this": "Only show replies to this status",
+    "status_history": "Status history"
   },
   "user_card": {
     "approve": "Approve",

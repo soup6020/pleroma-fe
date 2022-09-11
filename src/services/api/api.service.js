@@ -1,5 +1,5 @@
 import { each, map, concat, last, get } from 'lodash'
-import { parseStatus, parseUser, parseNotification, parseAttachment, parseChat, parseLinkHeaderPagination } from '../entity_normalizer/entity_normalizer.service.js'
+import { parseStatus, parseSource, parseUser, parseNotification, parseAttachment, parseChat, parseLinkHeaderPagination } from '../entity_normalizer/entity_normalizer.service.js'
 import { RegistrationError, StatusCodeError } from '../errors/errors'
 
 /* eslint-env browser */
@@ -49,6 +49,8 @@ const MASTODON_PUBLIC_TIMELINE = '/api/v1/timelines/public'
 const MASTODON_USER_HOME_TIMELINE_URL = '/api/v1/timelines/home'
 const MASTODON_STATUS_URL = id => `/api/v1/statuses/${id}`
 const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
+const MASTODON_STATUS_SOURCE_URL = id => `/api/v1/statuses/${id}/source`
+const MASTODON_STATUS_HISTORY_URL = id => `/api/v1/statuses/${id}/history`
 const MASTODON_USER_URL = '/api/v1/accounts'
 const MASTODON_USER_LOOKUP_URL = '/api/v1/accounts/lookup'
 const MASTODON_USER_RELATIONSHIPS_URL = '/api/v1/accounts/relationships'
@@ -522,6 +524,31 @@ const fetchStatus = ({ id, credentials }) => {
     .then((data) => parseStatus(data))
 }
 
+const fetchStatusSource = ({ id, credentials }) => {
+  const url = MASTODON_STATUS_SOURCE_URL(id)
+  return fetch(url, { headers: authHeaders(credentials) })
+    .then((data) => {
+      if (data.ok) {
+        return data
+      }
+      throw new Error('Error fetching source', data)
+    })
+    .then((data) => data.json())
+    .then((data) => parseSource(data))
+}
+
+const fetchStatusHistory = ({ status, credentials }) => {
+  const url = MASTODON_STATUS_HISTORY_URL(status.id)
+  return promisedRequest({ url, credentials })
+    .then((data) => {
+      data.reverse()
+      return data.map((item) => {
+        item.originalStatus = status
+        return parseStatus(item)
+      })
+    })
+}
+
 const tagUser = ({ tag, credentials, user }) => {
   const screenName = user.screen_name
   const form = {
@@ -818,6 +845,54 @@ const postStatus = ({
     body: form,
     method: 'POST',
     headers: postHeaders
+  })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => data.error ? data : parseStatus(data))
+}
+
+const editStatus = ({
+  id,
+  credentials,
+  status,
+  spoilerText,
+  sensitive,
+  poll,
+  mediaIds = [],
+  contentType
+}) => {
+  const form = new FormData()
+  const pollOptions = poll.options || []
+
+  form.append('status', status)
+  if (spoilerText) form.append('spoiler_text', spoilerText)
+  if (sensitive) form.append('sensitive', sensitive)
+  if (contentType) form.append('content_type', contentType)
+  mediaIds.forEach(val => {
+    form.append('media_ids[]', val)
+  })
+
+  if (pollOptions.some(option => option !== '')) {
+    const normalizedPoll = {
+      expires_in: poll.expiresIn,
+      multiple: poll.multiple
+    }
+    Object.keys(normalizedPoll).forEach(key => {
+      form.append(`poll[${key}]`, normalizedPoll[key])
+    })
+
+    pollOptions.forEach(option => {
+      form.append('poll[options][]', option)
+    })
+  }
+
+  const putHeaders = authHeaders(credentials)
+
+  return fetch(MASTODON_STATUS_URL(id), {
+    body: form,
+    method: 'PUT',
+    headers: putHeaders
   })
     .then((response) => {
       return response.json()
@@ -1291,7 +1366,8 @@ const MASTODON_STREAMING_EVENTS = new Set([
   'update',
   'notification',
   'delete',
-  'filters_changed'
+  'filters_changed',
+  'status.update'
 ])
 
 const PLEROMA_STREAMING_EVENTS = new Set([
@@ -1362,6 +1438,8 @@ export const handleMastoWS = (wsEvent) => {
     }
     const data = payload ? JSON.parse(payload) : null
     if (event === 'update') {
+      return { event, status: parseStatus(data) }
+    } else if (event === 'status.update') {
       return { event, status: parseStatus(data) }
     } else if (event === 'notification') {
       return { event, notification: parseNotification(data) }
@@ -1497,6 +1575,8 @@ const apiService = {
   fetchPinnedStatuses,
   fetchConversation,
   fetchStatus,
+  fetchStatusSource,
+  fetchStatusHistory,
   fetchFriends,
   exportFriends,
   fetchFollowers,
@@ -1518,6 +1598,7 @@ const apiService = {
   bookmarkStatus,
   unbookmarkStatus,
   postStatus,
+  editStatus,
   deleteStatus,
   uploadMedia,
   setMediaDescription,

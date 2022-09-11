@@ -67,6 +67,8 @@
     <MobilePostStatusButton />
     <UserReportingModal />
     <PostStatusModal />
+    <EditStatusModal v-if="editingAvailable" />
+    <StatusHistoryModal v-if="editingAvailable" />
     <SettingsModal />
     <UpdateNotification />
     <div id="modal" />

@@ -55,6 +55,14 @@ const pxStringToNumber = (str) => {
 
 const PostStatusForm = {
   props: [
+    'statusId',
+    'statusText',
+    'statusIsSensitive',
+    'statusPoll',
+    'statusFiles',
+    'statusMediaDescriptions',
+    'statusScope',
+    'statusContentType',
     'replyTo',
     'repliedUser',
     'attentions',
@@ -62,6 +70,7 @@ const PostStatusForm = {
     'subject',
     'disableSubject',
     'disableScopeSelector',
+    'disableVisibilitySelector',
     'disableNotice',
     'disableLockWarning',
     'disablePolls',
@@ -125,22 +134,38 @@ const PostStatusForm = {
 
     const { postContentType: contentType, sensitiveByDefault } = this.$store.getters.mergedConfig
 
+    let statusParams = {
+      spoilerText: this.subject || '',
+      status: statusText,
+      nsfw: !!sensitiveByDefault,
+      files: [],
+      poll: {},
+      mediaDescriptions: {},
+      visibility: scope,
+      contentType
+    }
+
+    if (this.statusId) {
+      const statusContentType = this.statusContentType || contentType
+      statusParams = {
+        spoilerText: this.subject || '',
+        status: this.statusText || '',
+        nsfw: this.statusIsSensitive || !!sensitiveByDefault,
+        files: this.statusFiles || [],
+        poll: this.statusPoll || {},
+        mediaDescriptions: this.statusMediaDescriptions || {},
+        visibility: this.statusScope || scope,
+        contentType: statusContentType
+      }
+    }
+
     return {
       dropFiles: [],
       uploadingFiles: false,
       error: null,
       posting: false,
       highlighted: 0,
-      newStatus: {
-        spoilerText: this.subject || '',
-        status: statusText,
-        nsfw: !!sensitiveByDefault,
-        files: [],
-        poll: {},
-        mediaDescriptions: {},
-        visibility: scope,
-        contentType
-      },
+      newStatus: statusParams,
       caret: 0,
       pollFormVisible: false,
       showDropIcon: 'hide',
@@ -235,6 +260,9 @@ const PostStatusForm = {
     },
     uploadFileLimitReached () {
       return this.newStatus.files.length >= this.fileLimit
+    },
+    isEdit () {
+      return typeof this.statusId !== 'undefined' && this.statusId.trim() !== ''
     },
     ...mapGetters(['mergedConfig']),
     ...mapState({

@@ -20,6 +20,9 @@ import oauthTokensModule from './modules/oauth_tokens.js'
 import reportsModule from './modules/reports.js'
 import pollsModule from './modules/polls.js'
 import postStatusModule from './modules/postStatus.js'
+import editStatusModule from './modules/editStatus.js'
+import statusHistoryModule from './modules/statusHistory.js'
+
 import chatsModule from './modules/chats.js'
 
 import { createI18n } from 'vue-i18n'
@@ -86,6 +89,8 @@ const persistedStateOptions = {
       reports: reportsModule,
       polls: pollsModule,
       postStatus: postStatusModule,
+      editStatus: editStatusModule,
+      statusHistory: statusHistoryModule,
       chats: chatsModule
     },
     plugins,
