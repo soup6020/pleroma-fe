@@ -17,9 +17,9 @@ export const CURRENT_UPDATE_COUNTER = 1
 const UpdateNotification = {
   data () {
     return {
+      showingImage: false,
       pleromaTanVariant: Math.random() > 0.5 ? pleromaTan : pleromaTanFox,
-      showingMore: false,
-      contentHeight: 0
+      showingMore: false
     }
   },
   components: {
@@ -30,11 +30,6 @@ const UpdateNotification = {
       const mask = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
       return {
         'shape-outside': 'url(' + mask + ')'
-      }
-    },
-    dynamicStyles () {
-      return {
-        '--____extraInfoGroupHeight': this.contentHeight + 'px'
       }
     },
     shouldShow () {
@@ -60,12 +55,12 @@ const UpdateNotification = {
     }
   },
   mounted () {
+    this.contentHeightNoImage = this.$refs.animatedText.scrollHeight
+
     // Workaround to get the text height only after mask loaded. A bit hacky.
     const newImg = new Image()
     newImg.onload = () => {
-      setTimeout(() => {
-        this.contentHeight = this.$refs.animatedText.scrollHeight
-      }, 100)
+      setTimeout(() => { this.showingImage = true }, 100)
     }
     newImg.src = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
   }
