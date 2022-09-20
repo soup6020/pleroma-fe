@@ -1629,6 +1629,11 @@
   dependencies:
     pointer-tracker "^2.0.3"
 
+"@kazvmoe-infra/unicode-emoji-json@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@kazvmoe-infra/unicode-emoji-json/-/unicode-emoji-json-0.4.0.tgz#555bab2f8d11db74820ef0a2fbe2805b17c22587"
+  integrity sha512-22OffREdHzD0U6A/W4RaFPV8NR73za6euibtAxNxO/fu5A6TwxRO2lAdbDWKJH9COv/vYs8zqfEiSalXH2nXJA==
+
 "@nightwatch/chai@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@nightwatch/chai/-/chai-5.0.2.tgz#86b20908fc090dffd5c9567c0392bc6a494cc2e6"
