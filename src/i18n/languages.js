@@ -38,7 +38,15 @@ const specialJsonName = {
 
 const langCodeToJsonName = (code) => specialJsonName[code] || code
 
+const langCodeToCldrName = (code) => code
+
+const ensureFinalFallback = codes => {
+  return codes.includes('en') ? codes : codes.concat(['en'])
+}
+
 module.exports = {
   languages,
-  langCodeToJsonName
+  langCodeToJsonName,
+  langCodeToCldrName,
+  ensureFinalFallback
 }

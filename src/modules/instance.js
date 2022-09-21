@@ -2,6 +2,7 @@ import { getPreset, applyTheme } from '../services/style_setter/style_setter.js'
 import { CURRENT_VERSION } from '../services/theme_data/theme_data.service.js'
 import apiService from '../services/api/api.service.js'
 import { instanceDefaultProperties } from './config.js'
+import { langCodeToCldrName, ensureFinalFallback } from '../i18n/languages.js'
 
 const SORTED_EMOJI_GROUP_IDS = [
   'smileys-and-emotion',
@@ -78,6 +79,7 @@ const defaultState = {
   customEmojiFetched: false,
   emoji: {},
   emojiFetched: false,
+  unicodeEmojiAnnotations: {},
   pleromaBackend: true,
   postFormats: [],
   restrictedNicknames: [],
@@ -109,6 +111,12 @@ const defaultState = {
   }
 }
 
+const loadAnnotations = (lang) => {
+  return import(
+    `@kazvmoe-infra/unicode-emoji-json/annotations/${langCodeToCldrName(lang)}.json`
+  )
+}
+
 const instance = {
   state: defaultState,
   mutations: {
@@ -119,6 +127,9 @@ const instance = {
     },
     setKnownDomains (state, domains) {
       state.knownDomains = domains
+    },
+    setUnicodeEmojiAnnotations (state, { lang, annotations }) {
+      state.unicodeEmojiAnnotations[lang] = annotations
     }
   },
   getters: {
@@ -204,6 +215,19 @@ const instance = {
         console.warn("Can't load static emoji")
         console.warn(e)
       }
+    },
+
+    loadUnicodeEmojiData ({ commit, state }, language) {
+      const langList = ensureFinalFallback(Array.isArray(language) ? language : [language])
+
+      return Promise.all(
+        langList
+          .forEach(async lang => {
+            if (!state.unicodeEmojiAnnotations[lang]) {
+              const annotations = await loadAnnotations(lang)
+              commit('setUnicodeEmojiAnnotations', { lang, annotations })
+            }
+          }))
     },
 
     async getCustomEmoji ({ commit, state }) {
