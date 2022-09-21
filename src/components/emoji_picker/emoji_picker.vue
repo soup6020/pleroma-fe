@@ -88,7 +88,7 @@
             <span
               v-for="emoji in group.emojis"
               :key="group.id + emoji.displayText"
-              :title="emoji.displayText"
+              :title="maybeLocalizedEmojiName(emoji)"
               class="emoji-item"
               @click.stop.prevent="onEmoji(emoji)"
             >

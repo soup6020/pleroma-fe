@@ -117,6 +117,18 @@ const loadAnnotations = (lang) => {
   )
 }
 
+const injectAnnotations = (emoji, annotations) => {
+  const availableLangs = Object.keys(annotations)
+
+  return {
+    ...emoji,
+    annotations: availableLangs.reduce((acc, cur) => {
+      acc[cur] = annotations[cur][emoji.replacement]
+      return acc
+    }, {})
+  }
+}
+
 const instance = {
   state: defaultState,
   mutations: {
@@ -164,13 +176,13 @@ const instance = {
     },
     standardEmojiList (state) {
       return SORTED_EMOJI_GROUP_IDS
-        .map(groupId => state.emoji[groupId] || [])
+        .map(groupId => (state.emoji[groupId] || []).map(k => injectAnnotations(k, state.unicodeEmojiAnnotations)))
         .reduce((a, b) => a.concat(b), [])
     },
     standardEmojiGroupList (state) {
       return SORTED_EMOJI_GROUP_IDS.map(groupId => ({
         id: groupId,
-        emojis: state.emoji[groupId] || []
+        emojis: (state.emoji[groupId] || []).map(k => injectAnnotations(k, state.unicodeEmojiAnnotations))
       }))
     },
     instanceDomain (state) {
@@ -218,7 +230,7 @@ const instance = {
     },
 
     loadUnicodeEmojiData ({ commit, state }, language) {
-      const langList = ensureFinalFallback(Array.isArray(language) ? language : [language])
+      const langList = ensureFinalFallback(language)
 
       return Promise.all(
         langList

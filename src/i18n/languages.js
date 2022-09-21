@@ -41,7 +41,8 @@ const langCodeToJsonName = (code) => specialJsonName[code] || code
 const langCodeToCldrName = (code) => code
 
 const ensureFinalFallback = codes => {
-  return codes.includes('en') ? codes : codes.concat(['en'])
+  const codeList = Array.isArray(codes) ? codes : [codes]
+  return codeList.includes('en') ? codeList : codeList.concat(['en'])
 }
 
 module.exports = {

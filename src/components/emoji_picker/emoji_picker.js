@@ -1,6 +1,7 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
 import StillImage from '../still-image/still-image.vue'
+import { ensureFinalFallback } from '../../i18n/languages.js'
 import lozad from 'lozad'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -285,6 +286,25 @@ const EmojiPicker = {
         this.waitForDomAndInitializeLazyLoad()
         this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       }, 500)
+    },
+    languages () {
+      console.log('languages:', ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage))
+      return ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage)
+    },
+    maybeLocalizedEmojiName () {
+      return emoji => {
+        if (!emoji.annotations) {
+          return emoji.displayText
+        }
+
+        for (const lang of this.languages) {
+          if (emoji.annotations[lang]?.name) {
+            return emoji.annotations[lang].name
+          }
+        }
+
+        return emoji.displayText
+      }
     }
   }
 }
