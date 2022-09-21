@@ -47,13 +47,30 @@ const UNICODE_EMOJI_GROUP_ICON = {
   flags: 'flag'
 }
 
-const filterByKeyword = (list, keyword = '') => {
+const maybeLocalizedKeywords = (emoji, languages) => {
+  const res = [emoji.displayText]
+  if (emoji.annotations) {
+    languages.forEach(lang => {
+      const keywords = emoji.annotations[lang]?.keywords || []
+      const name = emoji.annotations[lang]?.name
+      res.push(...(keywords.concat([name]).filter(k => k)))
+    })
+  }
+  return res
+}
+
+const filterByKeyword = (list, keyword = '', languages) => {
   if (keyword === '') return list
 
   const keywordLowercase = keyword.toLowerCase()
   const orderedEmojiList = []
   for (const emoji of list) {
-    const indexOfKeyword = emoji.displayText.toLowerCase().indexOf(keywordLowercase)
+    const indices = maybeLocalizedKeywords(emoji, languages)
+      .map(k => k.toLowerCase().indexOf(keywordLowercase))
+      .filter(k => k > -1)
+
+    const indexOfKeyword = indices.length ? Math.min(...indices) : -1
+
     if (indexOfKeyword > -1) {
       if (!Array.isArray(orderedEmojiList[indexOfKeyword])) {
         orderedEmojiList[indexOfKeyword] = []
@@ -172,7 +189,7 @@ const EmojiPicker = {
       this.showingStickers = value
     },
     filterByKeyword (list, keyword) {
-      return filterByKeyword(list, keyword)
+      return filterByKeyword(list, keyword, this.languages)
     },
     initializeLazyLoad () {
       this.destroyLazyLoad()
@@ -221,7 +238,7 @@ const EmojiPicker = {
       return this.allEmojiGroups
         .map(group => ({
           ...group,
-          emojis: filterByKeyword(group.emojis, trim(this.keyword))
+          emojis: this.filterByKeyword(group.emojis, trim(this.keyword))
         }))
         .filter(group => group.emojis.length > 0)
     }
