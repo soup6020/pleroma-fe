@@ -133,6 +133,7 @@ const defaultState = {
 
 const loadAnnotations = (lang) => {
   return import(
+    /* webpackChunkName: "emoji-annotations/[request]" */
     `@kazvmoe-infra/unicode-emoji-json/annotations/${langCodeToCldrName(lang)}.json`
   )
     .then(k => k.default)
@@ -234,7 +235,7 @@ const instance = {
     },
     async getStaticEmoji ({ commit }) {
       try {
-        const values = (await import('../../static/emoji.json')).default
+        const values = (await import(/* webpackChunkName: 'emoji' */ '../../static/emoji.json')).default
 
         const emoji = Object.keys(values).reduce((res, groupId) => {
           res[groupId] = values[groupId].map(e => ({

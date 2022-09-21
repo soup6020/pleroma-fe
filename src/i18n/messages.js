@@ -14,6 +14,7 @@ const hasLanguageFile = (code) => languages.includes(code)
 const loadLanguageFile = (code) => {
   return import(
     /* webpackInclude: /\.json$/ */
+    /* webpackChunkName: "i18n/[request]" */
     `./${langCodeToJsonName(code)}.json`
   )
 }
