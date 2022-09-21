@@ -16,6 +16,26 @@ const SORTED_EMOJI_GROUP_IDS = [
   'flags'
 ]
 
+const REGIONAL_INDICATORS = (() => {
+  const start = 0x1F1E6
+  const end = 0x1F1FF
+  const A = 'A'.codePointAt(0)
+  const res = new Array(end - start + 1)
+  for (let i = start; i <= end; ++i) {
+    const letter = String.fromCodePoint(A + i - start)
+    res[i - start] = {
+      replacement: String.fromCodePoint(i),
+      imageUrl: false,
+      displayText: 'regional_indicator_' + letter,
+      displayTextI18n: {
+        key: 'emoji.regional_indicator',
+        args: { letter }
+      }
+    }
+  }
+  return res
+})()
+
 const defaultState = {
   // Stuff from apiConfig
   name: 'Pleroma FE',
@@ -129,6 +149,11 @@ const injectAnnotations = (emoji, annotations) => {
   }
 }
 
+const injectRegionalIndicators = groups => {
+  groups.symbols.push(...REGIONAL_INDICATORS)
+  return groups
+}
+
 const instance = {
   state: defaultState,
   mutations: {
@@ -219,7 +244,7 @@ const instance = {
             }))
             return res
           }, {})
-          commit('setInstanceOption', { name: 'emoji', value: emoji })
+          commit('setInstanceOption', { name: 'emoji', value: injectRegionalIndicators(emoji) })
         } else {
           throw (res)
         }
@@ -234,7 +259,7 @@ const instance = {
 
       return Promise.all(
         langList
-          .forEach(async lang => {
+          .map(async lang => {
             if (!state.unicodeEmojiAnnotations[lang]) {
               const annotations = await loadAnnotations(lang)
               commit('setUnicodeEmojiAnnotations', { lang, annotations })

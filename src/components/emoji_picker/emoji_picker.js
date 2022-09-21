@@ -47,8 +47,8 @@ const UNICODE_EMOJI_GROUP_ICON = {
   flags: 'flag'
 }
 
-const maybeLocalizedKeywords = (emoji, languages) => {
-  const res = [emoji.displayText]
+const maybeLocalizedKeywords = (emoji, languages, nameLocalizer) => {
+  const res = [emoji.displayText, nameLocalizer(emoji)]
   if (emoji.annotations) {
     languages.forEach(lang => {
       const keywords = emoji.annotations[lang]?.keywords || []
@@ -59,13 +59,13 @@ const maybeLocalizedKeywords = (emoji, languages) => {
   return res
 }
 
-const filterByKeyword = (list, keyword = '', languages) => {
+const filterByKeyword = (list, keyword = '', languages, nameLocalizer) => {
   if (keyword === '') return list
 
   const keywordLowercase = keyword.toLowerCase()
   const orderedEmojiList = []
   for (const emoji of list) {
-    const indices = maybeLocalizedKeywords(emoji, languages)
+    const indices = maybeLocalizedKeywords(emoji, languages, nameLocalizer)
       .map(k => k.toLowerCase().indexOf(keywordLowercase))
       .filter(k => k > -1)
 
@@ -189,7 +189,7 @@ const EmojiPicker = {
       this.showingStickers = value
     },
     filterByKeyword (list, keyword) {
-      return filterByKeyword(list, keyword, this.languages)
+      return filterByKeyword(list, keyword, this.languages, this.maybeLocalizedEmojiName)
     },
     initializeLazyLoad () {
       this.destroyLazyLoad()
@@ -305,13 +305,16 @@ const EmojiPicker = {
       }, 500)
     },
     languages () {
-      console.log('languages:', ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage))
       return ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage)
     },
     maybeLocalizedEmojiName () {
       return emoji => {
         if (!emoji.annotations) {
           return emoji.displayText
+        }
+
+        if (emoji.displayTextI18n) {
+          return this.$t(emoji.displayTextI18n.key, emoji.displayTextI18n.args)
         }
 
         for (const lang of this.languages) {
