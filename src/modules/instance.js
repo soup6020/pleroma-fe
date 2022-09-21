@@ -135,6 +135,7 @@ const loadAnnotations = (lang) => {
   return import(
     `@kazvmoe-infra/unicode-emoji-json/annotations/${langCodeToCldrName(lang)}.json`
   )
+    .then(k => k.default)
 }
 
 const injectAnnotations = (emoji, annotations) => {
@@ -233,21 +234,17 @@ const instance = {
     },
     async getStaticEmoji ({ commit }) {
       try {
-        const res = await window.fetch('/static/emoji.json')
-        if (res.ok) {
-          const values = await res.json()
-          const emoji = Object.keys(values).reduce((res, groupId) => {
-            res[groupId] = values[groupId].map(e => ({
-              displayText: e.slug,
-              imageUrl: false,
-              replacement: e.emoji
-            }))
-            return res
-          }, {})
-          commit('setInstanceOption', { name: 'emoji', value: injectRegionalIndicators(emoji) })
-        } else {
-          throw (res)
-        }
+        const values = (await import('../../static/emoji.json')).default
+
+        const emoji = Object.keys(values).reduce((res, groupId) => {
+          res[groupId] = values[groupId].map(e => ({
+            displayText: e.slug,
+            imageUrl: false,
+            replacement: e.emoji
+          }))
+          return res
+        }, {})
+        commit('setInstanceOption', { name: 'emoji', value: injectRegionalIndicators(emoji) })
       } catch (e) {
         console.warn("Can't load static emoji")
         console.warn(e)

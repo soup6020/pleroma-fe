@@ -1,7 +1,7 @@
 
 module.exports = {
   updateEmoji () {
-    const emojis = require('unicode-emoji-json/data-by-group')
+    const emojis = require('@kazvmoe-infra/unicode-emoji-json/data-by-group')
     const fs = require('fs')
 
     Object.keys(emojis)
