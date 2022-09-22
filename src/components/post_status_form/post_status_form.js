@@ -189,7 +189,7 @@ const PostStatusForm = {
     emojiUserSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ],
         store: this.$store
@@ -198,13 +198,13 @@ const PostStatusForm = {
     emojiSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ]
       })
     },
     emoji () {
-      return this.$store.state.instance.emoji || []
+      return this.$store.getters.standardEmojiList || []
     },
     customEmoji () {
       return this.$store.state.instance.customEmoji || []
