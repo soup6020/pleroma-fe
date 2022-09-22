@@ -64,7 +64,7 @@
               v-if="!suggestion.user"
               class="displayText"
             >
-              {{ suggestion.displayText }}
+              {{ maybeLocalizedEmojiName(suggestion) }}
             </span>
             <span class="detailText">{{ suggestion.detailText }}</span>
           </div>

@@ -13,10 +13,10 @@
 export default data => {
   const emojiCurry = suggestEmoji(data.emoji)
   const usersCurry = data.store && suggestUsers(data.store)
-  return input => {
+  return (input, nameKeywordLocalizer) => {
     const firstChar = input[0]
     if (firstChar === ':' && data.emoji) {
-      return emojiCurry(input)
+      return emojiCurry(input, nameKeywordLocalizer)
     }
     if (firstChar === '@' && usersCurry) {
       return usersCurry(input)
@@ -25,34 +25,34 @@ export default data => {
   }
 }
 
-export const suggestEmoji = emojis => input => {
+export const suggestEmoji = emojis => (input, nameKeywordLocalizer) => {
   const noPrefix = input.toLowerCase().substr(1)
   return emojis
-    .filter(({ displayText }) => displayText.toLowerCase().match(noPrefix))
-    .sort((a, b) => {
-      let aScore = 0
-      let bScore = 0
+    .map(emoji => ({ ...emoji, ...nameKeywordLocalizer(emoji) }))
+    .filter((emoji) => (emoji.names.concat(emoji.keywords)).filter(kw => kw.toLowerCase().match(noPrefix)).length)
+    .map(k => {
+      let score = 0
 
       // An exact match always wins
-      aScore += a.displayText.toLowerCase() === noPrefix ? 200 : 0
-      bScore += b.displayText.toLowerCase() === noPrefix ? 200 : 0
+      score += Math.max(...k.names.map(name => name.toLowerCase() === noPrefix ? 200 : 0), 0)
 
       // Prioritize custom emoji a lot
-      aScore += a.imageUrl ? 100 : 0
-      bScore += b.imageUrl ? 100 : 0
+      score += k.imageUrl ? 100 : 0
 
       // Prioritize prefix matches somewhat
-      aScore += a.displayText.toLowerCase().startsWith(noPrefix) ? 10 : 0
-      bScore += b.displayText.toLowerCase().startsWith(noPrefix) ? 10 : 0
+      score += Math.max(...k.names.map(kw => kw.toLowerCase().startsWith(noPrefix) ? 10 : 0), 0)
 
       // Sort by length
-      aScore -= a.displayText.length
-      bScore -= b.displayText.length
+      score -= k.displayText.length
 
+      k.score = score
+      return k
+    })
+    .sort((a, b) => {
       // Break ties alphabetically
       const alphabetically = a.displayText > b.displayText ? 0.5 : -0.5
 
-      return bScore - aScore + alphabetically
+      return b.score - a.score + alphabetically
     })
 }
 
