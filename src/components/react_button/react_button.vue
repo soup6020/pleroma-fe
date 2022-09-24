@@ -7,7 +7,8 @@
     :bound-to="{ x: 'container' }"
     remove-padding
     popover-class="ReactButton popover-default"
-    @show="focusInput"
+    @show="onShow"
+    @close="onClose"
   >
     <template #content="{close}">
       <div class="reaction-picker-filter">
@@ -46,10 +47,24 @@
         class="button-unstyled popover-trigger"
         :title="$t('tool_tip.add_reaction')"
       >
-        <FAIcon
-          class="fa-scale-110 fa-old-padding"
-          :icon="['far', 'smile-beam']"
-        />
+        <FALayers>
+          <FAIcon
+            class="fa-scale-110 fa-old-padding"
+            :icon="['far', 'smile-beam']"
+          />
+          <FAIcon
+            v-show="!expanded"
+            class="focus-marker"
+            transform="shrink-6 up-9 right-17"
+            icon="plus"
+          />
+          <FAIcon
+            v-show="expanded"
+            class="focus-marker"
+            transform="shrink-6 up-9 right-17"
+            icon="times"
+          />
+        </FALayers>
       </span>
     </template>
   </Popover>
@@ -59,6 +74,7 @@
 
 <style lang="scss">
 @import '../../_variables.scss';
+@import '../../_mixins.scss';
 
 .ReactButton {
   .reaction-picker-filter {
@@ -124,6 +140,21 @@
     &:hover .svg-inline--fa {
       color: $fallback--text;
       color: var(--text, $fallback--text);
+    }
+
+  }
+
+  .popover-trigger-button {
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
+    }
+
+    @include focused-style {
+      .focus-marker {
+        visibility: visible;
+      }
     }
   }
 }

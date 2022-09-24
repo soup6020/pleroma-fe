@@ -19,6 +19,7 @@
         v-if="enableEmojiPicker"
         ref="picker"
         :class="{ hide: !showPicker }"
+        :showing="showPicker"
         :enable-sticker-picker="enableStickerPicker"
         class="emoji-picker-panel"
         @emoji="insert"
@@ -50,7 +51,21 @@
             <span v-else>{{ suggestion.replacement }}</span>
           </span>
           <div class="label">
-            <span class="displayText">{{ suggestion.displayText }}</span>
+            <span
+              v-if="suggestion.user"
+              class="displayText"
+            >
+              {{ suggestion.displayText }}<UnicodeDomainIndicator
+                :user="suggestion.user"
+                :at="false"
+              />
+            </span>
+            <span
+              v-if="!suggestion.user"
+              class="displayText"
+            >
+              {{ maybeLocalizedEmojiName(suggestion) }}
+            </span>
             <span class="detailText">{{ suggestion.detailText }}</span>
           </div>
         </div>

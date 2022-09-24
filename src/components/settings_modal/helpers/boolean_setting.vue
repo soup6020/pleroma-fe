@@ -15,7 +15,12 @@
         <slot />
       </span>
       {{ ' ' }}
-      <ModifiedIndicator :changed="isChanged" /><ServerSideIndicator :server-side="isServerSide" /> </Checkbox>
+      <ModifiedIndicator
+        :changed="isChanged"
+        :onclick="reset"
+      />
+      <ServerSideIndicator :server-side="isServerSide" />
+    </Checkbox>
   </label>
 </template>
 

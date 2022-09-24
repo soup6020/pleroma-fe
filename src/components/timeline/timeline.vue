@@ -1,7 +1,10 @@
 <template>
   <div :class="['Timeline', classes.root]">
     <div :class="classes.header">
-      <TimelineMenu v-if="!embedded" />
+      <TimelineMenu
+        v-if="!embedded"
+        :timeline-name="timelineName"
+      />
       <button
         v-if="showLoadButton"
         class="button-default loadmore-button"
@@ -16,7 +19,8 @@
       >
         {{ $t('timeline.up_to_date') }}
       </div>
-      <TimelineQuickSettings v-if="!embedded" />
+      <QuickFilterSettings v-if="!embedded" />
+      <QuickViewSettings v-if="!embedded" />
     </div>
     <div :class="classes.body">
       <div

@@ -1,13 +1,14 @@
 <template>
   <Popover
     trigger="click"
-    class="TimelineQuickSettings"
+    class="QuickFilterSettings"
     :bound-to="{ x: 'container' }"
   >
     <template #content>
       <div class="dropdown-menu">
         <div v-if="loggedIn">
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilityAll = true"
           >
@@ -17,6 +18,7 @@
             />{{ $t('settings.reply_visibility_all') }}
           </button>
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilityFollowing = true"
           >
@@ -26,6 +28,7 @@
             />{{ $t('settings.reply_visibility_following_short') }}
           </button>
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilitySelf = true"
           >
@@ -35,6 +38,7 @@
             />{{ $t('settings.reply_visibility_self_short') }}
           </button>
           <div
+            v-if="!conversation"
             role="separator"
             class="dropdown-divider"
           />
@@ -70,13 +74,7 @@
           class="button-default dropdown-item dropdown-item-icon"
           @click="openTab('filtering')"
         >
-          <FAIcon icon="font" />{{ $t('settings.word_filter') }}
-        </button>
-        <button
-          class="button-default dropdown-item dropdown-item-icon"
-          @click="openTab('general')"
-        >
-          <FAIcon icon="wrench" />{{ $t('settings.more_settings') }}
+          <FAIcon icon="font" />{{ $t('settings.word_filter_and_more') }}
         </button>
       </div>
     </template>
@@ -88,11 +86,11 @@
   </Popover>
 </template>
 
-<script src="./timeline_quick_settings.js"></script>
+<script src="./quick_filter_settings.js"></script>
 
 <style lang="scss">
 
-.TimelineQuickSettings {
+.QuickFilterSettings {
 
   > button {
     line-height: 100%;

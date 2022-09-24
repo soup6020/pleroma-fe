@@ -129,6 +129,9 @@ const Attachment = {
     ...mapGetters(['mergedConfig'])
   },
   watch: {
+    'attachment.description' (newVal) {
+      this.localDescription = newVal
+    },
     localDescription (newVal) {
       this.onEdit(newVal)
     }

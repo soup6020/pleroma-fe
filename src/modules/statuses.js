@@ -62,7 +62,8 @@ export const defaultState = () => ({
     friends: emptyTl(),
     tag: emptyTl(),
     dms: emptyTl(),
-    bookmarks: emptyTl()
+    bookmarks: emptyTl(),
+    list: emptyTl()
   }
 })
 
@@ -248,6 +249,9 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
     status: (status) => {
       addStatus(status, showImmediately)
     },
+    edit: (status) => {
+      addStatus(status, showImmediately)
+    },
     retweet: (status) => {
       // RetweetedStatuses are never shown immediately
       const retweetedStatus = addStatus(status.retweeted_status, false, false)
@@ -334,6 +338,10 @@ const addNewNotifications = (state, { dispatch, notifications, older, visibleNot
     if (isStatusNotification(notification.type)) {
       notification.action = addStatusToGlobalStorage(state, notification.action).item
       notification.status = notification.status && addStatusToGlobalStorage(state, notification.status).item
+    }
+
+    if (notification.type === 'pleroma:report') {
+      dispatch('addReport', notification.report)
     }
 
     if (notification.type === 'pleroma:emoji_reaction') {
@@ -600,6 +608,12 @@ const statuses = {
     fetchStatus ({ rootState, dispatch }, id) {
       return rootState.api.backendInteractor.fetchStatus({ id })
         .then((status) => dispatch('addNewStatuses', { statuses: [status] }))
+    },
+    fetchStatusSource ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusSource({ id: status.id, credentials: rootState.users.currentUser.credentials })
+    },
+    fetchStatusHistory ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusHistory({ status })
     },
     deleteStatus ({ rootState, commit }, status) {
       commit('setDeleted', { status })

@@ -61,6 +61,7 @@
             :title="$t('nav.administration')"
           />
         </a>
+        <span class="spacer" />
         <button
           v-if="currentUser"
           class="button-unstyled nav-icon"

@@ -1,5 +1,5 @@
 import { each, map, concat, last, get } from 'lodash'
-import { parseStatus, parseUser, parseNotification, parseAttachment, parseChat, parseLinkHeaderPagination } from '../entity_normalizer/entity_normalizer.service.js'
+import { parseStatus, parseSource, parseUser, parseNotification, parseAttachment, parseChat, parseLinkHeaderPagination } from '../entity_normalizer/entity_normalizer.service.js'
 import { RegistrationError, StatusCodeError } from '../errors/errors'
 
 /* eslint-env browser */
@@ -49,9 +49,16 @@ const MASTODON_PUBLIC_TIMELINE = '/api/v1/timelines/public'
 const MASTODON_USER_HOME_TIMELINE_URL = '/api/v1/timelines/home'
 const MASTODON_STATUS_URL = id => `/api/v1/statuses/${id}`
 const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
+const MASTODON_STATUS_SOURCE_URL = id => `/api/v1/statuses/${id}/source`
+const MASTODON_STATUS_HISTORY_URL = id => `/api/v1/statuses/${id}/history`
 const MASTODON_USER_URL = '/api/v1/accounts'
+const MASTODON_USER_LOOKUP_URL = '/api/v1/accounts/lookup'
 const MASTODON_USER_RELATIONSHIPS_URL = '/api/v1/accounts/relationships'
 const MASTODON_USER_TIMELINE_URL = id => `/api/v1/accounts/${id}/statuses`
+const MASTODON_USER_IN_LISTS = id => `/api/v1/accounts/${id}/lists`
+const MASTODON_LIST_URL = id => `/api/v1/lists/${id}`
+const MASTODON_LIST_TIMELINE_URL = id => `/api/v1/timelines/list/${id}`
+const MASTODON_LIST_ACCOUNTS_URL = id => `/api/v1/lists/${id}/accounts`
 const MASTODON_TAG_TIMELINE_URL = tag => `/api/v1/timelines/tag/${tag}`
 const MASTODON_BOOKMARK_TIMELINE_URL = '/api/v1/bookmarks'
 const MASTODON_USER_BLOCKS_URL = '/api/v1/blocks/'
@@ -60,6 +67,7 @@ const MASTODON_BLOCK_USER_URL = id => `/api/v1/accounts/${id}/block`
 const MASTODON_UNBLOCK_USER_URL = id => `/api/v1/accounts/${id}/unblock`
 const MASTODON_MUTE_USER_URL = id => `/api/v1/accounts/${id}/mute`
 const MASTODON_UNMUTE_USER_URL = id => `/api/v1/accounts/${id}/unmute`
+const MASTODON_REMOVE_USER_FROM_FOLLOWERS = id => `/api/v1/accounts/${id}/remove_from_followers`
 const MASTODON_SUBSCRIBE_USER = id => `/api/v1/pleroma/accounts/${id}/subscribe`
 const MASTODON_UNSUBSCRIBE_USER = id => `/api/v1/pleroma/accounts/${id}/unsubscribe`
 const MASTODON_BOOKMARK_STATUS_URL = id => `/api/v1/statuses/${id}/bookmark`
@@ -79,6 +87,7 @@ const MASTODON_UNMUTE_CONVERSATION = id => `/api/v1/statuses/${id}/unmute`
 const MASTODON_SEARCH_2 = '/api/v2/search'
 const MASTODON_USER_SEARCH_URL = '/api/v1/accounts/search'
 const MASTODON_DOMAIN_BLOCKS_URL = '/api/v1/domain_blocks'
+const MASTODON_LISTS_URL = '/api/v1/lists'
 const MASTODON_STREAMING = '/api/v1/streaming'
 const MASTODON_KNOWN_DOMAIN_LIST_URL = '/api/v1/instance/peers'
 const PLEROMA_EMOJI_REACTIONS_URL = id => `/api/v1/pleroma/statuses/${id}/reactions`
@@ -89,6 +98,7 @@ const PLEROMA_CHAT_URL = id => `/api/v1/pleroma/chats/by-account-id/${id}`
 const PLEROMA_CHAT_MESSAGES_URL = id => `/api/v1/pleroma/chats/${id}/messages`
 const PLEROMA_CHAT_READ_URL = id => `/api/v1/pleroma/chats/${id}/read`
 const PLEROMA_DELETE_CHAT_MESSAGE_URL = (chatId, messageId) => `/api/v1/pleroma/chats/${chatId}/messages/${messageId}`
+const PLEROMA_ADMIN_REPORTS = '/api/pleroma/admin/reports'
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
 
 const oldfetch = window.fetch
@@ -257,6 +267,13 @@ const unfollowUser = ({ id, credentials }) => {
   }).then((data) => data.json())
 }
 
+const fetchUserInLists = ({ id, credentials }) => {
+  const url = MASTODON_USER_IN_LISTS(id)
+  return fetch(url, {
+    headers: authHeaders(credentials)
+  }).then((data) => data.json())
+}
+
 const pinOwnStatus = ({ id, credentials }) => {
   return promisedRequest({ url: MASTODON_PIN_OWN_STATUS(id), credentials, method: 'POST' })
     .then((data) => parseStatus(data))
@@ -291,6 +308,13 @@ const unblockUser = ({ id, credentials }) => {
   }).then((data) => data.json())
 }
 
+const removeUserFromFollowers = ({ id, credentials }) => {
+  return fetch(MASTODON_REMOVE_USER_FROM_FOLLOWERS(id), {
+    headers: authHeaders(credentials),
+    method: 'POST'
+  }).then((data) => data.json())
+}
+
 const approveUser = ({ id, credentials }) => {
   const url = MASTODON_APPROVE_USER_URL(id)
   return fetch(url, {
@@ -311,6 +335,25 @@ const fetchUser = ({ id, credentials }) => {
   const url = `${MASTODON_USER_URL}/${id}`
   return promisedRequest({ url, credentials })
     .then((data) => parseUser(data))
+}
+
+const fetchUserByName = ({ name, credentials }) => {
+  return promisedRequest({
+    url: MASTODON_USER_LOOKUP_URL,
+    credentials,
+    params: { acct: name }
+  })
+    .then(data => data.id)
+    .catch(error => {
+      if (error && error.statusCode === 404) {
+        // Either the backend does not support lookup endpoint,
+        // or there is no user with such name. Fallback and treat name as id.
+        return name
+      } else {
+        throw error
+      }
+    })
+    .then(id => fetchUser({ id, credentials }))
 }
 
 const fetchUserRelationship = ({ id, credentials }) => {
@@ -385,6 +428,81 @@ const fetchFollowRequests = ({ credentials }) => {
     .then((data) => data.map(parseUser))
 }
 
+const fetchLists = ({ credentials }) => {
+  const url = MASTODON_LISTS_URL
+  return fetch(url, { headers: authHeaders(credentials) })
+    .then((data) => data.json())
+}
+
+const createList = ({ title, credentials }) => {
+  const url = MASTODON_LISTS_URL
+  const headers = authHeaders(credentials)
+  headers['Content-Type'] = 'application/json'
+
+  return fetch(url, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ title })
+  }).then((data) => data.json())
+}
+
+const getList = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
+  return fetch(url, { headers: authHeaders(credentials) })
+    .then((data) => data.json())
+}
+
+const updateList = ({ listId, title, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
+  const headers = authHeaders(credentials)
+  headers['Content-Type'] = 'application/json'
+
+  return fetch(url, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify({ title })
+  })
+}
+
+const getListAccounts = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
+  return fetch(url, { headers: authHeaders(credentials) })
+    .then((data) => data.json())
+    .then((data) => data.map(({ id }) => id))
+}
+
+const addAccountsToList = ({ listId, accountIds, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
+  const headers = authHeaders(credentials)
+  headers['Content-Type'] = 'application/json'
+
+  return fetch(url, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ account_ids: accountIds })
+  })
+}
+
+const removeAccountsFromList = ({ listId, accountIds, credentials }) => {
+  const url = MASTODON_LIST_ACCOUNTS_URL(listId)
+  const headers = authHeaders(credentials)
+  headers['Content-Type'] = 'application/json'
+
+  return fetch(url, {
+    headers,
+    method: 'DELETE',
+    body: JSON.stringify({ account_ids: accountIds })
+  })
+}
+
+const deleteList = ({ listId, credentials }) => {
+  const url = MASTODON_LIST_URL(listId)
+  return fetch(url, {
+    method: 'DELETE',
+    headers: authHeaders(credentials)
+  })
+}
+
 const fetchConversation = ({ id, credentials }) => {
   const urlContext = MASTODON_STATUS_CONTEXT_URL(id)
   return fetch(urlContext, { headers: authHeaders(credentials) })
@@ -412,6 +530,31 @@ const fetchStatus = ({ id, credentials }) => {
     })
     .then((data) => data.json())
     .then((data) => parseStatus(data))
+}
+
+const fetchStatusSource = ({ id, credentials }) => {
+  const url = MASTODON_STATUS_SOURCE_URL(id)
+  return fetch(url, { headers: authHeaders(credentials) })
+    .then((data) => {
+      if (data.ok) {
+        return data
+      }
+      throw new Error('Error fetching source', data)
+    })
+    .then((data) => data.json())
+    .then((data) => parseSource(data))
+}
+
+const fetchStatusHistory = ({ status, credentials }) => {
+  const url = MASTODON_STATUS_HISTORY_URL(status.id)
+  return promisedRequest({ url, credentials })
+    .then((data) => {
+      data.reverse()
+      return data.map((item) => {
+        item.originalStatus = status
+        return parseStatus(item)
+      })
+    })
 }
 
 const tagUser = ({ tag, credentials, user }) => {
@@ -506,9 +649,11 @@ const fetchTimeline = ({
   since = false,
   until = false,
   userId = false,
+  listId = false,
   tag = false,
   withMuted = false,
-  replyVisibility = 'all'
+  replyVisibility = 'all',
+  includeTypes = []
 }) => {
   const timelineUrls = {
     public: MASTODON_PUBLIC_TIMELINE,
@@ -518,6 +663,7 @@ const fetchTimeline = ({
     publicAndExternal: MASTODON_PUBLIC_TIMELINE,
     user: MASTODON_USER_TIMELINE_URL,
     media: MASTODON_USER_TIMELINE_URL,
+    list: MASTODON_LIST_TIMELINE_URL,
     favorites: MASTODON_USER_FAVORITES_TIMELINE_URL,
     tag: MASTODON_TAG_TIMELINE_URL,
     bookmarks: MASTODON_BOOKMARK_TIMELINE_URL
@@ -529,6 +675,10 @@ const fetchTimeline = ({
 
   if (timeline === 'user' || timeline === 'media') {
     url = url(userId)
+  }
+
+  if (timeline === 'list') {
+    url = url(listId)
   }
 
   if (since) {
@@ -554,6 +704,11 @@ const fetchTimeline = ({
   }
   if (replyVisibility !== 'all') {
     params.push(['reply_visibility', replyVisibility])
+  }
+  if (includeTypes.length > 0) {
+    includeTypes.forEach(type => {
+      params.push(['include_types[]', type])
+    })
   }
 
   params.push(['limit', 20])
@@ -698,6 +853,54 @@ const postStatus = ({
     body: form,
     method: 'POST',
     headers: postHeaders
+  })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => data.error ? data : parseStatus(data))
+}
+
+const editStatus = ({
+  id,
+  credentials,
+  status,
+  spoilerText,
+  sensitive,
+  poll,
+  mediaIds = [],
+  contentType
+}) => {
+  const form = new FormData()
+  const pollOptions = poll.options || []
+
+  form.append('status', status)
+  if (spoilerText) form.append('spoiler_text', spoilerText)
+  if (sensitive) form.append('sensitive', sensitive)
+  if (contentType) form.append('content_type', contentType)
+  mediaIds.forEach(val => {
+    form.append('media_ids[]', val)
+  })
+
+  if (pollOptions.some(option => option !== '')) {
+    const normalizedPoll = {
+      expires_in: poll.expiresIn,
+      multiple: poll.multiple
+    }
+    Object.keys(normalizedPoll).forEach(key => {
+      form.append(`poll[${key}]`, normalizedPoll[key])
+    })
+
+    pollOptions.forEach(option => {
+      form.append('poll[options][]', option)
+    })
+  }
+
+  const putHeaders = authHeaders(credentials)
+
+  return fetch(MASTODON_STATUS_URL(id), {
+    body: form,
+    method: 'PUT',
+    headers: putHeaders
   })
     .then((response) => {
       return response.json()
@@ -1171,7 +1374,8 @@ const MASTODON_STREAMING_EVENTS = new Set([
   'update',
   'notification',
   'delete',
-  'filters_changed'
+  'filters_changed',
+  'status.update'
 ])
 
 const PLEROMA_STREAMING_EVENTS = new Set([
@@ -1242,6 +1446,8 @@ export const handleMastoWS = (wsEvent) => {
     }
     const data = payload ? JSON.parse(payload) : null
     if (event === 'update') {
+      return { event, status: parseStatus(data) }
+    } else if (event === 'status.update') {
       return { event, status: parseStatus(data) }
     } else if (event === 'notification') {
       return { event, notification: parseNotification(data) }
@@ -1339,12 +1545,46 @@ const deleteChatMessage = ({ chatId, messageId, credentials }) => {
   })
 }
 
+const setReportState = ({ id, state, credentials }) => {
+  // TODO: Can't use promisedRequest because on OK this does not return json
+  // See https://git.pleroma.social/pleroma/pleroma-fe/-/merge_requests/1322
+  return fetch(PLEROMA_ADMIN_REPORTS, {
+    headers: {
+      ...authHeaders(credentials),
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PATCH',
+    body: JSON.stringify({
+      reports: [{
+        id,
+        state
+      }]
+    })
+  })
+    .then(data => {
+      if (data.status >= 500) {
+        throw Error(data.statusText)
+      } else if (data.status >= 400) {
+        return data.json()
+      }
+      return data
+    })
+    .then(data => {
+      if (data.errors) {
+        throw Error(data.errors[0].message)
+      }
+    })
+}
+
 const apiService = {
   verifyCredentials,
   fetchTimeline,
   fetchPinnedStatuses,
   fetchConversation,
   fetchStatus,
+  fetchStatusSource,
+  fetchStatusHistory,
   fetchFriends,
   exportFriends,
   fetchFollowers,
@@ -1356,7 +1596,9 @@ const apiService = {
   unmuteConversation,
   blockUser,
   unblockUser,
+  removeUserFromFollowers,
   fetchUser,
+  fetchUserByName,
   fetchUserRelationship,
   favorite,
   unfavorite,
@@ -1365,6 +1607,7 @@ const apiService = {
   bookmarkStatus,
   unbookmarkStatus,
   postStatus,
+  editStatus,
   deleteStatus,
   uploadMedia,
   setMediaDescription,
@@ -1405,6 +1648,14 @@ const apiService = {
   addBackup,
   listBackups,
   fetchFollowRequests,
+  fetchLists,
+  createList,
+  getList,
+  updateList,
+  getListAccounts,
+  addAccountsToList,
+  removeAccountsFromList,
+  deleteList,
   approveUser,
   denyUser,
   suggestions,
@@ -1430,7 +1681,9 @@ const apiService = {
   chatMessages,
   sendChatMessage,
   readChat,
-  deleteChatMessage
+  deleteChatMessage,
+  setReportState,
+  fetchUserInLists
 }
 
 export default apiService

@@ -66,11 +66,13 @@
     "more": "More",
     "loading": "Loading…",
     "generic_error": "An error occured",
+    "generic_error_message": "An error occured: {0}",
     "error_retry": "Please try again",
     "retry": "Try again",
     "optional": "optional",
     "show_more": "Show more",
     "show_less": "Show less",
+    "never_show_again": "Never show again",
     "dismiss": "Dismiss",
     "cancel": "Cancel",
     "disable": "Disable",
@@ -78,11 +80,16 @@
     "confirm": "Confirm",
     "verify": "Verify",
     "close": "Close",
+    "undo": "Undo",
+    "yes": "Yes",
+    "no": "No",
     "peek": "Peek",
     "role": {
       "admin": "Admin",
       "moderator": "Moderator"
     },
+    "unpin": "Unpin item",
+    "pin": "Pin item",
     "flash_content": "Click to show Flash content using Ruffle (Experimental, may not work).",
     "flash_security": "Note that this can be potentially dangerous since Flash content is still arbitrary code.",
     "flash_fail": "Failed to load flash content, see console for details.",
@@ -146,7 +153,11 @@
     "who_to_follow": "Who to follow",
     "preferences": "Preferences",
     "timelines": "Timelines",
-    "chats": "Chats"
+    "chats": "Chats",
+    "lists": "Lists",
+    "edit_nav_mobile": "Customize navigation bar",
+    "edit_pinned": "Edit pinned items",
+    "edit_finish": "Done editing"
   },
   "notifications": {
     "broken_favorite": "Unknown status, searching for it…",
@@ -161,6 +172,7 @@
     "no_more_notifications": "No more notifications",
     "migrated_to": "migrated to",
     "reacted_with": "reacted with {0}",
+    "submitted_report": "submitted a report",
     "poll_ended": "poll has ended"
   },
   "polls": {
@@ -187,8 +199,20 @@
     "add_emoji": "Insert emoji",
     "custom": "Custom emoji",
     "unicode": "Unicode emoji",
+    "unicode_groups": {
+      "activities": "Activities",
+      "animals-and-nature": "Animals & Nature",
+      "flags": "Flags",
+      "food-and-drink": "Food & Drink",
+      "objects": "Objects",
+      "people-and-body": "People & Body",
+      "smileys-and-emotion": "Smileys & Emotion",
+      "symbols": "Symbols",
+      "travel-and-places": "Travel & Places"
+    },
     "load_all_hint": "Loaded first {saneAmount} emoji, loading all emoji may cause performance issues.",
-    "load_all": "Loading all {emojiAmount} emoji"
+    "load_all": "Loading all {emojiAmount} emoji",
+    "regional_indicator": "Regional indicator {letter}"
   },
   "errors": {
     "storage_unavailable": "Pleroma could not access browser storage. Your login or your local settings won't be saved and you might encounter unexpected issues. Try enabling cookies."
@@ -196,10 +220,13 @@
   "interactions": {
     "favs_repeats": "Repeats and favorites",
     "follows": "New follows",
+    "emoji_reactions": "Emoji Reactions",
+    "reports": "Reports",
     "moves": "User migrates",
     "load_older": "Load older interactions"
   },
   "post_status": {
+    "edit_status": "Edit status",
     "new_status": "Post new status",
     "account_not_locked_warning": "Your account is not {0}. Anyone can follow you to view your follower-only posts.",
     "account_not_locked_warning_link": "locked",
@@ -215,6 +242,8 @@
     "default": "Just landed in L.A.",
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
     "direct_warning_to_first_only": "This post will only be visible to the mentioned users at the beginning of the message.",
+    "edit_remote_warning": "Other remote instances may not support editing and unable to receive the latest version of your post.",
+    "edit_unsupported_warning": "Pleroma does not support editing mentions or polls.",
     "posting": "Posting",
     "post": "Post",
     "preview": "Preview",
@@ -264,6 +293,16 @@
     "searching_for": "Searching for",
     "error": "Not found."
   },
+  "report": {
+    "reporter": "Reporter:",
+    "reported_user": "Reported user:",
+    "reported_statuses": "Reported statuses:",
+    "notes": "Notes:",
+    "state": "State:",
+    "state_open": "Open",
+    "state_closed": "Closed",
+    "state_resolved": "Resolved"
+  },
   "selectable_list": {
     "select_all": "Select all"
   },
@@ -298,6 +337,7 @@
         "desc": "To enable two-factor authentication, enter the code from your two-factor app:"
       }
     },
+    "lists_navigation": "Show lists in navigation",
     "allow_following_move": "Allow auto-follow when following account moves",
     "attachmentRadius": "Attachments",
     "attachments": "Attachments",
@@ -375,7 +415,7 @@
     "filtering": "Filtering",
     "wordfilter": "Wordfilter",
     "filtering_explanation": "All statuses containing these words will be muted, one per line",
-    "word_filter": "Word filter",
+    "word_filter_and_more": "Word filter and more...",
     "follow_export": "Follow export",
     "follow_export_button": "Export your follows to a csv file",
     "follow_import": "Follow import",
@@ -395,6 +435,7 @@
     "hide_isp": "Hide instance-specific panel",
     "hide_shoutbox": "Hide instance shoutbox",
     "right_sidebar": "Reverse order of columns",
+    "navbar_column_stretch": "Stretch navbar to columns width",
     "always_show_post_button": "Always show floating New Post button",
     "hide_wallpaper": "Hide instance wallpaper",
     "preload_images": "Preload images",
@@ -509,15 +550,22 @@
     "subject_line_noop": "Do not copy",
     "conversation_display": "Conversation display style",
     "conversation_display_tree": "Tree-style",
+    "conversation_display_tree_quick": "Tree view",
     "disable_sticky_headers": "Don't stick column headers to top of the screen",
     "show_scrollbars": "Show side column's scrollbars",
     "third_column_mode": "When there's enough space, show third column containing",
     "third_column_mode_none": "Don't show third column at all",
     "third_column_mode_notifications": "Notifications column",
     "third_column_mode_postform": "Main post form and navigation",
+    "columns": "Columns",
+    "column_sizes": "Column sizes",
+    "column_sizes_sidebar": "Sidebar",
+    "column_sizes_content": "Content",
+    "column_sizes_notifs": "Notifications",
     "tree_advanced": "Allow more flexible navigation in tree view",
     "tree_fade_ancestors": "Display ancestors of the current status in faint text",
     "conversation_display_linear": "Linear-style",
+    "conversation_display_linear_quick": "Linear view",
     "conversation_other_replies_button": "Show the \"other replies\" button",
     "conversation_other_replies_button_below": "Below statuses",
     "conversation_other_replies_button_inside": "Inside statuses",
@@ -526,8 +574,10 @@
     "sensitive_by_default": "Mark posts as sensitive by default",
     "stop_gifs": "Pause animated images until you hover on them",
     "streaming": "Automatically show new posts when scrolled to the top",
+    "auto_update": "Show new posts automatically",
     "user_mutes": "Users",
     "useStreamingApi": "Receive posts and notifications real-time",
+    "use_websockets": "Use websockets (Realtime updates)",
     "text": "Text",
     "theme": "Theme",
     "theme_help": "Use hex color codes (#rrggbb) to customize your color theme.",
@@ -549,9 +599,13 @@
     "mention_link_display_full": "always as full names (e.g. {'@'}foo{'@'}example.org)",
     "mention_link_use_tooltip": "Show user card when clicking mention links",
     "mention_link_show_avatar": "Show user avatar beside the link",
+    "mention_link_show_avatar_quick": "Show user avatar next to mentions",
     "mention_link_fade_domain": "Fade domains (e.g. {'@'}example.org in {'@'}foo{'@'}example.org)",
     "mention_link_bolden_you": "Highlight mention of you when you are mentioned",
-    "user_popover_avatar_zoom": "Clicking on user avatar in popover zooms it instead of closing the popover",
+    "user_popover_avatar_action": "Popover avatar click action",
+    "user_popover_avatar_action_zoom": "Zoom the avatar",
+    "user_popover_avatar_action_close": "Close the popover",
+    "user_popover_avatar_action_open": "Open profile",
     "user_popover_avatar_overlay": "Show user popover over user avatar",
     "fun": "Fun",
     "greentext": "Meme arrows",
@@ -758,6 +812,8 @@
     "favorites": "Favorites",
     "repeats": "Repeats",
     "delete": "Delete status",
+    "edit": "Edit status",
+    "edited_at": "(last edited {time})",
     "pin": "Pin on profile",
     "unpin": "Unpin from profile",
     "pinned": "Pinned",
@@ -805,7 +861,8 @@
     "ancestor_follow_with_icon": "{icon} {text}",
     "show_all_conversation_with_icon": "{icon} {text}",
     "show_all_conversation": "Show full conversation ({numStatus} other status) | Show full conversation ({numStatus} other statuses)",
-    "show_only_conversation_under_this": "Only show replies to this status"
+    "show_only_conversation_under_this": "Only show replies to this status",
+    "status_history": "Status history"
   },
   "user_card": {
     "approve": "Approve",
@@ -833,6 +890,7 @@
     "muted": "Muted",
     "per_day": "per day",
     "remote_follow": "Remote follow",
+    "remove_follower": "Remove follower",
     "report": "Report",
     "statuses": "Statuses",
     "subscribe": "Subscribe",
@@ -948,6 +1006,27 @@
     "error_sending_message": "Something went wrong when sending the message.",
     "empty_chat_list_placeholder": "You don't have any chats yet. Start a new chat!"
   },
+  "lists": {
+    "lists": "Lists",
+    "new": "New List",
+    "title": "List title",
+    "search": "Search users",
+    "create": "Create",
+    "save": "Save changes",
+    "delete": "Delete list",
+    "following_only": "Limit to Following",
+    "manage_lists": "Manage lists",
+    "manage_members": "Manage list members",
+    "add_members": "Search for more users",
+    "remove_from_list": "Remove from list",
+    "add_to_list": "Add to list",
+    "is_in_list": "Already in list",
+    "editing_list": "Editing list {listTitle}",
+    "creating_list": "Creating new list",
+    "update_title": "Save Title",
+    "really_delete": "Really delete list?",
+    "error": "Error manipulating lists: {0}"
+  },
   "file_type": {
     "audio": "Audio",
     "video": "Video",
@@ -956,5 +1035,17 @@
   },
   "display_date": {
     "today": "Today"
+  },
+  "update": {
+    "big_update_title": "Please bear with us",
+    "big_update_content": "We haven't had a release in a while, so things might look and feel different than what you're used to.",
+    "update_bugs": "Please report any issues and bugs on {pleromaGitlab}, as we have changed a lot, and although we test thoroughly and use development versions ourselves, we may have missed some things. We welcome your feedback and suggestions on issues you might encounter, or how to improve Pleroma and Pleroma-FE.",
+    "update_bugs_gitlab": "Pleroma GitLab",
+    "update_changelog": "For more details on what's changed, see {theFullChangelog}.",
+    "update_changelog_here": "the full changelog",
+    "art_by": "Art by {linkToArtist}"
+  },
+  "unicode_domain_indicator": {
+    "tooltip": "This domain contains non-ascii characters."
   }
 }

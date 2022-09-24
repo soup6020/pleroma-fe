@@ -5,9 +5,13 @@
   >
     <div class="user-reporting-panel panel">
       <div class="panel-heading">
-        <div class="title">
-          {{ $t('user_reporting.title', [user.screen_name_ui]) }}
-        </div>
+        <i18n-t
+          tag="div"
+          keypath="user_reporting.title"
+          class="title"
+        >
+          <UserLink :user="user" />
+        </i18n-t>
       </div>
       <div class="panel-body">
         <div class="user-reporting-panel-left">
