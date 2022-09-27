@@ -18,7 +18,8 @@ const AccountActions = {
   ],
   data () {
     return {
-      showingConfirmBlock: false
+      showingConfirmBlock: false,
+      showingConfirmRemoveFollower: false
     }
   },
   components: {
@@ -33,6 +34,12 @@ const AccountActions = {
     },
     hideConfirmBlock () {
       this.showingConfirmBlock = false
+    },
+    showConfirmRemoveUserFromFollowers () {
+      this.showingConfirmRemoveFollower = true
+    },
+    hideConfirmRemoveUserFromFollowers () {
+      this.showingConfirmRemoveFollower = false
     },
     showRepeats () {
       this.$store.dispatch('showReblogs', this.user.id)
@@ -55,7 +62,15 @@ const AccountActions = {
       this.$store.dispatch('unblockUser', this.user.id)
     },
     removeUserFromFollowers () {
+      if (!this.shouldConfirmRemoveUserFromFollowers) {
+        this.doRemoveUserFromFollowers()
+      } else {
+        this.showConfirmRemoveUserFromFollowers()
+      }
+    },
+    doRemoveUserFromFollowers () {
       this.$store.dispatch('removeUserFromFollowers', this.user.id)
+      this.hideConfirmRemoveUserFromFollowers()
     },
     reportUser () {
       this.$store.dispatch('openUserReportingModal', { userId: this.user.id })
@@ -70,6 +85,9 @@ const AccountActions = {
   computed: {
     shouldConfirmBlock () {
       return this.$store.getters.mergedConfig.modalOnBlock
+    },
+    shouldConfirmRemoveUserFromFollowers () {
+      return this.$store.getters.mergedConfig.modalOnRemoveUserFromFollowers
     },
     ...mapState({
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable

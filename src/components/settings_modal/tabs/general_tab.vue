@@ -191,6 +191,11 @@
                 {{ $t('settings.confirm_dialogs_deny_follow') }}
               </BooleanSetting>
             </li>
+            <li>
+              <BooleanSetting path="modalOnRemoveUserFromFollowers">
+                {{ $t('settings.confirm_dialogs_remove_follower') }}
+              </BooleanSetting>
+            </li>
           </ul>
         </li>
       </ul>

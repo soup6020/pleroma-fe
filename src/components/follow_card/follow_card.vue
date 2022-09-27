@@ -24,6 +24,7 @@
         />
         <RemoveFollowerButton
           v-if="noFollowsYou && relationship.followed_by"
+          :user="user"
           :relationship="relationship"
           class="follow-card-button"
         />
