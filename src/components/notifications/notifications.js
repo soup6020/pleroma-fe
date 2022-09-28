@@ -119,13 +119,15 @@ const Notifications = {
     },
     teleportTarget () {
       // handle scroller change
-      this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
-      this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
-      if (!this.scrollerRef) {
-        this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
-      }
-      this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
-      this.updateScrollPosition()
+      this.$nextTick(() => {
+        this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
+        this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+        if (!this.scrollerRef) {
+          this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
+        }
+        this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
+        this.updateScrollPosition()
+      })
     }
   },
   methods: {
