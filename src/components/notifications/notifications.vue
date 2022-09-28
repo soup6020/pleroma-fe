@@ -20,20 +20,24 @@
               class="badge badge-notification unseen-count"
             >{{ unseenCount }}</span>
           </div>
-          <button
+          <div
+            class="timeline-header-button"
             v-if="showScrollTop"
-            class="button-unstyled scroll-to-top-button"
-            type="button"
-            @click="scrollToTop"
           >
-            <FALayers class="fa-scale-110 fa-old-padding-layer">
-              <FAIcon icon="arrow-up" />
-              <FAIcon
-                icon="minus"
-                transform="up-7"
-              />
-            </FALayers>
-          </button>
+            <button
+              class="button-unstyled scroll-to-top-button"
+              type="button"
+              @click="scrollToTop"
+            >
+              <FALayers class="fa-scale-110 fa-old-padding-layer">
+                <FAIcon icon="arrow-up" />
+                <FAIcon
+                  icon="minus"
+                  transform="up-7"
+                />
+              </FALayers>
+            </button>
+          </div>
           <button
             v-if="unseenCount"
             class="button-default read-button"
@@ -42,7 +46,7 @@
           >
             {{ $t('notifications.read') }}
           </button>
-          <NotificationFilters />
+          <NotificationFilters class="timeline-header-button" />
         </div>
         <div class="panel-body">
           <div
