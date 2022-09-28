@@ -8,13 +8,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faTimes,
   faBell,
-  faBars
+  faBars,
+  faArrowUp,
+  faMinus
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faTimes,
   faBell,
-  faBars
+  faBars,
+  faArrowUp,
+  faMinus
 )
 
 const MobileNav = {
@@ -25,7 +29,8 @@ const MobileNav = {
   },
   data: () => ({
     notificationsCloseGesture: undefined,
-    notificationsOpen: false
+    notificationsOpen: false,
+    notificationsAtTop: true
   }),
   created () {
     this.notificationsCloseGesture = GestureService.swipeGesture(
@@ -80,6 +85,9 @@ const MobileNav = {
     scrollToTop () {
       window.scrollTo(0, 0)
     },
+    scrollMobileNotificationsToTop () {
+      this.$refs.mobileNotifications.scrollTo(0, 0)
+    },
     logout () {
       this.$router.replace('/main/public')
       this.$store.dispatch('logout')
@@ -89,6 +97,7 @@ const MobileNav = {
       this.$store.dispatch('markNotificationsAsSeen')
     },
     onScroll ({ target: { scrollTop, clientHeight, scrollHeight } }) {
+      this.notificationsAtTop = scrollTop > 0
       if (scrollTop + clientHeight >= scrollHeight) {
         this.$refs.notifications.fetchOlderNotifications()
       }
