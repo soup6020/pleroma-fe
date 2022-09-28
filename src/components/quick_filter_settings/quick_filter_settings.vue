@@ -87,6 +87,3 @@
 </template>
 
 <script src="./quick_filter_settings.js"></script>
-
-<style lang="scss">
-</style>

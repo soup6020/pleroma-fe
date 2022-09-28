@@ -74,6 +74,3 @@
 </template>
 
 <script src="./quick_view_settings.js"></script>
-
-<style lang="scss">
-</style>
