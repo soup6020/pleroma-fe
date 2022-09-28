@@ -5,20 +5,22 @@
         v-if="!embedded"
         :timeline-name="timelineName"
       />
-      <button
-        v-if="showScrollTop"
-        class="button-unstyled scroll-to-top-button"
-        type="button"
-        @click="scrollToTop"
-      >
-        <FALayers class="fa-scale-110 fa-old-padding-layer">
-          <FAIcon icon="arrow-up" />
-          <FAIcon
-            icon="minus"
-            transform="up-7"
-          />
-        </FALayers>
-      </button>
+      <div class="timeline-header-button">
+        <button
+          v-if="showScrollTop"
+          class="button-unstyled scroll-to-top-button"
+          type="button"
+          @click="scrollToTop"
+        >
+          <FALayers class="fa-scale-110 fa-old-padding-layer">
+            <FAIcon icon="arrow-up" />
+            <FAIcon
+              icon="minus"
+              transform="up-7"
+            />
+          </FALayers>
+        </button>
+      </div>
       <template v-if="mobileLayout && !embedded">
         <div
           class="timeline-header-button"
