@@ -19,21 +19,25 @@
           />
         </FALayers>
       </button>
-      <template v-if="mobileLayout">
-        <button
+      <template v-if="mobileLayout && !embedded">
+        <div
+          class="timeline-header-button"
           v-if="showLoadButton"
-          class="button-unstyled loadmore-button"
-          @click.prevent="showNewStatuses"
         >
-          <FAIcon
-            fixed-width
-            icon="circle-plus"
-          />
-          <div class="alert-dot" />
-        </button>
+          <button
+            class="button-unstyled loadmore-button"
+            @click.prevent="showNewStatuses"
+          >
+            <FAIcon
+              fixed-width
+              icon="circle-plus"
+            />
+            <div class="alert-dot" />
+          </button>
+        </div>
         <div
           v-else-if="!embedded"
-          class="loadmore-text faint veryfaint"
+          class="loadmore-text faint veryfaint timeline-header-icon"
           @click.prevent
         >
           <FAIcon
@@ -58,8 +62,8 @@
           {{ $t('timeline.up_to_date') }}
         </div>
       </template>
-      <QuickFilterSettings v-if="!embedded" />
-      <QuickViewSettings v-if="!embedded" />
+      <QuickFilterSettings v-if="!embedded" class="timeline-header-button"/>
+      <QuickViewSettings v-if="!embedded" class="timeline-header-button"/>
     </div>
     <div :class="classes.body">
       <div

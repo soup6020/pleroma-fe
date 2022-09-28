@@ -13,6 +13,36 @@
     background-color: var(--cGreen);
   }
 
+  .timeline-header-button {
+    align-self: stretch;
+    text-align: center;
+    width: var(--__panel-heading-height);
+    height: var(--__panel-heading-height);
+    margin: calc(-1 * var(--panel-heading-height-padding));
+
+    > button {
+      box-sizing: border-box;
+      padding: calc(1 * var(--panel-heading-height-padding));
+      height: 100%;
+      width: 100%;
+      text-align: center;
+
+      svg {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .timeline-header-icon {
+    align-self: stretch;
+    text-align: center;
+    width: var(--__panel-heading-height);
+
+    svg {
+      font-size: 1.2em;
+    }
+  }
+
   .loadmore-button {
     position: relative
   }
