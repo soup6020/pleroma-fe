@@ -5,9 +5,11 @@
         v-if="!embedded"
         :timeline-name="timelineName"
       />
-      <div class="timeline-header-button">
+      <div
+        class="timeline-header-button"
+        v-if="showScrollTop && !embedded"
+      >
         <button
-          v-if="showScrollTop"
           class="button-unstyled scroll-to-top-button"
           type="button"
           @click="scrollToTop"
