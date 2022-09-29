@@ -35,11 +35,12 @@
     text-align: center;
     width: var(--__panel-heading-height);
     height: var(--__panel-heading-height);
-    margin: calc(-1 * var(--panel-heading-height-padding));
+    margin: calc(-1 * var(--panel-heading-height-padding)) 0;
+    margin-right: -0.5em;
 
     > button {
       box-sizing: border-box;
-      padding: calc(1 * var(--panel-heading-height-padding));
+      padding: calc(1 * var(--panel-heading-height-padding)) 0;
       height: 100%;
       width: 100%;
       text-align: center;
