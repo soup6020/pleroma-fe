@@ -1629,7 +1629,7 @@
   dependencies:
     pointer-tracker "^2.0.3"
 
-"@kazvmoe-infra/unicode-emoji-json@^0.4.0":
+"@kazvmoe-infra/unicode-emoji-json@0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@kazvmoe-infra/unicode-emoji-json/-/unicode-emoji-json-0.4.0.tgz#555bab2f8d11db74820ef0a2fbe2805b17c22587"
   integrity sha512-22OffREdHzD0U6A/W4RaFPV8NR73za6euibtAxNxO/fu5A6TwxRO2lAdbDWKJH9COv/vYs8zqfEiSalXH2nXJA==
@@ -5728,7 +5728,7 @@ lower-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
-lozad@^1.16.0:
+lozad@1.16.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/lozad/-/lozad-1.16.0.tgz#86ce732c64c69926ccdebb81c8c90bb3735948b4"
   integrity sha512-JBr9WjvEFeKoyim3svo/gsQPTkgG/mOHJmDctZ/+U9H3ymUuvEkqpn8bdQMFsvTMcyRJrdJkLv0bXqGm0sP72w==
