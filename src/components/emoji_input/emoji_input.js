@@ -258,7 +258,9 @@ const EmojiInput = {
     textAtCaret: async function (newWord) {
       const firstchar = newWord.charAt(0)
       if (newWord === firstchar) {
-        this.suggestions = []
+        if (firstchar === ' ') {
+          this.suggestions = []
+        }
         return
       }
       const matchedSuggestions = await this.suggest(newWord, this.maybeLocalizedEmojiNamesAndKeywords)
