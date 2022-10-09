@@ -113,12 +113,14 @@ const EmojiPicker = {
   },
   methods: {
     showPicker () {
-      console.log('pick')
       this.$refs.popover.showPopover()
       this.onShowing()
     },
     hidePicker () {
       this.$refs.popover.hidePopover()
+    },
+    setAnchorEl (el) {
+      this.$refs.popover.setAnchorEl(el)
     },
     setGroupRef (name) {
       return el => { this.groupRefs[name] = el }

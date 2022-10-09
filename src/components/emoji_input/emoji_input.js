@@ -141,6 +141,7 @@ const EmojiInput = {
       return this.focused &&
         this.suggestions &&
         this.suggestions.length > 0 &&
+        !this.pickerShown &&
         !this.temporarilyHideSuggestions
     },
     textAtCaret () {
@@ -205,6 +206,7 @@ const EmojiInput = {
     this.input = input
     this.caretEl = hiddenOverlayCaret
     suggestorPopover.setAnchorEl(this.caretEl)
+    this.$refs.picker.setAnchorEl(this.caretEl)
     const style = getComputedStyle(this.input)
     this.overlayStyle.padding = style.padding
     this.overlayStyle.border = style.border
