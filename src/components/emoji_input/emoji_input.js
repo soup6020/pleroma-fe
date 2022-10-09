@@ -116,7 +116,6 @@ const EmojiInput = {
       focused: false,
       blurTimeout: null,
       temporarilyHideSuggestions: false,
-      keepOpen: false,
       disableClickOutside: false,
       suggestions: [],
       overlayStyle: {},
@@ -344,7 +343,6 @@ const EmojiInput = {
         spaceAfter,
         after
       ].join('')
-      this.keepOpen = keepOpen
       this.$emit('update:modelValue', newValue)
       const position = this.caret + (insertion + spaceAfter + spaceBefore).length
       if (!keepOpen) {

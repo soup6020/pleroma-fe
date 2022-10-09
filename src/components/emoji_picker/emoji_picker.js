@@ -140,6 +140,9 @@ const EmojiPicker = {
     },
     onEmoji (emoji) {
       const value = emoji.imageUrl ? `:${emoji.displayText}:` : emoji.replacement
+      if (!this.keepOpen) {
+        this.$refs.popover.hidePopover()
+      }
       this.$emit('emoji', { insertion: value, keepOpen: this.keepOpen })
     },
     onScroll (e) {
