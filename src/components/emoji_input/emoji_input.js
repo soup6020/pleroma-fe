@@ -1,5 +1,6 @@
 import Completion from '../../services/completion/completion.js'
 import EmojiPicker from '../emoji_picker/emoji_picker.vue'
+import Popover from 'src/components/popover/popover.vue'
 import UnicodeDomainIndicator from '../unicode_domain_indicator/unicode_domain_indicator.vue'
 import { take } from 'lodash'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
@@ -109,6 +110,7 @@ const EmojiInput = {
   data () {
     return {
       input: undefined,
+      caretEl: undefined,
       highlighted: 0,
       caret: 0,
       focused: false,
@@ -117,10 +119,12 @@ const EmojiInput = {
       temporarilyHideSuggestions: false,
       keepOpen: false,
       disableClickOutside: false,
-      suggestions: []
+      suggestions: [],
+      overlayStyle: {}
     }
   },
   components: {
+    Popover,
     EmojiPicker,
     UnicodeDomainIndicator
   },
@@ -128,7 +132,15 @@ const EmojiInput = {
     padEmoji () {
       return this.$store.getters.mergedConfig.padEmoji
     },
+    preText () {
+      return this.modelValue.slice(0, this.caret)
+    },
+    postText () {
+      return this.modelValue.slice(this.caret)
+    },
     showSuggestions () {
+      console.log(this.focused)
+      console.log(this.suggestions)
       return this.focused &&
         this.suggestions &&
         this.suggestions.length > 0 &&
@@ -191,10 +203,21 @@ const EmojiInput = {
     }
   },
   mounted () {
-    const { root } = this.$refs
+    const { root, hiddenOverlayCaret, suggestorPopover } = this.$refs
     const input = root.querySelector('.emoji-input > input') || root.querySelector('.emoji-input > textarea')
     if (!input) return
     this.input = input
+    this.caretEl = hiddenOverlayCaret
+    suggestorPopover.setAnchorEl(this.caretEl)
+    const style = getComputedStyle(this.input)
+    this.overlayStyle.padding = style.padding
+    this.overlayStyle.border = style.border
+    this.overlayStyle.margin = style.margin
+    this.overlayStyle.lineHeight = style.lineHeight
+    this.overlayStyle.fontFamily = style.fontFamily
+    this.overlayStyle.fontSize = style.fontSize
+    this.overlayStyle.wordWrap = style.wordWrap
+    this.overlayStyle.whiteSpace = style.whiteSpace
     this.resize()
     input.addEventListener('blur', this.onBlur)
     input.addEventListener('focus', this.onFocus)
@@ -204,6 +227,16 @@ const EmojiInput = {
     input.addEventListener('click', this.onClickInput)
     input.addEventListener('transitionend', this.onTransition)
     input.addEventListener('input', this.onInput)
+    input.addEventListener('scroll', (e) => {
+      console.log({
+        top: this.input.scrollTop,
+        left: this.input.scrollLeft
+      })
+      this.$refs.hiddenOverlay.scrollTo({
+        top: this.input.scrollTop,
+        left: this.input.scrollLeft
+      })
+    })
   },
   unmounted () {
     const { input } = this
@@ -219,22 +252,32 @@ const EmojiInput = {
     }
   },
   watch: {
-    showSuggestions: function (newValue) {
+    showSuggestions: function (newValue, oldValue) {
       this.$emit('shown', newValue)
+      if (newValue) {
+        this.$refs.suggestorPopover.showPopover()
+      } else {
+        this.$refs.suggestorPopover.hidePopover()
+      }
     },
     textAtCaret: async function (newWord) {
       const firstchar = newWord.charAt(0)
-      this.suggestions = []
-      if (newWord === firstchar) return
+      if (newWord === firstchar) {
+        this.suggestions = []
+        return
+      }
       const matchedSuggestions = await this.suggest(newWord, this.maybeLocalizedEmojiNamesAndKeywords)
       // Async: cancel if textAtCaret has changed during wait
-      if (this.textAtCaret !== newWord) return
-      if (matchedSuggestions.length <= 0) return
+      if (this.textAtCaret !== newWord || matchedSuggestions.length <= 0) {
+        this.suggestions = []
+        return
+      }
       this.suggestions = take(matchedSuggestions, 5)
         .map(({ imageUrl, ...rest }) => ({
           ...rest,
           img: imageUrl || ''
         }))
+      this.$refs.suggestorPopover.updateStyles()
     },
     suggestions: {
       handler (newValue) {
@@ -525,29 +568,6 @@ const EmojiInput = {
       this.caret = selectionStart
     },
     resize () {
-      const panel = this.$refs.panel
-      if (!panel) return
-      const picker = this.$refs.picker.$el
-      const panelBody = this.$refs['panel-body']
-      const { offsetHeight, offsetTop } = this.input
-      const offsetBottom = offsetTop + offsetHeight
-
-      this.setPlacement(panelBody, panel, offsetBottom)
-      this.setPlacement(picker, picker, offsetBottom)
-    },
-    setPlacement (container, target, offsetBottom) {
-      if (!container || !target) return
-
-      target.style.top = offsetBottom + 'px'
-      target.style.bottom = 'auto'
-
-      if (this.placement === 'top' || (this.placement === 'auto' && this.overflowsBottom(container))) {
-        target.style.top = 'auto'
-        target.style.bottom = this.input.offsetHeight + 'px'
-      }
-    },
-    overflowsBottom (el) {
-      return el.getBoundingClientRect().bottom > window.innerHeight
     }
   }
 }

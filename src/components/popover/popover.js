@@ -51,6 +51,10 @@ const Popover = {
       // lockReEntry is a flag that is set when mouse cursor is leaving the popover's content
       // so that if mouse goes back into popover it won't be re-shown again to prevent annoyance
       // with popovers refusing to be hidden when user wants to interact with something in below popover
+      anchorEl: null,
+      // There's an issue where having teleport enabled by default causes things just...
+      // not render at all, i.e. main post status form and its emoji inputs
+      teleport: false,
       lockReEntry: false,
       hidden: true,
       styles: {},
@@ -63,6 +67,10 @@ const Popover = {
     }
   },
   methods: {
+    setAnchorEl (el) {
+      this.anchorEl = el
+      this.updateStyles()
+    },
     containerBoundingClientRect () {
       const container = this.boundToSelector ? this.$el.closest(this.boundToSelector) : this.$el.offsetParent
       return container.getBoundingClientRect()
@@ -75,7 +83,7 @@ const Popover = {
 
       // Popover will be anchored around this element, trigger ref is the container, so
       // its children are what are inside the slot. Expect only one v-slot:trigger.
-      const anchorEl = (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
+      const anchorEl = this.anchorEl || (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
       // SVGs don't have offsetWidth/Height, use fallback
       const anchorHeight = anchorEl.offsetHeight || anchorEl.clientHeight
       const anchorWidth = anchorEl.offsetWidth || anchorEl.clientWidth
@@ -319,6 +327,7 @@ const Popover = {
     }
   },
   mounted () {
+    this.teleport = true
     let scrollable = this.$refs.trigger.closest('.column.-scrollable') ||
         this.$refs.trigger.closest('.mobile-notifications')
     if (!scrollable) scrollable = window
