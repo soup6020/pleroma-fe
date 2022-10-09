@@ -139,8 +139,6 @@ const EmojiInput = {
       return this.modelValue.slice(this.caret)
     },
     showSuggestions () {
-      console.log(this.focused)
-      console.log(this.suggestions)
       return this.focused &&
         this.suggestions &&
         this.suggestions.length > 0 &&
@@ -227,11 +225,8 @@ const EmojiInput = {
     input.addEventListener('click', this.onClickInput)
     input.addEventListener('transitionend', this.onTransition)
     input.addEventListener('input', this.onInput)
+    // FIXME LEAK
     input.addEventListener('scroll', (e) => {
-      console.log({
-        top: this.input.scrollTop,
-        left: this.input.scrollLeft
-      })
       this.$refs.hiddenOverlay.scrollTo({
         top: this.input.scrollTop,
         left: this.input.scrollLeft
@@ -278,12 +273,6 @@ const EmojiInput = {
           img: imageUrl || ''
         }))
       this.$refs.suggestorPopover.updateStyles()
-    },
-    suggestions: {
-      handler (newValue) {
-        this.$nextTick(this.resize)
-      },
-      deep: true
     }
   },
   methods: {
@@ -450,16 +439,12 @@ const EmojiInput = {
         }
       })
     },
-    onTransition (e) {
-      this.resize()
-    },
     onBlur (e) {
       // Clicking on any suggestion removes focus from autocomplete,
       // preventing click handler ever executing.
       this.blurTimeout = setTimeout(() => {
         this.focused = false
         this.setCaret(e)
-        this.resize()
       }, 200)
     },
     onClick (e, suggestion) {
@@ -476,13 +461,11 @@ const EmojiInput = {
       }
       this.focused = true
       this.setCaret(e)
-      this.resize()
       this.temporarilyHideSuggestions = false
     },
     onKeyUp (e) {
       const { key } = e
       this.setCaret(e)
-      this.resize()
 
       // Setting hider in keyUp to prevent suggestions from blinking
       // when moving away from suggested spot
@@ -494,7 +477,6 @@ const EmojiInput = {
     },
     onPaste (e) {
       this.setCaret(e)
-      this.resize()
     },
     onKeyDown (e) {
       const { ctrlKey, shiftKey, key } = e
@@ -541,12 +523,10 @@ const EmojiInput = {
       }
 
       this.showPicker = false
-      this.resize()
     },
     onInput (e) {
       this.showPicker = false
       this.setCaret(e)
-      this.resize()
       this.$emit('update:modelValue', e.target.value)
     },
     onClickInput (e) {
