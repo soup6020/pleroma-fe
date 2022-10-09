@@ -35,6 +35,12 @@
     margin-top: calc(-1 * var(--__top-fringe));
     margin-bottom: calc(-1 * var(--__bottom-fringe));
     margin-right: calc(-1 * var(--__right-fringe));
+
+    &.-noImage {
+      .text {
+        padding-right: var(--__right-fringe);
+      }
+    }
   }
 
   .panel-body {
@@ -75,9 +81,9 @@
 
   .extra-info-group {
     transition: max-height, padding, height;
-    transition-timing-function: ease-in-out;
-    transition-duration: 500ms;
-    max-height: calc(var(--____extraInfoGroupHeight) + 1em); // include bottom padding
+    transition-timing-function: ease-in;
+    transition-duration: 700ms;
+    max-height: 70vh;
     mask:
       linear-gradient(to top, white, transparent) bottom/100% 2px no-repeat,
       linear-gradient(to top, white, white);

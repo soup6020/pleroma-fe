@@ -1,5 +1,6 @@
 import { mapState } from 'vuex'
 import { USERNAME_ROUTES } from 'src/components/navigation/navigation.js'
+import OptionalRouterLink from 'src/components/optional_router_link/optional_router_link.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faThumbtack } from '@fortawesome/free-solid-svg-icons'
 
@@ -7,6 +8,9 @@ library.add(faThumbtack)
 
 const NavigationEntry = {
   props: ['item', 'showPin'],
+  components: {
+    OptionalRouterLink
+  },
   methods: {
     isPinned (value) {
       return this.pinnedItems.has(value)

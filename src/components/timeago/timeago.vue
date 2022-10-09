@@ -3,7 +3,7 @@
     :datetime="time"
     :title="localeDateString"
   >
-    {{ $tc(relativeTime.key, relativeTime.num, [relativeTime.num]) }}
+    {{ relativeTimeString }}
   </time>
 </template>
 
@@ -13,7 +13,7 @@ import localeService from 'src/services/locale/locale.service.js'
 
 export default {
   name: 'Timeago',
-  props: ['time', 'autoUpdate', 'longFormat', 'nowThreshold'],
+  props: ['time', 'autoUpdate', 'longFormat', 'nowThreshold', 'templateKey'],
   data () {
     return {
       relativeTime: { key: 'time.now', num: 0 },
@@ -26,6 +26,23 @@ export default {
       return typeof this.time === 'string'
         ? new Date(Date.parse(this.time)).toLocaleString(browserLocale)
         : this.time.toLocaleString(browserLocale)
+    },
+    relativeTimeString () {
+      const timeString = this.$i18n.tc(this.relativeTime.key, this.relativeTime.num, [this.relativeTime.num])
+
+      if (typeof this.templateKey === 'string' && this.relativeTime.key !== 'time.now') {
+        return this.$i18n.t(this.templateKey, [timeString])
+      }
+
+      return timeString
+    }
+  },
+  watch: {
+    time (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        clearTimeout(this.interval)
+        this.refreshRelativeTimeObject()
+      }
     }
   },
   created () {

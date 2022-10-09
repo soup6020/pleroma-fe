@@ -1,26 +1,37 @@
 <template>
-  <li class="NavigationEntry">
-    <component
-      :is="routeTo ? 'router-link' : 'button'"
-      class="menu-item button-unstyled"
-      :to="routeTo"
+  <OptionalRouterLink
+    v-slot="{ isActive, href, navigate } = {}"
+    ass="ass"
+    :to="routeTo"
+  >
+    <li
+      class="NavigationEntry menu-item"
+      :class="{ '-active': isActive }"
+      v-bind="$attrs"
     >
-      <span>
-        <FAIcon
-          v-if="item.icon"
-          fixed-width
-          class="fa-scale-110 menu-icon"
-          :icon="item.icon"
-        />
-      </span>
-      <span
-        v-if="item.iconLetter"
-        class="icon iconLetter fa-scale-110 menu-icon"
-      >{{ item.iconLetter }}
-      </span>
-      <span class="label">
-      {{ item.labelRaw || $t(item.label) }}
-      </span>
+      <component
+        :is="routeTo ? 'a' : 'button'"
+        class="main-link button-unstyled"
+        :href="href"
+        @click="navigate"
+      >
+        <span>
+          <FAIcon
+            v-if="item.icon"
+            fixed-width
+            class="fa-scale-110 menu-icon"
+            :icon="item.icon"
+          />
+        </span>
+        <span
+          v-if="item.iconLetter"
+          class="icon iconLetter fa-scale-110 menu-icon"
+        >{{ item.iconLetter }}
+        </span>
+        <span class="label">
+          {{ item.labelRaw || $t(item.label) }}
+        </span>
+      </component>
       <slot />
       <div
         v-if="item.badgeGetter && getters[item.badgeGetter]"
@@ -45,8 +56,8 @@
           icon="thumbtack"
         />
       </button>
-    </component>
-  </li>
+    </li>
+  </OptionalRouterLink>
 </template>
 
 <script src="./navigation_entry.js"></script>
@@ -55,7 +66,21 @@
 @import '../../_variables.scss';
 
 .NavigationEntry {
-  .label {
+  display: flex;
+  box-sizing: border-box;
+  align-items: baseline;
+  height: 3.5em;
+  line-height: 3.5em;
+  padding: 0 1em;
+  width: 100%;
+  color: $fallback--link;
+  color: var(--link, $fallback--link);
+
+  .timelines-chevron {
+    margin-right: 0;
+  }
+
+  .main-link {
     flex: 1;
   }
 
@@ -72,48 +97,36 @@
     }
   }
 
-  .menu-item {
-    display: flex;
-    box-sizing: border-box;
-    align-items: baseline;
-    height: 3.5em;
-    line-height: 3.5em;
-    padding: 0 1em;
-    width: 100%;
+  &:hover {
+    background-color: $fallback--lightBg;
+    background-color: var(--selectedMenu, $fallback--lightBg);
     color: $fallback--link;
-    color: var(--link, $fallback--link);
+    color: var(--selectedMenuText, $fallback--link);
+    --faint: var(--selectedMenuFaintText, $fallback--faint);
+    --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
+    --lightText: var(--selectedMenuLightText, $fallback--lightText);
 
-    &:hover {
-      background-color: $fallback--lightBg;
-      background-color: var(--selectedMenu, $fallback--lightBg);
-      color: $fallback--link;
-      color: var(--selectedMenuText, $fallback--link);
-      --faint: var(--selectedMenuFaintText, $fallback--faint);
-      --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
-      --lightText: var(--selectedMenuLightText, $fallback--lightText);
+    .menu-icon {
+      --icon: var(--text, $fallback--icon);
+    }
+  }
 
-      .menu-icon {
-        --icon: var(--text, $fallback--icon);
-      }
+  &.-active {
+    font-weight: bolder;
+    background-color: $fallback--lightBg;
+    background-color: var(--selectedMenu, $fallback--lightBg);
+    color: $fallback--text;
+    color: var(--selectedMenuText, $fallback--text);
+    --faint: var(--selectedMenuFaintText, $fallback--faint);
+    --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
+    --lightText: var(--selectedMenuLightText, $fallback--lightText);
+
+    .menu-icon {
+      --icon: var(--text, $fallback--icon);
     }
 
-    &.router-link-active {
-      font-weight: bolder;
-      background-color: $fallback--lightBg;
-      background-color: var(--selectedMenu, $fallback--lightBg);
-      color: $fallback--text;
-      color: var(--selectedMenuText, $fallback--text);
-      --faint: var(--selectedMenuFaintText, $fallback--faint);
-      --faintLink: var(--selectedMenuFaintLink, $fallback--faint);
-      --lightText: var(--selectedMenuLightText, $fallback--lightText);
-
-      .menu-icon {
-        --icon: var(--text, $fallback--icon);
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

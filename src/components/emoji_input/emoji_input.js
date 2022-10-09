@@ -3,7 +3,7 @@ import EmojiPicker from '../emoji_picker/emoji_picker.vue'
 import UnicodeDomainIndicator from '../unicode_domain_indicator/unicode_domain_indicator.vue'
 import { take } from 'lodash'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
-
+import { ensureFinalFallback } from '../../i18n/languages.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faSmileBeam
@@ -143,6 +143,51 @@ const EmojiInput = {
         const word = Completion.wordAtPosition(this.modelValue, this.caret - 1) || {}
         return word
       }
+    },
+    languages () {
+      return ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage)
+    },
+    maybeLocalizedEmojiNamesAndKeywords () {
+      return emoji => {
+        const names = [emoji.displayText]
+        const keywords = []
+
+        if (emoji.displayTextI18n) {
+          names.push(this.$t(emoji.displayTextI18n.key, emoji.displayTextI18n.args))
+        }
+
+        if (emoji.annotations) {
+          this.languages.forEach(lang => {
+            names.push(emoji.annotations[lang]?.name)
+
+            keywords.push(...(emoji.annotations[lang]?.keywords || []))
+          })
+        }
+
+        return {
+          names: names.filter(k => k),
+          keywords: keywords.filter(k => k)
+        }
+      }
+    },
+    maybeLocalizedEmojiName () {
+      return emoji => {
+        if (!emoji.annotations) {
+          return emoji.displayText
+        }
+
+        if (emoji.displayTextI18n) {
+          return this.$t(emoji.displayTextI18n.key, emoji.displayTextI18n.args)
+        }
+
+        for (const lang of this.languages) {
+          if (emoji.annotations[lang]?.name) {
+            return emoji.annotations[lang].name
+          }
+        }
+
+        return emoji.displayText
+      }
     }
   },
   mounted () {
@@ -181,7 +226,7 @@ const EmojiInput = {
       const firstchar = newWord.charAt(0)
       this.suggestions = []
       if (newWord === firstchar) return
-      const matchedSuggestions = await this.suggest(newWord)
+      const matchedSuggestions = await this.suggest(newWord, this.maybeLocalizedEmojiNamesAndKeywords)
       // Async: cancel if textAtCaret has changed during wait
       if (this.textAtCaret !== newWord) return
       if (matchedSuggestions.length <= 0) return
@@ -207,7 +252,6 @@ const EmojiInput = {
     },
     triggerShowPicker () {
       this.showPicker = true
-      this.$refs.picker.startEmojiLoad()
       this.$nextTick(() => {
         this.scrollIntoView()
         this.focusPickerInput()

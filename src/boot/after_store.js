@@ -251,6 +251,7 @@ const getNodeInfo = async ({ store }) => {
       store.dispatch('setInstanceOption', { name: 'pleromaChatMessagesAvailable', value: features.includes('pleroma_chat_messages') })
       store.dispatch('setInstanceOption', { name: 'gopherAvailable', value: features.includes('gopher') })
       store.dispatch('setInstanceOption', { name: 'pollsAvailable', value: features.includes('polls') })
+      store.dispatch('setInstanceOption', { name: 'editingAvailable', value: features.includes('editing') })
       store.dispatch('setInstanceOption', { name: 'pollLimits', value: metadata.pollLimits })
       store.dispatch('setInstanceOption', { name: 'mailerEnabled', value: metadata.mailerEnabled })
 

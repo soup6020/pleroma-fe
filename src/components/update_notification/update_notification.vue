@@ -7,7 +7,6 @@
     <div
       class="UpdateNotificationModal panel"
       :class="{ '-peek': !showingMore }"
-      :style="dynamicStyles"
     >
       <div class="panel-heading">
         <span class="title">
@@ -15,8 +14,12 @@
         </span>
       </div>
       <div class="panel-body">
-        <div class="content">
+        <div
+          class="content"
+          :class="{ '-noImage': !showingImage }"
+        >
           <img
+            v-if="showingImage"
             class="pleroma-tan"
             :src="pleromaTanVariant"
             :style="pleromaTanStyles"

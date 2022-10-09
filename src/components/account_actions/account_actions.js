@@ -36,6 +36,9 @@ const AccountActions = {
     unblockUser () {
       this.$store.dispatch('unblockUser', this.user.id)
     },
+    removeUserFromFollowers () {
+      this.$store.dispatch('removeUserFromFollowers', this.user.id)
+    },
     reportUser () {
       this.$store.dispatch('openUserReportingModal', { userId: this.user.id })
     },

@@ -2,6 +2,8 @@ import Modal from 'src/components/modal/modal.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import pleromaTan from 'src/assets/pleromatan_apology.png'
 import pleromaTanFox from 'src/assets/pleromatan_apology_fox.png'
+import pleromaTanMask from 'src/assets/pleromatan_apology_mask.png'
+import pleromaTanFoxMask from 'src/assets/pleromatan_apology_fox_mask.png'
 
 import {
   faTimes
@@ -15,9 +17,9 @@ export const CURRENT_UPDATE_COUNTER = 1
 const UpdateNotification = {
   data () {
     return {
+      showingImage: false,
       pleromaTanVariant: Math.random() > 0.5 ? pleromaTan : pleromaTanFox,
-      showingMore: false,
-      contentHeight: 0
+      showingMore: false
     }
   },
   components: {
@@ -25,13 +27,9 @@ const UpdateNotification = {
   },
   computed: {
     pleromaTanStyles () {
+      const mask = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
       return {
-        'shape-outside': 'url(' + this.pleromaTanVariant + ')'
-      }
-    },
-    dynamicStyles () {
-      return {
-        '--____extraInfoGroupHeight': this.contentHeight + 'px'
+        'shape-outside': 'url(' + mask + ')'
       }
     },
     shouldShow () {
@@ -57,9 +55,14 @@ const UpdateNotification = {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.contentHeight = this.$refs.animatedText.scrollHeight
-    }, 1000)
+    this.contentHeightNoImage = this.$refs.animatedText.scrollHeight
+
+    // Workaround to get the text height only after mask loaded. A bit hacky.
+    const newImg = new Image()
+    newImg.onload = () => {
+      setTimeout(() => { this.showingImage = true }, 100)
+    }
+    newImg.src = this.pleromaTanVariant === pleromaTan ? pleromaTanMask : pleromaTanFoxMask
   }
 }
 

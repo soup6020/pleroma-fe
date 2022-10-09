@@ -16,7 +16,7 @@ const api = {
     followRequests: []
   },
   getters: {
-    followRequestCount: state => state.api.followRequests.length
+    followRequestCount: state => state.followRequests.length
   },
   mutations: {
     setBackendInteractor (state, backendInteractor) {
@@ -101,6 +101,13 @@ const api = {
                   statuses: [message.status],
                   userId: false,
                   showImmediately: timelineData.visibleStatuses.length === 0,
+                  timeline: 'friends'
+                })
+              } else if (message.event === 'status.update') {
+                dispatch('addNewStatuses', {
+                  statuses: [message.status],
+                  userId: false,
+                  showImmediately: message.status.id in timelineData.visibleStatusesObject,
                   timeline: 'friends'
                 })
               } else if (message.event === 'delete') {

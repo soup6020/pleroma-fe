@@ -64,7 +64,7 @@ const ProfileTab = {
     emojiUserSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ],
         store: this.$store
@@ -73,7 +73,7 @@ const ProfileTab = {
     emojiSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ]
       })

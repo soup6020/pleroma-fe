@@ -121,7 +121,6 @@
     border-bottom: 1px solid;
     border-color: $fallback--border;
     border-color: var(--border, $fallback--border);
-    padding: 0;
   }
 
   > li {
@@ -148,12 +147,6 @@
     margin-left: 0.8em;
     margin-right: 0.8em;
     font-size: 1.1em;
-  }
-
-  .menu-item {
-    .timelines-chevron {
-      margin-right: 0;
-    }
   }
 
   .timelines-background {

@@ -1,33 +1,76 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
+import StillImage from '../still-image/still-image.vue'
+import { ensureFinalFallback } from '../../i18n/languages.js'
+import lozad from 'lozad'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBoxOpen,
   faStickyNote,
-  faSmileBeam
+  faSmileBeam,
+  faSmile,
+  faUser,
+  faPaw,
+  faIceCream,
+  faBus,
+  faBasketballBall,
+  faLightbulb,
+  faCode,
+  faFlag
 } from '@fortawesome/free-solid-svg-icons'
-import { trim } from 'lodash'
+import { debounce, trim } from 'lodash'
 
 library.add(
   faBoxOpen,
   faStickyNote,
-  faSmileBeam
+  faSmileBeam,
+  faSmile,
+  faUser,
+  faPaw,
+  faIceCream,
+  faBus,
+  faBasketballBall,
+  faLightbulb,
+  faCode,
+  faFlag
 )
 
-// At widest, approximately 20 emoji are visible in a row,
-// loading 3 rows, could be overkill for narrow picker
-const LOAD_EMOJI_BY = 60
+const UNICODE_EMOJI_GROUP_ICON = {
+  'smileys-and-emotion': 'smile',
+  'people-and-body': 'user',
+  'animals-and-nature': 'paw',
+  'food-and-drink': 'ice-cream',
+  'travel-and-places': 'bus',
+  activities: 'basketball-ball',
+  objects: 'lightbulb',
+  symbols: 'code',
+  flags: 'flag'
+}
 
-// When to start loading new batch emoji, in pixels
-const LOAD_EMOJI_MARGIN = 64
+const maybeLocalizedKeywords = (emoji, languages, nameLocalizer) => {
+  const res = [emoji.displayText, nameLocalizer(emoji)]
+  if (emoji.annotations) {
+    languages.forEach(lang => {
+      const keywords = emoji.annotations[lang]?.keywords || []
+      const name = emoji.annotations[lang]?.name
+      res.push(...(keywords.concat([name]).filter(k => k)))
+    })
+  }
+  return res
+}
 
-const filterByKeyword = (list, keyword = '') => {
+const filterByKeyword = (list, keyword = '', languages, nameLocalizer) => {
   if (keyword === '') return list
 
   const keywordLowercase = keyword.toLowerCase()
   const orderedEmojiList = []
   for (const emoji of list) {
-    const indexOfKeyword = emoji.displayText.toLowerCase().indexOf(keywordLowercase)
+    const indices = maybeLocalizedKeywords(emoji, languages, nameLocalizer)
+      .map(k => k.toLowerCase().indexOf(keywordLowercase))
+      .filter(k => k > -1)
+
+    const indexOfKeyword = indices.length ? Math.min(...indices) : -1
+
     if (indexOfKeyword > -1) {
       if (!Array.isArray(orderedEmojiList[indexOfKeyword])) {
         orderedEmojiList[indexOfKeyword] = []
@@ -44,6 +87,10 @@ const EmojiPicker = {
       required: false,
       type: Boolean,
       default: false
+    },
+    showing: {
+      required: true,
+      type: Boolean
     }
   },
   data () {
@@ -53,16 +100,26 @@ const EmojiPicker = {
       showingStickers: false,
       groupsScrolledClass: 'scrolled-top',
       keepOpen: false,
-      customEmojiBufferSlice: LOAD_EMOJI_BY,
       customEmojiTimeout: null,
-      customEmojiLoadAllConfirmed: false
+      // Lazy-load only after the first time `showing` becomes true.
+      contentLoaded: false,
+      groupRefs: {},
+      emojiRefs: {},
+      filteredEmojiGroups: []
     }
   },
   components: {
     StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
-    Checkbox
+    Checkbox,
+    StillImage
   },
   methods: {
+    setGroupRef (name) {
+      return el => { this.groupRefs[name] = el }
+    },
+    setEmojiRef (name) {
+      return el => { this.emojiRefs[name] = el }
+    },
     onStickerUploaded (e) {
       this.$emit('sticker-uploaded', e)
     },
@@ -77,10 +134,38 @@ const EmojiPicker = {
       const target = (e && e.target) || this.$refs['emoji-groups']
       this.updateScrolledClass(target)
       this.scrolledGroup(target)
-      this.triggerLoadMore(target)
+    },
+    scrolledGroup (target) {
+      const top = target.scrollTop + 5
+      this.$nextTick(() => {
+        this.allEmojiGroups.forEach(group => {
+          const ref = this.groupRefs['group-' + group.id]
+          if (ref && ref.offsetTop <= top) {
+            this.activeGroup = group.id
+          }
+        })
+        this.scrollHeader()
+      })
+    },
+    scrollHeader () {
+      // Scroll the active tab's header into view
+      const headerRef = this.groupRefs['group-header-' + this.activeGroup]
+      const left = headerRef.offsetLeft
+      const right = left + headerRef.offsetWidth
+      const headerCont = this.$refs.header
+      const currentScroll = headerCont.scrollLeft
+      const currentScrollRight = currentScroll + headerCont.clientWidth
+      const setScroll = s => { headerCont.scrollLeft = s }
+
+      const margin = 7 // .emoji-tabs-item: padding
+      if (left - margin < currentScroll) {
+        setScroll(left - margin)
+      } else if (right + margin > currentScrollRight) {
+        setScroll(right + margin - headerCont.clientWidth)
+      }
     },
     highlight (key) {
-      const ref = this.$refs['group-' + key]
+      const ref = this.groupRefs['group-' + key]
       const top = ref.offsetTop
       this.setShowStickers(false)
       this.activeGroup = key
@@ -97,72 +182,89 @@ const EmojiPicker = {
         this.groupsScrolledClass = 'scrolled-middle'
       }
     },
-    triggerLoadMore (target) {
-      const ref = this.$refs['group-end-custom']
-      if (!ref) return
-      const bottom = ref.offsetTop + ref.offsetHeight
-
-      const scrollerBottom = target.scrollTop + target.clientHeight
-      const scrollerTop = target.scrollTop
-      const scrollerMax = target.scrollHeight
-
-      // Loads more emoji when they come into view
-      const approachingBottom = bottom - scrollerBottom < LOAD_EMOJI_MARGIN
-      // Always load when at the very top in case there's no scroll space yet
-      const atTop = scrollerTop < 5
-      // Don't load when looking at unicode category or at the very bottom
-      const bottomAboveViewport = bottom < scrollerTop || scrollerBottom === scrollerMax
-      if (!bottomAboveViewport && (approachingBottom || atTop)) {
-        this.loadEmoji()
-      }
-    },
-    scrolledGroup (target) {
-      const top = target.scrollTop + 5
-      this.$nextTick(() => {
-        this.emojisView.forEach(group => {
-          const ref = this.$refs['group-' + group.id]
-          if (ref.offsetTop <= top) {
-            this.activeGroup = group.id
-          }
-        })
-      })
-    },
-    loadEmoji () {
-      const allLoaded = this.customEmojiBuffer.length === this.filteredEmoji.length
-
-      if (allLoaded) {
-        return
-      }
-
-      this.customEmojiBufferSlice += LOAD_EMOJI_BY
-    },
-    startEmojiLoad (forceUpdate = false) {
-      if (!forceUpdate) {
-        this.keyword = ''
-      }
-      this.$nextTick(() => {
-        this.$refs['emoji-groups'].scrollTop = 0
-      })
-      const bufferSize = this.customEmojiBuffer.length
-      const bufferPrefilledAll = bufferSize === this.filteredEmoji.length
-      if (bufferPrefilledAll && !forceUpdate) {
-        return
-      }
-      this.customEmojiBufferSlice = LOAD_EMOJI_BY
-    },
     toggleStickers () {
       this.showingStickers = !this.showingStickers
     },
     setShowStickers (value) {
       this.showingStickers = value
+    },
+    filterByKeyword (list, keyword) {
+      return filterByKeyword(list, keyword, this.languages, this.maybeLocalizedEmojiName)
+    },
+    initializeLazyLoad () {
+      this.destroyLazyLoad()
+      this.$nextTick(() => {
+        this.$lozad = lozad('.still-image.emoji-picker-emoji', {
+          load: el => {
+            const name = el.getAttribute('data-emoji-name')
+            const vn = this.emojiRefs[name]
+            if (!vn) {
+              return
+            }
+
+            vn.loadLazy()
+          }
+        })
+        this.$lozad.observe()
+      })
+    },
+    waitForDomAndInitializeLazyLoad () {
+      this.$nextTick(() => this.initializeLazyLoad())
+    },
+    destroyLazyLoad () {
+      if (this.$lozad) {
+        if (this.$lozad.observer) {
+          this.$lozad.observer.disconnect()
+        }
+        if (this.$lozad.mutationObserver) {
+          this.$lozad.mutationObserver.disconnect()
+        }
+      }
+    },
+    onShowing () {
+      const oldContentLoaded = this.contentLoaded
+      this.contentLoaded = true
+      this.waitForDomAndInitializeLazyLoad()
+      this.filteredEmojiGroups = this.getFilteredEmojiGroups()
+      if (!oldContentLoaded) {
+        this.$nextTick(() => {
+          if (this.defaultGroup) {
+            this.highlight(this.defaultGroup)
+          }
+        })
+      }
+    },
+    getFilteredEmojiGroups () {
+      return this.allEmojiGroups
+        .map(group => ({
+          ...group,
+          emojis: this.filterByKeyword(group.emojis, trim(this.keyword))
+        }))
+        .filter(group => group.emojis.length > 0)
     }
   },
   watch: {
     keyword () {
-      this.customEmojiLoadAllConfirmed = false
       this.onScroll()
-      this.startEmojiLoad(true)
+      this.debouncedHandleKeywordChange()
+    },
+    allCustomGroups () {
+      this.waitForDomAndInitializeLazyLoad()
+      this.filteredEmojiGroups = this.getFilteredEmojiGroups()
+    },
+    showing (val) {
+      if (val) {
+        this.onShowing()
+      }
     }
+  },
+  mounted () {
+    if (this.showing) {
+      this.onShowing()
+    }
+  },
+  destroyed () {
+    this.destroyLazyLoad()
   },
   computed: {
     activeGroupView () {
@@ -174,39 +276,55 @@ const EmojiPicker = {
       }
       return 0
     },
-    filteredEmoji () {
-      return filterByKeyword(
-        this.$store.state.instance.customEmoji || [],
-        trim(this.keyword)
-      )
+    allCustomGroups () {
+      return this.$store.getters.groupedCustomEmojis
     },
-    customEmojiBuffer () {
-      return this.filteredEmoji.slice(0, this.customEmojiBufferSlice)
+    defaultGroup () {
+      return Object.keys(this.allCustomGroups)[0]
     },
-    emojis () {
-      const standardEmojis = this.$store.state.instance.emoji || []
-      const customEmojis = this.customEmojiBuffer
-
-      return [
-        {
-          id: 'custom',
-          text: this.$t('emoji.custom'),
-          icon: 'smile-beam',
-          emojis: customEmojis
-        },
-        {
-          id: 'standard',
-          text: this.$t('emoji.unicode'),
-          icon: 'box-open',
-          emojis: filterByKeyword(standardEmojis, trim(this.keyword))
-        }
-      ]
+    unicodeEmojiGroups () {
+      return this.$store.getters.standardEmojiGroupList.map(group => ({
+        id: `standard-${group.id}`,
+        text: this.$t(`emoji.unicode_groups.${group.id}`),
+        icon: UNICODE_EMOJI_GROUP_ICON[group.id],
+        emojis: group.emojis
+      }))
     },
-    emojisView () {
-      return this.emojis.filter(value => value.emojis.length > 0)
+    allEmojiGroups () {
+      return Object.entries(this.allCustomGroups)
+        .map(([_, v]) => v)
+        .concat(this.unicodeEmojiGroups)
     },
     stickerPickerEnabled () {
       return (this.$store.state.instance.stickers || []).length !== 0
+    },
+    debouncedHandleKeywordChange () {
+      return debounce(() => {
+        this.waitForDomAndInitializeLazyLoad()
+        this.filteredEmojiGroups = this.getFilteredEmojiGroups()
+      }, 500)
+    },
+    languages () {
+      return ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage)
+    },
+    maybeLocalizedEmojiName () {
+      return emoji => {
+        if (!emoji.annotations) {
+          return emoji.displayText
+        }
+
+        if (emoji.displayTextI18n) {
+          return this.$t(emoji.displayTextI18n.key, emoji.displayTextI18n.args)
+        }
+
+        for (const lang of this.languages) {
+          if (emoji.annotations[lang]?.name) {
+            return emoji.annotations[lang].name
+          }
+        }
+
+        return emoji.displayText
+      }
     }
   }
 }

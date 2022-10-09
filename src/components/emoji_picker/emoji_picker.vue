@@ -1,19 +1,34 @@
 <template>
-  <div class="emoji-picker panel panel-default panel-body">
+  <div
+    class="emoji-picker panel panel-default panel-body"
+  >
     <div class="heading">
-      <span class="emoji-tabs">
+      <span
+        ref="header"
+        class="emoji-tabs"
+      >
         <span
-          v-for="group in emojis"
+          v-for="group in filteredEmojiGroups"
+          :ref="setGroupRef('group-header-' + group.id)"
           :key="group.id"
           class="emoji-tabs-item"
           :class="{
-            active: activeGroupView === group.id,
-            disabled: group.emojis.length === 0
+            active: activeGroupView === group.id
           }"
           :title="group.text"
           @click.prevent="highlight(group.id)"
         >
+          <span
+            v-if="group.image"
+            class="emoji-picker-header-image"
+          >
+            <still-image
+              :alt="group.text"
+              :src="group.image"
+            />
+          </span>
           <FAIcon
+            v-else
             :icon="group.icon"
             fixed-width
           />
@@ -36,7 +51,10 @@
         </span>
       </span>
     </div>
-    <div class="content">
+    <div
+      v-if="contentLoaded"
+      class="content"
+    >
       <div
         class="emoji-content"
         :class="{hidden: showingStickers}"
@@ -57,12 +75,12 @@
           @scroll="onScroll"
         >
           <div
-            v-for="group in emojisView"
+            v-for="group in filteredEmojiGroups"
             :key="group.id"
             class="emoji-group"
           >
             <h6
-              :ref="'group-' + group.id"
+              :ref="setGroupRef('group-' + group.id)"
               class="emoji-group-title"
             >
               {{ group.text }}
@@ -70,17 +88,23 @@
             <span
               v-for="emoji in group.emojis"
               :key="group.id + emoji.displayText"
-              :title="emoji.displayText"
+              :title="maybeLocalizedEmojiName(emoji)"
               class="emoji-item"
               @click.stop.prevent="onEmoji(emoji)"
             >
-              <span v-if="!emoji.imageUrl">{{ emoji.replacement }}</span>
-              <img
+              <span
+                v-if="!emoji.imageUrl"
+                class="emoji-picker-emoji -unicode"
+              >{{ emoji.replacement }}</span>
+              <still-image
                 v-else
-                :src="emoji.imageUrl"
-              >
+                :ref="setEmojiRef(group.id + emoji.displayText)"
+                class="emoji-picker-emoji -custom"
+                :data-src="emoji.imageUrl"
+                :data-emoji-name="group.id + emoji.displayText"
+              />
             </span>
-            <span :ref="'group-end-' + group.id" />
+            <span :ref="setGroupRef('group-end-' + group.id)" />
           </div>
         </div>
         <div class="keep-open">
