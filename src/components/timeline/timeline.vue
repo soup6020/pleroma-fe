@@ -6,7 +6,7 @@
         :timeline-name="timelineName"
       />
       <div
-        class="timeline-header-button"
+        class="rightside-button"
         v-if="showScrollTop && !embedded"
       >
         <button
@@ -25,7 +25,7 @@
       </div>
       <template v-if="mobileLayout && !embedded">
         <div
-          class="timeline-header-button"
+          class="rightside-button"
           v-if="showLoadButton"
         >
           <button
@@ -41,7 +41,7 @@
         </div>
         <div
           v-else-if="!embedded"
-          class="loadmore-text faint veryfaint timeline-header-icon"
+          class="loadmore-text faint veryfaint rightside-icon"
           @click.prevent
         >
           <FAIcon
@@ -66,8 +66,8 @@
           {{ $t('timeline.up_to_date') }}
         </div>
       </template>
-      <QuickFilterSettings v-if="!embedded" class="timeline-header-button"/>
-      <QuickViewSettings v-if="!embedded" class="timeline-header-button"/>
+      <QuickFilterSettings v-if="!embedded" class="rightside-button"/>
+      <QuickViewSettings v-if="!embedded" class="rightside-button"/>
     </div>
     <div :class="classes.body">
       <div

@@ -13,38 +13,6 @@
     background-color: var(--cGreen);
   }
 
-  .timeline-header-button {
-    align-self: stretch;
-    text-align: center;
-    width: var(--__panel-heading-height);
-    height: var(--__panel-heading-height);
-    margin: calc(-1 * var(--panel-heading-height-padding)) 0;
-    margin-right: calc(-1 * var(--__panel-heading-gap));
-
-    > button {
-      box-sizing: border-box;
-      padding: calc(1 * var(--panel-heading-height-padding)) 0;
-      height: 100%;
-      width: 100%;
-      text-align: center;
-
-      svg {
-        font-size: 1.2em;
-      }
-    }
-  }
-
-  .timeline-header-icon {
-    align-self: stretch;
-    text-align: center;
-    width: var(--__panel-heading-height);
-    margin-right: calc(-1 * var(--__panel-heading-gap));
-
-    svg {
-      font-size: 1.2em;
-    }
-  }
-
   .loadmore-button {
     position: relative
   }

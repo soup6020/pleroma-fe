@@ -21,7 +21,7 @@
             >{{ unseenCount }}</span>
           </div>
           <div
-            class="timeline-header-button"
+            class="rightside-button"
             v-if="showScrollTop"
           >
             <button
@@ -46,7 +46,7 @@
           >
             {{ $t('notifications.read') }}
           </button>
-          <NotificationFilters class="timeline-header-button" />
+          <NotificationFilters class="rightside-button" />
         </div>
         <div class="panel-body">
           <div
