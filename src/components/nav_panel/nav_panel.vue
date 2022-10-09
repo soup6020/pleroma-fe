@@ -12,7 +12,7 @@
           @click="toggleCollapse"
         >
           <FAIcon
-            class="timelines-chevron"
+            class="navigation-chevron"
             fixed-width
             :icon="collapsed ? 'chevron-down' : 'chevron-up'"
           />
@@ -143,9 +143,14 @@
     border: none;
   }
 
-  .timelines-chevron {
+  .navigation-chevron {
     margin-left: 0.8em;
     margin-right: 0.8em;
+    font-size: 1.1em;
+  }
+
+  .timelines-chevron {
+    margin-left: 0.8em;
     font-size: 1.1em;
   }
 
