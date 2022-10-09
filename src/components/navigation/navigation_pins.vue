@@ -39,10 +39,8 @@
     height: 0.5em;
     width: 0.5em;
     position: absolute;
-    right: calc(50% - 0.25em);
-    top: calc(50% - 0.25em);
-    margin-left: 6px;
-    margin-top: -6px;
+    right: calc(50% - 0.75em);
+    top: calc(50% - 0.5em);
     background-color: $fallback--cRed;
     background-color: var(--badgeNotification, $fallback--cRed);
   }
