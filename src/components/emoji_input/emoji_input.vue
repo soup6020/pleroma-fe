@@ -121,62 +121,6 @@
     }
   }
 
-  .autocomplete {
-    &-panel {
-      position: absolute;
-    }
-
-    &-item {
-      display: flex;
-      cursor: pointer;
-      padding: 0.2em 0.4em;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-      height: 32px;
-
-      .image {
-        width: 32px;
-        height: 32px;
-        line-height: 32px;
-        text-align: center;
-        font-size: 32px;
-
-        margin-right: 4px;
-
-        img {
-          width: 32px;
-          height: 32px;
-          object-fit: contain;
-        }
-      }
-
-      .label {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0 0.1em 0 0.2em;
-
-        .displayText {
-          line-height: 1.5;
-        }
-
-        .detailText {
-          font-size: 9px;
-          line-height: 9px;
-        }
-      }
-
-      &.highlighted {
-        background-color: $fallback--fg;
-        background-color: var(--selectedMenuPopover, $fallback--fg);
-        color: var(--selectedMenuPopoverText, $fallback--text);
-        --faint: var(--selectedMenuPopoverFaintText, $fallback--faint);
-        --faintLink: var(--selectedMenuPopoverFaintLink, $fallback--faint);
-        --lightText: var(--selectedMenuPopoverLightText, $fallback--lightText);
-        --icon: var(--selectedMenuPopoverIcon, $fallback--icon);
-      }
-    }
-  }
-
   input, textarea {
     flex: 1 0 auto;
   }
@@ -198,6 +142,61 @@
       width: 0;
       margin-right: calc(-1ch - 1px);
       border: 1px solid red;
+    }
+  }
+}
+.autocomplete {
+  &-panel {
+    position: absolute;
+  }
+
+  &-item {
+    display: flex;
+    cursor: pointer;
+    padding: 0.2em 0.4em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    height: 32px;
+
+    .image {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      font-size: 32px;
+
+      margin-right: 4px;
+
+      img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 0.1em 0 0.2em;
+
+      .displayText {
+        line-height: 1.5;
+      }
+
+      .detailText {
+        font-size: 9px;
+        line-height: 9px;
+      }
+    }
+
+    &.highlighted {
+      background-color: $fallback--fg;
+      background-color: var(--selectedMenuPopover, $fallback--fg);
+      color: var(--selectedMenuPopoverText, $fallback--text);
+      --faint: var(--selectedMenuPopoverFaintText, $fallback--faint);
+      --faintLink: var(--selectedMenuPopoverFaintLink, $fallback--faint);
+      --lightText: var(--selectedMenuPopoverLightText, $fallback--lightText);
+      --icon: var(--selectedMenuPopoverIcon, $fallback--icon);
     }
   }
 }
