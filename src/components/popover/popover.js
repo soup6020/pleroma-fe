@@ -63,6 +63,7 @@ const Popover = {
       // used to avoid blinking if hovered onto popover
       graceTimeout: null,
       parentPopover: null,
+      disableClickOutside: false,
       childrenShown: new Set()
     }
   },
@@ -234,6 +235,10 @@ const Popover = {
     },
     showPopover () {
       if (this.disabled) return
+      this.disableClickOutside = true
+      setTimeout(() => {
+        this.disableClickOutside = false
+      }, 0)
       const wasHidden = this.hidden
       this.hidden = false
       this.parentPopover && this.parentPopover.onChildPopoverState(this, true)
@@ -294,6 +299,7 @@ const Popover = {
       }
     },
     onClickOutside (e) {
+      if (this.disableClickOutside) return
       if (this.hidden) return
       if (this.$refs.content && this.$refs.content.contains(e.target)) return
       if (this.$el.contains(e.target)) return

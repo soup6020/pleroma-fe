@@ -115,12 +115,12 @@ const EmojiInput = {
       caret: 0,
       focused: false,
       blurTimeout: null,
-      showPicker: false,
       temporarilyHideSuggestions: false,
       keepOpen: false,
       disableClickOutside: false,
       suggestions: [],
-      overlayStyle: {}
+      overlayStyle: {},
+      pickerShown: false
     }
   },
   components: {
@@ -142,7 +142,6 @@ const EmojiInput = {
       return this.focused &&
         this.suggestions &&
         this.suggestions.length > 0 &&
-        !this.showPicker &&
         !this.temporarilyHideSuggestions
     },
     textAtCaret () {
@@ -285,8 +284,8 @@ const EmojiInput = {
       if (pickerInput) pickerInput.focus()
     },
     triggerShowPicker () {
-      this.showPicker = true
       this.$nextTick(() => {
+        this.$refs.picker.showPicker()
         this.scrollIntoView()
         this.focusPickerInput()
       })
@@ -299,12 +298,16 @@ const EmojiInput = {
       }, 0)
     },
     togglePicker () {
+      console.log('piick')
       this.input.focus()
-      this.showPicker = !this.showPicker
-      if (this.showPicker) {
+      if (!this.pickerShown) {
+        console.log('pick')
         this.scrollIntoView()
+        this.$refs.picker.showPicker()
         this.$refs.picker.startEmojiLoad()
         this.$nextTick(this.focusPickerInput)
+      } else {
+        this.$refs.picker.hidePicker()
       }
     },
     replace (replacement) {
@@ -441,6 +444,12 @@ const EmojiInput = {
         }
       })
     },
+    onPickerShown () {
+      this.pickerShown = true
+    },
+    onPickerClosed () {
+      this.pickerShown = false
+    },
     onBlur (e) {
       // Clicking on any suggestion removes focus from autocomplete,
       // preventing click handler ever executing.
@@ -458,9 +467,6 @@ const EmojiInput = {
         this.blurTimeout = null
       }
 
-      if (!this.keepOpen) {
-        this.showPicker = false
-      }
       this.focused = true
       this.setCaret(e)
       this.temporarilyHideSuggestions = false
@@ -523,27 +529,15 @@ const EmojiInput = {
           this.input.focus()
         }
       }
-
-      this.showPicker = false
     },
     onInput (e) {
-      this.showPicker = false
       this.setCaret(e)
       this.$emit('update:modelValue', e.target.value)
     },
-    onClickInput (e) {
-      this.showPicker = false
-    },
-    onClickOutside (e) {
-      if (this.disableClickOutside) return
-      this.showPicker = false
-    },
     onStickerUploaded (e) {
-      this.showPicker = false
       this.$emit('sticker-uploaded', e)
     },
     onStickerUploadFailed (e) {
-      this.showPicker = false
       this.$emit('sticker-upload-Failed', e)
     },
     setCaret ({ target: { selectionStart } }) {

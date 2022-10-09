@@ -1,7 +1,6 @@
 <template>
   <div
     ref="root"
-    v-click-outside="onClickOutside"
     class="emoji-input"
     :class="{ 'with-picker': !hideEmojiButton }"
   >
@@ -24,13 +23,13 @@
       <EmojiPicker
         v-if="enableEmojiPicker"
         ref="picker"
-        :class="{ hide: !showPicker }"
-        :showing="showPicker"
         :enable-sticker-picker="enableStickerPicker"
         class="emoji-picker-panel"
         @emoji="insert"
         @sticker-uploaded="onStickerUploaded"
         @sticker-upload-failed="onStickerUploadFailed"
+        @show="onPickerShown"
+        @close="onPickerClosed"
       />
     </template>
     <Popover
