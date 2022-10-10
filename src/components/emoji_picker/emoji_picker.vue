@@ -71,6 +71,7 @@
               class="form-control"
               :placeholder="$t('emoji.search_emoji')"
               @input="$event.target.composing = false"
+              ref="search"
             >
           </div>
           <div

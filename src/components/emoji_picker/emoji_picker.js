@@ -245,6 +245,7 @@ const EmojiPicker = {
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       if (!oldContentLoaded) {
         this.$nextTick(() => {
+          this.$refs.search.focus()
           if (this.defaultGroup) {
             this.highlight(this.defaultGroup)
           }
