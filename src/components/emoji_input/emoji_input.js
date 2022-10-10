@@ -145,7 +145,7 @@ const EmojiInput = {
         !this.temporarilyHideSuggestions
     },
     textAtCaret () {
-      return (this.wordAtCaret || {}).word || ''
+      return this.wordAtCaret?.word
     },
     wordAtCaret () {
       if (this.modelValue && this.caret) {
@@ -197,6 +197,12 @@ const EmojiInput = {
 
         return emoji.displayText
       }
+    },
+    onInputScroll () {
+      this.$refs.hiddenOverlay.scrollTo({
+        top: this.input.scrollTop,
+        left: this.input.scrollLeft
+      })
     }
   },
   mounted () {
@@ -225,13 +231,7 @@ const EmojiInput = {
     input.addEventListener('click', this.onClickInput)
     input.addEventListener('transitionend', this.onTransition)
     input.addEventListener('input', this.onInput)
-    // FIXME LEAK
-    input.addEventListener('scroll', (e) => {
-      this.$refs.hiddenOverlay.scrollTo({
-        top: this.input.scrollTop,
-        left: this.input.scrollLeft
-      })
-    })
+    input.addEventListener('scroll', this.onInputScroll)
   },
   unmounted () {
     const { input } = this
@@ -244,6 +244,7 @@ const EmojiInput = {
       input.removeEventListener('click', this.onClickInput)
       input.removeEventListener('transitionend', this.onTransition)
       input.removeEventListener('input', this.onInput)
+      input.removeEventListener('scroll', this.onInputScroll)
     }
   },
   watch: {
@@ -256,11 +257,10 @@ const EmojiInput = {
       }
     },
     textAtCaret: async function (newWord) {
+      if (newWord === undefined) return
       const firstchar = newWord.charAt(0)
       if (newWord === firstchar) {
-        if (firstchar === ' ') {
-          this.suggestions = []
-        }
+        this.suggestions = []
         return
       }
       const matchedSuggestions = await this.suggest(newWord, this.maybeLocalizedEmojiNamesAndKeywords)
@@ -292,10 +292,8 @@ const EmojiInput = {
       }, 0)
     },
     togglePicker () {
-      console.log('piick')
       this.input.focus()
       if (!this.pickerShown) {
-        console.log('pick')
         this.scrollIntoView()
         this.$refs.picker.showPicker()
         this.$refs.picker.startEmojiLoad()
