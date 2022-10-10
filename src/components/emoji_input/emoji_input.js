@@ -211,8 +211,12 @@ const EmojiInput = {
     if (!input) return
     this.input = input
     this.caretEl = hiddenOverlayCaret
-    suggestorPopover.setAnchorEl(this.caretEl)
-    this.$refs.picker.setAnchorEl(this.caretEl)
+    if (suggestorPopover.setAnchorEl) {
+      suggestorPopover.setAnchorEl(this.caretEl) // unit test compat
+      this.$refs.picker.setAnchorEl(this.caretEl)
+    } else {
+      console.warn('setAnchorEl not found, are we in a unit test?')
+    }
     const style = getComputedStyle(this.input)
     this.overlayStyle.padding = style.padding
     this.overlayStyle.border = style.border
