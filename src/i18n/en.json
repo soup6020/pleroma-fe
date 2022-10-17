@@ -84,6 +84,7 @@
     "yes": "Yes",
     "no": "No",
     "peek": "Peek",
+    "scroll_to_top": "Scroll to top",
     "role": {
       "admin": "Admin",
       "moderator": "Moderator"

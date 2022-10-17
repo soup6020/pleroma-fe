@@ -12,6 +12,7 @@
         <button
           class="button-unstyled scroll-to-top-button"
           type="button"
+          :title="$t('general.scroll_to_top')"
           @click="scrollToTop"
         >
           <FALayers class="fa-scale-110 fa-old-padding-layer">
@@ -30,6 +31,7 @@
         >
           <button
             class="button-unstyled loadmore-button"
+            :title="loadButtonString"
             @click.prevent="showNewStatuses"
           >
             <FAIcon
@@ -42,6 +44,7 @@
         <div
           v-else-if="!embedded"
           class="loadmore-text faint veryfaint rightside-icon"
+          :title="$t('timeline.up_to_date')"
           @click.prevent
         >
           <FAIcon

@@ -27,6 +27,7 @@
             <button
               class="button-unstyled scroll-to-top-button"
               type="button"
+              :title="$t('general.scroll_to_top')"
               @click="scrollToTop"
             >
               <FALayers class="fa-scale-110 fa-old-padding-layer">
