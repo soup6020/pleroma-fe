@@ -63,7 +63,7 @@
 
     &.router-link-active {
       color: $fallback--text;
-      color: var(--selectedMenuText, $fallback--text);
+      color: var(--panelText, $fallback--text);
       border-bottom: 4px solid;
 
       & .svg-inline--fa,
