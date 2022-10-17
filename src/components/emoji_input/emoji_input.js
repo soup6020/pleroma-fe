@@ -278,7 +278,6 @@ const EmojiInput = {
           ...rest,
           img: imageUrl || ''
         }))
-      this.$refs.suggestorPopover.updateStyles()
     }
   },
   methods: {
@@ -536,6 +535,9 @@ const EmojiInput = {
     },
     setCaret ({ target: { selectionStart } }) {
       this.caret = selectionStart
+      this.$nextTick(() => {
+        this.$refs.suggestorPopover.updateStyles()
+      })
     },
     resize () {
     }
