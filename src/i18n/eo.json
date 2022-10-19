@@ -164,7 +164,8 @@
     "media_description": "Priskribo de vidaŭdaĵo",
     "post": "Afiŝo",
     "edit_remote_warning": "Aliaj foraj nodoj eble ne subtenas redaktadon, kaj ne povos ricevi pli novan version de via afiŝo.",
-    "edit_unsupported_warning": "Pleroma ne subtenas redaktadon de mencioj aŭ enketoj."
+    "edit_unsupported_warning": "Pleroma ne subtenas redaktadon de mencioj aŭ enketoj.",
+    "edit_status": "Stato de redakto"
   },
   "registration": {
     "bio": "Priskribo",
@@ -655,7 +656,11 @@
     "mention_link_show_avatar_quick": "Montri profilbildon de uzanto apud mencioj",
     "mention_link_fade_domain": "Malvigligi retnomojn (ekz. {'@'}ekzemplo.org en {'@'}zozo{'@'}ekzemplo.org)",
     "mention_link_bolden_you": "Emfazi vian mencion, se vi estas menciita",
-    "mention_link_use_tooltip": "Montri karton de uzanto per klako al mencia ligilo"
+    "mention_link_use_tooltip": "Montri karton de uzanto per klako al mencia ligilo",
+    "user_popover_avatar_action_close": "Fermi la ŝprucaĵon",
+    "user_popover_avatar_action_open": "Malfermi la profilon",
+    "user_popover_avatar_overlay": "Aperigi ŝprucaĵon pri uzanto sur profilbildo",
+    "show_yous": "Montri la markon «(Vi)»"
   },
   "timeline": {
     "collapse": "Maletendi",
@@ -779,7 +784,19 @@
     "load_all": "Enlegante ĉiujn {emojiAmount} bildosignojn",
     "load_all_hint": "Enlegis la {saneAmount} unuajn bildosignojn; enlego de ĉiuj povus kaŭzi problemojn pri efikeco.",
     "unicode": "Unikoda bildosigno",
-    "custom": "Propra bildosigno"
+    "custom": "Propra bildosigno",
+    "unicode_groups": {
+      "activities": "Agado",
+      "animals-and-nature": "Bestoj kaj naturo",
+      "flags": "Flagoj",
+      "food-and-drink": "Manĝaĵoj kaj trinkaĵoj",
+      "objects": "Aĵoj",
+      "people-and-body": "Homoj kaj korpo",
+      "smileys-and-emotion": "Mienbildoj kaj sentoj",
+      "symbols": "Simboloj",
+      "travel-and-places": "Vojaĝoj kaj lokoj"
+    },
+    "regional_indicator": "Regiona marko {letter}"
   },
   "polls": {
     "not_enough_options": "Tro malmultaj unikaj elektebloj en la enketo",
@@ -895,7 +912,26 @@
     "show_all_attachments": "Montri ĉiujn kunsendaĵojn",
     "collapse_attachments": "Kaŝi iujn kunsendaĵojn",
     "many_attachments": "Afiŝo havas {number} kunsendaĵo(j)n",
-    "show_attachment_in_modal": "Montri en vidilo de vidaŭdaĵoj"
+    "show_attachment_in_modal": "Montri en vidilo de vidaŭdaĵoj",
+    "edit": "Redakti afiŝon",
+    "replies_list_with_others": "Respondoj (+{numReplies} alia): | Respondoj (+{numReplies} aliaj):",
+    "thread_show": "Malkaŝi ĉi tiun fadenon",
+    "thread_show_full": "Montri ĉion en ĉi tiu fadeno ({numStatus} afiŝon sume, maksimume en profundeco {depth}) | Montri ĉion en ĉi tiu fadeno ({numStatus} afiŝojn sume, maksimume en profundeco {depth})",
+    "show_all_conversation": "Montri plenan interparolon ({numStatus} alian afiŝon) | Montri plenan interparolon ({numStatus} aliajn afiŝojn)",
+    "edited_at": "(lastafoje redaktita je {time})",
+    "remove_attachment": "Forigi kunsendaĵon",
+    "show_attachment_description": "Antaŭvidi priskribon (malfermu kunsendaĵon por vidi plenan priskribon)",
+    "hide_attachment": "Kaŝi kunsendaĵon",
+    "attachment_stop_flash": "Ĉesigi ludilon de [Flash]",
+    "move_up": "Ŝovi kunsendaĵon antaŭen",
+    "move_down": "Ŝovi kunsendaĵon posten",
+    "thread_hide": "Kaŝi ĉi tiun fadenon",
+    "thread_show_full_with_icon": "{icon} {text}",
+    "thread_follow": "Montri ceteron de ĉi tiu fadeno ({numStatus} afiŝon sume) | Montri ceteron de ĉi tiu fadeno ({numStatus} afiŝojn sume)",
+    "thread_follow_with_icon": "{icon} {text}",
+    "ancestor_follow": "Vidi {numReplies} alian respondon sub ĉi tiu afiŝo | Vidi {numReplies} aliajn respondojn sub ĉi tiu afiŝo",
+    "ancestor_follow_with_icon": "{icon} {text}",
+    "show_all_conversation_with_icon": "{icon} {text}"
   },
   "time": {
     "years_short": "{0}j",
