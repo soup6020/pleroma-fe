@@ -660,7 +660,8 @@
     "user_popover_avatar_action_close": "Fermi la ŝprucaĵon",
     "user_popover_avatar_action_open": "Malfermi la profilon",
     "user_popover_avatar_overlay": "Aperigi ŝprucaĵon pri uzanto sur profilbildo",
-    "show_yous": "Montri la markon «(Vi)»"
+    "show_yous": "Montri la markon «(Vi)»",
+    "user_popover_avatar_action_zoom": "Zomi la profilbildon"
   },
   "timeline": {
     "collapse": "Maletendi",
@@ -725,7 +726,8 @@
       "grant_moderator": "Nomumi reguligiston",
       "revoke_admin": "Malnomumi administranton",
       "grant_admin": "Nomumi administranton",
-      "moderation": "Reguligado"
+      "moderation": "Reguligado",
+      "delete_user_data_and_deactivate_confirmation": "Tio ĉi por ĉiam forigos datumojn de tiu ĉi konto, kaj malaktivigos ĝin. Ĉu vi plene certas?"
     },
     "show_repeats": "Montri ripetojn",
     "hide_repeats": "Kaŝi ripetojn",
@@ -738,7 +740,10 @@
       "solid": "Unueca fono",
       "disabled": "Senemfaze"
     },
-    "edit_profile": "Redakti profilon"
+    "edit_profile": "Redakti profilon",
+    "deactivated": "Malaktiva",
+    "follow_cancel": "Nuligi peton",
+    "remove_follower": "Forigi abonanton"
   },
   "user_profile": {
     "timeline_title": "Historio de uzanto",
@@ -931,7 +936,9 @@
     "thread_follow_with_icon": "{icon} {text}",
     "ancestor_follow": "Vidi {numReplies} alian respondon sub ĉi tiu afiŝo | Vidi {numReplies} aliajn respondojn sub ĉi tiu afiŝo",
     "ancestor_follow_with_icon": "{icon} {text}",
-    "show_all_conversation_with_icon": "{icon} {text}"
+    "show_all_conversation_with_icon": "{icon} {text}",
+    "show_only_conversation_under_this": "Montri nur respondojn al ĉi tiu afiŝo",
+    "status_history": "Historio de afiŝo"
   },
   "time": {
     "years_short": "{0}j",
@@ -1045,5 +1052,38 @@
     "state_open": "Malfermita",
     "state_closed": "Fermita",
     "state_resolved": "Solvita"
+  },
+  "lists": {
+    "editing_list": "Redaktado de listo {listTitle}",
+    "lists": "Listoj",
+    "new": "Nova listo",
+    "title": "Nomo de listo",
+    "search": "Serĉi uzantojn",
+    "create": "Krei",
+    "save": "Konservi ŝanĝojn",
+    "delete": "Forigi liston",
+    "following_only": "Limigi al abonatoj",
+    "manage_lists": "Mastrumi listojn",
+    "manage_members": "Mastrumi listanojn",
+    "add_members": "Serĉi pliajn uzantojn",
+    "remove_from_list": "Forigi de listo",
+    "add_to_list": "Aldoni al listo",
+    "is_in_list": "Jam en listo",
+    "creating_list": "Kreado de nova listo",
+    "update_title": "Konservi nomon",
+    "really_delete": "Ĉu vi certe volas forigi la liston?",
+    "error": "Eraris umado je listoj: {0}"
+  },
+  "update": {
+    "big_update_content": "Ni longe ne eldonis novan version, kaj tial aferoj eble aspektos iom malsame, ol antaŭe.",
+    "update_bugs": "Bonvolu raporti problemojn kaj erarojn ĉe {pleromaGitlab}, ĉar ni ŝanĝis multon, kaj kvankam ni zorge testas kaj mem uzas la prilaboratajn versiojn, ni tamen povas preteratenti ion. Ni bonvenigas viajn rimarkojn kaj proponojn pri renkontitaj eraroj aŭ proponoj plibonigi Pleromon.",
+    "big_update_title": "Bonvolu pacienci",
+    "update_bugs_gitlab": "GitLab de Pleroma",
+    "update_changelog": "Por legi detalojn pri ŝanĝoj, vidu {theFullChangelog}.",
+    "update_changelog_here": "la plenan ŝanĝaron",
+    "art_by": "Arto de {linkToArtist}"
+  },
+  "unicode_domain_indicator": {
+    "tooltip": "Ĉi tiu retnomo enhavas signojn ekster ASCII."
   }
 }
