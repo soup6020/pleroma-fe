@@ -38,7 +38,9 @@
               fixed-width
               icon="circle-plus"
             />
-            <div class="alert-dot" />
+            <div class="alert-badge">
+              {{ mobileLoadButtonString }}
+            </div>
           </button>
         </div>
         <div

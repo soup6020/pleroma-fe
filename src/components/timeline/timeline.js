@@ -69,6 +69,13 @@ const Timeline = {
         return `${this.$t('timeline.show_new')} (${this.newStatusCount})`
       }
     },
+    mobileLoadButtonString () {
+      if (this.timeline.flushMarker !== 0) {
+        return '+'
+      } else {
+        return this.newStatusCount > 99 ? '∞' : this.newStatusCount
+      }
+    },
     classes () {
       let rootClasses = !this.embedded ? ['panel', 'panel-default'] : ['-nonpanel']
       if (this.blockingClicks) rootClasses = rootClasses.concat(['-blocked', '_misclick-prevention'])
