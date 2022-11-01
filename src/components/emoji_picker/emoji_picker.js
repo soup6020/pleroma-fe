@@ -240,12 +240,14 @@ const EmojiPicker = {
     },
     onShowing () {
       const oldContentLoaded = this.contentLoaded
+      this.$nextTick(() => {
+        this.$refs.search.focus()
+      })
       this.contentLoaded = true
       this.waitForDomAndInitializeLazyLoad()
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       if (!oldContentLoaded) {
         this.$nextTick(() => {
-          this.$refs.search.focus()
           if (this.defaultGroup) {
             this.highlight(this.defaultGroup)
           }
