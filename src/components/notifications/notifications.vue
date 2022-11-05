@@ -4,6 +4,7 @@
     :to="teleportTarget"
   >
     <div
+      ref="root"
       :class="{ minimal: minimalMode }"
       class="Notifications"
     >
@@ -19,14 +20,34 @@
               class="badge badge-notification unseen-count"
             >{{ unseenCount }}</span>
           </div>
+          <div
+            class="rightside-button"
+            v-if="showScrollTop"
+          >
+            <button
+              class="button-unstyled scroll-to-top-button"
+              type="button"
+              :title="$t('general.scroll_to_top')"
+              @click="scrollToTop"
+            >
+              <FALayers class="fa-scale-110 fa-old-padding-layer">
+                <FAIcon icon="arrow-up" />
+                <FAIcon
+                  icon="minus"
+                  transform="up-7"
+                />
+              </FALayers>
+            </button>
+          </div>
           <button
             v-if="unseenCount"
             class="button-default read-button"
+            type="button"
             @click.prevent="markAsSeen"
           >
             {{ $t('notifications.read') }}
           </button>
-          <NotificationFilters />
+          <NotificationFilters class="rightside-button" />
         </div>
         <div class="panel-body">
           <div

@@ -20,10 +20,12 @@
       <QuickFilterSettings
         v-if="!collapsable"
         :conversation="true"
+        class="rightside-button"
       />
       <QuickViewSettings
         v-if="!collapsable"
         :conversation="true"
+        class="rightside-button"
       />
     </div>
     <div class="conversation-body panel-body">

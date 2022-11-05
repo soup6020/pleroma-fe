@@ -48,19 +48,34 @@
     >
       <div class="mobile-notifications-header">
         <span class="title">{{ $t('notifications.notifications') }}</span>
-        <a
-          class="mobile-nav-button"
-          @click.stop.prevent="closeMobileNotifications()"
+        <span class="spacer"/>
+        <button
+          v-if="notificationsAtTop"
+          class="button-unstyled mobile-nav-button"
+          @click.stop.prevent="scrollMobileNotificationsToTop"
+        >
+          <FALayers class="fa-scale-110 fa-old-padding-layer">
+            <FAIcon icon="arrow-up" />
+            <FAIcon
+              icon="minus"
+              transform="up-7"
+            />
+          </FALayers>
+        </button>
+        <button
+          class="button-unstyled mobile-nav-button"
+          @click.stop.prevent="closeMobileNotifications(true)"
         >
           <FAIcon
             class="fa-scale-110 fa-old-padding"
             icon="times"
           />
-        </a>
+        </button>
       </div>
       <div
         id="mobile-notifications"
         class="mobile-notifications"
+        ref="mobileNotifications"
         @scroll="onScroll"
       />
     </div>
@@ -164,6 +179,10 @@
     background-color: var(--topBar, $fallback--fg);
     box-shadow: 0px 0px 4px rgba(0,0,0,.6);
     box-shadow: var(--topBarShadow);
+
+    .spacer {
+      flex: 1;
+    }
 
     .title {
       font-size: 1.3em;

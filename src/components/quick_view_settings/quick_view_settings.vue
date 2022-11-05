@@ -74,21 +74,3 @@
 </template>
 
 <script src="./quick_view_settings.js"></script>
-
-<style lang="scss">
-
-.QuickViewSettings {
-
-  > button {
-    line-height: 100%;
-    height: 100%;
-    width: var(--__panel-heading-height-inner);
-    text-align: center;
-
-    svg {
-      font-size: 1.2em;
-    }
-  }
-}
-
-</style>
