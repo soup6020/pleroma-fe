@@ -33,7 +33,7 @@
           <div id="notifs-sidebar" />
         </template>
       </div>
-      <div
+      <main
         id="main-scroller"
         class="column main"
         :class="{ '-full-height': isChats || isListEdit }"
@@ -50,7 +50,7 @@
           </router-link>
         </div>
         <router-view />
-      </div>
+      </main>
       <div
         id="notifs-column"
         class="column -scrollable"
