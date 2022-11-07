@@ -1,5 +1,5 @@
 <template>
-  <div class="thread-tree">
+  <article class="thread-tree">
     <status
       :key="status.id"
       ref="statusComponent"
@@ -113,7 +113,7 @@
         </template>
       </i18n-t>
     </div>
-  </div>
+  </article>
 </template>
 
 <script src="./thread_tree.js"></script>

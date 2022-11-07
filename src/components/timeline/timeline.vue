@@ -79,10 +79,12 @@
       <div
         ref="timeline"
         class="timeline"
+        role="list"
       >
         <conversation
           v-for="statusId in filteredPinnedStatusIds"
           :key="statusId + '-pinned'"
+          role="listitem"
           class="status-fadein"
           :status-id="statusId"
           :collapsable="true"
@@ -93,6 +95,7 @@
         <conversation
           v-for="status in filteredVisibleStatuses"
           :key="status.id"
+          role="listitem"
           class="status-fadein"
           :status-id="status.id"
           :collapsable="true"
