@@ -47,6 +47,7 @@
           v-else-if="!embedded"
           class="loadmore-text faint veryfaint rightside-icon"
           :title="$t('timeline.up_to_date')"
+          :aria-disabled="true"
           @click.prevent
         >
           <FAIcon

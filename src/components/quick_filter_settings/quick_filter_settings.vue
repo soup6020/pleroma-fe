@@ -3,6 +3,7 @@
     trigger="click"
     class="QuickFilterSettings"
     :bound-to="{ x: 'container' }"
+    :triggerAttrs="{ title: $t('timeline.quick_filter_settings') }"
   >
     <template #content>
       <div class="dropdown-menu">
@@ -79,9 +80,7 @@
       </div>
     </template>
     <template #trigger>
-      <button class="button-unstyled">
-        <FAIcon icon="filter" />
-      </button>
+      <FAIcon icon="filter" />
     </template>
   </Popover>
 </template>

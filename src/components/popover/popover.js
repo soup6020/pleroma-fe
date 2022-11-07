@@ -43,7 +43,12 @@ const Popover = {
     overlayCentersSelector: String,
 
     // Lets hover popover stay when clicking inside of it
-    stayOnClick: Boolean
+    stayOnClick: Boolean,
+
+    triggerAttrs: {
+      type: Object,
+      default: {}
+    }
   },
   inject: ['popoversZLayer'], // override popover z layer
   data () {
