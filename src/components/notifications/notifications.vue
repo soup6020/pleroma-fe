@@ -52,7 +52,7 @@
         </div>
         <div
           class="panel-body"
-          role="list"
+          role="feed"
         >
           <div
             v-for="notification in notificationsToDisplay"

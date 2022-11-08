@@ -79,7 +79,7 @@
       <div
         ref="timeline"
         class="timeline"
-        role="list"
+        role="feed"
       >
         <conversation
           v-for="statusId in filteredPinnedStatusIds"
