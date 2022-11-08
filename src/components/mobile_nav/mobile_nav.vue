@@ -42,7 +42,7 @@
         </button>
       </div>
     </nav>
-    <div
+    <aside
       v-if="currentUser"
       class="mobile-notifications-drawer"
       :class="{ '-closed': !notificationsOpen }"
@@ -83,7 +83,7 @@
         ref="mobileNotifications"
         @scroll="onScroll"
       />
-    </div>
+    </aside>
     <SideDrawer
       ref="sideDrawer"
       :logout="logout"

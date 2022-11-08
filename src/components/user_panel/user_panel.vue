@@ -1,5 +1,5 @@
 <template>
-  <div class="user-panel">
+  <aside class="user-panel">
     <div
       v-if="signedIn"
       key="user-panel-signed"
@@ -16,7 +16,7 @@
       v-else
       key="user-panel"
     />
-  </div>
+  </aside>
 </template>
 
 <script src="./user_panel.js"></script>
