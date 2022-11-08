@@ -50,10 +50,14 @@
           </button>
           <NotificationFilters class="rightside-button" />
         </div>
-        <div class="panel-body">
+        <div
+          class="panel-body"
+          role="list"
+        >
           <div
             v-for="notification in notificationsToDisplay"
             :key="notification.id"
+            role="listitem"
             class="notification"
             :class="{unseen: !minimalMode && !notification.seen}"
           >

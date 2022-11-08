@@ -1,11 +1,14 @@
 <template>
-  <Status
+  <article
     v-if="notification.type === 'mention'"
-    class="Notification"
-    :compact="true"
-    :statusoid="notification.status"
-  />
-  <div v-else>
+  >
+    <Status
+      class="Notification"
+      :compact="true"
+      :statusoid="notification.status"
+    />
+  </article>
+  <article v-else>
     <div
       v-if="needMute && !unmuted"
       class="Notification container -muted"
@@ -226,7 +229,7 @@
         </template>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script src="./notification.js"></script>
