@@ -30,7 +30,7 @@
           <instance-specific-panel v-if="showInstanceSpecificPanel" />
           <features-panel v-if="!currentUser && showFeaturesPanel" />
           <who-to-follow-panel v-if="currentUser && suggestionsEnabled" />
-          <aside id="notifs-sidebar" />
+          <div id="notifs-sidebar" />
         </template>
       </div>
       <main

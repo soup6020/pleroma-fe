@@ -3,7 +3,8 @@
     :disabled="minimalMode || disableTeleport"
     :to="teleportTarget"
   >
-    <div
+    <component
+      :is="noHeading ? 'div' : 'aside'"
       ref="root"
       :class="{ minimal: minimalMode }"
       class="Notifications"
@@ -88,7 +89,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </component>
   </teleport>
 </template>
 
