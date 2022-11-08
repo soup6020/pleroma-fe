@@ -60,7 +60,7 @@
           v-if="shouldShowAncestors"
           class="thread-ancestors"
         >
-          <div
+          <article
             v-for="status in ancestorsOf(diveRoot)"
             :key="status.id"
             class="thread-ancestor"
@@ -130,7 +130,7 @@
                 </i18n-t>
               </div>
             </div>
-          </div>
+          </article>
         </div>
         <thread-tree
           v-for="status in showingTopLevel"
@@ -168,34 +168,36 @@
         v-if="isLinearView"
         class="thread-body"
       >
-        <status
-          v-for="status in conversation"
-          :key="status.id"
-          ref="statusComponent"
-          :inline-expanded="collapsable && isExpanded"
-          :statusoid="status"
-          :expandable="!isExpanded"
-          :show-pinned="pinnedStatusIdsObject && pinnedStatusIdsObject[status.id]"
-          :focused="focused(status.id)"
-          :in-conversation="isExpanded"
-          :highlight="getHighlight()"
-          :replies="getReplies(status.id)"
-          :in-profile="inProfile"
-          :profile-user-id="profileUserId"
-          class="conversation-status status-fadein panel-body"
+        <article>
+          <status
+            v-for="status in conversation"
+            :key="status.id"
+            ref="statusComponent"
+            :inline-expanded="collapsable && isExpanded"
+            :statusoid="status"
+            :expandable="!isExpanded"
+            :show-pinned="pinnedStatusIdsObject && pinnedStatusIdsObject[status.id]"
+            :focused="focused(status.id)"
+            :in-conversation="isExpanded"
+            :highlight="getHighlight()"
+            :replies="getReplies(status.id)"
+            :in-profile="inProfile"
+            :profile-user-id="profileUserId"
+            class="conversation-status status-fadein panel-body"
 
-          :toggle-thread-display="toggleThreadDisplay"
-          :thread-display-status="threadDisplayStatus"
-          :show-thread-recursively="showThreadRecursively"
-          :total-reply-count="totalReplyCount"
-          :total-reply-depth="totalReplyDepth"
-          :status-content-properties="statusContentProperties"
-          :set-status-content-property="setStatusContentProperty"
-          :toggle-status-content-property="toggleStatusContentProperty"
+            :toggle-thread-display="toggleThreadDisplay"
+            :thread-display-status="threadDisplayStatus"
+            :show-thread-recursively="showThreadRecursively"
+            :total-reply-count="totalReplyCount"
+            :total-reply-depth="totalReplyDepth"
+            :status-content-properties="statusContentProperties"
+            :set-status-content-property="setStatusContentProperty"
+            :toggle-status-content-property="toggleStatusContentProperty"
 
-          @goto="setHighlight"
-          @toggleExpanded="toggleExpanded"
-        />
+            @goto="setHighlight"
+            @toggleExpanded="toggleExpanded"
+          />
+        </article>
       </div>
     </div>
   </div>

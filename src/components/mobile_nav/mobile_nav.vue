@@ -10,6 +10,8 @@
       <div class="item">
         <button
           class="button-unstyled mobile-nav-button"
+          :title="$t('nav.mobile_sidebar')"
+          :aria-expanaded="this.$refs.sideDrawer && !this.$refs.sideDrawer.closed"
           @click.stop.prevent="toggleMobileSidebar()"
         >
           <FAIcon
@@ -26,6 +28,7 @@
         <button
           v-if="currentUser"
           class="button-unstyled mobile-nav-button"
+          :title="unseenNotificationsCount ? $t('nav.mobile_notifications_unread_active') : $t('nav.mobile_notifications')"
           @click.stop.prevent="openMobileNotifications()"
         >
           <FAIcon
@@ -39,7 +42,7 @@
         </button>
       </div>
     </nav>
-    <div
+    <aside
       v-if="currentUser"
       class="mobile-notifications-drawer"
       :class="{ '-closed': !notificationsOpen }"
@@ -52,6 +55,7 @@
         <button
           v-if="notificationsAtTop"
           class="button-unstyled mobile-nav-button"
+          :title="$t('general.scroll_to_top')"
           @click.stop.prevent="scrollMobileNotificationsToTop"
         >
           <FALayers class="fa-scale-110 fa-old-padding-layer">
@@ -64,6 +68,7 @@
         </button>
         <button
           class="button-unstyled mobile-nav-button"
+          :title="$t('nav.mobile_notifications_close')"
           @click.stop.prevent="closeMobileNotifications(true)"
         >
           <FAIcon
@@ -78,7 +83,7 @@
         ref="mobileNotifications"
         @scroll="onScroll"
       />
-    </div>
+    </aside>
     <SideDrawer
       ref="sideDrawer"
       :logout="logout"

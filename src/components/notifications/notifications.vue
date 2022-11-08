@@ -3,7 +3,8 @@
     :disabled="minimalMode || disableTeleport"
     :to="teleportTarget"
   >
-    <div
+    <component
+      :is="noHeading ? 'div' : 'aside'"
       ref="root"
       :class="{ minimal: minimalMode }"
       class="Notifications"
@@ -49,10 +50,14 @@
           </button>
           <NotificationFilters class="rightside-button" />
         </div>
-        <div class="panel-body">
+        <div
+          class="panel-body"
+          role="feed"
+        >
           <div
             v-for="notification in notificationsToDisplay"
             :key="notification.id"
+            role="listitem"
             class="notification"
             :class="{unseen: !minimalMode && !notification.seen}"
           >
@@ -88,7 +93,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </component>
   </teleport>
 </template>
 

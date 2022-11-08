@@ -7,6 +7,7 @@
       ref="trigger"
       class="button-unstyled popover-trigger-button"
       type="button"
+      v-bind="triggerAttrs"
       @click="onClick"
     >
       <slot name="trigger" />

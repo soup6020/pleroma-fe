@@ -3,6 +3,7 @@
     v-if="isLoggedIn"
     class="MobilePostButton button-default new-status-button"
     :class="{ 'hidden': isHidden, 'always-show': isPersistent }"
+    :title="$t('post_status.new_status')"
     @click="openPostForm"
   >
     <FAIcon icon="pen" />

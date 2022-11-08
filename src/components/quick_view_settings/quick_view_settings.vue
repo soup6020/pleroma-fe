@@ -3,6 +3,7 @@
     trigger="click"
     class="QuickViewSettings"
     :bound-to="{ x: 'container' }"
+    :triggerAttrs="{ title: $t('timeline.quick_view_settings') }"
   >
     <template #content>
       <div class="dropdown-menu">
@@ -66,9 +67,7 @@
       </div>
     </template>
     <template #trigger>
-      <button class="button-unstyled">
-        <FAIcon icon="bars" />
-      </button>
+      <FAIcon icon="bars" />
     </template>
   </Popover>
 </template>
