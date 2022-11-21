@@ -258,7 +258,7 @@
             </button>
           </div>
           <ModerationTools
-            v-if="loggedIn.role === &quot;admin&quot;"
+            v-if="showModerationMenu"
             :user="user"
           />
         </div>

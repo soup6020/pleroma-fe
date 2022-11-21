@@ -124,6 +124,34 @@ export const parseUser = (data) => {
       } else {
         output.role = 'member'
       }
+
+      if (data.pleroma.privileges) {
+        output.privileges = data.pleroma.privileges
+      } else if (data.pleroma.is_admin) {
+        output.privileges = [
+          'users_read',
+          'users_manage_invites',
+          'users_manage_activation_state',
+          'users_manage_tags',
+          'users_manage_credentials',
+          'users_delete',
+          'messages_read',
+          'messages_delete',
+          'instances_delete',
+          'reports_manage_reports',
+          'moderation_log_read',
+          'announcements_manage_announcements',
+          'emoji_manage_emoji',
+          'statistics_read'
+        ]
+      } else if (data.pleroma.is_moderator) {
+        output.privileges = [
+          'messages_delete',
+          'reports_manage_reports'
+        ]
+      } else {
+        output.privileges = []
+      }
     }
 
     if (data.source) {
