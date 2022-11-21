@@ -73,7 +73,6 @@
     <UpdateNotification />
     <div id="modal" />
     <GlobalNoticeList />
-    <div id="popovers" />
   </div>
 </template>
 

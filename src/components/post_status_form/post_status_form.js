@@ -501,7 +501,6 @@ const PostStatusForm = {
       if (target.value === '') {
         target.style.height = null
         this.$emit('resize')
-        this.$refs['emoji-input'].resize()
         return
       }
 
@@ -588,8 +587,6 @@ const PostStatusForm = {
       } else {
         scrollerRef.scrollTop = targetScroll
       }
-
-      this.$refs['emoji-input'].resize()
     },
     showEmojiPicker () {
       this.$refs.textarea.focus()

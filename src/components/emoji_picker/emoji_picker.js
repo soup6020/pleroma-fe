@@ -1,5 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 import Checkbox from '../checkbox/checkbox.vue'
+import Popover from 'src/components/popover/popover.vue'
 import StillImage from '../still-image/still-image.vue'
 import { ensureFinalFallback } from '../../i18n/languages.js'
 import lozad from 'lozad'
@@ -87,10 +88,6 @@ const EmojiPicker = {
       required: false,
       type: Boolean,
       default: false
-    },
-    showing: {
-      required: true,
-      type: Boolean
     }
   },
   data () {
@@ -111,14 +108,31 @@ const EmojiPicker = {
   components: {
     StickerPicker: defineAsyncComponent(() => import('../sticker_picker/sticker_picker.vue')),
     Checkbox,
-    StillImage
+    StillImage,
+    Popover
   },
   methods: {
+    showPicker () {
+      this.$refs.popover.showPopover()
+      this.onShowing()
+    },
+    hidePicker () {
+      this.$refs.popover.hidePopover()
+    },
+    setAnchorEl (el) {
+      this.$refs.popover.setAnchorEl(el)
+    },
     setGroupRef (name) {
       return el => { this.groupRefs[name] = el }
     },
     setEmojiRef (name) {
       return el => { this.emojiRefs[name] = el }
+    },
+    onPopoverShown () {
+      this.$emit('show')
+    },
+    onPopoverClosed () {
+      this.$emit('close')
     },
     onStickerUploaded (e) {
       this.$emit('sticker-uploaded', e)
@@ -128,6 +142,9 @@ const EmojiPicker = {
     },
     onEmoji (emoji) {
       const value = emoji.imageUrl ? `:${emoji.displayText}:` : emoji.replacement
+      if (!this.keepOpen) {
+        this.$refs.popover.hidePopover()
+      }
       this.$emit('emoji', { insertion: value, keepOpen: this.keepOpen })
     },
     onScroll (e) {
@@ -223,6 +240,9 @@ const EmojiPicker = {
     },
     onShowing () {
       const oldContentLoaded = this.contentLoaded
+      this.$nextTick(() => {
+        this.$refs.search.focus()
+      })
       this.contentLoaded = true
       this.waitForDomAndInitializeLazyLoad()
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
@@ -251,16 +271,6 @@ const EmojiPicker = {
     allCustomGroups () {
       this.waitForDomAndInitializeLazyLoad()
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
-    },
-    showing (val) {
-      if (val) {
-        this.onShowing()
-      }
-    }
-  },
-  mounted () {
-    if (this.showing) {
-      this.onShowing()
     }
   },
   destroyed () {

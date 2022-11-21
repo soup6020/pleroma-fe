@@ -1,5 +1,6 @@
 import Completion from '../../services/completion/completion.js'
 import EmojiPicker from '../emoji_picker/emoji_picker.vue'
+import Popover from 'src/components/popover/popover.vue'
 import UnicodeDomainIndicator from '../unicode_domain_indicator/unicode_domain_indicator.vue'
 import { take } from 'lodash'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
@@ -109,18 +110,20 @@ const EmojiInput = {
   data () {
     return {
       input: undefined,
+      caretEl: undefined,
       highlighted: 0,
       caret: 0,
       focused: false,
       blurTimeout: null,
-      showPicker: false,
       temporarilyHideSuggestions: false,
-      keepOpen: false,
       disableClickOutside: false,
-      suggestions: []
+      suggestions: [],
+      overlayStyle: {},
+      pickerShown: false
     }
   },
   components: {
+    Popover,
     EmojiPicker,
     UnicodeDomainIndicator
   },
@@ -128,15 +131,21 @@ const EmojiInput = {
     padEmoji () {
       return this.$store.getters.mergedConfig.padEmoji
     },
+    preText () {
+      return this.modelValue.slice(0, this.caret)
+    },
+    postText () {
+      return this.modelValue.slice(this.caret)
+    },
     showSuggestions () {
       return this.focused &&
         this.suggestions &&
         this.suggestions.length > 0 &&
-        !this.showPicker &&
+        !this.pickerShown &&
         !this.temporarilyHideSuggestions
     },
     textAtCaret () {
-      return (this.wordAtCaret || {}).word || ''
+      return this.wordAtCaret?.word
     },
     wordAtCaret () {
       if (this.modelValue && this.caret) {
@@ -188,13 +197,35 @@ const EmojiInput = {
 
         return emoji.displayText
       }
+    },
+    onInputScroll () {
+      this.$refs.hiddenOverlay.scrollTo({
+        top: this.input.scrollTop,
+        left: this.input.scrollLeft
+      })
     }
   },
   mounted () {
-    const { root } = this.$refs
+    const { root, hiddenOverlayCaret, suggestorPopover } = this.$refs
     const input = root.querySelector('.emoji-input > input') || root.querySelector('.emoji-input > textarea')
     if (!input) return
     this.input = input
+    this.caretEl = hiddenOverlayCaret
+    if (suggestorPopover.setAnchorEl) {
+      suggestorPopover.setAnchorEl(this.caretEl) // unit test compat
+      this.$refs.picker.setAnchorEl(this.caretEl)
+    } else {
+      console.warn('setAnchorEl not found, are we in a unit test?')
+    }
+    const style = getComputedStyle(this.input)
+    this.overlayStyle.padding = style.padding
+    this.overlayStyle.border = style.border
+    this.overlayStyle.margin = style.margin
+    this.overlayStyle.lineHeight = style.lineHeight
+    this.overlayStyle.fontFamily = style.fontFamily
+    this.overlayStyle.fontSize = style.fontSize
+    this.overlayStyle.wordWrap = style.wordWrap
+    this.overlayStyle.whiteSpace = style.whiteSpace
     this.resize()
     input.addEventListener('blur', this.onBlur)
     input.addEventListener('focus', this.onFocus)
@@ -204,6 +235,7 @@ const EmojiInput = {
     input.addEventListener('click', this.onClickInput)
     input.addEventListener('transitionend', this.onTransition)
     input.addEventListener('input', this.onInput)
+    input.addEventListener('scroll', this.onInputScroll)
   },
   unmounted () {
     const { input } = this
@@ -216,45 +248,43 @@ const EmojiInput = {
       input.removeEventListener('click', this.onClickInput)
       input.removeEventListener('transitionend', this.onTransition)
       input.removeEventListener('input', this.onInput)
+      input.removeEventListener('scroll', this.onInputScroll)
     }
   },
   watch: {
-    showSuggestions: function (newValue) {
+    showSuggestions: function (newValue, oldValue) {
       this.$emit('shown', newValue)
+      if (newValue) {
+        this.$refs.suggestorPopover.showPopover()
+      } else {
+        this.$refs.suggestorPopover.hidePopover()
+      }
     },
     textAtCaret: async function (newWord) {
+      if (newWord === undefined) return
       const firstchar = newWord.charAt(0)
-      this.suggestions = []
-      if (newWord === firstchar) return
+      if (newWord === firstchar) {
+        this.suggestions = []
+        return
+      }
       const matchedSuggestions = await this.suggest(newWord, this.maybeLocalizedEmojiNamesAndKeywords)
       // Async: cancel if textAtCaret has changed during wait
-      if (this.textAtCaret !== newWord) return
-      if (matchedSuggestions.length <= 0) return
+      if (this.textAtCaret !== newWord || matchedSuggestions.length <= 0) {
+        this.suggestions = []
+        return
+      }
       this.suggestions = take(matchedSuggestions, 5)
         .map(({ imageUrl, ...rest }) => ({
           ...rest,
           img: imageUrl || ''
         }))
-    },
-    suggestions: {
-      handler (newValue) {
-        this.$nextTick(this.resize)
-      },
-      deep: true
     }
   },
   methods: {
-    focusPickerInput () {
-      const pickerEl = this.$refs.picker.$el
-      if (!pickerEl) return
-      const pickerInput = pickerEl.querySelector('input')
-      if (pickerInput) pickerInput.focus()
-    },
     triggerShowPicker () {
-      this.showPicker = true
       this.$nextTick(() => {
+        this.$refs.picker.showPicker()
         this.scrollIntoView()
-        this.focusPickerInput()
       })
       // This temporarily disables "click outside" handler
       // since external trigger also means click originates
@@ -266,11 +296,12 @@ const EmojiInput = {
     },
     togglePicker () {
       this.input.focus()
-      this.showPicker = !this.showPicker
-      if (this.showPicker) {
+      if (!this.pickerShown) {
         this.scrollIntoView()
+        this.$refs.picker.showPicker()
         this.$refs.picker.startEmojiLoad()
-        this.$nextTick(this.focusPickerInput)
+      } else {
+        this.$refs.picker.hidePicker()
       }
     },
     replace (replacement) {
@@ -307,7 +338,6 @@ const EmojiInput = {
         spaceAfter,
         after
       ].join('')
-      this.keepOpen = keepOpen
       this.$emit('update:modelValue', newValue)
       const position = this.caret + (insertion + spaceAfter + spaceBefore).length
       if (!keepOpen) {
@@ -407,8 +437,11 @@ const EmojiInput = {
         }
       })
     },
-    onTransition (e) {
-      this.resize()
+    onPickerShown () {
+      this.pickerShown = true
+    },
+    onPickerClosed () {
+      this.pickerShown = false
     },
     onBlur (e) {
       // Clicking on any suggestion removes focus from autocomplete,
@@ -416,7 +449,6 @@ const EmojiInput = {
       this.blurTimeout = setTimeout(() => {
         this.focused = false
         this.setCaret(e)
-        this.resize()
       }, 200)
     },
     onClick (e, suggestion) {
@@ -428,18 +460,13 @@ const EmojiInput = {
         this.blurTimeout = null
       }
 
-      if (!this.keepOpen) {
-        this.showPicker = false
-      }
       this.focused = true
       this.setCaret(e)
-      this.resize()
       this.temporarilyHideSuggestions = false
     },
     onKeyUp (e) {
       const { key } = e
       this.setCaret(e)
-      this.resize()
 
       // Setting hider in keyUp to prevent suggestions from blinking
       // when moving away from suggested spot
@@ -451,7 +478,6 @@ const EmojiInput = {
     },
     onPaste (e) {
       this.setCaret(e)
-      this.resize()
     },
     onKeyDown (e) {
       const { ctrlKey, shiftKey, key } = e
@@ -496,58 +522,24 @@ const EmojiInput = {
           this.input.focus()
         }
       }
-
-      this.showPicker = false
-      this.resize()
     },
     onInput (e) {
-      this.showPicker = false
       this.setCaret(e)
-      this.resize()
       this.$emit('update:modelValue', e.target.value)
     },
-    onClickInput (e) {
-      this.showPicker = false
-    },
-    onClickOutside (e) {
-      if (this.disableClickOutside) return
-      this.showPicker = false
-    },
     onStickerUploaded (e) {
-      this.showPicker = false
       this.$emit('sticker-uploaded', e)
     },
     onStickerUploadFailed (e) {
-      this.showPicker = false
       this.$emit('sticker-upload-Failed', e)
     },
     setCaret ({ target: { selectionStart } }) {
       this.caret = selectionStart
+      this.$nextTick(() => {
+        this.$refs.suggestorPopover.updateStyles()
+      })
     },
     resize () {
-      const panel = this.$refs.panel
-      if (!panel) return
-      const picker = this.$refs.picker.$el
-      const panelBody = this.$refs['panel-body']
-      const { offsetHeight, offsetTop } = this.input
-      const offsetBottom = offsetTop + offsetHeight
-
-      this.setPlacement(panelBody, panel, offsetBottom)
-      this.setPlacement(picker, picker, offsetBottom)
-    },
-    setPlacement (container, target, offsetBottom) {
-      if (!container || !target) return
-
-      target.style.top = offsetBottom + 'px'
-      target.style.bottom = 'auto'
-
-      if (this.placement === 'top' || (this.placement === 'auto' && this.overflowsBottom(container))) {
-        target.style.top = 'auto'
-        target.style.bottom = this.input.offsetHeight + 'px'
-      }
-    },
-    overflowsBottom (el) {
-      return el.getBoundingClientRect().bottom > window.innerHeight
     }
   }
 }
