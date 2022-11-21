@@ -36,6 +36,9 @@ const RetweetButton = {
   computed: {
     mergedConfig () {
       return this.$store.getters.mergedConfig
+    },
+    remoteInteractionLink () {
+      return this.$store.getters.remoteInteractionLink({ statusId: this.status.id })
     }
   }
 }

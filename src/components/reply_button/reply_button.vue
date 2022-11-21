@@ -26,13 +26,19 @@
         />
       </FALayers>
     </button>
-    <span v-else>
+    <a
+      v-else
+      class="button-unstyled interactive"
+      target="_blank"
+      role="button"
+      :href="remoteInteractionLink"
+    >
       <FAIcon
         icon="reply"
         class="fa-scale-110 fa-old-padding"
         :title="$t('tool_tip.reply')"
       />
-    </span>
+    </a>
     <span
       v-if="status.replies_count > 0"
       class="action-counter"

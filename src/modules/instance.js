@@ -36,6 +36,8 @@ const REGIONAL_INDICATORS = (() => {
   return res
 })()
 
+const REMOTE_INTERACTION_URL = '/main/ostatus'
+
 const defaultState = {
   // Stuff from apiConfig
   name: 'Pleroma FE',
@@ -214,6 +216,18 @@ const instance = {
     },
     instanceDomain (state) {
       return new URL(state.server).hostname
+    },
+    remoteInteractionLink (state) {
+      const server = state.server.endsWith('/') ? state.server.slice(0, -1) : state.server
+      const link = server + REMOTE_INTERACTION_URL
+
+      return ({ statusId, nickname }) => {
+        if (statusId) {
+          return `${link}?status_id=${statusId}`
+        } else {
+          return `${link}?nickname=${nickname}`
+        }
+      }
     }
   },
   actions: {
