@@ -22,8 +22,8 @@
             >{{ unseenCount }}</span>
           </div>
           <div
-            class="rightside-button"
             v-if="showScrollTop"
+            class="rightside-button"
           >
             <button
               class="button-unstyled scroll-to-top-button"

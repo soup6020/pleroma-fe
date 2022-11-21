@@ -83,11 +83,11 @@ const Search = {
         this.lastStatusFetchCount = 0
       }
 
-      this.$store.dispatch('search', { q: query, resolve: true, offset: this.statusesOffset, 'type': searchType })
+      this.$store.dispatch('search', { q: query, resolve: true, offset: this.statusesOffset, type: searchType })
         .then(data => {
           this.loading = false
 
-          let oldLength = this.statuses.length
+          const oldLength = this.statuses.length
 
           // Always append to old results. If new results are empty, this doesn't change anything
           this.userIds = this.userIds.concat(map(data.accounts, 'id'))

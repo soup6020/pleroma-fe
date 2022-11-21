@@ -1,8 +1,8 @@
 <template>
   <Popover
+    ref="popover"
     trigger="click"
     popover-class="emoji-picker popover-default"
-    ref="popover"
     @show="onPopoverShown"
     @close="onPopoverClosed"
   >
@@ -66,12 +66,12 @@
         >
           <div class="emoji-search">
             <input
+              ref="search"
               v-model="keyword"
               type="text"
               class="form-control"
               :placeholder="$t('emoji.search_emoji')"
               @input="$event.target.composing = false"
-              ref="search"
             >
           </div>
           <div

@@ -6,9 +6,16 @@
   >
     <slot />
     <!-- TODO: make the 'x' disappear if at the end maybe? -->
-    <div class="hidden-overlay" :style="overlayStyle" ref="hiddenOverlay">
+    <div
+      ref="hiddenOverlay"
+      class="hidden-overlay"
+      :style="overlayStyle"
+    >
       <span>{{ preText }}</span>
-      <span class="caret" ref="hiddenOverlayCaret">x</span>
+      <span
+        ref="hiddenOverlayCaret"
+        class="caret"
+      >x</span>
       <span>{{ postText }}</span>
     </div>
     <template v-if="enableEmojiPicker">
@@ -33,9 +40,9 @@
       />
     </template>
     <Popover
+      ref="suggestorPopover"
       class="autocomplete-panel"
       placement="bottom"
-      ref="suggestorPopover"
     >
       <template #content>
         <div

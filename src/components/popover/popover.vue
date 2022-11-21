@@ -12,7 +12,10 @@
     >
       <slot name="trigger" />
     </button>
-    <teleport :disabled="!teleport" to="#popovers">
+    <teleport
+      :disabled="!teleport"
+      to="#popovers"
+    >
       <transition name="fade">
         <div
           v-if="!hidden"
