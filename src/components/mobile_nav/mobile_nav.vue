@@ -11,7 +11,7 @@
         <button
           class="button-unstyled mobile-nav-button"
           :title="$t('nav.mobile_sidebar')"
-          :aria-expanaded="this.$refs.sideDrawer && !this.$refs.sideDrawer.closed"
+          :aria-expanaded="$refs.sideDrawer && !$refs.sideDrawer.closed"
           @click.stop.prevent="toggleMobileSidebar()"
         >
           <FAIcon
@@ -51,7 +51,7 @@
     >
       <div class="mobile-notifications-header">
         <span class="title">{{ $t('notifications.notifications') }}</span>
-        <span class="spacer"/>
+        <span class="spacer" />
         <button
           v-if="notificationsAtTop"
           class="button-unstyled mobile-nav-button"
@@ -79,8 +79,8 @@
       </div>
       <div
         id="mobile-notifications"
-        class="mobile-notifications"
         ref="mobileNotifications"
+        class="mobile-notifications"
         @scroll="onScroll"
       />
     </aside>

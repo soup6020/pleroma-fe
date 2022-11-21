@@ -3,7 +3,7 @@
     trigger="click"
     class="QuickFilterSettings"
     :bound-to="{ x: 'container' }"
-    :triggerAttrs="{ title: $t('timeline.quick_filter_settings') }"
+    :trigger-attrs="{ title: $t('timeline.quick_filter_settings') }"
   >
     <template #content>
       <div class="dropdown-menu">
