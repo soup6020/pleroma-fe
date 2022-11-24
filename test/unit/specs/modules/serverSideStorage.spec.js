@@ -148,6 +148,18 @@ describe('The serverSideStorage module', () => {
           timestamp: state.prefsStorage._journal[1].timestamp
         })
       })
+
+      it('should remove duplicate entries from journal', () => {
+        const state = cloneDeep(defaultState)
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        setPreference(state, { path: 'simple.testing', value: 1 })
+        addCollectionPreference(state, { path: 'collections.testing', value: 2 })
+        addCollectionPreference(state, { path: 'collections.testing', value: 2 })
+        updateCache(state, { username: 'test' })
+        expect(state.prefsStorage.simple.testing).to.eql(1)
+        expect(state.prefsStorage.collections.testing).to.eql([2])
+        expect(state.prefsStorage._journal.length).to.eql(2)
+      })
     })
   })
 

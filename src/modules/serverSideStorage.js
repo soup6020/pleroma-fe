@@ -1,5 +1,5 @@
 import { toRaw } from 'vue'
-import { isEqual, cloneDeep, set, get, clamp, flatten, groupBy, findLastIndex, takeRight } from 'lodash'
+import { isEqual, cloneDeep, set, get, clamp, flatten, groupBy, findLastIndex, takeRight, uniqWith } from 'lodash'
 import { CURRENT_UPDATE_COUNTER } from 'src/components/update_notification/update_notification.js'
 
 export const VERSION = 1
@@ -149,12 +149,21 @@ const _mergeJournal = (...journals) => {
     if (path.startsWith('collections')) {
       const lastRemoveIndex = findLastIndex(journal, ({ operation }) => operation === 'removeFromCollection')
       // everything before last remove is unimportant
+      let remainder
       if (lastRemoveIndex > 0) {
-        return journal.slice(lastRemoveIndex)
+        remainder = journal.slice(lastRemoveIndex)
       } else {
         // everything else doesn't need trimming
-        return journal
+        remainder = journal
       }
+      return uniqWith(remainder, (a, b) => {
+        if (a.path !== b.path) { return false }
+        if (a.operation !== b.operation) { return false }
+        if (a.operation === 'addToCollection') {
+          return a.args[0] === b.args[0]
+        }
+        return false
+      })
     } else if (path.startsWith('simple')) {
       // Only the last record is important
       return takeRight(journal)
