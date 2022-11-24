@@ -192,6 +192,7 @@
           </a>
         </li>
         <li
+          v-if="currentUser && supportsAnnouncements"
           @click="toggleDrawer"
         >
           <router-link

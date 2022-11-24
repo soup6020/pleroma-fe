@@ -95,7 +95,8 @@ const SideDrawer = {
       }
     },
     ...mapState({
-      pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable
+      pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable,
+      supportsAnnouncements: state => state.announcements.supportsAnnouncements
     }),
     ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
   },

@@ -76,6 +76,7 @@ export const ROOT_ITEMS = {
     route: 'announcements',
     icon: 'bullhorn',
     label: 'nav.announcements',
-    badgeGetter: 'unreadAnnouncementCount'
+    badgeGetter: 'unreadAnnouncementCount',
+    criteria: ['announcements']
   }
 }

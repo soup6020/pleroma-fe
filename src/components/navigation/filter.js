@@ -1,4 +1,4 @@
-export const filterNavigation = (list = [], { hasChats, isFederating, isPrivate, currentUser }) => {
+export const filterNavigation = (list = [], { hasChats, hasAnnouncements, isFederating, isPrivate, currentUser }) => {
   return list.filter(({ criteria, anon, anonRoute }) => {
     const set = new Set(criteria || [])
     if (!isFederating && set.has('federating')) return false
@@ -6,6 +6,7 @@ export const filterNavigation = (list = [], { hasChats, isFederating, isPrivate,
     if (!currentUser && !(anon || anonRoute)) return false
     if ((!currentUser || !currentUser.locked) && set.has('lockedUser')) return false
     if (!hasChats && set.has('chats')) return false
+    if (!hasAnnouncements && set.has('announcements')) return false
     return true
   })
 }

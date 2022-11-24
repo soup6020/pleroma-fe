@@ -2,6 +2,7 @@ const FETCH_ANNOUNCEMENT_INTERVAL_MS = 1000 * 60 * 5
 
 export const defaultState = {
   announcements: [],
+  supportsAnnouncements: true,
   fetchAnnouncementsTimer: undefined
 }
 
@@ -20,6 +21,9 @@ export const mutations = {
   },
   setFetchAnnouncementsTimer (state, timer) {
     state.fetchAnnouncementsTimer = timer
+  },
+  setSupportsAnnouncements (state, supportsAnnouncements) {
+    state.supportsAnnouncements = supportsAnnouncements
   }
 }
 
@@ -40,6 +44,10 @@ const announcements = {
   getters,
   actions: {
     fetchAnnouncements (store) {
+      if (!store.state.supportsAnnouncements) {
+        return Promise.resolve()
+      }
+
       const currentUser = store.rootState.users.currentUser
       const isAdmin = currentUser && currentUser.role === 'admin'
 
@@ -71,6 +79,15 @@ const announcements = {
       return getAnnouncements()
         .then(announcements => {
           store.commit('setAnnouncements', announcements)
+        })
+        .catch(error => {
+          // If and only if backend does not support announcements, it would return 404.
+          // In this case, silently ignores it.
+          if (error && error.statusCode === 404) {
+            store.commit('setSupportsAnnouncements', false)
+          } else {
+            throw error
+          }
         })
     },
     markAnnouncementAsRead (store, id) {
