@@ -113,6 +113,7 @@ const NavPanel = {
           .map(([k, v]) => ({ ...v, name: k })),
         {
           hasChats: this.pleromaChatMessagesAvailable,
+          hasAnnouncements: this.supportsAnnouncements,
           isFederating: this.federating,
           isPrivate: this.privateMode,
           currentUser: this.currentUser
