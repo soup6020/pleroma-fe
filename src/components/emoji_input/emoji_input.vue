@@ -53,6 +53,7 @@
             v-for="(suggestion, index) in suggestions"
             :key="index"
             class="autocomplete-item"
+            role="button"
             :class="{ highlighted: index === highlighted }"
             @click.stop.prevent="onClick($event, suggestion)"
           >
