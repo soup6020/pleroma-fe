@@ -150,6 +150,7 @@ export default {
       if (Array.isArray(item)) {
         const [opener, children, closer] = item
         const Tag = getTagName(opener)
+        const fullAttrs = getAttrs(opener, () => true)
         const attrs = getAttrs(opener)
         const previouslyMentions = currentMentions !== null
         /* During grouping of mentions we trim all the empty text elements
@@ -171,7 +172,7 @@ export default {
             return ['', [mentionsLinePadding, renderImage(opener)], '']
           case 'a': // replace mentions with MentionLink
             if (!this.handleLinks) break
-            if (attrs['class'] && attrs['class'].includes('mention')) {
+            if (fullAttrs.class && fullAttrs.class.includes('mention')) {
               // Handling mentions here
               return renderMention(attrs, children)
             } else {
@@ -179,7 +180,7 @@ export default {
               break
             }
           case 'span':
-            if (this.handleLinks && attrs.class && attrs.class.includes('h-card')) {
+            if (this.handleLinks && fullAttrs.class && fullAttrs.class.includes('h-card')) {
               return ['', children.map(processItem), '']
             }
         }
@@ -215,11 +216,12 @@ export default {
         switch (Tag) {
           case 'a': { // replace mentions with MentionLink
             if (!this.handleLinks) break
-            const attrs = getAttrs(opener)
+            const fullAttrs = getAttrs(opener, () => true)
+            const attrs = getAttrs(opener, () => true)
             // should only be this
             if (
-              (attrs.class && attrs.class.includes('hashtag')) || // Pleroma style
-                (attrs.rel === 'tag') // Mastodon style
+              (fullAttrs.class && fullAttrs.class.includes('hashtag')) || // Pleroma style
+                (fullAttrs.rel === 'tag') // Mastodon style
             ) {
               return renderHashtag(attrs, children, encounteredTextReverse)
             } else {

@@ -28,7 +28,14 @@ export const getAttrs = (tag, filter) => {
       if (!v) return [k, true]
       return [k, v.substring(1, v.length - 1)]
     })
-  const defaultFilter = ([k, v]) => (k.toLowerCase() !== 'class' && k.toLowerCase() !== 'style')
+  const defaultFilter = ([k, v]) => {
+    const attrKey = k.toLowerCase()
+    if (attrKey === 'style') return false
+    if (attrKey === 'class') {
+      return v === 'greentext' || v === 'cyantext'
+    }
+    return true
+  }
   return Object.fromEntries(attrs.filter(filter || defaultFilter))
 }
 
