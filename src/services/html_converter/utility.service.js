@@ -16,7 +16,7 @@ export const getTagName = (tag) => {
  * @return {Object} - map of attributes key = attribute name, value = attribute value
  *   attributes without values represented as boolean true
  */
-export const getAttrs = tag => {
+export const getAttrs = (tag, filter) => {
   const innertag = tag
     .substring(1, tag.length - 1)
     .replace(new RegExp('^' + getTagName(tag)), '')
@@ -28,7 +28,8 @@ export const getAttrs = tag => {
       if (!v) return [k, true]
       return [k, v.substring(1, v.length - 1)]
     })
-  return Object.fromEntries(attrs)
+  const defaultFilter = ([k, v]) => (k.toLowerCase() !== 'class' && k.toLowerCase() !== 'style')
+  return Object.fromEntries(attrs.filter(filter || defaultFilter))
 }
 
 /**

@@ -179,7 +179,7 @@ export default {
               break
             }
           case 'span':
-            if (this.handleLinks && attrs['class'] && attrs['class'].includes('h-card')) {
+            if (this.handleLinks && attrs.class && attrs.class.includes('h-card')) {
               return ['', children.map(processItem), '']
             }
         }
@@ -213,13 +213,13 @@ export default {
         const [opener, children] = item
         const Tag = opener === '' ? '' : getTagName(opener)
         switch (Tag) {
-          case 'a': // replace mentions with MentionLink
+          case 'a': { // replace mentions with MentionLink
             if (!this.handleLinks) break
             const attrs = getAttrs(opener)
             // should only be this
             if (
-              (attrs['class'] && attrs['class'].includes('hashtag')) || // Pleroma style
-                (attrs['rel'] === 'tag') // Mastodon style
+              (attrs.class && attrs.class.includes('hashtag')) || // Pleroma style
+                (attrs.rel === 'tag') // Mastodon style
             ) {
               return renderHashtag(attrs, children, encounteredTextReverse)
             } else {
@@ -230,6 +230,7 @@ export default {
                 { newChildren }
               </a>
             }
+          }
           case '':
             return [...children].reverse().map(processItemReverse).reverse()
         }
