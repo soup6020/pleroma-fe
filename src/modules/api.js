@@ -216,7 +216,7 @@ const api = {
       if (!fetcher) return
       store.commit('removeFetcher', { fetcherName: timeline, fetcher })
     },
-    fetchTimeline (store, timeline, { ...rest }) {
+    fetchTimeline (store, { timeline, ...rest }) {
       store.state.backendInteractor.fetchTimeline({
         store,
         timeline,
