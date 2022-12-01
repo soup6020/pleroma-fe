@@ -241,7 +241,7 @@
         class="btn button-default"
         @click="confirmDelete"
       >
-        {{ $t('settings.save') }}
+        {{ $t('settings.delete_account') }}
       </button>
     </div>
   </div>
