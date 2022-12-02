@@ -216,7 +216,7 @@
     "delete_account_instructions": "아래 패스워드를 입력하시면 계정이 삭제됩니다.",
     "export_theme": "프리셋 저장",
     "filtering": "필터링",
-    "filtering_explanation": "아래의 단어를 가진 게시물들은 뮤트됩니다, 한 줄에 하나씩 적으세요",
+    "filtering_explanation": "이 단어를 가진 게시물들은 뮤트됩니다, 한 줄에 하나씩 적으세요",
     "follow_export": "팔로우 내보내기",
     "follow_export_button": "팔로우 목록을 CSV 파일로 내보내기",
     "follow_export_processing": "진행 중입니다, 곧 다운로드 가능해 질 것입니다",
@@ -536,9 +536,9 @@
     "hide_all_muted_posts": "뮤트한 게시물 숨기기",
     "account_alias_table_head": "별칭",
     "hide_list_aliases_error_action": "닫기",
-    "remove_alias": "이 별칭 지우기",
-    "new_alias_target": "새 별칭 추가하기 (예시. {example})",
-    "added_alias": "별칭이 추가됨.",
+    "remove_alias": "이 별칭 삭제",
+    "new_alias_target": "새 별칭 추가 (예시. {example})",
+    "added_alias": "별칭이 추가되었습니다.",
     "move_account": "계정 이사",
     "move_account_target": "이사 갈 계정 (예시. {example})",
     "moved_account": "계정을 이사했습니다.",
@@ -648,7 +648,10 @@
     "user_popover_avatar_action": "프로필 카드의 사진 클릭 시",
     "user_popover_avatar_action_close": "카드 닫기",
     "user_popover_avatar_overlay": "프로필 카드를 프로필 사진 위에 띄우기",
-    "post_status_content_type": "게시물 내용 형식"
+    "post_status_content_type": "게시물 내용 형식",
+    "list_aliases_error": "별칭을 가져오는 중 에러 발생: {error}",
+    "add_alias_error": "별칭을 추가하는 중 에러 발생: {error}",
+    "mention_link_show_avatar_quick": "멘션 옆에 유저 프로필 사진을 보임"
   },
   "timeline": {
     "collapse": "접기",
@@ -656,7 +659,7 @@
     "error_fetching": "업데이트 불러오기 실패",
     "load_older": "이전 게시물 불러오기",
     "no_retweet_hint": "팔로워 전용 게시물과 다이렉트 메시지는 리핏할 수 없습니다",
-    "repeated": "리핏 됨",
+    "repeated": "리핏함",
     "show_new": "새 게시물 보기",
     "up_to_date": "최신",
     "error": "타임라인을 가져오지 못했습니다: {0}",
@@ -858,18 +861,18 @@
         "accept_desc": "이 인스턴스에서는 아래의 인스턴스로부터 보내온 투고만이 접수됩니다:",
         "reject": "거부",
         "accept": "허가",
-        "simple_policies": "인스턴스 특유의 폴리시",
+        "simple_policies": "인스턴스 특유의 정책",
         "instance": "인스턴스",
         "reason": "사유",
         "not_applicable": "없음"
       },
-      "mrf_policies": "사용되는 MRF 폴리시",
+      "mrf_policies": "사용되는 MRF 정책",
       "keyword": {
         "is_replaced_by": "→",
         "replace": "바꾸기",
         "reject": "거부",
         "ftl_removal": "\"알려진 모든 네트워크\" 타임라인에서 제외",
-        "keyword_policies": "단어 폴리시"
+        "keyword_policies": "단어 정책"
       },
       "federation": "연합",
       "mrf_policies_desc": "MRF 정책은 이 인스턴스의 페더레이션 동작을 제어하고 있습니다. 적용되고 있는 정책은 다음과 같습니다:"
