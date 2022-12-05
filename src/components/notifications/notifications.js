@@ -69,7 +69,7 @@ const Notifications = {
       return this.unseenNotifications.length
     },
     unseenCountTitle () {
-      return this.unseenCount + (this.unreadChatCount)
+      return this.unseenCount + (this.unreadChatCount) + this.unreadAnnouncementCount
     },
     loading () {
       return this.$store.state.statuses.notifications.loading
@@ -94,7 +94,7 @@ const Notifications = {
       return this.filteredNotifications.slice(0, this.unseenCount + this.seenToDisplayCount)
     },
     noSticky () { return this.$store.getters.mergedConfig.disableStickyHeaders },
-    ...mapGetters(['unreadChatCount'])
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
   },
   mounted () {
     this.scrollerRef = this.$refs.root.closest('.column.-scrollable')

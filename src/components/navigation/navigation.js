@@ -71,5 +71,12 @@ export const ROOT_ITEMS = {
     anon: true,
     icon: 'info-circle',
     label: 'nav.about'
+  },
+  announcements: {
+    route: 'announcements',
+    icon: 'bullhorn',
+    label: 'nav.announcements',
+    badgeGetter: 'unreadAnnouncementCount',
+    criteria: ['announcements']
   }
 }

@@ -18,7 +18,8 @@ import {
   faBell,
   faInfoCircle,
   faStream,
-  faList
+  faList,
+  faBullhorn
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -32,7 +33,8 @@ library.add(
   faBell,
   faInfoCircle,
   faStream,
-  faList
+  faList,
+  faBullhorn
 )
 const NavPanel = {
   props: ['forceExpand', 'forceEditMode'],
@@ -86,6 +88,7 @@ const NavPanel = {
       privateMode: state => state.instance.private,
       federating: state => state.instance.federating,
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable,
+      supportsAnnouncements: state => state.announcements.supportsAnnouncements,
       pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems),
       collapsed: state => state.serverSideStorage.prefsStorage.simple.collapseNav
     }),
@@ -96,6 +99,7 @@ const NavPanel = {
           .map(([k, v]) => ({ ...v, name: k })),
         {
           hasChats: this.pleromaChatMessagesAvailable,
+          hasAnnouncements: this.supportsAnnouncements,
           isFederating: this.federating,
           isPrivate: this.privateMode,
           currentUser: this.currentUser
@@ -109,13 +113,14 @@ const NavPanel = {
           .map(([k, v]) => ({ ...v, name: k })),
         {
           hasChats: this.pleromaChatMessagesAvailable,
+          hasAnnouncements: this.supportsAnnouncements,
           isFederating: this.federating,
           isPrivate: this.privateMode,
           currentUser: this.currentUser
         }
       )
     },
-    ...mapGetters(['unreadChatCount'])
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
   }
 }
 

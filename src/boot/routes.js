@@ -24,6 +24,7 @@ import Lists from 'components/lists/lists.vue'
 import ListsTimeline from 'components/lists_timeline/lists_timeline.vue'
 import ListsEdit from 'components/lists_edit/lists_edit.vue'
 import NavPanel from 'src/components/nav_panel/nav_panel.vue'
+import AnnouncementsPage from 'components/announcements_page/announcements_page.vue'
 
 export default (store) => {
   const validateAuthenticatedRoute = (to, from, next) => {
@@ -76,6 +77,7 @@ export default (store) => {
     { name: 'search', path: '/search', component: Search, props: (route) => ({ query: route.query.query }) },
     { name: 'who-to-follow', path: '/who-to-follow', component: WhoToFollow, beforeEnter: validateAuthenticatedRoute },
     { name: 'about', path: '/about', component: About },
+    { name: 'announcements', path: '/announcements', component: AnnouncementsPage },
     { name: 'user-profile', path: '/users/:name', component: UserProfile },
     { name: 'legacy-user-profile', path: '/:name', component: UserProfile },
     { name: 'lists', path: '/lists', component: Lists },
