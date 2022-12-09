@@ -56,7 +56,7 @@
 
     <div :label="$t('settings.mutes_tab')">
       <tab-switcher>
-        <div label="Users">
+        <div :label="$t('settings.user_mutes')">
           <div class="usersearch-wrapper">
             <Autosuggest
               :filter="filterUnMutedUsers"
