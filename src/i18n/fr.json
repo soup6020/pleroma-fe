@@ -60,7 +60,7 @@
     "unpin": "Dégrafer l'élément",
     "scroll_to_top": "Défiler au début",
     "pin": "Agrafer l'élément",
-    "generic_error_message": "Une erreur est apparue : {0]",
+    "generic_error_message": "Une erreur est apparue : {0}",
     "never_show_again": "Ne plus afficher"
   },
   "image_cropper": {
@@ -741,7 +741,7 @@
     "thread_hide": "Cacher ce fil",
     "thread_show": "Montrer ce fil",
     "thread_show_full_with_icon": "{icon} {text}",
-    "thread_follow": "Montrer le reste du fil ({numStatus} message, {depth} niveaux maximum) | Montrer le reste du fil ({numStatus} messages, {depth} niveaux maximum)",
+    "thread_follow": "Montrer le reste du fil ({numStatus} message) | Montrer le reste du fil ({numStatus} messages)",
     "thread_follow_with_icon": "{icon} {text}",
     "ancestor_follow": "Monter les {numReplies} autres réponses après ce message | Monter les {numReplies} autres réponses après ce message",
     "ancestor_follow_with_icon": "{icon} {text}",
