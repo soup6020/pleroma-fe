@@ -102,7 +102,7 @@
     "nightwatch": "2.3.3",
     "opn": "5.5.0",
     "ora": "0.4.1",
-    "postcss": "8.4.16",
+    "postcss": "8.4.20",
     "postcss-loader": "7.0.1",
     "sass": "1.55.0",
     "sass-loader": "13.0.2",
