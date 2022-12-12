@@ -103,7 +103,8 @@
     "edit_pinned": "상단 고정 편집",
     "edit_finish": "편집 종료",
     "mobile_notifications_close": "알림 닫기",
-    "mobile_sidebar": "모바일 사이드바 토글"
+    "mobile_sidebar": "모바일 사이드바 토글",
+    "announcements": "공지사항"
   },
   "notifications": {
     "broken_favorite": "알 수 없는 게시물입니다, 검색합니다…",
@@ -129,7 +130,7 @@
     "content_type": {
       "text/plain": "평문",
       "text/bbcode": "BBCode",
-      "text/markdown": "Markdown",
+      "text/markdown": "마크다운",
       "text/html": "HTML"
     },
     "content_warning": "제목 (선택)",
@@ -957,7 +958,8 @@
     "really_delete": "리스트를 삭제하시겠어요?",
     "save": "변경 사항을 저장",
     "creating_list": "새 리스트 만들기",
-    "add_members": "사용자 추가"
+    "add_members": "사용자 추가",
+    "error": "리스트를 조작하는 데 오류가 발생했습니다: {0}"
   },
   "search": {
     "no_more_results": "결과 더 없음",
@@ -990,7 +992,8 @@
     "error_loading_chat": "왜인진 모르겠는데 채팅을 불러오지 못했습니다.",
     "error_sending_message": "왜인진 모르겠는데 메시지를 전송하지 못했습니다.",
     "delete_confirm": "이 메시지를 정말 지울까요?",
-    "empty_chat_list_placeholder": "채팅이 없네요. 새 채팅을 시작해보세요!"
+    "empty_chat_list_placeholder": "채팅이 없네요. 새 채팅을 시작해보세요!",
+    "message_user": "{nickname}에게 메시지"
   },
   "file_type": {
     "audio": "오디오",
@@ -1069,7 +1072,7 @@
     "show_only_conversation_under_this": "이 게시물의 답글만 보기"
   },
   "errors": {
-    "storage_unavailable": "Pleroma가 브라우저 저장소에 접근할 수 없습니다. 로그인이 풀리거나 로컬 설정이 초기화 되는 등 예상하지 못한 문제를 겪을 수 있습니다. 쿠키를 활성화 해보세요."
+    "storage_unavailable": "Pleroma가 브라우저 저장소에 접근할 수 없습니다. 로그인이 풀리거나 로컬 설정이 초기화 되는 등 예상치 못한 문제를 겪을 수 있습니다. 쿠키를 활성화 해보세요."
   },
   "report": {
     "reporter": "신고자:",
@@ -1087,6 +1090,28 @@
     "additional_comments": "추가 설명",
     "forward_description": "이 계정은 다른 서버에 있는 계정입니다. 그쪽으로도 신고를 보낼까요?",
     "forward_to": "{0}로 전달하기",
-    "submit": "전송"
+    "submit": "전송",
+    "generic_error": "요청을 처리하는 중 오류가 발생했습니다."
+  },
+  "announcements": {
+    "end_time_prompt": "끝나는 시각: ",
+    "page_header": "공지사항",
+    "title": "공지사항",
+    "mark_as_read_action": "읽음으로 표시",
+    "post_form_header": "공지사항 작성",
+    "post_placeholder": "공지사항 내용을 작성하세요...",
+    "post_error": "오류: {error}",
+    "close_error": "닫기",
+    "delete_action": "삭제",
+    "post_action": "게시",
+    "start_time_prompt": "시작 시각: ",
+    "all_day_prompt": "온종일 있는 이벤트입니다",
+    "published_time_display": "{time}에 게시함",
+    "start_time_display": "{time}에 시작함",
+    "end_time_display": "{time}에 끝남",
+    "edit_action": "편집",
+    "submit_edit_action": "수정본 반영",
+    "cancel_edit_action": "취소",
+    "inactive_message": "이 공지사항은 비활성화 되었습니다"
   }
 }
