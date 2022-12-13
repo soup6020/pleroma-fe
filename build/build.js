@@ -36,4 +36,8 @@ webpack(webpackConfig, function (err, stats) {
     chunks: false,
     chunkModules: false
   }) + '\n')
+  if (stats.hasErrors()) {
+    console.error('See above for errors.')
+    process.exit(1)
+  }
 })
