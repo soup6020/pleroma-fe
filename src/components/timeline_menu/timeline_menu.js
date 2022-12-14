@@ -1,8 +1,10 @@
 import Popover from '../popover/popover.vue'
 import NavigationEntry from 'src/components/navigation/navigation_entry.vue'
+import { mapState } from 'vuex'
 import { ListsMenuContent } from '../lists_menu/lists_menu_content.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { TIMELINES } from 'src/components/navigation/navigation.js'
+import { filterNavigation } from 'src/components/navigation/filter.js'
 import {
   faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
@@ -29,8 +31,7 @@ const TimelineMenu = {
   },
   data () {
     return {
-      isOpen: false,
-      timelinesList: Object.entries(TIMELINES).map(([k, v]) => ({ ...v, name: k }))
+      isOpen: false
     }
   },
   created () {
@@ -42,6 +43,22 @@ const TimelineMenu = {
     useListsMenu () {
       const route = this.$route.name
       return route === 'lists-timeline'
+    },
+    ...mapState({
+      currentUser: state => state.users.currentUser,
+      privateMode: state => state.instance.private,
+      federating: state => state.instance.federating
+    }),
+    timelinesList () {
+      return filterNavigation(
+        Object.entries(TIMELINES).map(([k, v]) => ({ ...v, name: k })),
+        {
+          hasChats: this.pleromaChatMessagesAvailable,
+          isFederating: this.federating,
+          isPrivate: this.privateMode,
+          currentUser: this.currentUser
+        }
+      )
     }
   },
   methods: {

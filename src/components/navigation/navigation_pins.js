@@ -56,11 +56,17 @@ const NavPanel = {
     }),
     pinnedList () {
       if (!this.currentUser) {
-        return [
+        return filterNavigation([
           { ...TIMELINES.public, name: 'public' },
           { ...TIMELINES.twkn, name: 'twkn' },
           { ...ROOT_ITEMS.about, name: 'about' }
-        ]
+        ],
+        {
+          hasChats: this.pleromaChatMessagesAvailable,
+          isFederating: this.federating,
+          isPrivate: this.privateMode,
+          currentUser: this.currentUser
+        })
       }
       return filterNavigation(
         [
