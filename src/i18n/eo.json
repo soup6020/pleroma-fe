@@ -56,7 +56,8 @@
     "yes": "Jes",
     "no": "Ne",
     "unpin": "Malfiksi eron",
-    "pin": "Fiksi eron"
+    "pin": "Fiksi eron",
+    "scroll_to_top": "Rulumi supren"
   },
   "image_cropper": {
     "crop_picture": "Tondi bildon",
@@ -95,9 +96,9 @@
     "friend_requests": "Petoj pri abono",
     "mentions": "Mencioj",
     "dms": "Rektaj mesaĝoj",
-    "public_tl": "Publika historio",
+    "public_tl": "Loka historio",
     "timeline": "Historio",
-    "twkn": "Konata reto",
+    "twkn": "Federa historio",
     "user_search": "Serĉi uzantojn",
     "who_to_follow": "Kiun aboni",
     "preferences": "Agordoj",
@@ -151,7 +152,7 @@
       "unlisted": "Nelistigita – ne afiŝi al publikaj historioj"
     },
     "scope_notice": {
-      "unlisted": "Ĉi tiu afiŝo ne estos videbla en la Publika historio kaj La tuta konata reto",
+      "unlisted": "Ĉi tiu afiŝo ne estos videbla en la Loka historio kaj la Federa historio",
       "private": "Ĉi tiu afiŝo estos videbla nur al viaj abonantoj",
       "public": "Ĉi tiu afiŝo estos videbla al ĉiuj"
     },
@@ -842,7 +843,7 @@
         "media_nsfw": "Devige marki vidaŭdaĵojn konsternaj",
         "media_removal_desc": "Ĉi tiu nodo forigas vidaŭdaĵojn de afiŝoj el la jenaj nodoj:",
         "media_removal": "Forigo de vidaŭdaĵoj",
-        "ftl_removal": "Forigo el la historio de «Konata reto»",
+        "ftl_removal": "Forigo el la «Federa historio»",
         "quarantine_desc": "Ĉi tiu nodo sendos nur publikajn aﬁŝojn al la jenaj nodoj:",
         "quarantine": "Kvaranteno",
         "reject_desc": "Ĉi tiu nodo ne akceptos mesaĝojn de la jenaj nodoj:",
@@ -850,7 +851,7 @@
         "accept_desc": "Ĉi tiu nodo nur akceptas mesaĝojn de la jenaj nodoj:",
         "accept": "Akcepti",
         "simple_policies": "Specialaj politikoj de la nodo",
-        "ftl_removal_desc": "Ĉi tiu nodo forigas la jenajn nodojn el la historio de «Konata reto»:",
+        "ftl_removal_desc": "Ĉi tiu nodo forigas la jenajn nodojn el la «Federa historio»:",
         "instance": "Nodo",
         "reason": "Kialo"
       },
@@ -859,7 +860,7 @@
         "is_replaced_by": "→",
         "replace": "Anstataŭigi",
         "reject": "Rifuzi",
-        "ftl_removal": "Forigo el la historio de «La tuta konata reto»",
+        "ftl_removal": "Forigo el la historio de la «Federa historio»",
         "keyword_policies": "Politiko pri ĉefvortoj"
       },
       "federation": "Federado",
@@ -1085,5 +1086,25 @@
   },
   "unicode_domain_indicator": {
     "tooltip": "Ĉi tiu retnomo enhavas signojn ekster ASCII."
+  },
+  "announcements": {
+    "all_day_prompt": "Ĉi tio estas tuttaga okazo",
+    "page_header": "Anoncoj",
+    "title": "Anonco",
+    "mark_as_read_action": "Marki legita",
+    "post_placeholder": "Entajpu vian anoncon tie ĉi…",
+    "post_action": "Afiŝi",
+    "post_error": "Eraro: {error}",
+    "close_error": "Fermi",
+    "delete_action": "Forigi",
+    "start_time_prompt": "Komenca tempo: ",
+    "end_time_prompt": "Fina tempo: ",
+    "published_time_display": "Publikigita je {time}",
+    "start_time_display": "Komenciĝas je {time}",
+    "end_time_display": "Finiĝas je {time}",
+    "edit_action": "Redakti",
+    "submit_edit_action": "Afiŝi",
+    "cancel_edit_action": "Nuligi",
+    "inactive_message": "Ĉi tiu anonco estas neaktiva"
   }
 }
