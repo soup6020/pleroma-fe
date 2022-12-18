@@ -2,7 +2,7 @@
   <div class="EmojiReactions">
     <UserListPopover
       v-for="(reaction) in emojiReactions"
-      :key="reaction.name"
+      :key="reaction.url || reaction.name"
       :users="accountsForEmoji[reaction.name]"
     >
       <button
@@ -11,7 +11,21 @@
         @click="emojiOnClick(reaction.name, $event)"
         @mouseenter="fetchEmojiReactionsByIfMissing()"
       >
-        <span class="reaction-emoji">{{ reaction.name }}</span>
+        <span
+          v-if="reaction.url"
+          class="reaction-emoji"
+        >
+          <img
+            :src="reaction.url"
+            :title="reaction.name"
+            class="reaction-emoji-content"
+            width="1em"
+          >
+        </span>
+        <span
+          v-else
+          class="reaction-emoji reaction-emoji-content"
+        >{{ reaction.name }}</span>
         <span>{{ reaction.count }}</span>
       </button>
     </UserListPopover>
@@ -46,7 +60,16 @@
 
     .reaction-emoji {
       width: 1.25em;
+      height: 1.25em;
       margin-right: 0.25em;
+    }
+
+    .reaction-emoji-content {
+      max-width: 1.25em;
+      max-height: 1.25em;
+      width: auto;
+      height: auto;
+      overflow: hidden;
     }
 
     &:focus {

@@ -129,6 +129,13 @@
 
   .emoji-reaction-emoji {
     font-size: 1.3em;
+    max-width: 1.25em;
+    height: 1.25em;
+    width: auto;
+  }
+
+  .emoji-reaction-emoji-image {
+    vertical-align: middle;
   }
 
   .notification-details {
