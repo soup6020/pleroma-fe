@@ -144,13 +144,23 @@
             <router-link
               v-if="notification.status"
               :to="{ name: 'conversation', params: { id: notification.status.id } }"
-              class="faint-link"
+              class="timeago-link faint-link"
             >
               <Timeago
                 :time="notification.created_at"
                 :auto-update="240"
               />
             </router-link>
+            <button
+              class="button-unstyled expand-icon"
+              @click.prevent="toggleStatusExpanded"
+            >
+              <FAIcon
+                class="fa-scale-110"
+                fixed-width
+                :icon="statusExpanded ? 'compress-alt' : 'expand-alt'"
+              />
+            </button>
           </div>
           <div
             v-else
@@ -222,8 +232,8 @@
         />
         <template v-else>
           <StatusContent
-            class="faint"
-            :compact="true"
+            :class="{ faint: !statusExpanded }"
+            :compact="!statusExpanded"
             :status="notification.action"
           />
         </template>
