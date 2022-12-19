@@ -279,6 +279,9 @@ export default {
             opacity
           )
 
+          // Temporary patch for null-y value errors
+          if (layers.flat().some(v => v == null)) return acc
+
           return {
             ...acc,
             ...textColors.reduce((acc, textColorKey) => {
@@ -300,6 +303,7 @@ export default {
         return Object.entries(ratios).reduce((acc, [k, v]) => { acc[k] = hints(v); return acc }, {})
       } catch (e) {
         console.warn('Failure computing contrasts', e)
+        return {}
       }
     },
     previewRules () {
