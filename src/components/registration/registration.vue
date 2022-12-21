@@ -158,10 +158,10 @@
               class="form-error"
             >
               <ul>
-                <li v-if="!v$.user.confirm.required">
+                <li v-if="v$.user.confirm.required.$invalid">
                   <span>{{ $t('registration.validations.password_confirmation_required') }}</span>
                 </li>
-                <li v-if="!v$.user.confirm.sameAsPassword">
+                <li v-if="v$.user.confirm.sameAs.$invalid">
                   <span>{{ $t('registration.validations.password_confirmation_match') }}</span>
                 </li>
               </ul>
