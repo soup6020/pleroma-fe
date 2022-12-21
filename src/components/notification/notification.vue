@@ -154,6 +154,7 @@
             <button
               class="button-unstyled expand-icon"
               @click.prevent="toggleStatusExpanded"
+              :title="$t('tool_tip.toggle_expand')"
             >
               <FAIcon
                 class="fa-scale-110"
@@ -176,6 +177,7 @@
           <button
             v-if="needMute"
             class="button-unstyled"
+            :title="$t('tool_tip.toggle_mute')"
             @click.prevent="toggleMute"
           >
             <FAIcon

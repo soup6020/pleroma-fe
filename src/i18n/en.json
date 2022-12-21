@@ -986,7 +986,9 @@
     "user_settings": "User Settings",
     "accept_follow_request": "Accept follow request",
     "reject_follow_request": "Reject follow request",
-    "bookmark": "Bookmark"
+    "bookmark": "Bookmark",
+    "toggle_expand": "Expand or collapse notification to show post in full",
+    "toggle_mute": "Expand or collapse notification to reveal muted content"
   },
   "upload": {
     "error": {
