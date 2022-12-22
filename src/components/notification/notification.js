@@ -60,7 +60,6 @@ const Notification = {
   },
   methods: {
     toggleStatusExpanded () {
-      console.log('as')
       this.statusExpanded = !this.statusExpanded
     },
     generateUserProfileLink (user) {
