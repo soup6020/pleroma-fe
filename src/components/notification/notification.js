@@ -20,7 +20,9 @@ import {
   faUserPlus,
   faEyeSlash,
   faUser,
-  faSuitcaseRolling
+  faSuitcaseRolling,
+  faExpandAlt,
+  faCompressAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -31,13 +33,15 @@ library.add(
   faUserPlus,
   faUser,
   faEyeSlash,
-  faSuitcaseRolling
+  faSuitcaseRolling,
+  faExpandAlt,
+  faCompressAlt
 )
 
 const Notification = {
   data () {
     return {
-      userExpanded: false,
+      statusExpanded: false,
       betterShadow: this.$store.state.interface.browserSupport.cssFilter,
       unmuted: false
     }
@@ -55,8 +59,8 @@ const Notification = {
     UserLink
   },
   methods: {
-    toggleUserExpanded () {
-      this.userExpanded = !this.userExpanded
+    toggleStatusExpanded () {
+      this.statusExpanded = !this.statusExpanded
     },
     generateUserProfileLink (user) {
       return generateProfileLink(user.id, user.screen_name, this.$store.state.instance.restrictedNicknames)
