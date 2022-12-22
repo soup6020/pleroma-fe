@@ -70,6 +70,7 @@ const MASTODON_UNMUTE_USER_URL = id => `/api/v1/accounts/${id}/unmute`
 const MASTODON_REMOVE_USER_FROM_FOLLOWERS = id => `/api/v1/accounts/${id}/remove_from_followers`
 const MASTODON_SUBSCRIBE_USER = id => `/api/v1/pleroma/accounts/${id}/subscribe`
 const MASTODON_UNSUBSCRIBE_USER = id => `/api/v1/pleroma/accounts/${id}/unsubscribe`
+const MASTODON_USER_NOTE_URL = id => `/api/v1/accounts/${id}/note`
 const MASTODON_BOOKMARK_STATUS_URL = id => `/api/v1/statuses/${id}/bookmark`
 const MASTODON_UNBOOKMARK_STATUS_URL = id => `/api/v1/statuses/${id}/unbookmark`
 const MASTODON_POST_STATUS_URL = '/api/v1/statuses'
@@ -319,6 +320,17 @@ const removeUserFromFollowers = ({ id, credentials }) => {
     headers: authHeaders(credentials),
     method: 'POST'
   }).then((data) => data.json())
+}
+
+const editUserNote = ({ id, credentials, comment }) => {
+  return promisedRequest({
+    url: MASTODON_USER_NOTE_URL(id),
+    credentials,
+    payload: {
+      comment
+    },
+    method: 'POST'
+  })
 }
 
 const approveUser = ({ id, credentials }) => {
@@ -1667,6 +1679,7 @@ const apiService = {
   blockUser,
   unblockUser,
   removeUserFromFollowers,
+  editUserNote,
   fetchUser,
   fetchUserByName,
   fetchUserRelationship,

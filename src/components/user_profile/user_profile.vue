@@ -10,6 +10,7 @@
         :selected="timeline.viewing"
         avatar-action="zoom"
         rounded="top"
+        :has-note-editor="true"
       />
       <div
         v-if="user.fields_html && user.fields_html.length > 0"

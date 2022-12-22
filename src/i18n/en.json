@@ -957,7 +957,12 @@
       "solid": "Solid bg",
       "striped": "Striped bg",
       "side": "Side stripe"
-    }
+    },
+    "note": "Note",
+    "note_blank": "(None)",
+    "edit_note": "Edit note",
+    "edit_note_apply": "Apply",
+    "edit_note_cancel": "Cancel"
   },
   "user_profile": {
     "timeline_title": "User timeline",

@@ -268,6 +268,12 @@
         >
           <RemoteFollow :user="user" />
         </div>
+        <UserNote
+          v-if="loggedIn && isOtherUser && (hasNote || (hasNoteEditor && supportsNote))"
+          :user="user"
+          :relationship="relationship"
+          :editable="hasNoteEditor"
+        />
       </div>
     </div>
     <div
