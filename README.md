@@ -2,7 +2,7 @@
 
 > Highly-customizable frontend designed for Pleroma.
 
-![screenshot](./image.png)
+![screenshot](./image-1.png)
 
 # For Translators
 
