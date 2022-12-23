@@ -1,9 +1,9 @@
 {
   "name": "pleroma_fe",
-  "version": "1.0.0",
-  "description": "A Qvitter-style frontend for certain GS servers.",
-  "author": "Roger Braun <roger@rogerbraun.net>",
-  "private": true,
+  "version": "2.5.0",
+  "description": "Pleroma frontend, the default frontend of Pleroma social network server",
+  "author": "Pleroma contributors <https://git.pleroma.social/pleroma/pleroma-fe/-/blob/develop/CONTRIBUTORS.md>",
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
@@ -123,7 +123,7 @@
     "webpack-merge": "0.20.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 16.0.0",
     "npm": ">= 3.0.0"
   }
 }
