@@ -7,7 +7,7 @@
     </div>
     <div class="panel-body">
       <section
-        v-if="currentUser && currentUser.role === 'admin'"
+        v-if="canPostAnnouncement"
       >
         <div class="post-form">
           <div class="heading">
