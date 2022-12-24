@@ -334,8 +334,10 @@
     "select_all": "Select all"
   },
   "settings": {
-    "add_language": "Add another language",
+    "add_language": "Add fallback language",
     "remove_language": "Remove",
+    "primary_language": "Primary language:",
+    "fallback_language": "Fallback language {index}:",
     "app_name": "App name",
     "expert_mode": "Show advanced",
     "save": "Save changes",

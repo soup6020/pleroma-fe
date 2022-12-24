@@ -3,29 +3,34 @@
     <label>
       {{ promptText }}
     </label>
-    <ol>
+    <ul class="setting-list">
       <li
         v-for="index of controlledLanguage.keys()"
         :key="index"
       >
-        <Select
-          class="language-select"
-          :model-value="controlledLanguage[index]"
-          @update:modelValue="val => setLanguageAt(index, val)"
-        >
-          <option
-            v-for="lang in languages"
-            :key="lang.code"
-            :value="lang.code"
+        <label>
+          {{ index === 0 ? $t('settings.primary_language') : $tc('settings.fallback_language', index, { index }) }}
+          <Select
+            class="language-select"
+            :model-value="controlledLanguage[index]"
+            @update:modelValue="val => setLanguageAt(index, val)"
           >
-            {{ lang.name }}
-          </option>
-        </Select>
+            <option
+              v-for="lang in languages"
+              :key="lang.code"
+              :value="lang.code"
+            >
+              {{ lang.name }}
+            </option>
+          </Select>
+        </label>
         <button
-          v-if="controlledLanguage.length > 1"
+          v-if="controlledLanguage.length > 1 && index !== 0"
           class="button-default btn"
           @click="() => removeLanguageAt(index)"
-        >{{ $t('settings.remove_language') }}</button>
+        >
+          {{ $t('settings.remove_language') }}
+        </button>
       </li>
       <li>
         <button
@@ -33,7 +38,7 @@
           @click="addLanguage"
         >{{ $t('settings.add_language') }}</button>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 
