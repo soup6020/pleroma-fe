@@ -13,7 +13,7 @@
           class="emoji-tabs"
         >
           <span
-            v-for="group in filteredEmojiGroups"
+            v-for="(group, index) in filteredEmojiGroups"
             :ref="setGroupRef('group-header-' + group.id)"
             :key="group.id"
             class="emoji-tabs-item"
@@ -21,7 +21,7 @@
               active: activeGroupView === group.id
             }"
             :title="group.text"
-            @click.prevent="highlight(group.id)"
+            @click.prevent="highlight(index)"
           >
             <span
               v-if="group.image"
@@ -74,45 +74,52 @@
               @input="$event.target.composing = false"
             >
           </div>
-          <div
+          <DynamicScroller
             ref="emoji-groups"
             class="emoji-groups"
             :class="groupsScrolledClass"
-            @scroll="onScroll"
+            :min-item-size="minItemSize"
+            :items="filteredEmojiGroups"
+            @update="onScroll"
           >
-            <div
-              v-for="group in filteredEmojiGroups"
-              :key="group.id"
-              class="emoji-group"
-            >
-              <h6
-                :ref="setGroupRef('group-' + group.id)"
-                class="emoji-group-title"
+            <template #default="{ item: group, index, active }">
+              <DynamicScrollerItem
+                :item="group"
+                :active="active"
+                :data-index="index"
+                :size-dependencies="[group.emojis.length]"
               >
-                {{ group.text }}
-              </h6>
-              <span
-                v-for="emoji in group.emojis"
-                :key="group.id + emoji.displayText"
-                :title="maybeLocalizedEmojiName(emoji)"
-                class="emoji-item"
-                @click.stop.prevent="onEmoji(emoji)"
-              >
-                <span
-                  v-if="!emoji.imageUrl"
-                  class="emoji-picker-emoji -unicode"
-                >{{ emoji.replacement }}</span>
-                <still-image
-                  v-else
-                  class="emoji-picker-emoji -custom"
-                  loading="lazy"
-                  :src="emoji.imageUrl"
-                  :data-emoji-name="group.id + emoji.displayText"
-                />
-              </span>
-              <span :ref="setGroupRef('group-end-' + group.id)" />
-            </div>
-          </div>
+                <div
+                  class="emoji-group"
+                >
+                  <h6
+                    class="emoji-group-title"
+                  >
+                    {{ group.text }}
+                  </h6>
+                  <span
+                    v-for="emoji in group.emojis"
+                    :key="group.id + emoji.displayText"
+                    :title="maybeLocalizedEmojiName(emoji)"
+                    class="emoji-item"
+                    @click.stop.prevent="onEmoji(emoji)"
+                  >
+                    <span
+                      v-if="!emoji.imageUrl"
+                      class="emoji-picker-emoji -unicode"
+                    >{{ emoji.replacement }}</span>
+                    <still-image
+                      v-else
+                      class="emoji-picker-emoji -custom"
+                      loading="lazy"
+                      :src="emoji.imageUrl"
+                      :data-emoji-name="group.id + emoji.displayText"
+                    />
+                  </span>
+                </div>
+              </DynamicScrollerItem>
+            </template>
+          </DynamicScroller>
           <div class="keep-open">
             <Checkbox v-model="keepOpen">
               {{ $t('emoji.keep_open') }}

@@ -143,22 +143,13 @@ const EmojiPicker = {
       }
       this.$emit('emoji', { insertion: value, keepOpen: this.keepOpen })
     },
-    onScroll (e) {
-      const target = (e && e.target) || this.$refs['emoji-groups']
-      this.updateScrolledClass(target)
-      this.scrolledGroup(target)
+    onScroll (startIndex, endIndex, visibleStartIndex, visibleEndIndex) {
+      const current = this.filteredEmojiGroups[visibleStartIndex].id
+      this.scrolledGroup(current)
     },
-    scrolledGroup (target) {
-      const top = target.scrollTop + 5
-      this.$nextTick(() => {
-        this.allEmojiGroups.forEach(group => {
-          const ref = this.groupRefs['group-' + group.id]
-          if (ref && ref.offsetTop <= top) {
-            this.activeGroup = group.id
-          }
-        })
-        this.scrollHeader()
-      })
+    scrolledGroup (groupId) {
+      this.activeGroup = groupId
+      this.scrollHeader()
     },
     scrollHeader () {
       // Scroll the active tab's header into view
@@ -177,14 +168,9 @@ const EmojiPicker = {
         setScroll(right + margin - headerCont.clientWidth)
       }
     },
-    highlight (key) {
-      const ref = this.groupRefs['group-' + key]
-      const top = ref.offsetTop
+    highlight (index) {
       this.setShowStickers(false)
-      this.activeGroup = key
-      this.$nextTick(() => {
-        this.$refs['emoji-groups'].scrollTop = top + 1
-      })
+      this.$refs['emoji-groups'].scrollToItem(index)
     },
     updateScrolledClass (target) {
       if (target.scrollTop <= 5) {
@@ -238,6 +224,9 @@ const EmojiPicker = {
     }
   },
   computed: {
+    minItemSize () {
+      return 32
+    },
     activeGroupView () {
       return this.showingStickers ? '' : this.activeGroup
     },
