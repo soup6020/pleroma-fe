@@ -3,7 +3,6 @@ import Checkbox from '../checkbox/checkbox.vue'
 import Popover from 'src/components/popover/popover.vue'
 import StillImage from '../still-image/still-image.vue'
 import { ensureFinalFallback } from '../../i18n/languages.js'
-import lozad from 'lozad'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faBoxOpen,
@@ -125,9 +124,6 @@ const EmojiPicker = {
     setGroupRef (name) {
       return el => { this.groupRefs[name] = el }
     },
-    setEmojiRef (name) {
-      return el => { this.emojiRefs[name] = el }
-    },
     onPopoverShown () {
       this.$emit('show')
     },
@@ -208,43 +204,12 @@ const EmojiPicker = {
     filterByKeyword (list, keyword) {
       return filterByKeyword(list, keyword, this.languages, this.maybeLocalizedEmojiName)
     },
-    initializeLazyLoad () {
-      this.destroyLazyLoad()
-      this.$nextTick(() => {
-        this.$lozad = lozad('.still-image.emoji-picker-emoji', {
-          load: el => {
-            const name = el.getAttribute('data-emoji-name')
-            const vn = this.emojiRefs[name]
-            if (!vn) {
-              return
-            }
-
-            vn.loadLazy()
-          }
-        })
-        this.$lozad.observe()
-      })
-    },
-    waitForDomAndInitializeLazyLoad () {
-      this.$nextTick(() => this.initializeLazyLoad())
-    },
-    destroyLazyLoad () {
-      if (this.$lozad) {
-        if (this.$lozad.observer) {
-          this.$lozad.observer.disconnect()
-        }
-        if (this.$lozad.mutationObserver) {
-          this.$lozad.mutationObserver.disconnect()
-        }
-      }
-    },
     onShowing () {
       const oldContentLoaded = this.contentLoaded
       this.$nextTick(() => {
         this.$refs.search.focus()
       })
       this.contentLoaded = true
-      this.waitForDomAndInitializeLazyLoad()
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       if (!oldContentLoaded) {
         this.$nextTick(() => {
@@ -269,12 +234,8 @@ const EmojiPicker = {
       this.debouncedHandleKeywordChange()
     },
     allCustomGroups () {
-      this.waitForDomAndInitializeLazyLoad()
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
     }
-  },
-  destroyed () {
-    this.destroyLazyLoad()
   },
   computed: {
     activeGroupView () {
@@ -314,7 +275,6 @@ const EmojiPicker = {
     },
     debouncedHandleKeywordChange () {
       return debounce(() => {
-        this.waitForDomAndInitializeLazyLoad()
         this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       }, 500)
     },

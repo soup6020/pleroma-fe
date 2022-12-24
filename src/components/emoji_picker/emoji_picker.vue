@@ -104,9 +104,9 @@
                 >{{ emoji.replacement }}</span>
                 <still-image
                   v-else
-                  :ref="setEmojiRef(group.id + emoji.displayText)"
                   class="emoji-picker-emoji -custom"
-                  :data-src="emoji.imageUrl"
+                  loading="lazy"
+                  :src="emoji.imageUrl"
                   :data-emoji-name="group.id + emoji.displayText"
                 />
               </span>

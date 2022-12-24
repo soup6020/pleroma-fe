@@ -17,6 +17,7 @@
       :data-src="dataSrc"
       :src="realSrc"
       :referrerpolicy="referrerpolicy"
+      :loading="loading"
       @load="onLoad"
       @error="onError"
     >
