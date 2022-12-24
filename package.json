@@ -119,7 +119,7 @@
     "vue-style-loader": "4.1.3",
     "webpack": "5.74.0",
     "webpack-dev-middleware": "3.7.3",
-    "webpack-hot-middleware": "2.25.2",
+    "webpack-hot-middleware": "2.25.3",
     "webpack-merge": "0.20.0"
   },
   "engines": {
