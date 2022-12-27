@@ -164,7 +164,7 @@ const updateNotificationSettings = ({ credentials, settings }) => {
     form.append(key, value)
   })
 
-  return fetch(NOTIFICATION_SETTINGS_URL, {
+  return fetch(`${NOTIFICATION_SETTINGS_URL}?${new URLSearchParams(settings)}`, {
     headers: authHeaders(credentials),
     method: 'PUT',
     body: form
