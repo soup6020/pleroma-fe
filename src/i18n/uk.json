@@ -956,7 +956,8 @@
     "show_all_conversation_with_icon": "{icon} {text}",
     "plus_more": "+{number} більше",
     "thread_show_full_with_icon": "{icon} {text}",
-    "show_only_conversation_under_this": "Показати всі відповіді на цей допис"
+    "show_only_conversation_under_this": "Показати всі відповіді на цей допис",
+    "status_history": "Історія змін"
   },
   "timeline": {
     "no_more_statuses": "Більше немає дописів",
