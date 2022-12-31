@@ -287,7 +287,11 @@ const EmojiPicker = {
       return 0
     },
     allCustomGroups () {
-      return this.$store.getters.groupedCustomEmojis
+      const emojis = this.$store.getters.groupedCustomEmojis
+      if (emojis.unpacked) {
+        emojis.unpacked.text = this.$t('emoji.unpacked')
+      }
+      return emojis
     },
     defaultGroup () {
       return Object.keys(this.allCustomGroups)[0]

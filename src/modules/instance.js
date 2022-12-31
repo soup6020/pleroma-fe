@@ -181,15 +181,28 @@ const instance = {
     },
     groupedCustomEmojis (state) {
       const packsOf = emoji => {
-        return emoji.tags
+        const packs = emoji.tags
           .filter(k => k.startsWith('pack:'))
-          .map(k => k.slice(5)) // remove 'pack:' prefix
+          .map(k => {
+            const packName = k.slice(5) // remove 'pack:' prefix
+            return {
+              id: `custom-${packName}`,
+              text: packName
+            }
+          })
+
+        if (!packs.length) {
+          return [{
+            id: 'unpacked'
+          }]
+        } else {
+          return packs
+        }
       }
 
       return state.customEmoji
         .reduce((res, emoji) => {
-          packsOf(emoji).forEach(packName => {
-            const packId = `custom-${packName}`
+          packsOf(emoji).forEach(({ id: packId, text: packName }) => {
             if (!res[packId]) {
               res[packId] = ({
                 id: packId,
@@ -290,9 +303,22 @@ const instance = {
             const lb = b.toLowerCase()
             return la > lb ? 1 : (la < lb ? -1 : 0)
           }
+          const noPackLast = (a, b) => {
+            const aNull = a === ''
+            const bNull = b === ''
+            if (aNull === bNull) {
+              return 0
+            } else if (aNull && !bNull) {
+              return 1
+            } else {
+              return -1
+            }
+          }
           const byPackThenByName = (a, b) => {
             const packOf = emoji => (emoji.tags.filter(k => k.startsWith('pack:'))[0] || '').slice(5)
-            return caseInsensitiveStrCmp(packOf(a), packOf(b)) || caseInsensitiveStrCmp(a.displayText, b.displayText)
+            const packOfA = packOf(a)
+            const packOfB = packOf(b)
+            return noPackLast(packOfA, packOfB) || caseInsensitiveStrCmp(packOfA, packOfB) || caseInsensitiveStrCmp(a.displayText, b.displayText)
           }
 
           const emoji = Object.entries(values).map(([key, value]) => {
