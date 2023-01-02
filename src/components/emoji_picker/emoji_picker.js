@@ -112,7 +112,8 @@ const EmojiPicker = {
       contentLoaded: false,
       groupRefs: {},
       emojiRefs: {},
-      filteredEmojiGroups: []
+      filteredEmojiGroups: [],
+      width: 0
     }
   },
   components: {
@@ -155,7 +156,6 @@ const EmojiPicker = {
       this.$emit('emoji', { insertion: value, keepOpen: this.keepOpen })
     },
     onScroll (startIndex, endIndex, visibleStartIndex, visibleEndIndex) {
-      console.log('onScroll', startIndex, endIndex, visibleStartIndex, visibleEndIndex)
       const target = this.$refs['emoji-groups'].$el
       this.scrolledGroup(target, visibleStartIndex, visibleEndIndex)
     },
@@ -221,6 +221,7 @@ const EmojiPicker = {
     },
     onShowing () {
       const oldContentLoaded = this.contentLoaded
+      this.recalculateItemPerRow()
       this.$nextTick(() => {
         this.$refs.search.focus()
       })
@@ -241,6 +242,14 @@ const EmojiPicker = {
           emojis: this.filterByKeyword(group.emojis, trim(this.keyword))
         }))
         .filter(group => group.emojis.length > 0)
+    },
+    recalculateItemPerRow () {
+      this.$nextTick(() => {
+        if (!this.$refs['emoji-groups']) {
+          return
+        }
+        this.width = this.$refs['emoji-groups'].$el.offsetWidth
+      })
     }
   },
   watch: {
@@ -251,6 +260,9 @@ const EmojiPicker = {
     allCustomGroups () {
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
     }
+  },
+  mounted () {
+    this.recalculateItemPerRow()
   },
   computed: {
     minItemSize () {
@@ -263,7 +275,7 @@ const EmojiPicker = {
       return 32 + 4
     },
     itemPerRow () {
-      return 6
+      return this.width ? Math.floor(this.width / this.emojiWidth - 1) : 6
     },
     activeGroupView () {
       return this.showingStickers ? '' : this.activeGroup

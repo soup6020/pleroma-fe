@@ -82,6 +82,7 @@
             :items="emojiItems"
             :emit-update="true"
             @update="onScroll"
+            @visible="recalculateItemPerRow"
           >
             <template #default="{ item: group, index, active }">
               <DynamicScrollerItem
