@@ -18,7 +18,7 @@ import {
   faCode,
   faFlag
 } from '@fortawesome/free-solid-svg-icons'
-import { debounce, trim } from 'lodash'
+import { debounce, trim, chunk } from 'lodash'
 
 library.add(
   faBoxOpen,
@@ -88,6 +88,10 @@ const getOffset = (elem) => {
   return res[1]
 }
 
+const toHeaderId = id => {
+  return id.replace(/^row-\d+-/, '')
+}
+
 const EmojiPicker = {
   props: {
     enableStickerPicker: {
@@ -152,20 +156,20 @@ const EmojiPicker = {
     },
     onScroll (startIndex, endIndex, visibleStartIndex, visibleEndIndex) {
       console.log('onScroll', startIndex, endIndex, visibleStartIndex, visibleEndIndex)
-      const current = this.filteredEmojiGroups[visibleStartIndex].id
       const target = this.$refs['emoji-groups'].$el
-      this.scrolledGroup(target, current, visibleStartIndex, visibleEndIndex)
+      this.scrolledGroup(target, visibleStartIndex, visibleEndIndex)
     },
-    scrolledGroup (target, groupId, start, end) {
+    scrolledGroup (target, start, end) {
       const top = target.scrollTop + 5
       this.$nextTick(() => {
-        this.filteredEmojiGroups.slice(start, end + 1).forEach(group => {
+        this.emojiItems.slice(start, end + 1).forEach(group => {
+          const headerId = toHeaderId(group.id)
           const ref = this.groupRefs['group-' + group.id]
           if (!ref) { return }
           const elem = ref.$el.parentElement
           if (!elem) { return }
           if (elem && getOffset(elem) <= top) {
-            this.activeGroup = group.id
+            this.activeGroup = headerId
           }
         })
         this.scrollHeader()
@@ -190,7 +194,12 @@ const EmojiPicker = {
     },
     highlight (index) {
       this.setShowStickers(false)
-      this.$refs['emoji-groups'].scrollToItem(index)
+      const item = this.filteredEmojiGroups[index]
+      if (!item) {
+        return
+      }
+      const indexInList = this.emojiItems.findIndex(k => k.id === item.id)
+      this.$refs['emoji-groups'].scrollToItem(indexInList)
     },
     updateScrolledClass (target) {
       if (target.scrollTop <= 5) {
@@ -245,7 +254,16 @@ const EmojiPicker = {
   },
   computed: {
     minItemSize () {
-      return 32
+      return this.emojiHeight
+    },
+    emojiHeight () {
+      return 32 + 4
+    },
+    emojiWidth () {
+      return 32 + 4
+    },
+    itemPerRow () {
+      return 6
     },
     activeGroupView () {
       return this.showingStickers ? '' : this.activeGroup
@@ -286,6 +304,17 @@ const EmojiPicker = {
       return debounce(() => {
         this.filteredEmojiGroups = this.getFilteredEmojiGroups()
       }, 500)
+    },
+    emojiItems () {
+      return this.filteredEmojiGroups.map(group =>
+        chunk(group.emojis, this.itemPerRow)
+          .map((items, index) => ({
+            ...group,
+            id: index === 0 ? group.id : `row-${index}-${group.id}`,
+            emojis: items,
+            isFirstRow: index === 0
+          })))
+        .reduce((a, c) => a.concat(c), [])
     },
     languages () {
       return ensureFinalFallback(this.$store.getters.mergedConfig.interfaceLanguage)

@@ -79,7 +79,7 @@
             class="emoji-groups"
             :class="groupsScrolledClass"
             :min-item-size="minItemSize"
-            :items="filteredEmojiGroups"
+            :items="emojiItems"
             :emit-update="true"
             @update="onScroll"
           >
@@ -95,6 +95,7 @@
                   class="emoji-group"
                 >
                   <h6
+                    v-if="group.isFirstRow"
                     class="emoji-group-title"
                   >
                     {{ group.text }}
