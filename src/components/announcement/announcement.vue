@@ -45,14 +45,14 @@
           {{ $t('announcements.mark_as_read_action') }}
         </button>
         <button
-          v-if="currentUser && currentUser.role === 'admin'"
+          v-if="canEditAnnouncement"
           class="btn button-default"
           @click="enterEditMode"
         >
           {{ $t('announcements.edit_action') }}
         </button>
         <button
-          v-if="currentUser && currentUser.role === 'admin'"
+          v-if="canEditAnnouncement"
           class="btn button-default"
           @click="deleteAnnouncement"
         >
