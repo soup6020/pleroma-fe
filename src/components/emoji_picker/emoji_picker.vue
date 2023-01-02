@@ -80,10 +80,12 @@
             :class="groupsScrolledClass"
             :min-item-size="minItemSize"
             :items="filteredEmojiGroups"
+            :emit-update="true"
             @update="onScroll"
           >
             <template #default="{ item: group, index, active }">
               <DynamicScrollerItem
+                :ref="setGroupRef('group-' + group.id)"
                 :item="group"
                 :active="active"
                 :data-index="index"

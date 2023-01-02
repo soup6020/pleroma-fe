@@ -81,6 +81,13 @@ const filterByKeyword = (list, keyword = '', languages, nameLocalizer) => {
   return orderedEmojiList.flat()
 }
 
+const getOffset = (elem) => {
+  const style = elem.style.transform
+  const res = /translateY\((\d+)px\)/.exec(style)
+  if (!res) { return 0 }
+  return res[1]
+}
+
 const EmojiPicker = {
   props: {
     enableStickerPicker: {
@@ -144,12 +151,25 @@ const EmojiPicker = {
       this.$emit('emoji', { insertion: value, keepOpen: this.keepOpen })
     },
     onScroll (startIndex, endIndex, visibleStartIndex, visibleEndIndex) {
+      console.log('onScroll', startIndex, endIndex, visibleStartIndex, visibleEndIndex)
       const current = this.filteredEmojiGroups[visibleStartIndex].id
-      this.scrolledGroup(current)
+      const target = this.$refs['emoji-groups'].$el
+      this.scrolledGroup(target, current, visibleStartIndex, visibleEndIndex)
     },
-    scrolledGroup (groupId) {
-      this.activeGroup = groupId
-      this.scrollHeader()
+    scrolledGroup (target, groupId, start, end) {
+      const top = target.scrollTop + 5
+      this.$nextTick(() => {
+        this.filteredEmojiGroups.slice(start, end + 1).forEach(group => {
+          const ref = this.groupRefs['group-' + group.id]
+          if (!ref) { return }
+          const elem = ref.$el.parentElement
+          if (!elem) { return }
+          if (elem && getOffset(elem) <= top) {
+            this.activeGroup = group.id
+          }
+        })
+        this.scrollHeader()
+      })
     },
     scrollHeader () {
       // Scroll the active tab's header into view
