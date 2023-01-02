@@ -13,7 +13,7 @@
           class="emoji-tabs"
         >
           <span
-            v-for="(group, index) in filteredEmojiGroups"
+            v-for="group in filteredEmojiGroups"
             :ref="setGroupRef('group-header-' + group.id)"
             :key="group.id"
             class="emoji-tabs-item"
@@ -21,7 +21,7 @@
               active: activeGroupView === group.id
             }"
             :title="group.text"
-            @click.prevent="highlight(index)"
+            @click.prevent="highlight(group.id)"
           >
             <span
               v-if="group.image"

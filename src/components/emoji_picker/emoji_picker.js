@@ -192,13 +192,9 @@ const EmojiPicker = {
         setScroll(right + margin - headerCont.clientWidth)
       }
     },
-    highlight (index) {
+    highlight (groupId) {
       this.setShowStickers(false)
-      const item = this.filteredEmojiGroups[index]
-      if (!item) {
-        return
-      }
-      const indexInList = this.emojiItems.findIndex(k => k.id === item.id)
+      const indexInList = this.emojiItems.findIndex(k => k.id === groupId)
       this.$refs['emoji-groups'].scrollToItem(indexInList)
     },
     updateScrolledClass (target) {
@@ -260,9 +256,6 @@ const EmojiPicker = {
     allCustomGroups () {
       this.filteredEmojiGroups = this.getFilteredEmojiGroups()
     }
-  },
-  mounted () {
-    this.recalculateItemPerRow()
   },
   computed: {
     minItemSize () {
