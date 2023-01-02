@@ -188,7 +188,8 @@
     "mobile_sidebar": "Ввімкнути бокову панель",
     "mobile_notifications": "Відкрити сповіщення (є непрочитані)",
     "mobile_notifications_close": "Закрити сповіщення",
-    "edit_nav_mobile": "Редагувати панель навігації"
+    "edit_nav_mobile": "Редагувати панель навігації",
+    "announcements": "Анонси"
   },
   "media_modal": {
     "next": "Наступна",
@@ -735,7 +736,10 @@
     "hide_favorites_description": "Не показувати список моїх вподобань (люди все одно отримують сповіщення)",
     "third_column_mode": "Коли достатньо місця, показувати третю колонку, що містить",
     "user_popover_avatar_action_open": "Відкрити профіль",
-    "wordfilter": "Фільтр слів"
+    "wordfilter": "Фільтр слів",
+    "mention_links": "Посилання для згадування",
+    "user_profiles": "Профілі користувачів",
+    "notification_visibility_polls": "Закінчення опитувань, в яких ви проголосували"
   },
   "selectable_list": {
     "select_all": "Вибрати все"
@@ -956,7 +960,8 @@
     "show_all_conversation_with_icon": "{icon} {text}",
     "plus_more": "+{number} більше",
     "thread_show_full_with_icon": "{icon} {text}",
-    "show_only_conversation_under_this": "Показати всі відповіді на цей допис"
+    "show_only_conversation_under_this": "Показати всі відповіді на цей допис",
+    "status_history": "Історія змін"
   },
   "timeline": {
     "no_more_statuses": "Більше немає дописів",
@@ -996,5 +1001,26 @@
     "reported_statuses": "Дописи, на які подано скаргу:",
     "reporter": "Позивач:",
     "reported_user": "Відповідач:"
+  },
+  "announcements": {
+    "delete_action": "Видалити",
+    "page_header": "Анонси",
+    "title": "Анонси",
+    "mark_as_read_action": "Позначити як прочитане",
+    "post_form_header": "Розмістити оголошення",
+    "post_placeholder": "Введіть текст вашого оголошення тут...",
+    "post_action": "Пост",
+    "post_error": "Помилка: {error}",
+    "close_error": "Закрити",
+    "start_time_prompt": "Початок: ",
+    "end_time_prompt": "Кінець: ",
+    "all_day_prompt": "Це захід на цілий день",
+    "published_time_display": "Опубліковано в {time}",
+    "start_time_display": "Початок о {time}",
+    "end_time_display": "Кінець о {time}",
+    "edit_action": "Редагувати",
+    "submit_edit_action": "Надіслати",
+    "cancel_edit_action": "Скасувати",
+    "inactive_message": "Це оголошення неактивне"
   }
 }
