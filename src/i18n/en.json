@@ -225,6 +225,7 @@
     "search_emoji": "Search for an emoji",
     "add_emoji": "Insert emoji",
     "custom": "Custom emoji",
+    "unpacked": "Unpacked emoji",
     "unicode": "Unicode emoji",
     "unicode_groups": {
       "activities": "Activities",
