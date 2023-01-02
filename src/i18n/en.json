@@ -391,6 +391,8 @@
     "account_backup_table_head": "Backup",
     "download_backup": "Download",
     "backup_not_ready": "This backup is not ready yet.",
+    "backup_running": "This backup is in progress, processed {number} record. | This backup is in progress, processed {number} records.",
+    "backup_failed": "This backup has failed.",
     "remove_backup": "Remove",
     "list_backups_error": "Error fetching backup list: {error}",
     "add_backup": "Create a new backup",
