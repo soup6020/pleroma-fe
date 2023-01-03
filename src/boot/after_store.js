@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import vClickOutside from 'click-outside-vue3'
+import VueVirtualScroller from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 
@@ -397,6 +399,7 @@ const afterStoreSetup = async ({ store, i18n }) => {
 
   app.use(vClickOutside)
   app.use(VBodyScrollLock)
+  app.use(VueVirtualScroller)
 
   app.component('FAIcon', FontAwesomeIcon)
   app.component('FALayers', FontAwesomeLayers)
