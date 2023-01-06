@@ -83,6 +83,7 @@
             :emit-update="true"
             @update="onScroll"
             @visible="recalculateItemPerRow"
+            @resize="recalculateItemPerRow"
           >
             <template #default="{ item: group, index, active }">
               <DynamicScrollerItem
