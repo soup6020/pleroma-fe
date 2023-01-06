@@ -38,7 +38,7 @@
         />
         <button
           class="button-unstyled nav-icon"
-          @click="openSettingsModal"
+          @click.stop="openSettingsModal"
         >
           <FAIcon
             fixed-width
@@ -65,7 +65,7 @@
         <button
           v-if="currentUser"
           class="button-unstyled nav-icon"
-          @click.prevent="logout"
+          @click.stop.prevent="logout"
         >
           <FAIcon
             fixed-width
