@@ -464,6 +464,7 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+
 .column-settings .size-label {
   display: block;
   margin-bottom: 0.5em;

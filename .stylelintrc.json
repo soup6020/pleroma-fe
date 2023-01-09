@@ -10,12 +10,17 @@
     "declaration-no-important": true,
     "rscss/no-descendant-combinator": false,
     "rscss/class-format": [
-      true,
+      false,
       {
         "component": "pascal-case",
         "variant": "^-[a-z]\\w+",
         "element": "^[a-z]\\w+"
       }
-    ]
+    ],
+    "selector-class-pattern": null,
+    "import-notation": null,
+    "custom-property-pattern": null,
+    "keyframes-name-pattern": null,
+    "scss/operator-no-newline-after": null
   }
 }

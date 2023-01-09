@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .checkbox {
   position: relative;
@@ -49,13 +49,13 @@ export default {
     right: 0;
     top: 0;
     display: block;
-    content: '✓';
+    content: "✓";
     transition: color 200ms;
     width: 1.1em;
     height: 1.1em;
     border-radius: $fallback--checkboxRadius;
     border-radius: var(--checkboxRadius, $fallback--checkboxRadius);
-    box-shadow: 0px 0px 2px black inset;
+    box-shadow: 0 0 2px black inset;
     box-shadow: var(--inputShadow);
     background-color: $fallback--fg;
     background-color: var(--input, $fallback--fg);
@@ -71,15 +71,16 @@ export default {
   &.disabled {
     .checkbox-indicator::before,
     .label {
-      opacity: .5;
+      opacity: 0.5;
     }
+
     .label {
       color: $fallback--faint;
       color: var(--faint, $fallback--faint);
     }
   }
 
-  input[type=checkbox] {
+  input[type="checkbox"] {
     display: none;
 
     &:checked + .checkbox-indicator::before {
@@ -88,15 +89,14 @@ export default {
     }
 
     &:indeterminate + .checkbox-indicator::before {
-      content: '–';
+      content: "–";
       color: $fallback--text;
       color: var(--inputText, $fallback--text);
     }
-
   }
 
   & > span {
-    margin-left: .5em;
+    margin-left: 0.5em;
   }
 }
 </style>

@@ -67,7 +67,8 @@
   .post-form {
     padding: var(--status-margin, $status-margin);
 
-    .heading, .body {
+    .heading,
+    .body {
       margin-bottom: var(--status-margin, $status-margin);
     }
 
