@@ -41,7 +41,7 @@ const ReactButton = {
     },
     focusInput () {
       this.$nextTick(() => {
-        const input = document.querySelector('.popover.ReactButton').querySelector('input')
+        const input = document.querySelector('.reaction-picker-filter > input')
         if (input) input.focus()
       })
     },
