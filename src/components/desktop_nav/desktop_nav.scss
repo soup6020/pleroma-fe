@@ -14,11 +14,9 @@
 
   .inner-nav {
     display: grid;
-    /* stylelint-disable declaration-block-no-redundant-longhand-properties */
     grid-template-rows: var(--navbar-height);
     grid-template-columns: 2fr auto 2fr;
     grid-template-areas: "sitename logo actions";
-    /* stylelint-enable declaration-block-no-redundant-longhand-properties */
     box-sizing: border-box;
     padding: 0 1.2em;
     margin: auto;

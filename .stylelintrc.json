@@ -21,6 +21,21 @@
     "import-notation": null,
     "custom-property-pattern": null,
     "keyframes-name-pattern": null,
-    "scss/operator-no-newline-after": null
+    "scss/operator-no-newline-after": null,
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      {
+        "ignoreShorthands": [
+          "grid-template",
+          "margin",
+          "padding",
+          "border",
+          "border-width",
+          "border-style",
+          "border-color",
+          "border-radius"
+        ]
+      }
+    ]
   }
 }

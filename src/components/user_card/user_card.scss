@@ -43,11 +43,10 @@
     mask-composite: exclude;
     background-size: cover;
     mask-size: 100% 60%;
-    border-radius:
-      calc(var(--__roundnessTop, --panelRadius) - 1px)
-      calc(var(--__roundnessTop, --panelRadius) - 1px)
-      calc(var(--__roundnessBottom, --panelRadius) - 1px)
-      calc(var(--__roundnessBottom, --panelRadius) - 1px);
+    border-top-left-radius: calc(var(--__roundnessTop, --panelRadius) - 1px);
+    border-top-right-radius: calc(var(--__roundnessTop, --panelRadius) - 1px);
+    border-bottom-left-radius: calc(var(--__roundnessBottom, --panelRadius) - 1px);
+    border-bottom-right-radius: calc(var(--__roundnessBottom, --panelRadius) - 1px);
     background-color: var(--profileBg);
     z-index: -2;
 

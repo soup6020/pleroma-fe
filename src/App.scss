@@ -214,10 +214,8 @@ nav {
   grid-template-columns:
     var(--effectiveSidebarColumnWidth)
     var(--effectiveContentColumnWidth);
-  /* stylelint-disable declaration-block-no-redundant-longhand-properties */
   grid-template-areas: "sidebar content";
   grid-template-rows: 1fr;
-  /* stylelint-enable declaration-block-no-redundant-longhand-properties */
   box-sizing: border-box;
   margin: 0 auto;
   align-content: flex-start;
