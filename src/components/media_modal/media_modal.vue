@@ -10,6 +10,7 @@
       class="modal-image-container"
       :direction="swipeDirection"
       :threshold="swipeThreshold"
+      :disable-click-threshold="swipeDisableClickThreshold"
       @preview-requested="handleSwipePreview"
       @swipe-finished="handleSwipeEnd"
       @swipeless-clicked="hide"
