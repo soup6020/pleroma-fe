@@ -247,10 +247,12 @@
       }
     }
   }
+
   .confirm-modal.dark-overlay {
     &::before {
       z-index: 3000;
     }
+
     .dialog-modal.panel {
       z-index: 3001;
     }
