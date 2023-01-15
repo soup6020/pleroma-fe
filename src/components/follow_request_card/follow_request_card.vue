@@ -22,8 +22,8 @@
 <style lang="scss">
 .follow-request-card-content-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+
   button {
     margin-top: 0.5em;
     margin-right: 0.5em;

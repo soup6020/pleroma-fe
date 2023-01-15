@@ -94,7 +94,7 @@
 <script src="./mobile_nav.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .MobileNav {
   z-index: var(--ZI_navbar);
@@ -127,7 +127,7 @@
   }
 
   .site-name {
-    padding: 0 .3em;
+    padding: 0 0.3em;
     display: inline-block;
   }
 
@@ -156,7 +156,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 1px 1px 4px rgba(0,0,0,.6);
+    box-shadow: 1px 1px 4px rgb(0 0 0 / 60%);
     box-shadow: var(--panelShadow);
     transition-property: transform;
     transition-duration: 0.25s;
@@ -182,7 +182,7 @@
     color: var(--topBarText);
     background-color: $fallback--fg;
     background-color: var(--topBar, $fallback--fg);
-    box-shadow: 0px 0px 4px rgba(0,0,0,.6);
+    box-shadow: 0 0 4px rgb(0 0 0 / 60%);
     box-shadow: var(--topBarShadow);
 
     .spacer {

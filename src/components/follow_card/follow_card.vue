@@ -39,9 +39,8 @@
   &-content-container {
     flex-shrink: 0;
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-between;
-    flex-wrap: wrap;
     line-height: 1.5em;
   }
 

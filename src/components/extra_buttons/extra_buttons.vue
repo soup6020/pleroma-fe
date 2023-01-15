@@ -172,15 +172,10 @@
 <script src="./extra_buttons.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
-@import '../../_mixins.scss';
+@import "../../variables";
+@import "../../mixins";
 
 .ExtraButtons {
-  /* override of popover internal stuff */
-  .popover-trigger-button {
-    width: auto;
-  }
-
   .popover-trigger {
     position: static;
     padding: 10px;
@@ -190,10 +185,12 @@
       color: $fallback--text;
       color: var(--text, $fallback--text);
     }
-
   }
 
   .popover-trigger-button {
+    /* override of popover internal stuff */
+    width: auto;
+
     @include unfocused-style {
       .focus-marker {
         visibility: hidden;

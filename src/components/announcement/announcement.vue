@@ -102,19 +102,19 @@
 @import "../../variables";
 
 .announcement {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--border, $fallback--border);
+  border-bottom: 1px solid var(--border, $fallback--border);
   border-radius: 0;
   padding: var(--status-margin, $status-margin);
 
-  .heading, .body {
+  .heading,
+  .body {
     margin-bottom: var(--status-margin, $status-margin);
   }
 
   .footer {
     display: flex;
     flex-direction: column;
+
     .times {
       display: flex;
       flex-direction: column;

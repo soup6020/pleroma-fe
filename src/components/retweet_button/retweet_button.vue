@@ -65,8 +65,8 @@
 <script src="./retweet_button.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
-@import '../../_mixins.scss';
+@import "../../variables";
+@import "../../mixins";
 
 .RetweetButton {
   display: flex;
