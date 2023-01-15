@@ -20,6 +20,7 @@
             v-for="(attachment, attachmentIndex) in row.items"
             :key="attachment.id"
             class="gallery-item"
+            :compact="compact"
             :nsfw="nsfw"
             :attachment="attachment"
             :size="size"

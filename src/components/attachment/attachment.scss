@@ -102,7 +102,6 @@
     padding-top: 0.5em;
   }
 
-
   .play-icon {
     position: absolute;
     font-size: 64px;
@@ -263,6 +262,12 @@
     img,
     canvas {
       object-fit: cover;
+    }
+  }
+
+  &.-compact {
+    .placeholder-container {
+      padding-bottom: 0.5em;
     }
   }
 }
