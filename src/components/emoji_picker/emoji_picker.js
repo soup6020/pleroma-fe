@@ -244,7 +244,7 @@ const EmojiPicker = {
         if (!this.$refs['emoji-groups']) {
           return
         }
-        this.width = this.$refs['emoji-groups'].$el.offsetWidth
+        this.width = this.$refs['emoji-groups'].$el.clientWidth
       })
     }
   },

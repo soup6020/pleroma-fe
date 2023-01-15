@@ -266,4 +266,10 @@
   &.-loading {
     cursor: progress;
   }
+
+  &.-compact {
+    .placeholder-container {
+      padding-bottom: 0.5em;
+    }
+  }
 }

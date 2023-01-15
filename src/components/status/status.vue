@@ -84,7 +84,7 @@
           :user="statusoid.user"
         />
         <div class="right-side faint">
-          <span
+          <bdi
             class="status-username repeater-name"
             :title="retweeter"
           >
@@ -101,7 +101,7 @@
               v-else
               :to="retweeterProfileLink"
             >{{ retweeter }}</router-link>
-          </span>
+          </bdi>
           {{ ' ' }}
           <FAIcon
             icon="retweet"

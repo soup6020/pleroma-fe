@@ -734,26 +734,22 @@ const fetchTimeline = ({
   const queryString = map(params, (param) => `${param[0]}=${param[1]}`).join('&')
   url += `?${queryString}`
 
-  let status = ''
-  let statusText = ''
-
-  let pagination = {}
   return fetch(url, { headers: authHeaders(credentials) })
-    .then((data) => {
-      status = data.status
-      statusText = data.statusText
-      pagination = parseLinkHeaderPagination(data.headers.get('Link'), {
-        flakeId: timeline !== 'bookmarks' && timeline !== 'notifications'
-      })
-      return data
-    })
-    .then((data) => data.json())
-    .then((data) => {
-      if (!data.errors) {
+    .then(async (response) => {
+      const success = response.ok
+
+      const data = await response.json()
+
+      if (success && !data.errors) {
+        const pagination = parseLinkHeaderPagination(response.headers.get('Link'), {
+          flakeId: timeline !== 'bookmarks' && timeline !== 'notifications'
+        })
+
         return { data: data.map(isNotifications ? parseNotification : parseStatus), pagination }
       } else {
-        data.status = status
-        data.statusText = statusText
+        data.errors ||= []
+        data.status = response.status
+        data.statusText = response.statusText
         return data
       }
     })
