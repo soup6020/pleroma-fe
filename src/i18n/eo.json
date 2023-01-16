@@ -603,7 +603,7 @@
     "use_websockets": "Uzi teĥnikaron «websockets» (tuja ĝisdatigo)",
     "mention_link_display_full_for_remote": "plene nur je uzantoj foraj (ekz. {'@'}zozo{'@'}ekzemplo.org)",
     "expert_mode": "Montri altnivelajn",
-    "setting_server_side": "Ĉi tiu agordo estas ligita al via profilo, kaj efektiviĝon en ĉiuj viaj salutoj kaj klientoj",
+    "setting_server_side": "Ĉi tiu agordo estas ligita al via profilo, kaj efektiviĝos en ĉiuj viaj salutoj kaj klientoj",
     "post_look_feel": "Aspekto de afiŝoj",
     "mention_links": "Menciaj ligiloj",
     "email_language": "Lingvo de leteroj ricevotaj de la servilo",
