@@ -923,8 +923,9 @@ const editStatus = ({
 }
 
 const deleteStatus = ({ id, credentials }) => {
-  return fetch(MASTODON_DELETE_URL(id), {
-    headers: authHeaders(credentials),
+  return promisedRequest({
+    url: MASTODON_DELETE_URL(id),
+    credentials,
     method: 'DELETE'
   })
 }

@@ -844,6 +844,7 @@
     "favorites": "Favorites",
     "repeats": "Repeats",
     "delete": "Delete status",
+    "delete_error": "Error deleting status: {0}",
     "edit": "Edit status",
     "edited_at": "(last edited {time})",
     "pin": "Pin on profile",
