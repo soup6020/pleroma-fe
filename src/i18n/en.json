@@ -997,7 +997,7 @@
     "bookmark": "Bookmark",
     "toggle_expand": "Expand or collapse notification to show post in full",
     "toggle_mute": "Expand or collapse notification to reveal muted content",
-    "autocomplete_available": "{number} result is available | {number} results are available"
+    "autocomplete_available": "{number} result is available. Use up and down keys to navigate through them. | {number} results are available. Use up and down keys to navigate through them."
   },
   "upload": {
     "error": {
