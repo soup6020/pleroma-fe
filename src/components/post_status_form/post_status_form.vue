@@ -30,6 +30,9 @@
           <span>{{ $t('post_status.scope_notice.public') }}</span>
           <a
             class="fa-scale-110 fa-old-padding dismiss"
+            :title="$t('post_status.scope_notice_dismiss')"
+            role="button"
+            tabindex="0"
             @click.prevent="dismissScopeNotice()"
           >
             <FAIcon icon="times" />
@@ -42,6 +45,9 @@
           <span>{{ $t('post_status.scope_notice.unlisted') }}</span>
           <a
             class="fa-scale-110 fa-old-padding dismiss"
+            :title="$t('post_status.scope_notice_dismiss')"
+            role="button"
+            tabindex="0"
             @click.prevent="dismissScopeNotice()"
           >
             <FAIcon icon="times" />
@@ -54,6 +60,9 @@
           <span>{{ $t('post_status.scope_notice.private') }}</span>
           <a
             class="fa-scale-110 fa-old-padding dismiss"
+            :title="$t('post_status.scope_notice_dismiss')"
+            role="button"
+            tabindex="0"
             @click.prevent="dismissScopeNotice()"
           >
             <FAIcon icon="times" />
@@ -199,6 +208,7 @@
               id="post-content-type"
               v-model="newStatus.contentType"
               class="form-control"
+              :attrs="{ 'aria-label': $t('post_status.content_type_selection') }"
             >
               <option
                 v-for="postFormat in postFormats"

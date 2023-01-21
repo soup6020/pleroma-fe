@@ -6,6 +6,7 @@
     <select
       :disabled="disabled"
       :value="modelValue"
+      v-bind="attrs"
       @change="$emit('update:modelValue', $event.target.value)"
     >
       <slot />

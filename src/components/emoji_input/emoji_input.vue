@@ -16,6 +16,7 @@
       ref="hiddenOverlay"
       class="hidden-overlay"
       :style="overlayStyle"
+      :aria-hidden="true"
     >
       <span>{{ preText }}</span>
       <span
@@ -33,6 +34,7 @@
         v-if="!hideEmojiButton"
         class="button-unstyled emoji-picker-icon"
         type="button"
+        :title="$t('emoji.add_emoji')"
         @click.prevent="togglePicker"
       >
         <FAIcon :icon="['far', 'smile-beam']" />
@@ -53,6 +55,7 @@
       ref="suggestorPopover"
       class="autocomplete-panel"
       placement="bottom"
+      :trigger-attrs="{ 'aria-hidden': true }"
     >
       <template #content>
         <div

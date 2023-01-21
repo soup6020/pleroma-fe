@@ -266,6 +266,7 @@
       "text/markdown": "Markdown",
       "text/bbcode": "BBCode"
     },
+    "content_type_selection": "Post format",
     "content_warning": "Subject (optional)",
     "default": "Just landed in L.A.",
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
@@ -283,6 +284,7 @@
       "private": "This post will be visible to your followers only",
       "unlisted": "This post will not be visible in Public Timeline and The Whole Known Network"
     },
+    "scope_notice_dismiss": "Close this notice",
     "scope": {
       "direct": "Direct - post to mentioned users only",
       "private": "Followers-only - post to followers only",
