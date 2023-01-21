@@ -1,6 +1,7 @@
 import Completion from '../../services/completion/completion.js'
 import EmojiPicker from '../emoji_picker/emoji_picker.vue'
 import Popover from 'src/components/popover/popover.vue'
+import ScreenReaderNotice from 'src/components/screen_reader_notice/screen_reader_notice.vue'
 import UnicodeDomainIndicator from '../unicode_domain_indicator/unicode_domain_indicator.vue'
 import { take } from 'lodash'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
@@ -109,9 +110,10 @@ const EmojiInput = {
   },
   data () {
     return {
+      randomSeed: `${Math.random()}`.replace('.', '-'),
       input: undefined,
       caretEl: undefined,
-      highlighted: 0,
+      highlighted: -1,
       caret: 0,
       focused: false,
       blurTimeout: null,
@@ -125,7 +127,8 @@ const EmojiInput = {
   components: {
     Popover,
     EmojiPicker,
-    UnicodeDomainIndicator
+    UnicodeDomainIndicator,
+    ScreenReaderNotice
   },
   computed: {
     padEmoji () {
@@ -203,6 +206,12 @@ const EmojiInput = {
         top: this.input.scrollTop,
         left: this.input.scrollLeft
       })
+    },
+    suggestionListId () {
+      return `suggestions-${this.randomSeed}`
+    },
+    suggestionItemId () {
+      return (index) => `suggestion-item-${index}-${this.randomSeed}`
     }
   },
   mounted () {
@@ -278,6 +287,10 @@ const EmojiInput = {
           ...rest,
           img: imageUrl || ''
         }))
+      this.$refs.screenReaderNotice.announce(
+        this.$tc('tool_tip.autocomplete_available',
+          this.suggestions.length,
+          { number: this.suggestions.length }))
     }
   },
   methods: {
@@ -374,27 +387,24 @@ const EmojiInput = {
     },
     cycleBackward (e) {
       const len = this.suggestions.length || 0
-      if (len > 1) {
-        this.highlighted -= 1
-        if (this.highlighted < 0) {
-          this.highlighted = this.suggestions.length - 1
-        }
-        e.preventDefault()
-      } else {
-        this.highlighted = 0
+
+      this.highlighted -= 1
+      if (this.highlighted === -1) {
+        this.input.focus()
+      } else if (this.highlighted < -1) {
+        this.highlighted = len - 1
       }
+      e.preventDefault()
     },
     cycleForward (e) {
       const len = this.suggestions.length || 0
-      if (len > 1) {
-        this.highlighted += 1
-        if (this.highlighted >= len) {
-          this.highlighted = 0
-        }
-        e.preventDefault()
-      } else {
-        this.highlighted = 0
+
+      this.highlighted += 1
+      if (this.highlighted >= len) {
+        this.highlighted = -1
+        this.input.focus()
       }
+      e.preventDefault()
     },
     scrollIntoView () {
       const rootRef = this.$refs.picker.$el
@@ -540,6 +550,13 @@ const EmojiInput = {
       })
     },
     resize () {
+    },
+    autoCompleteItemLabel (suggestion) {
+      if (suggestion.user) {
+        return suggestion.displayText + ' ' + suggestion.detailText
+      } else {
+        return this.maybeLocalizedEmojiName(suggestion)
+      }
     }
   }
 }

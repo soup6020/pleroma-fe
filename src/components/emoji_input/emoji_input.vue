@@ -4,7 +4,13 @@
     class="emoji-input"
     :class="{ 'with-picker': !hideEmojiButton }"
   >
-    <slot />
+    <slot
+      :id="'textbox-' + randomSeed"
+      :aria-owns="suggestionListId"
+      aria-autocomplete="both"
+      :aria-expanded="showSuggestions"
+      :aria-activedescendant="(!showSuggestions || highlighted === -1) ? '' : suggestionItemId(highlighted)"
+    />
     <!-- TODO: make the 'x' disappear if at the end maybe? -->
     <div
       ref="hiddenOverlay"
@@ -18,6 +24,10 @@
       >x</span>
       <span>{{ postText }}</span>
     </div>
+    <screen-reader-notice
+      ref="screenReaderNotice"
+      aria-live="assertive"
+    />
     <template v-if="enableEmojiPicker">
       <button
         v-if="!hideEmojiButton"
@@ -46,15 +56,20 @@
     >
       <template #content>
         <div
+          :id="suggestionListId"
           ref="panel-body"
           class="autocomplete-panel-body"
+          role="listbox"
         >
           <div
             v-for="(suggestion, index) in suggestions"
+            :id="suggestionItemId(index)"
             :key="index"
             class="autocomplete-item"
-            role="button"
+            role="option"
             :class="{ highlighted: index === highlighted }"
+            :aria-label="autoCompleteItemLabel(suggestion)"
+            :aria-selected="index === highlighted"
             @click.stop.prevent="onClick($event, suggestion)"
           >
             <span class="image">

@@ -996,7 +996,8 @@
     "reject_follow_request": "Reject follow request",
     "bookmark": "Bookmark",
     "toggle_expand": "Expand or collapse notification to show post in full",
-    "toggle_mute": "Expand or collapse notification to reveal muted content"
+    "toggle_mute": "Expand or collapse notification to reveal muted content",
+    "autocomplete_available": "{number} result is available | {number} results are available"
   },
   "upload": {
     "error": {

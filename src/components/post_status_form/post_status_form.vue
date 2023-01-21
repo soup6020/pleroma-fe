@@ -148,29 +148,36 @@
           @sticker-upload-failed="uploadFailed"
           @shown="handleEmojiInputShow"
         >
-          <textarea
-            ref="textarea"
-            v-model="newStatus.status"
-            :placeholder="placeholder || $t('post_status.default')"
-            rows="1"
-            cols="1"
-            :disabled="posting && !optimisticPosting"
-            class="form-post-body"
-            :class="{ 'scrollable-form': !!maxHeight }"
-            @keydown.exact.enter="submitOnEnter && postStatus($event, newStatus)"
-            @keydown.meta.enter="postStatus($event, newStatus)"
-            @keydown.ctrl.enter="!submitOnEnter && postStatus($event, newStatus)"
-            @input="resize"
-            @compositionupdate="resize"
-            @paste="paste"
-          />
-          <p
-            v-if="hasStatusLengthLimit"
-            class="character-counter faint"
-            :class="{ error: isOverLengthLimit }"
-          >
-            {{ charactersLeft }}
-          </p>
+          <template #default="inputProps">
+            <textarea
+              ref="textarea"
+              v-model="newStatus.status"
+              :placeholder="placeholder || $t('post_status.default')"
+              rows="1"
+              cols="1"
+              :disabled="posting && !optimisticPosting"
+              class="form-post-body"
+              :class="{ 'scrollable-form': !!maxHeight }"
+              v-bind="inputProps"
+              :aria-owns="inputProps.ariaOwns"
+              :aria-autocomplete="inputProps.ariaAutocomplete"
+              :aria-activedescendant="inputProps.ariaActiveDescendant"
+              :aria-expanded="inputProps.ariaExpanded"
+              @keydown.exact.enter="submitOnEnter && postStatus($event, newStatus)"
+              @keydown.meta.enter="postStatus($event, newStatus)"
+              @keydown.ctrl.enter="!submitOnEnter && postStatus($event, newStatus)"
+              @input="resize"
+              @compositionupdate="resize"
+              @paste="paste"
+            />
+            <p
+              v-if="hasStatusLengthLimit"
+              class="character-counter faint"
+              :class="{ error: isOverLengthLimit }"
+            >
+              {{ charactersLeft }}
+            </p>
+          </template>
         </EmojiInput>
         <div
           v-if="!disableScopeSelector"
