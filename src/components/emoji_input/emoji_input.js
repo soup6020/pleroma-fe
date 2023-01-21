@@ -395,7 +395,9 @@ const EmojiInput = {
       } else if (this.highlighted < -1) {
         this.highlighted = len - 1
       }
-      e.preventDefault()
+      if (len > 0) {
+        e.preventDefault()
+      }
     },
     cycleForward (e) {
       const len = this.suggestions.length || 0
@@ -405,7 +407,9 @@ const EmojiInput = {
         this.highlighted = -1
         this.input.focus()
       }
-      e.preventDefault()
+      if (len > 0) {
+        e.preventDefault()
+      }
     },
     scrollIntoView () {
       const rootRef = this.$refs.picker.$el
