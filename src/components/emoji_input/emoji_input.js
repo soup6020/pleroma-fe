@@ -287,6 +287,7 @@ const EmojiInput = {
           ...rest,
           img: imageUrl || ''
         }))
+      this.highlighted = -1
       this.$refs.screenReaderNotice.announce(
         this.$tc('tool_tip.autocomplete_available',
           this.suggestions.length,

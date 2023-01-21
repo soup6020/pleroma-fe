@@ -8,6 +8,7 @@ import Gallery from 'src/components/gallery/gallery.vue'
 import StatusContent from '../status_content/status_content.vue'
 import fileTypeService from '../../services/file_type/file_type.service.js'
 import { findOffset } from '../../services/offset_finder/offset_finder.service.js'
+import { propsToNative } from '../../services/attributes_helper/attributes_helper.service.js'
 import { reject, map, uniqBy, debounce } from 'lodash'
 import suggestor from '../emoji_input/suggestor.js'
 import { mapGetters, mapState } from 'vuex'
@@ -629,6 +630,9 @@ const PostStatusForm = {
     },
     openProfileTab () {
       this.$store.dispatch('openSettingsModalTab', 'profile')
+    },
+    propsToNative (props) {
+      return propsToNative(props)
     }
   }
 }

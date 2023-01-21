@@ -124,14 +124,17 @@
           :suggest="emojiSuggestor"
           class="form-control"
         >
-          <input
-            v-model="newStatus.spoilerText"
-            type="text"
-            :placeholder="$t('post_status.content_warning')"
-            :disabled="posting && !optimisticPosting"
-            size="1"
-            class="form-post-subject"
-          >
+          <template #default="inputProps">
+            <input
+              v-model="newStatus.spoilerText"
+              type="text"
+              :placeholder="$t('post_status.content_warning')"
+              :disabled="posting && !optimisticPosting"
+              v-bind="propsToNative(inputProps)"
+              size="1"
+              class="form-post-subject"
+            >
+          </template>
         </EmojiInput>
         <EmojiInput
           ref="emoji-input"
@@ -158,11 +161,7 @@
               :disabled="posting && !optimisticPosting"
               class="form-post-body"
               :class="{ 'scrollable-form': !!maxHeight }"
-              v-bind="inputProps"
-              :aria-owns="inputProps.ariaOwns"
-              :aria-autocomplete="inputProps.ariaAutocomplete"
-              :aria-activedescendant="inputProps.ariaActiveDescendant"
-              :aria-expanded="inputProps.ariaExpanded"
+              v-bind="propsToNative(inputProps)"
               @keydown.exact.enter="submitOnEnter && postStatus($event, newStatus)"
               @keydown.meta.enter="postStatus($event, newStatus)"
               @keydown.ctrl.enter="!submitOnEnter && postStatus($event, newStatus)"
