@@ -183,7 +183,7 @@
                 :disabled="isPending"
                 class="form-control"
                 type="date"
-                max="birthdayMin"
+                :max="birthdayRequired ? birthdayMinAttr : undefined"
                 :aria-required="birthdayRequired"
               >
             </div>

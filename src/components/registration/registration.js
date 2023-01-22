@@ -71,6 +71,9 @@ const registration = {
       minDate.setTime(today.getTime() - minAge * DAY)
       return minDate
     },
+    birthdayMinAttr () {
+      return this.birthdayMin.toJSON().replace(/T.+$/, '')
+    },
     birthdayMinFormatted () {
       const browserLocale = localeService.internalToBrowserLocale(this.$i18n.locale)
       return this.user.birthday && new Date(Date.parse(this.birthdayMin)).toLocaleDateString(browserLocale, { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' })
