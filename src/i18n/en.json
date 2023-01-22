@@ -312,9 +312,13 @@
       "email_required": "cannot be left blank",
       "password_required": "cannot be left blank",
       "password_confirmation_required": "cannot be left blank",
-      "password_confirmation_match": "should be the same as password"
+      "password_confirmation_match": "should be the same as password",
+      "birthday_required": "cannot be left blank",
+      "birthday_min_age": "must be on or before {date}"
     },
-    "email_language": "In which language do you want to receive emails from the server?"
+    "email_language": "In which language do you want to receive emails from the server?",
+    "birthday": "Birthday:",
+    "birthday_optional": "Birthday (optional):"
   },
   "remote_user_resolver": {
     "remote_user_resolver": "Remote user resolver",

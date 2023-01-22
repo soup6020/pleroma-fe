@@ -107,6 +107,8 @@ const defaultState = {
   restrictedNicknames: [],
   safeDM: true,
   knownDomains: [],
+  birthdayRequired: false,
+  birthdayMinAge: 0,
 
   // Feature-set, apparently, not everything here is reported...
   shoutAvailable: false,
