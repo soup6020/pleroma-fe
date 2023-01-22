@@ -59,7 +59,9 @@
     "never_show_again": "不再显示",
     "undo": "撤销",
     "yes": "是",
-    "no": "否"
+    "no": "否",
+    "unpin": "取消固定该项",
+    "pin": "固定该项"
   },
   "image_cropper": {
     "crop_picture": "裁剪图片",
@@ -120,7 +122,10 @@
     "edit_finish": "完成编辑",
     "mobile_notifications": "打开通知（有未读的）",
     "mobile_notifications_close": "关闭通知",
-    "announcements": "公告"
+    "announcements": "公告",
+    "edit_nav_mobile": "自定义导航栏",
+    "edit_pinned": "编辑固定的项目",
+    "mobile_sidebar": "切换移动设备侧栏"
   },
   "notifications": {
     "broken_favorite": "未知的状态，正在搜索中…",
@@ -135,7 +140,8 @@
     "migrated_to": "迁移到了",
     "follow_request": "想要关注你",
     "error": "取得通知时发生错误：{0}",
-    "poll_ended": "投票结束了"
+    "poll_ended": "投票结束了",
+    "submitted_report": "提交举报"
   },
   "polls": {
     "add_poll": "增加投票",
@@ -194,7 +200,10 @@
     "media_description": "媒体描述",
     "media_description_error": "更新媒体失败，请重试",
     "empty_status_error": "不能发布没有内容、没有附件的发文",
-    "post": "发送"
+    "post": "发送",
+    "edit_remote_warning": "其他远程实例可能不支持编辑并且无法接收您的帖子的最新版本。",
+    "edit_unsupported_warning": "Pleroma 不支持对提及或投票进行编辑。",
+    "edit_status": "编辑状态"
   },
   "registration": {
     "bio": "简介",
@@ -219,7 +228,9 @@
     "reason_placeholder": "此实例的注册需要手动批准。\n请让管理员知道您为什么想要注册。",
     "reason": "注册理由",
     "register": "注册",
-    "email_language": "你想从服务器收到什么语言的邮件？"
+    "email_language": "你想从服务器收到什么语言的邮件？",
+    "bio_optional": "介绍（可选）",
+    "email_optional": "电子邮件（可选）"
   },
   "selectable_list": {
     "select_all": "选择全部"
@@ -642,7 +653,11 @@
     "move_account_notes": "如果你想把账号移动到别的地方，你必须去目标账号，然后加一个指向这里的别名。",
     "wordfilter": "词语过滤器",
     "user_profiles": "用户资料",
-    "third_column_mode_notifications": "消息栏"
+    "third_column_mode_notifications": "消息栏",
+    "backup_running": "此备份正在进行，已处理 {number} 条记录。 |此备份正在进行，已处理 {number} 条记录。",
+    "lists_navigation": "在导航中显示列表",
+    "word_filter_and_more": "词过滤器及其他...",
+    "backup_failed": "此备份已失败。"
   },
   "time": {
     "day": "{0} 天",
@@ -1001,5 +1016,15 @@
     "submit_edit_action": "提交",
     "cancel_edit_action": "取消",
     "inactive_message": "这个公告不活跃"
+  },
+  "report": {
+    "reported_user": "被举报者：",
+    "state_closed": "已关闭",
+    "state_resolved": "已解决",
+    "reporter": "举报者：",
+    "state_open": "开启"
+  },
+  "unicode_domain_indicator": {
+    "tooltip": "此域名包含非 ascii 字符。"
   }
 }
