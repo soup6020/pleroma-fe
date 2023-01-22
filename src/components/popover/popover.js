@@ -4,7 +4,7 @@ const Popover = {
     // Action to trigger popover: either 'hover' or 'click'
     trigger: String,
 
-    // Either 'top' or 'bottom'
+    // 'top', 'bottom', 'left', 'right'
     placement: String,
 
     // Takes object with properties 'x' and 'y', values of these can be
@@ -43,7 +43,12 @@ const Popover = {
     overlayCentersSelector: String,
 
     // Lets hover popover stay when clicking inside of it
-    stayOnClick: Boolean
+    stayOnClick: Boolean,
+
+    triggerAttrs: {
+      type: Object,
+      default: {}
+    }
   },
   inject: ['popoversZLayer'], // override popover z layer
   data () {
@@ -51,6 +56,10 @@ const Popover = {
       // lockReEntry is a flag that is set when mouse cursor is leaving the popover's content
       // so that if mouse goes back into popover it won't be re-shown again to prevent annoyance
       // with popovers refusing to be hidden when user wants to interact with something in below popover
+      anchorEl: null,
+      // There's an issue where having teleport enabled by default causes things just...
+      // not render at all, i.e. main post status form and its emoji inputs
+      teleport: false,
       lockReEntry: false,
       hidden: true,
       styles: {},
@@ -59,10 +68,15 @@ const Popover = {
       // used to avoid blinking if hovered onto popover
       graceTimeout: null,
       parentPopover: null,
+      disableClickOutside: false,
       childrenShown: new Set()
     }
   },
   methods: {
+    setAnchorEl (el) {
+      this.anchorEl = el
+      this.updateStyles()
+    },
     containerBoundingClientRect () {
       const container = this.boundToSelector ? this.$el.closest(this.boundToSelector) : this.$el.offsetParent
       return container.getBoundingClientRect()
@@ -75,7 +89,7 @@ const Popover = {
 
       // Popover will be anchored around this element, trigger ref is the container, so
       // its children are what are inside the slot. Expect only one v-slot:trigger.
-      const anchorEl = (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
+      const anchorEl = this.anchorEl || (this.$refs.trigger && this.$refs.trigger.children[0]) || this.$el
       // SVGs don't have offsetWidth/Height, use fallback
       const anchorHeight = anchorEl.offsetHeight || anchorEl.clientHeight
       const anchorWidth = anchorEl.offsetWidth || anchorEl.clientWidth
@@ -84,6 +98,8 @@ const Popover = {
       const anchorStyle = getComputedStyle(anchorEl)
       const topPadding = parseFloat(anchorStyle.paddingTop)
       const bottomPadding = parseFloat(anchorStyle.paddingBottom)
+      const rightPadding = parseFloat(anchorStyle.paddingRight)
+      const leftPadding = parseFloat(anchorStyle.paddingLeft)
 
       // Screen position of the origin point for popover = center of the anchor
       const origin = {
@@ -170,7 +186,7 @@ const Popover = {
       if (overlayCenter) {
         translateX = origin.x + horizOffset
         translateY = origin.y + vertOffset
-      } else {
+      } else if (this.placement !== 'right' && this.placement !== 'left') {
         // Default to whatever user wished with placement prop
         let usingTop = this.placement !== 'bottom'
 
@@ -189,6 +205,25 @@ const Popover = {
 
         const xOffset = (this.offset && this.offset.x) || 0
         translateX = origin.x + horizOffset + xOffset
+      } else {
+        // Default to whatever user wished with placement prop
+        let usingRight = this.placement !== 'left'
+
+        // Handle special cases, first force to displaying on top if there's not space on bottom,
+        // regardless of what placement value was. Then check if there's not space on top, and
+        // force to bottom, again regardless of what placement value was.
+        const rightBoundary = origin.x - anchorWidth * 0.5 + (this.removePadding ? rightPadding : 0)
+        const leftBoundary = origin.x + anchorWidth * 0.5 - (this.removePadding ? leftPadding : 0)
+        if (leftBoundary + content.offsetWidth > xBounds.max) usingRight = true
+        if (rightBoundary - content.offsetWidth < xBounds.min) usingRight = false
+
+        const xOffset = (this.offset && this.offset.x) || 0
+        translateX = usingRight
+          ? rightBoundary - xOffset - content.offsetWidth
+          : leftBoundary + xOffset
+
+        const yOffset = (this.offset && this.offset.y) || 0
+        translateY = origin.y + vertOffset + yOffset
       }
 
       this.styles = {
@@ -205,6 +240,10 @@ const Popover = {
     },
     showPopover () {
       if (this.disabled) return
+      this.disableClickOutside = true
+      setTimeout(() => {
+        this.disableClickOutside = false
+      }, 0)
       const wasHidden = this.hidden
       this.hidden = false
       this.parentPopover && this.parentPopover.onChildPopoverState(this, true)
@@ -265,6 +304,7 @@ const Popover = {
       }
     },
     onClickOutside (e) {
+      if (this.disableClickOutside) return
       if (this.hidden) return
       if (this.$refs.content && this.$refs.content.contains(e.target)) return
       if (this.$el.contains(e.target)) return
@@ -298,6 +338,7 @@ const Popover = {
     }
   },
   mounted () {
+    this.teleport = true
     let scrollable = this.$refs.trigger.closest('.column.-scrollable') ||
         this.$refs.trigger.closest('.mobile-notifications')
     if (!scrollable) scrollable = window

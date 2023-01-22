@@ -28,6 +28,14 @@
               class="dropdown-divider"
             />
           </template>
+          <UserListMenu :user="user" />
+          <button
+            v-if="relationship.followed_by"
+            class="btn button-default btn-block dropdown-item"
+            @click="removeUserFromFollowers"
+          >
+            {{ $t('user_card.remove_follower') }}
+          </button>
           <button
             v-if="relationship.blocking"
             class="btn button-default btn-block dropdown-item"
@@ -72,7 +80,8 @@
 <script src="./account_actions.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
+
 .AccountActions {
   .ellipsis-button {
     width: 2.5em;

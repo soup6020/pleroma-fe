@@ -38,7 +38,7 @@
         />
         <button
           class="button-unstyled nav-icon"
-          @click="openSettingsModal"
+          @click.stop="openSettingsModal"
         >
           <FAIcon
             fixed-width
@@ -61,10 +61,11 @@
             :title="$t('nav.administration')"
           />
         </a>
+        <span class="spacer" />
         <button
           v-if="currentUser"
           class="button-unstyled nav-icon"
-          @click.prevent="logout"
+          @click.stop.prevent="logout"
         >
           <FAIcon
             fixed-width

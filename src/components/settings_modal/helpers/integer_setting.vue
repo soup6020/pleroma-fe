@@ -17,7 +17,10 @@
       @change="update"
     >
     {{ ' ' }}
-    <ModifiedIndicator :changed="isChanged" />
+    <ModifiedIndicator
+      :changed="isChanged"
+      :onclick="reset"
+    />
   </span>
 </template>
 

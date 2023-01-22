@@ -47,7 +47,7 @@
           v-if="currentUser || !privateMode"
           @click="toggleDrawer"
         >
-          <router-link :to="{ name: timelinesRoute }">
+          <router-link :to="timelinesRoute">
             <FAIcon
               fixed-width
               class="fa-scale-110 fa-old-padding"
@@ -56,12 +56,24 @@
           </router-link>
         </li>
         <li
+          v-if="currentUser"
+          @click="toggleDrawer"
+        >
+          <router-link :to="{ name: 'lists' }">
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="list"
+            /> {{ $t("nav.lists") }}
+          </router-link>
+        </li>
+        <li
           v-if="currentUser && pleromaChatMessagesAvailable"
           @click="toggleDrawer"
         >
           <router-link
             :to="{ name: 'chats', params: { username: currentUser.screen_name } }"
-            style="position: relative"
+            style="position: relative;"
           >
             <FAIcon
               fixed-width
@@ -180,6 +192,38 @@
           </a>
         </li>
         <li
+          v-if="currentUser && supportsAnnouncements"
+          @click="toggleDrawer"
+        >
+          <router-link
+            :to="{ name: 'announcements' }"
+          >
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="bullhorn"
+            /> {{ $t("nav.announcements") }}
+            <span
+              v-if="unreadAnnouncementCount"
+              class="badge badge-notification"
+            >
+              {{ unreadAnnouncementCount }}
+            </span>
+          </router-link>
+        </li>
+        <li
+          v-if="currentUser"
+          @click="toggleDrawer"
+        >
+          <router-link :to="{ name: 'edit-navigation' }">
+            <FAIcon
+              fixed-width
+              class="fa-scale-110 fa-old-padding"
+              icon="compass"
+            /> {{ $t("nav.edit_nav_mobile") }}
+          </router-link>
+        </li>
+        <li
           v-if="currentUser"
           @click="toggleDrawer"
         >
@@ -207,7 +251,7 @@
 <script src="./side_drawer.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .side-drawer-container {
   position: fixed;
@@ -240,11 +284,11 @@
   z-index: -1;
   transition: 0.35s;
   transition-property: background-color;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
 }
 
 .side-drawer-darken-closed {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgb(0 0 0 / 0%);
 }
 
 .side-drawer-click-outside {
@@ -253,20 +297,21 @@
 
 .side-drawer {
   overflow-x: hidden;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   transition: 0.35s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   transition-property: transform;
   margin: 0 0 0 -100px;
   padding: 0 0 1em 100px;
   width: 80%;
   max-width: 20em;
   flex: 0 0 80%;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 1px 1px 4px rgb(0 0 0 / 60%);
   box-shadow: var(--panelShadow);
   background-color: $fallback--bg;
   background-color: var(--popover, $fallback--bg);
   color: $fallback--link;
   color: var(--popoverText, $fallback--link);
+
   --faint: var(--popoverFaintText, $fallback--faint);
   --faintLink: var(--popoverFaintLink, $fallback--faint);
   --lightText: var(--popoverLightText, $fallback--lightText);
@@ -316,7 +361,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-
   border-bottom: 1px solid;
   border-color: $fallback--border;
   border-color: var(--border, $fallback--border);
@@ -329,7 +373,8 @@
 .side-drawer li {
   padding: 0;
 
-  a, button {
+  a,
+  button {
     box-sizing: border-box;
     display: block;
     height: 3em;
@@ -341,6 +386,7 @@
       background-color: var(--selectedMenuPopover, $fallback--lightBg);
       color: $fallback--text;
       color: var(--selectedMenuPopoverText, $fallback--text);
+
       --faint: var(--selectedMenuPopoverFaintText, $fallback--faint);
       --faintLink: var(--selectedMenuPopoverFaintLink, $fallback--faint);
       --lightText: var(--selectedMenuPopoverLightText, $fallback--lightText);

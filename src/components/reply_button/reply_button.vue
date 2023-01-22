@@ -7,18 +7,38 @@
       :title="$t('tool_tip.reply')"
       @click.prevent="$emit('toggle')"
     >
-      <FAIcon
-        class="fa-scale-110 fa-old-padding"
-        icon="reply"
-      />
+      <FALayers class="fa-old-padding-layer">
+        <FAIcon
+          class="fa-scale-110"
+          icon="reply"
+        />
+        <FAIcon
+          v-if="!replying"
+          class="focus-marker"
+          transform="shrink-6 up-8 right-11"
+          icon="plus"
+        />
+        <FAIcon
+          v-else
+          class="focus-marker"
+          transform="shrink-6 up-8 right-11"
+          icon="times"
+        />
+      </FALayers>
     </button>
-    <span v-else>
+    <a
+      v-else
+      class="button-unstyled interactive"
+      target="_blank"
+      role="button"
+      :href="remoteInteractionLink"
+    >
       <FAIcon
         icon="reply"
         class="fa-scale-110 fa-old-padding"
         :title="$t('tool_tip.reply')"
       />
-    </span>
+    </a>
     <span
       v-if="status.replies_count > 0"
       class="action-counter"
@@ -31,7 +51,8 @@
 <script src="./reply_button.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
+@import "../../mixins";
 
 .ReplyButton {
   display: flex;
@@ -52,7 +73,18 @@
       color: $fallback--cBlue;
       color: var(--cBlue, $fallback--cBlue);
     }
-  }
 
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
+    }
+
+    @include focused-style {
+      .focus-marker {
+        visibility: visible;
+      }
+    }
+  }
 }
 </style>

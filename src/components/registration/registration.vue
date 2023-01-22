@@ -158,10 +158,10 @@
               class="form-error"
             >
               <ul>
-                <li v-if="!v$.user.confirm.required">
+                <li v-if="v$.user.confirm.required.$invalid">
                   <span>{{ $t('registration.validations.password_confirmation_required') }}</span>
                 </li>
-                <li v-if="!v$.user.confirm.sameAsPassword">
+                <li v-if="v$.user.confirm.sameAs.$invalid">
                   <span>{{ $t('registration.validations.password_confirmation_match') }}</span>
                 </li>
               </ul>
@@ -277,7 +277,7 @@
 
 <script src="./registration.js"></script>
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 $validations-cRed: #f04124;
 
 .registration-form {
@@ -321,7 +321,7 @@ $validations-cRed: #f04124;
 
   .form-group--error {
     animation-name: shakeError;
-    animation-duration: .6s;
+    animation-duration: 0.6s;
     animation-timing-function: ease-in-out;
   }
 
@@ -350,7 +350,7 @@ $validations-cRed: #f04124;
   }
 
   form textarea {
-    line-height:16px;
+    line-height: 16px;
     resize: vertical;
   }
 

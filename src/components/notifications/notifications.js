@@ -10,10 +10,12 @@ import {
 } from '../../services/notification_utils/notification_utils.js'
 import FaviconService from '../../services/favicon_service/favicon_service.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faArrowUp, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faCircleNotch
+  faCircleNotch,
+  faArrowUp,
+  faMinus
 )
 
 const DEFAULT_SEEN_TO_DISPLAY_COUNT = 30
@@ -34,6 +36,7 @@ const Notifications = {
   },
   data () {
     return {
+      showScrollTop: false,
       bottomedOut: false,
       // How many seen notifications to display in the list. The more there are,
       // the heavier the page becomes. This count is increased when loading
@@ -66,7 +69,7 @@ const Notifications = {
       return this.unseenNotifications.length
     },
     unseenCountTitle () {
-      return this.unseenCount + (this.unreadChatCount)
+      return this.unseenCount + (this.unreadChatCount) + this.unreadAnnouncementCount
     },
     loading () {
       return this.$store.state.statuses.notifications.loading
@@ -90,7 +93,22 @@ const Notifications = {
     notificationsToDisplay () {
       return this.filteredNotifications.slice(0, this.unseenCount + this.seenToDisplayCount)
     },
-    ...mapGetters(['unreadChatCount'])
+    noSticky () { return this.$store.getters.mergedConfig.disableStickyHeaders },
+    ...mapGetters(['unreadChatCount', 'unreadAnnouncementCount'])
+  },
+  mounted () {
+    this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+    if (!this.scrollerRef) {
+      this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
+    }
+    if (!this.scrollerRef) {
+      this.scrollerRef = this.$refs.root.closest('.column.main')
+    }
+    this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
+  },
+  unmounted () {
+    if (!this.scrollerRef) return
+    this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
   },
   watch: {
     unseenCountTitle (count) {
@@ -101,9 +119,29 @@ const Notifications = {
         FaviconService.clearFaviconBadge()
         this.$store.dispatch('setPageTitle', '')
       }
+    },
+    teleportTarget () {
+      // handle scroller change
+      this.$nextTick(() => {
+        this.scrollerRef.removeEventListener('scroll', this.updateScrollPosition)
+        this.scrollerRef = this.$refs.root.closest('.column.-scrollable')
+        if (!this.scrollerRef) {
+          this.scrollerRef = this.$refs.root.closest('.mobile-notifications')
+        }
+        this.scrollerRef.addEventListener('scroll', this.updateScrollPosition)
+        this.updateScrollPosition()
+      })
     }
   },
   methods: {
+    scrollToTop () {
+      const scrollable = this.scrollerRef
+      scrollable.scrollTo({ top: this.$refs.root.offsetTop })
+      // this.$refs.root.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    updateScrollPosition () {
+      this.showScrollTop = this.$refs.root.offsetTop < this.scrollerRef.scrollTop
+    },
     markAsSeen () {
       this.$store.dispatch('markNotificationsAsSeen')
       this.seenToDisplayCount = DEFAULT_SEEN_TO_DISPLAY_COUNT

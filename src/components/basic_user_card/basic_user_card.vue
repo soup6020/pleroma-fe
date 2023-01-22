@@ -30,12 +30,10 @@
         />
       </div>
       <div>
-        <router-link
+        <user-link
           class="basic-user-card-screen-name"
-          :to="userProfileLink(user)"
-        >
-          @{{ user.screen_name_ui }}
-        </router-link>
+          :user="user"
+        />
       </div>
       <slot />
     </div>
@@ -51,7 +49,7 @@
   margin: 0;
   padding: 0.6em 1em;
 
-   --emoji-size: 14px;
+  --emoji-size: 14px;
 
   &-collapsed-content {
     margin-left: 0.7em;

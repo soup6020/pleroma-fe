@@ -1,4 +1,4 @@
-@import '../../_variables.scss';
+@import "../../variables";
 
 .DesktopNav {
   width: 100%;
@@ -23,13 +23,37 @@
     max-width: 980px;
   }
 
+  &.-column-stretch .inner-nav {
+    --miniColumn: 25rem;
+    --maxiColumn: 45rem;
+    --columnGap: 1em;
+
+    max-width:
+      calc(
+        var(--sidebarColumnWidth, var(--miniColumn)) +
+        var(--contentColumnWidth, var(--maxiColumn)) +
+        var(--columnGap)
+      );
+  }
+
   &.-logoLeft .inner-nav {
     grid-template-columns: auto 2fr 2fr;
     grid-template-areas: "logo sitename actions";
   }
 
+  &.-column-stretch.-wide .inner-nav {
+    max-width:
+      calc(
+        var(--sidebarColumnWidth, var(--miniColumn)) +
+        var(--contentColumnWidth, var(--maxiColumn)) +
+        var(--notifsColumnWidth, var(--miniColumn)) +
+        var(--columnGap)
+      );
+  }
+
   .button-default {
-    &, svg {
+    &,
+    svg {
       color: $fallback--text;
       color: var(--btnTopBarText, $fallback--text);
     }
@@ -50,7 +74,7 @@
       color: $fallback--text;
       color: var(--btnToggledTopBarText, $fallback--text);
       background-color: $fallback--fg;
-      background-color: var(--btnToggledTopBar, $fallback--fg)
+      background-color: var(--btnToggledTopBar, $fallback--fg);
     }
   }
 
@@ -62,6 +86,7 @@
     transition-duration: 100ms;
 
     @media all and (min-width: 800px) {
+      /* stylelint-disable-next-line declaration-no-important */
       opacity: 1 !important;
     }
 
@@ -116,5 +141,9 @@
       justify-content: flex-end;
       text-align: right;
     }
+  }
+
+  .spacer {
+    width: 1em;
   }
 }

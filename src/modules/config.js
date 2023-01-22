@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { setPreset, applyTheme } from '../services/style_setter/style_setter.js'
+import { setPreset, applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
 import localeService from '../services/locale/locale.service.js'
 
@@ -17,7 +17,8 @@ export const multiChoiceProperties = [
   'subjectLineBehavior',
   'conversationDisplay', // tree | linear
   'conversationOtherRepliesButton', // below | inside
-  'mentionLinkDisplay' // short | full_for_remote | full
+  'mentionLinkDisplay', // short | full_for_remote | full
+  'userPopoverAvatarAction' // close | zoom | open
 ]
 
 export const defaultState = {
@@ -59,6 +60,7 @@ export const defaultState = {
     moves: true,
     emojiReactions: true,
     followRequest: true,
+    reports: true,
     chatMention: true,
     polls: true
   },
@@ -81,8 +83,12 @@ export const defaultState = {
   useContainFit: true,
   disableStickyHeaders: false,
   showScrollbars: false,
-  userPopoverZoom: false,
-  userPopoverOverlay: true,
+  userPopoverAvatarAction: 'open',
+  userPopoverOverlay: false,
+  sidebarColumnWidth: '25rem',
+  contentColumnWidth: '45rem',
+  notifsColumnWidth: '25rem',
+  navbarColumnStretch: false,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
   mentionLinkDisplay: undefined, // instance default
@@ -160,11 +166,16 @@ const config = {
     setHighlight ({ commit, dispatch }, { user, color, type }) {
       commit('setHighlight', { user, color, type })
     },
-    setOption ({ commit, dispatch }, { name, value }) {
+    setOption ({ commit, dispatch, state }, { name, value }) {
       commit('setOption', { name, value })
       switch (name) {
         case 'theme':
           setPreset(value)
+          break
+        case 'sidebarColumnWidth':
+        case 'contentColumnWidth':
+        case 'notifsColumnWidth':
+          applyConfig(state)
           break
         case 'customTheme':
         case 'customThemeSource':
@@ -172,6 +183,7 @@ const config = {
           break
         case 'interfaceLanguage':
           messages.setLanguage(this.getters.i18n, value)
+          dispatch('loadUnicodeEmojiData', value)
           Cookies.set(BACKEND_LANGUAGE_COOKIE_NAME, localeService.internalToBackendLocale(value))
           break
         case 'thirdColumnMode':

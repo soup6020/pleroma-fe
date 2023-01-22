@@ -9,7 +9,10 @@ library.add(
   faWrench
 )
 
-const TimelineQuickSettings = {
+const QuickFilterSettings = {
+  props: {
+    conversation: Boolean
+  },
   components: {
     Popover
   },
@@ -64,4 +67,4 @@ const TimelineQuickSettings = {
   }
 }
 
-export default TimelineQuickSettings
+export default QuickFilterSettings

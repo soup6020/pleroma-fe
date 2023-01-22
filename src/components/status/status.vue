@@ -25,9 +25,10 @@
             class="fa-scale-110 fa-old-padding repeat-icon"
             icon="retweet"
           />
-          <router-link :to="userProfileLink">
-            {{ status.user.screen_name_ui }}
-          </router-link>
+          <user-link
+            :user="status.user"
+            :at="false"
+          />
         </small>
         <small
           v-if="showReasonMutedThread"
@@ -83,7 +84,7 @@
           :user="statusoid.user"
         />
         <div class="right-side faint">
-          <span
+          <bdi
             class="status-username repeater-name"
             :title="retweeter"
           >
@@ -100,7 +101,7 @@
               v-else
               :to="retweeterProfileLink"
             >{{ retweeter }}</router-link>
-          </span>
+          </bdi>
           {{ ' ' }}
           <FAIcon
             icon="retweet"
@@ -164,13 +165,12 @@
                 >
                   {{ status.user.name }}
                 </h4>
-                <router-link
+                <user-link
                   class="account-name"
                   :title="status.user.screen_name_ui"
-                  :to="userProfileLink"
-                >
-                  {{ status.user.screen_name_ui }}
-                </router-link>
+                  :user="status.user"
+                  :at="false"
+                />
                 <img
                   v-if="!!(status.user && status.user.favicon)"
                   class="status-favicon"
@@ -261,7 +261,7 @@
                   v-if="!isPreview"
                   :status-id="status.parent_visible && status.in_reply_to_status_id"
                   class="reply-to-popover"
-                  style="min-width: 0"
+                  style="min-width: 0;"
                   :class="{ '-strikethrough': !status.parent_visible }"
                 >
                   <button
@@ -326,6 +326,24 @@
                 :mentions="mentionsLine.slice(1)"
                 class="mentions-line"
               />
+            </div>
+            <div
+              v-if="isEdited && editingAvailable && !isPreview"
+              class="heading-edited-row"
+            >
+              <i18n-t
+                keypath="status.edited_at"
+                tag="span"
+              >
+                <template #time>
+                  <Timeago
+                    template-key="time.in_past"
+                    :time="status.edited_at"
+                    :auto-update="60"
+                    :long-format="true"
+                  />
+                </template>
+              </i18n-t>
             </div>
           </div>
 

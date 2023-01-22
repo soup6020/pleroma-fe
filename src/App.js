@@ -10,7 +10,9 @@ import MobilePostStatusButton from './components/mobile_post_status_button/mobil
 import MobileNav from './components/mobile_nav/mobile_nav.vue'
 import DesktopNav from './components/desktop_nav/desktop_nav.vue'
 import UserReportingModal from './components/user_reporting_modal/user_reporting_modal.vue'
+import EditStatusModal from './components/edit_status_modal/edit_status_modal.vue'
 import PostStatusModal from './components/post_status_modal/post_status_modal.vue'
+import StatusHistoryModal from './components/status_history_modal/status_history_modal.vue'
 import GlobalNoticeList from './components/global_notice_list/global_notice_list.vue'
 import { windowWidth, windowHeight } from './services/window_utils/window_utils'
 import { mapGetters } from 'vuex'
@@ -32,8 +34,11 @@ export default {
     MobileNav,
     DesktopNav,
     SettingsModal: defineAsyncComponent(() => import('./components/settings_modal/settings_modal.vue')),
+    UpdateNotification: defineAsyncComponent(() => import('./components/update_notification/update_notification.vue')),
     UserReportingModal,
     PostStatusModal,
+    EditStatusModal,
+    StatusHistoryModal,
     GlobalNoticeList
   },
   data: () => ({
@@ -57,6 +62,13 @@ export default {
           '-has-new-post-button': this.newPostButtonShown
         },
         '-' + this.layoutType
+      ]
+    },
+    navClasses () {
+      const { navbarColumnStretch } = this.$store.getters.mergedConfig
+      return [
+        '-' + this.layoutType,
+        ...(navbarColumnStretch ? ['-column-stretch'] : [])
       ]
     },
     currentUser () { return this.$store.state.users.currentUser },
@@ -84,11 +96,16 @@ export default {
     isChats () {
       return this.$route.name === 'chat' || this.$route.name === 'chats'
     },
+    isListEdit () {
+      return this.$route.name === 'lists-edit'
+    },
     newPostButtonShown () {
       if (this.isChats) return false
+      if (this.isListEdit) return false
       return this.$store.getters.mergedConfig.alwaysShowNewPostButton || this.layoutType === 'mobile'
     },
     showFeaturesPanel () { return this.$store.state.instance.showFeaturesPanel },
+    editingAvailable () { return this.$store.state.instance.editingAvailable },
     shoutboxPosition () {
       return this.$store.getters.mergedConfig.alwaysShowNewPostButton || false
     },

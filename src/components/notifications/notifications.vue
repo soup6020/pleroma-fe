@@ -3,7 +3,9 @@
     :disabled="minimalMode || disableTeleport"
     :to="teleportTarget"
   >
-    <div
+    <component
+      :is="noHeading ? 'div' : 'aside'"
+      ref="root"
       :class="{ minimal: minimalMode }"
       class="Notifications"
     >
@@ -19,19 +21,43 @@
               class="badge badge-notification unseen-count"
             >{{ unseenCount }}</span>
           </div>
+          <div
+            v-if="showScrollTop"
+            class="rightside-button"
+          >
+            <button
+              class="button-unstyled scroll-to-top-button"
+              type="button"
+              :title="$t('general.scroll_to_top')"
+              @click="scrollToTop"
+            >
+              <FALayers class="fa-scale-110 fa-old-padding-layer">
+                <FAIcon icon="arrow-up" />
+                <FAIcon
+                  icon="minus"
+                  transform="up-7"
+                />
+              </FALayers>
+            </button>
+          </div>
           <button
             v-if="unseenCount"
             class="button-default read-button"
+            type="button"
             @click.prevent="markAsSeen"
           >
             {{ $t('notifications.read') }}
           </button>
-          <NotificationFilters />
+          <NotificationFilters class="rightside-button" />
         </div>
-        <div class="panel-body">
+        <div
+          class="panel-body"
+          role="feed"
+        >
           <div
             v-for="notification in notificationsToDisplay"
             :key="notification.id"
+            role="listitem"
             class="notification"
             :class="{unseen: !minimalMode && !notification.seen}"
           >
@@ -67,7 +93,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </component>
   </teleport>
 </template>
 

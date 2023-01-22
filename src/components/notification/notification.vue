@@ -1,19 +1,23 @@
 <template>
-  <Status
+  <article
     v-if="notification.type === 'mention'"
-    class="Notification"
-    :compact="true"
-    :statusoid="notification.status"
-  />
-  <div v-else>
+  >
+    <Status
+      class="Notification"
+      :compact="true"
+      :statusoid="notification.status"
+    />
+  </article>
+  <article v-else>
     <div
       v-if="needMute && !unmuted"
       class="Notification container -muted"
     >
       <small>
-        <router-link :to="userProfileLink">
-          {{ notification.from_profile.screen_name_ui }}
-        </router-link>
+        <user-link
+          :user="notification.from_profile"
+          :at="false"
+        />
       </small>
       <button
         class="button-unstyled unmute"
@@ -121,6 +125,9 @@
                 </i18n-t>
               </small>
             </span>
+            <span v-if="notification.type === 'pleroma:report'">
+              <small>{{ $t('notifications.submitted_report') }}</small>
+            </span>
             <span v-if="notification.type === 'poll'">
               <FAIcon
                 class="type-icon"
@@ -137,13 +144,25 @@
             <router-link
               v-if="notification.status"
               :to="{ name: 'conversation', params: { id: notification.status.id } }"
-              class="faint-link"
+              class="timeago-link faint-link"
             >
               <Timeago
                 :time="notification.created_at"
                 :auto-update="240"
               />
             </router-link>
+            <button
+              class="button-unstyled expand-icon"
+              @click.prevent="toggleStatusExpanded"
+              :title="$t('tool_tip.toggle_expand')"
+              :aria-expanded="statusExpanded"
+            >
+              <FAIcon
+                class="fa-scale-110"
+                fixed-width
+                :icon="statusExpanded ? 'compress-alt' : 'expand-alt'"
+              />
+            </button>
           </div>
           <div
             v-else
@@ -159,6 +178,8 @@
           <button
             v-if="needMute"
             class="button-unstyled"
+            :title="$t('tool_tip.toggle_mute')"
+            :aria-expanded="!unmuted"
             @click.prevent="toggleMute"
           >
             <FAIcon
@@ -171,12 +192,10 @@
           v-if="notification.type === 'follow' || notification.type === 'follow_request'"
           class="follow-text"
         >
-          <router-link
-            :to="userProfileLink"
+          <user-link
             class="follow-name"
-          >
-            @{{ notification.from_profile.screen_name_ui }}
-          </router-link>
+            :user="notification.from_profile"
+          />
           <div
             v-if="notification.type === 'follow_request'"
             style="white-space: nowrap;"
@@ -207,20 +226,24 @@
           v-else-if="notification.type === 'move'"
           class="move-text"
         >
-          <router-link :to="targetUserProfileLink">
-            @{{ notification.target.screen_name_ui }}
-          </router-link>
+          <user-link
+            :user="notification.target"
+          />
         </div>
+        <Report
+          v-else-if="notification.type === 'pleroma:report'"
+          :report-id="notification.report.id"
+        />
         <template v-else>
           <StatusContent
-            class="faint"
-            :compact="true"
+            :class="{ faint: !statusExpanded }"
+            :compact="!statusExpanded"
             :status="notification.action"
           />
         </template>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script src="./notification.js"></script>

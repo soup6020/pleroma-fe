@@ -43,6 +43,9 @@ export default {
   methods: {
     update (e) {
       set(this.$parent, this.path, e)
+    },
+    reset () {
+      set(this.$parent, this.path, this.defaultState)
     }
   }
 }

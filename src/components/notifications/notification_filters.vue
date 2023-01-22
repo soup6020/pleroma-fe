@@ -109,22 +109,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-.NotificationFilters {
-  align-self: stretch;
-
-  > button {
-    line-height: 100%;
-    height: 100%;
-    width: var(--__panel-heading-height-inner);
-    text-align: center;
-
-    svg {
-      font-size: 1.2em;
-    }
-  }
-}
-
-</style>

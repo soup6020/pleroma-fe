@@ -6,6 +6,8 @@
     :offset="{ y: 5 }"
     :bound-to="{ x: 'container' }"
     remove-padding
+    @show="onShow"
+    @close="onClose"
   >
     <template #content="{close}">
       <div class="dropdown-menu">
@@ -76,6 +78,28 @@
           </button>
         </template>
         <button
+          v-if="ownStatus && editingAvailable"
+          class="button-default dropdown-item dropdown-item-icon"
+          @click.prevent="editStatus"
+          @click="close"
+        >
+          <FAIcon
+            fixed-width
+            icon="pen"
+          /><span>{{ $t("status.edit") }}</span>
+        </button>
+        <button
+          v-if="isEdited && editingAvailable"
+          class="button-default dropdown-item dropdown-item-icon"
+          @click.prevent="showStatusHistory"
+          @click="close"
+        >
+          <FAIcon
+            fixed-width
+            icon="history"
+          /><span>{{ $t("status.status_history") }}</span>
+        </button>
+        <button
           v-if="canDelete"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="deleteStatus"
@@ -122,10 +146,24 @@
     </template>
     <template #trigger>
       <span class="button-unstyled popover-trigger">
-        <FAIcon
-          class="fa-scale-110 fa-old-padding"
-          icon="ellipsis-h"
-        />
+        <FALayers class="fa-old-padding-layer">
+          <FAIcon
+            class="fa-scale-110 "
+            icon="ellipsis-h"
+          />
+          <FAIcon
+            v-show="!expanded"
+            class="focus-marker"
+            transform="shrink-6 up-8 right-16"
+            icon="plus"
+          />
+          <FAIcon
+            v-show="expanded"
+            class="focus-marker"
+            transform="shrink-6 up-8 right-16"
+            icon="times"
+          />
+        </FALayers>
       </span>
     </template>
   </Popover>
@@ -134,14 +172,10 @@
 <script src="./extra_buttons.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
+@import "../../mixins";
 
 .ExtraButtons {
-  /* override of popover internal stuff */
-  .popover-trigger-button {
-    width: auto;
-  }
-
   .popover-trigger {
     position: static;
     padding: 10px;
@@ -150,6 +184,23 @@
     &:hover .svg-inline--fa {
       color: $fallback--text;
       color: var(--text, $fallback--text);
+    }
+  }
+
+  .popover-trigger-button {
+    /* override of popover internal stuff */
+    width: auto;
+
+    @include unfocused-style {
+      .focus-marker {
+        visibility: hidden;
+      }
+    }
+
+    @include focused-style {
+      .focus-marker {
+        visibility: visible;
+      }
     }
   }
 }

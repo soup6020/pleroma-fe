@@ -1,6 +1,10 @@
 import Popover from '../popover/popover.vue'
-import TimelineMenuContent from './timeline_menu_content.vue'
+import NavigationEntry from 'src/components/navigation/navigation_entry.vue'
+import { mapState } from 'vuex'
+import { ListsMenuContent } from '../lists_menu/lists_menu_content.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { TIMELINES } from 'src/components/navigation/navigation.js'
+import { filterNavigation } from 'src/components/navigation/filter.js'
 import {
   faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +26,8 @@ export const timelineNames = () => {
 const TimelineMenu = {
   components: {
     Popover,
-    TimelineMenuContent
+    NavigationEntry,
+    ListsMenuContent
   },
   data () {
     return {
@@ -32,6 +37,28 @@ const TimelineMenu = {
   created () {
     if (timelineNames()[this.$route.name]) {
       this.$store.dispatch('setLastTimeline', this.$route.name)
+    }
+  },
+  computed: {
+    useListsMenu () {
+      const route = this.$route.name
+      return route === 'lists-timeline'
+    },
+    ...mapState({
+      currentUser: state => state.users.currentUser,
+      privateMode: state => state.instance.private,
+      federating: state => state.instance.federating
+    }),
+    timelinesList () {
+      return filterNavigation(
+        Object.entries(TIMELINES).map(([k, v]) => ({ ...v, name: k })),
+        {
+          hasChats: this.pleromaChatMessagesAvailable,
+          isFederating: this.federating,
+          isPrivate: this.privateMode,
+          currentUser: this.currentUser
+        }
+      )
     }
   },
   methods: {
@@ -57,6 +84,9 @@ const TimelineMenu = {
       const route = this.$route.name
       if (route === 'tag-timeline') {
         return '#' + this.$route.params.tag
+      }
+      if (route === 'lists-timeline') {
+        return this.$store.getters.findListTitle(this.$route.params.id)
       }
       const i18nkey = timelineNames()[this.$route.name]
       return i18nkey ? this.$t(i18nkey) : route

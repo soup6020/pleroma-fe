@@ -10,6 +10,7 @@
         :selected="timeline.viewing"
         avatar-action="zoom"
         rounded="top"
+        :has-note-editor="true"
       />
       <span
         v-if="!!user.birthday"
@@ -149,7 +150,7 @@
 <script src="./user_profile.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .user-profile {
   flex: 2;
@@ -199,7 +200,8 @@
         margin: 0 0 0 0.25em;
       }
 
-      .user-profile-field-name, .user-profile-field-value {
+      .user-profile-field-name,
+      .user-profile-field-value {
         line-height: 1.3;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -217,6 +219,7 @@
     padding: 2em;
   }
 }
+
 .user-profile-placeholder {
   .panel-body {
     display: flex;

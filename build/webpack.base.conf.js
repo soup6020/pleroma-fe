@@ -2,11 +2,11 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
-var ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+var ServiceWorkerWebpackPlugin = require('serviceworker-webpack5-plugin')
 var CopyPlugin = require('copy-webpack-plugin');
 var { VueLoaderPlugin } = require('vue-loader')
 var ESLintPlugin = require('eslint-webpack-plugin');
-
+var StylelintPlugin = require('stylelint-webpack-plugin');
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -24,7 +24,8 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: '[name].js'
   },
   optimization: {
     splitChunks: {
@@ -42,6 +43,10 @@ module.exports = {
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
       'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js'
+    },
+    fallback: {
+      'querystring': require.resolve('querystring-es3'),
+      'url': require.resolve('url/')
     }
   },
   module: {
@@ -78,22 +83,16 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            name: utils.assetsPath('img/[name].[hash:7].[ext]')
-          }
+        type: 'asset',
+        generator: {
+          filename: utils.assetsPath('img/[name].[hash:7][ext]')
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-          }
+        type: 'asset',
+        generator: {
+          filename: utils.assetsPath('fonts/[name].[hash:7][ext]')
         }
       },
       {
@@ -112,14 +111,14 @@ module.exports = {
       extensions: ['js', 'vue'],
       formatter: require('eslint-formatter-friendly')
     }),
+    new StylelintPlugin({}),
     new VueLoaderPlugin(),
     // This copies Ruffle's WASM to a directory so that JS side can access it
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/@ruffle-rs/ruffle/*",
-          to: "static/ruffle",
-          flatten: true
+          from: "node_modules/@ruffle-rs/ruffle/**/*",
+          to: "static/ruffle/[name][ext]"
         },
       ],
       options: {

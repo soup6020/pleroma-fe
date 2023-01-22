@@ -19,14 +19,12 @@
         {{ option.value === defaultState ? $t('settings.instance_default_simple') : '' }}
       </option>
     </Select>
-    <ModifiedIndicator :changed="isChanged" />
+    <ModifiedIndicator
+      :changed="isChanged"
+      :onclick="reset"
+    />
     <ServerSideIndicator :server-side="isServerSide" />
   </label>
 </template>
 
 <script src="./choice_setting.js"></script>
-
-<style lang="scss">
-.ChoiceSetting {
-}
-</style>

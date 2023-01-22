@@ -4,6 +4,8 @@ import Status from '../status/status.vue'
 import UserAvatar from '../user_avatar/user_avatar.vue'
 import UserCard from '../user_card/user_card.vue'
 import Timeago from '../timeago/timeago.vue'
+import Report from '../report/report.vue'
+import UserLink from '../user_link/user_link.vue'
 import RichContent from 'src/components/rich_content/rich_content.jsx'
 import UserPopover from '../user_popover/user_popover.vue'
 import { isStatusNotification } from '../../services/notification_utils/notification_utils.js'
@@ -18,7 +20,9 @@ import {
   faUserPlus,
   faEyeSlash,
   faUser,
-  faSuitcaseRolling
+  faSuitcaseRolling,
+  faExpandAlt,
+  faCompressAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -29,13 +33,15 @@ library.add(
   faUserPlus,
   faUser,
   faEyeSlash,
-  faSuitcaseRolling
+  faSuitcaseRolling,
+  faExpandAlt,
+  faCompressAlt
 )
 
 const Notification = {
   data () {
     return {
-      userExpanded: false,
+      statusExpanded: false,
       betterShadow: this.$store.state.interface.browserSupport.cssFilter,
       unmuted: false
     }
@@ -47,12 +53,14 @@ const Notification = {
     UserCard,
     Timeago,
     Status,
+    Report,
     RichContent,
-    UserPopover
+    UserPopover,
+    UserLink
   },
   methods: {
-    toggleUserExpanded () {
-      this.userExpanded = !this.userExpanded
+    toggleStatusExpanded () {
+      this.statusExpanded = !this.statusExpanded
     },
     generateUserProfileLink (user) {
       return generateProfileLink(user.id, user.screen_name, this.$store.state.instance.restrictedNicknames)

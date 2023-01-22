@@ -3,6 +3,7 @@
     v-if="isLoggedIn"
     class="MobilePostButton button-default new-status-button"
     :class="{ 'hidden': isHidden, 'always-show': isPersistent }"
+    :title="$t('post_status.new_status')"
     @click="openPostForm"
   >
     <FAIcon icon="pen" />
@@ -12,7 +13,7 @@
 <script src="./mobile_post_status_button.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .MobilePostButton {
   &.button-default {
@@ -29,9 +30,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3), 0px 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 30%), 0 4px 6px rgb(0 0 0 / 30%);
     z-index: 10;
-
     transition: 0.35s transform;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }

@@ -19,9 +19,11 @@ const global = {
   }
 }
 
-const makeMention = (who) => {
+const makeMention = (who, noClass) => {
   attentions.push({ statusnet_profile_url: `https://fake.tld/@${who}` })
-  return `<span class="h-card"><a class="u-url mention" href="https://fake.tld/@${who}">@<span>${who}</span></a></span>`
+  return noClass
+    ? `<span><a href="https://fake.tld/@${who}">@<span>${who}</span></a></span>`
+    : `<span class="h-card"><a class="u-url mention" href="https://fake.tld/@${who}">@<span>${who}</span></a></span>`
 }
 const p = (...data) => `<p>${data.join('')}</p>`
 const compwrap = (...data) => `<span class="RichContent">${data.join('')}</span>`
@@ -142,6 +144,17 @@ describe('RichContent', () => {
         makeMention('Josh'), makeMention('Jeremy')
       ].join('')
     ].join('\n')
+    const strippedHtml = [
+      [
+        makeMention('Jack', true),
+        'let\'s meet up with ',
+        makeMention('Janet', true)
+      ].join(''),
+      [
+        makeMention('John', true),
+        makeMention('Josh', true), makeMention('Jeremy', true)
+      ].join('')
+    ].join('\n')
 
     const wrapper = shallowMount(RichContent, {
       global,
@@ -154,7 +167,7 @@ describe('RichContent', () => {
       }
     })
 
-    expect(wrapper.html()).to.eql(compwrap(html))
+    expect(wrapper.html()).to.eql(compwrap(strippedHtml))
   })
 
   it('Adds greentext and cyantext to the post', () => {
@@ -412,7 +425,7 @@ describe('RichContent', () => {
       'Testing'
     ].join('')
     const expected = [
-      '<span class="poast-style">',
+      '<span>',
       '<span class="MentionsLine">',
       '<span class="MentionLink mention-link">',
       '<a href="lol" class="original" target="_blank">',

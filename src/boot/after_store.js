@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import vClickOutside from 'click-outside-vue3'
+import VueVirtualScroller from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 
@@ -12,7 +14,7 @@ import { windowWidth, windowHeight } from '../services/window_utils/window_utils
 import { getOrCreateApp, getClientToken } from '../services/new_api/oauth.js'
 import backendInteractorService from '../services/backend_interactor_service/backend_interactor_service.js'
 import { CURRENT_VERSION } from '../services/theme_data/theme_data.service.js'
-import { applyTheme } from '../services/style_setter/style_setter.js'
+import { applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import FaviconService from '../services/favicon_service/favicon_service.js'
 
 let staticInitialResults = null
@@ -251,6 +253,7 @@ const getNodeInfo = async ({ store }) => {
       store.dispatch('setInstanceOption', { name: 'pleromaChatMessagesAvailable', value: features.includes('pleroma_chat_messages') })
       store.dispatch('setInstanceOption', { name: 'gopherAvailable', value: features.includes('gopher') })
       store.dispatch('setInstanceOption', { name: 'pollsAvailable', value: features.includes('polls') })
+      store.dispatch('setInstanceOption', { name: 'editingAvailable', value: features.includes('editing') })
       store.dispatch('setInstanceOption', { name: 'pollLimits', value: metadata.pollLimits })
       store.dispatch('setInstanceOption', { name: 'mailerEnabled', value: metadata.mailerEnabled })
 
@@ -360,6 +363,8 @@ const afterStoreSetup = async ({ store, i18n }) => {
     console.error('Failed to load any theme!')
   }
 
+  applyConfig(store.state.config)
+
   // Now we can try getting the server settings and logging in
   // Most of these are preloaded into the index.html so blocking is minimized
   await Promise.all([
@@ -371,6 +376,7 @@ const afterStoreSetup = async ({ store, i18n }) => {
 
   // Start fetching things that don't need to block the UI
   store.dispatch('fetchMutes')
+  store.dispatch('startFetchingAnnouncements')
   getTOS({ store })
   getStickers({ store })
 
@@ -393,6 +399,7 @@ const afterStoreSetup = async ({ store, i18n }) => {
 
   app.use(vClickOutside)
   app.use(VBodyScrollLock)
+  app.use(VueVirtualScroller)
 
   app.component('FAIcon', FontAwesomeIcon)
   app.component('FALayers', FontAwesomeLayers)

@@ -1,13 +1,15 @@
 <template>
   <Popover
     trigger="click"
-    class="TimelineQuickSettings"
+    class="QuickFilterSettings"
     :bound-to="{ x: 'container' }"
+    :trigger-attrs="{ title: $t('timeline.quick_filter_settings') }"
   >
     <template #content>
       <div class="dropdown-menu">
         <div v-if="loggedIn">
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilityAll = true"
           >
@@ -17,6 +19,7 @@
             />{{ $t('settings.reply_visibility_all') }}
           </button>
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilityFollowing = true"
           >
@@ -26,6 +29,7 @@
             />{{ $t('settings.reply_visibility_following_short') }}
           </button>
           <button
+            v-if="!conversation"
             class="button-default dropdown-item"
             @click="replyVisibilitySelf = true"
           >
@@ -35,6 +39,7 @@
             />{{ $t('settings.reply_visibility_self_short') }}
           </button>
           <div
+            v-if="!conversation"
             role="separator"
             class="dropdown-divider"
           />
@@ -70,40 +75,14 @@
           class="button-default dropdown-item dropdown-item-icon"
           @click="openTab('filtering')"
         >
-          <FAIcon icon="font" />{{ $t('settings.word_filter') }}
-        </button>
-        <button
-          class="button-default dropdown-item dropdown-item-icon"
-          @click="openTab('general')"
-        >
-          <FAIcon icon="wrench" />{{ $t('settings.more_settings') }}
+          <FAIcon icon="font" />{{ $t('settings.word_filter_and_more') }}
         </button>
       </div>
     </template>
     <template #trigger>
-      <button class="button-unstyled">
-        <FAIcon icon="filter" />
-      </button>
+      <FAIcon icon="filter" />
     </template>
   </Popover>
 </template>
 
-<script src="./timeline_quick_settings.js"></script>
-
-<style lang="scss">
-
-.TimelineQuickSettings {
-
-  > button {
-    line-height: 100%;
-    height: 100%;
-    width: var(--__panel-heading-height-inner);
-    text-align: center;
-
-    svg {
-      font-size: 1.2em;
-    }
-  }
-}
-
-</style>
+<script src="./quick_filter_settings.js"></script>

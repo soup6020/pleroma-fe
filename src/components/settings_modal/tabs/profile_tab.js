@@ -66,7 +66,7 @@ const ProfileTab = {
     emojiUserSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ],
         store: this.$store
@@ -75,7 +75,7 @@ const ProfileTab = {
     emojiSuggestor () {
       return suggestor({
         emoji: [
-          ...this.$store.state.instance.emoji,
+          ...this.$store.getters.standardEmojiList,
           ...this.$store.state.instance.customEmoji
         ]
       })
@@ -157,7 +157,7 @@ const ProfileTab = {
       return false
     },
     deleteField (index, event) {
-      this.$delete(this.newFields, index)
+      this.newFields.splice(index, 1)
     },
     uploadFile (slot, e) {
       const file = e.target.files[0]

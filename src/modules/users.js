@@ -16,9 +16,6 @@ export const mergeOrAdd = (arr, obj, item) => {
     // This is a new item, prepare it
     arr.push(item)
     obj[item.id] = item
-    if (item.screen_name && !item.screen_name.includes('@')) {
-      obj[item.screen_name.toLowerCase()] = item
-    }
     return { item, new: true }
   }
 }
@@ -51,6 +48,16 @@ const blockUser = (store, id) => {
 
 const unblockUser = (store, id) => {
   return store.rootState.api.backendInteractor.unblockUser({ id })
+    .then((relationship) => store.commit('updateUserRelationship', [relationship]))
+}
+
+const removeUserFromFollowers = (store, id) => {
+  return store.rootState.api.backendInteractor.removeUserFromFollowers({ id })
+    .then((relationship) => store.commit('updateUserRelationship', [relationship]))
+}
+
+const editUserNote = (store, { id, comment }) => {
+  return store.rootState.api.backendInteractor.editUserNote({ id, comment })
     .then((relationship) => store.commit('updateUserRelationship', [relationship]))
 }
 
@@ -162,13 +169,20 @@ export const mutations = {
       if (user.relationship) {
         state.relationships[user.relationship.id] = user.relationship
       }
-      mergeOrAdd(state.users, state.usersObject, user)
+      const res = mergeOrAdd(state.users, state.usersObject, user)
+      const item = res.item
+      if (res.new && item.screen_name && !item.screen_name.includes('@')) {
+        state.usersByNameObject[item.screen_name.toLowerCase()] = item
+      }
     })
   },
   updateUserRelationship (state, relationships) {
     relationships.forEach((relationship) => {
       state.relationships[relationship.id] = relationship
     })
+  },
+  updateUserInLists (state, { id, inLists }) {
+    state.usersObject[id].inLists = inLists
   },
   saveBlockIds (state, blockIds) {
     state.currentUser.blockIds = blockIds
@@ -239,12 +253,10 @@ export const mutations = {
 
 export const getters = {
   findUser: state => query => {
-    const result = state.usersObject[query]
-    // In case it's a screen_name, we can try searching case-insensitive
-    if (!result && typeof query === 'string') {
-      return state.usersObject[query.toLowerCase()]
-    }
-    return result
+    return state.usersObject[query]
+  },
+  findUserByName: state => query => {
+    return state.usersByNameObject[query.toLowerCase()]
   },
   findUserByUrl: state => query => {
     return state.users
@@ -263,6 +275,7 @@ export const defaultState = {
   currentUser: false,
   users: [],
   usersObject: {},
+  usersByNameObject: {},
   signUpPending: false,
   signUpErrors: [],
   relationships: {}
@@ -285,10 +298,23 @@ const users = {
           return user
         })
     },
+    fetchUserByName (store, name) {
+      return store.rootState.api.backendInteractor.fetchUserByName({ name })
+        .then((user) => {
+          store.commit('addNewUsers', [user])
+          return user
+        })
+    },
     fetchUserRelationship (store, id) {
       if (store.state.currentUser) {
         store.rootState.api.backendInteractor.fetchUserRelationship({ id })
           .then((relationships) => store.commit('updateUserRelationship', relationships))
+      }
+    },
+    fetchUserInLists (store, id) {
+      if (store.state.currentUser) {
+        store.rootState.api.backendInteractor.fetchUserInLists({ id })
+          .then((inLists) => store.commit('updateUserInLists', { id, inLists }))
       }
     },
     fetchBlocks (store) {
@@ -305,11 +331,17 @@ const users = {
     unblockUser (store, id) {
       return unblockUser(store, id)
     },
+    removeUserFromFollowers (store, id) {
+      return removeUserFromFollowers(store, id)
+    },
     blockUsers (store, ids = []) {
       return Promise.all(ids.map(id => blockUser(store, id)))
     },
     unblockUsers (store, ids = []) {
       return Promise.all(ids.map(id => unblockUser(store, id)))
+    },
+    editUserNote (store, args) {
+      return editUserNote(store, args)
     },
     fetchMutes (store) {
       return store.rootState.api.backendInteractor.fetchMutes()
@@ -502,6 +534,7 @@ const users = {
           store.dispatch('stopFetchingTimeline', 'friends')
           store.commit('setBackendInteractor', backendInteractorService(store.getters.getToken()))
           store.dispatch('stopFetchingNotifications')
+          store.dispatch('stopFetchingLists')
           store.dispatch('stopFetchingFollowRequests')
           store.commit('clearNotifications')
           store.commit('resetStatuses')
@@ -509,6 +542,7 @@ const users = {
           store.dispatch('setLastTimeline', 'public-timeline')
           store.dispatch('setLayoutWidth', windowWidth())
           store.dispatch('setLayoutHeight', windowHeight())
+          store.commit('clearServerSideStorage')
         })
     },
     loginUser (store, accessToken) {
@@ -525,6 +559,7 @@ const users = {
               user.muteIds = []
               user.domainMutes = []
               commit('setCurrentUser', user)
+              commit('setServerSideStorage', user)
               commit('addNewUsers', [user])
 
               store.dispatch('fetchEmoji')
@@ -534,6 +569,7 @@ const users = {
 
               // Set our new backend interactor
               commit('setBackendInteractor', backendInteractorService(accessToken))
+              store.dispatch('pushServerSideStorage')
 
               if (user.token) {
                 store.dispatch('setWsToken', user.token)
@@ -553,8 +589,14 @@ const users = {
                 store.dispatch('startFetchingChats')
               }
 
+              store.dispatch('startFetchingLists')
+
+              if (user.locked) {
+                store.dispatch('startFetchingFollowRequests')
+              }
+
               if (store.getters.mergedConfig.useStreamingApi) {
-                store.dispatch('fetchTimeline', 'friends', { since: null })
+                store.dispatch('fetchTimeline', { timeline: 'friends', since: null })
                 store.dispatch('fetchNotifications', { since: null })
                 store.dispatch('enableMastoSockets', true).catch((error) => {
                   console.error('Failed initializing MastoAPI Streaming socket', error)

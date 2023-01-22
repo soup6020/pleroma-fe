@@ -13,7 +13,7 @@ const StaffPanel = {
   },
   computed: {
     groupedStaffAccounts () {
-      const staffAccounts = map(this.staffAccounts, this.findUser).filter(_ => _)
+      const staffAccounts = map(this.staffAccounts, this.findUserByName).filter(_ => _)
       const groupedStaffAccounts = groupBy(staffAccounts, 'role')
 
       return [
@@ -22,7 +22,7 @@ const StaffPanel = {
       ].filter(group => group.users)
     },
     ...mapGetters([
-      'findUser'
+      'findUserByName'
     ]),
     ...mapState({
       staffAccounts: state => state.instance.staffAccounts

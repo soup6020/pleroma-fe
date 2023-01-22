@@ -8,7 +8,10 @@
       class="app-bg-wrapper"
     />
     <MobileNav v-if="layoutType === 'mobile'" />
-    <DesktopNav v-else />
+    <DesktopNav
+      v-else
+      :class="navClasses"
+    />
     <Notifications v-if="currentUser" />
     <div
       id="content"
@@ -30,10 +33,10 @@
           <div id="notifs-sidebar" />
         </template>
       </div>
-      <div
+      <main
         id="main-scroller"
         class="column main"
-        :class="{ '-full-height': isChats }"
+        :class="{ '-full-height': isChats || isListEdit }"
       >
         <div
           v-if="!currentUser"
@@ -47,7 +50,7 @@
           </router-link>
         </div>
         <router-view />
-      </div>
+      </main>
       <div
         id="notifs-column"
         class="column -scrollable"
@@ -64,10 +67,12 @@
     <MobilePostStatusButton />
     <UserReportingModal />
     <PostStatusModal />
+    <EditStatusModal v-if="editingAvailable" />
+    <StatusHistoryModal v-if="editingAvailable" />
     <SettingsModal />
+    <UpdateNotification />
     <div id="modal" />
     <GlobalNoticeList />
-    <div id="popovers" />
   </div>
 </template>
 

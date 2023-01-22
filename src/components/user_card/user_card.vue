@@ -106,13 +106,10 @@
               </button>
             </div>
             <div class="bottom-line">
-              <router-link
+              <user-link
                 class="user-screen-name"
-                :title="user.screen_name_ui"
-                :to="userProfileLink(user)"
-              >
-                @{{ user.screen_name_ui }}
-              </router-link>
+                :user="user"
+              />
               <template v-if="!hideBio">
                 <span
                   v-if="user.deactivated"
@@ -261,7 +258,7 @@
             </button>
           </div>
           <ModerationTools
-            v-if="loggedIn.role === &quot;admin&quot;"
+            v-if="showModerationMenu"
             :user="user"
           />
         </div>
@@ -271,6 +268,12 @@
         >
           <RemoteFollow :user="user" />
         </div>
+        <UserNote
+          v-if="loggedIn && isOtherUser && (hasNote || (hasNoteEditor && supportsNote))"
+          :user="user"
+          :relationship="relationship"
+          :editable="hasNoteEditor"
+        />
       </div>
     </div>
     <div

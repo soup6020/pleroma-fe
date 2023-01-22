@@ -62,7 +62,8 @@ export const defaultState = () => ({
     friends: emptyTl(),
     tag: emptyTl(),
     dms: emptyTl(),
-    bookmarks: emptyTl()
+    bookmarks: emptyTl(),
+    list: emptyTl()
   }
 })
 
@@ -248,6 +249,9 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
     status: (status) => {
       addStatus(status, showImmediately)
     },
+    edit: (status) => {
+      addStatus(status, showImmediately)
+    },
     retweet: (status) => {
       // RetweetedStatuses are never shown immediately
       const retweetedStatus = addStatus(status.retweeted_status, false, false)
@@ -334,6 +338,10 @@ const addNewNotifications = (state, { dispatch, notifications, older, visibleNot
     if (isStatusNotification(notification.type)) {
       notification.action = addStatusToGlobalStorage(state, notification.action).item
       notification.status = notification.status && addStatusToGlobalStorage(state, notification.status).item
+    }
+
+    if (notification.type === 'pleroma:report') {
+      dispatch('addReport', notification.report)
     }
 
     if (notification.type === 'pleroma:emoji_reaction') {
@@ -601,6 +609,12 @@ const statuses = {
       return rootState.api.backendInteractor.fetchStatus({ id })
         .then((status) => dispatch('addNewStatuses', { statuses: [status] }))
     },
+    fetchStatusSource ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusSource({ id: status.id, credentials: rootState.users.currentUser.credentials })
+    },
+    fetchStatusHistory ({ rootState, dispatch }, status) {
+      return apiService.fetchStatusHistory({ status })
+    },
     deleteStatus ({ rootState, commit }, status) {
       commit('setDeleted', { status })
       apiService.deleteStatus({ id: status.id, credentials: rootState.users.currentUser.credentials })
@@ -747,10 +761,11 @@ const statuses = {
       rootState.api.backendInteractor.fetchRebloggedByUsers({ id })
         .then(rebloggedByUsers => commit('addRepeats', { id, rebloggedByUsers, currentUser: rootState.users.currentUser }))
     },
-    search (store, { q, resolve, limit, offset, following }) {
-      return store.rootState.api.backendInteractor.search2({ q, resolve, limit, offset, following })
+    search (store, { q, resolve, limit, offset, following, type }) {
+      return store.rootState.api.backendInteractor.search2({ q, resolve, limit, offset, following, type })
         .then((data) => {
           store.commit('addNewUsers', data.accounts)
+          store.commit('addNewUsers', data.statuses.map(s => s.user).filter(u => u))
           store.commit('addNewStatuses', { statuses: data.statuses })
           return data
         })

@@ -5,9 +5,13 @@
   >
     <div class="user-reporting-panel panel">
       <div class="panel-heading">
-        <div class="title">
-          {{ $t('user_reporting.title', [user.screen_name_ui]) }}
-        </div>
+        <i18n-t
+          tag="div"
+          keypath="user_reporting.title"
+          class="title"
+        >
+          <UserLink :user="user" />
+        </i18n-t>
       </div>
       <div class="panel-body">
         <div class="user-reporting-panel-left">
@@ -68,7 +72,7 @@
 <script src="./user_reporting_modal.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .user-reporting-panel {
   width: 90vw;
@@ -117,7 +121,7 @@
     }
 
     .alert {
-      margin: 1em 0 0 0;
+      margin: 1em 0 0;
       line-height: 1.3em;
     }
   }

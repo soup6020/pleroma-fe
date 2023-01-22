@@ -47,6 +47,8 @@
           class="cancel-icon fa-scale-110 fa-old-padding"
         />
       </button>
+      <span class="spacer" />
+      <span class="spacer" />
     </template>
   </div>
 </template>
@@ -54,7 +56,7 @@
 <script src="./search_bar.js"></script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .SearchBar {
   display: inline-flex;

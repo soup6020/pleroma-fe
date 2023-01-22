@@ -1,31 +1,96 @@
 <template>
   <div :class="['Timeline', classes.root]">
     <div :class="classes.header">
-      <TimelineMenu v-if="!embedded" />
-      <button
-        v-if="showLoadButton"
-        class="button-default loadmore-button"
-        @click.prevent="showNewStatuses"
-      >
-        {{ loadButtonString }}
-      </button>
+      <TimelineMenu
+        v-if="!embedded"
+        :timeline-name="timelineName"
+      />
       <div
-        v-else-if="!embedded"
-        class="loadmore-text faint"
-        @click.prevent
+        v-if="showScrollTop && !embedded"
+        class="rightside-button"
       >
-        {{ $t('timeline.up_to_date') }}
+        <button
+          class="button-unstyled scroll-to-top-button"
+          type="button"
+          :title="$t('general.scroll_to_top')"
+          @click="scrollToTop"
+        >
+          <FALayers class="fa-scale-110 fa-old-padding-layer">
+            <FAIcon icon="arrow-up" />
+            <FAIcon
+              icon="minus"
+              transform="up-7"
+            />
+          </FALayers>
+        </button>
       </div>
-      <TimelineQuickSettings v-if="!embedded" />
+      <template v-if="mobileLayout && !embedded">
+        <div
+          v-if="showLoadButton"
+          class="rightside-button"
+        >
+          <button
+            class="button-unstyled loadmore-button"
+            :title="loadButtonString"
+            @click.prevent="showNewStatuses"
+          >
+            <FAIcon
+              fixed-width
+              icon="circle-plus"
+            />
+            <div class="alert-badge">
+              {{ mobileLoadButtonString }}
+            </div>
+          </button>
+        </div>
+        <div
+          v-else-if="!embedded"
+          class="loadmore-text faint veryfaint rightside-icon"
+          :title="$t('timeline.up_to_date')"
+          :aria-disabled="true"
+          @click.prevent
+        >
+          <FAIcon
+            fixed-width
+            icon="check"
+          />
+        </div>
+      </template>
+      <template v-else>
+        <button
+          v-if="showLoadButton"
+          class="button-default loadmore-button"
+          @click.prevent="showNewStatuses"
+        >
+          {{ loadButtonString }}
+        </button>
+        <div
+          v-else-if="!embedded"
+          class="loadmore-text faint"
+          @click.prevent
+        >
+          {{ $t('timeline.up_to_date') }}
+        </div>
+      </template>
+      <QuickFilterSettings
+        v-if="!embedded"
+        class="rightside-button"
+      />
+      <QuickViewSettings
+        v-if="!embedded"
+        class="rightside-button"
+      />
     </div>
     <div :class="classes.body">
       <div
         ref="timeline"
         class="timeline"
+        role="feed"
       >
         <conversation
           v-for="statusId in filteredPinnedStatusIds"
           :key="statusId + '-pinned'"
+          role="listitem"
           class="status-fadein"
           :status-id="statusId"
           :collapsable="true"
@@ -36,6 +101,7 @@
         <conversation
           v-for="status in filteredVisibleStatuses"
           :key="status.id"
+          role="listitem"
           class="status-fadein"
           :status-id="status.id"
           :collapsable="true"
