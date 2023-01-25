@@ -1118,8 +1118,12 @@ const fetchMutes = ({ credentials }) => {
     .then((users) => users.map(parseUser))
 }
 
-const muteUser = ({ id, credentials }) => {
-  return promisedRequest({ url: MASTODON_MUTE_USER_URL(id), credentials, method: 'POST' })
+const muteUser = ({ id, expiresIn, credentials }) => {
+  const payload = {}
+  if (expiresIn) {
+    payload.expires_in = expiresIn
+  }
+  return promisedRequest({ url: MASTODON_MUTE_USER_URL(id), credentials, method: 'POST', payload })
 }
 
 const unmuteUser = ({ id, credentials }) => {

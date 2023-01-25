@@ -88,6 +88,18 @@
       ref="sideDrawer"
       :logout="logout"
     />
+    <teleport to="#modal">
+      <confirm-modal
+        v-if="showingConfirmLogout"
+        :title="$t('login.logout_confirm_title')"
+        :confirm-text="$t('login.logout_confirm_accept_button')"
+        :cancel-text="$t('login.logout_confirm_cancel_button')"
+        @accepted="doLogout"
+        @cancelled="hideConfirmLogout"
+      >
+        {{ $t('login.logout_confirm') }}
+      </confirm-modal>
+    </teleport>
   </div>
 </template>
 
@@ -233,6 +245,16 @@
         border-radius: 0;
         box-shadow: none;
       }
+    }
+  }
+
+  .confirm-modal.dark-overlay {
+    &::before {
+      z-index: 3000;
+    }
+
+    .dialog-modal.panel {
+      z-index: 3001;
     }
   }
 }
