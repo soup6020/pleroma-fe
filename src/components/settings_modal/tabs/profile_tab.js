@@ -32,6 +32,8 @@ const ProfileTab = {
       newName: this.$store.state.users.currentUser.name_unescaped,
       newBio: unescape(this.$store.state.users.currentUser.description),
       newLocked: this.$store.state.users.currentUser.locked,
+      newBirthday: this.$store.state.users.currentUser.birthday,
+      showBirthday: this.$store.state.users.currentUser.show_birthday,
       newFields: this.$store.state.users.currentUser.fields.map(field => ({ name: field.name, value: field.value })),
       showRole: this.$store.state.users.currentUser.show_role,
       role: this.$store.state.users.currentUser.role,
@@ -125,7 +127,9 @@ const ProfileTab = {
         display_name: this.newName,
         fields_attributes: this.newFields.filter(el => el != null),
         bot: this.bot,
-        show_role: this.showRole
+        show_role: this.showRole,
+        birthday: this.newBirthday || '',
+        show_birthday: this.showBirthday
         /* eslint-enable camelcase */
       }
 

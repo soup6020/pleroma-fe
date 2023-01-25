@@ -12,6 +12,16 @@
         rounded="top"
         :has-note-editor="true"
       />
+      <span
+        v-if="!!user.birthday"
+        class="user-birthday"
+      >
+        <FAIcon
+          class="fa-old-padding"
+          icon="birthday-cake"
+        />
+        {{ $t('user_card.birthday', { birthday: formattedBirthday }) }}
+      </span>
       <div
         v-if="user.fields_html && user.fields_html.length > 0"
         class="user-profile-fields"
@@ -148,6 +158,10 @@
 
   // No sticky header on user profile
   --currentPanelStack: 1;
+
+  .user-birthday {
+    margin: 0 0.75em 0.5em;
+  }
 
   .user-profile-fields {
     margin: 0 0.5em;
