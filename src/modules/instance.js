@@ -286,8 +286,13 @@ const instance = {
         langList
           .map(async lang => {
             if (!state.unicodeEmojiAnnotations[lang]) {
-              const annotations = await loadAnnotations(lang)
-              commit('setUnicodeEmojiAnnotations', { lang, annotations })
+              try {
+                const annotations = await loadAnnotations(lang)
+                commit('setUnicodeEmojiAnnotations', { lang, annotations })
+              } catch (e) {
+                console.warn(`Error loading unicode emoji annotations for ${lang}: `, e)
+                // ignore
+              }
             }
           }))
     },

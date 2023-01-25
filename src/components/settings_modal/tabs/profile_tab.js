@@ -43,7 +43,7 @@ const ProfileTab = {
       bannerPreview: null,
       background: null,
       backgroundPreview: null,
-      emailLanguage: this.$store.state.users.currentUser.language || ''
+      emailLanguage: this.$store.state.users.currentUser.language || ['']
     }
   },
   components: {
@@ -130,7 +130,7 @@ const ProfileTab = {
       }
 
       if (this.emailLanguage) {
-        params.language = localeService.internalToBackendLocale(this.emailLanguage)
+        params.language = localeService.internalToBackendLocaleMulti(this.emailLanguage)
       }
 
       this.$store.state.api.backendInteractor
