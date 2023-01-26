@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../_variables.scss';
+@import "../../variables";
 
 .interface-language-switcher {
   .language-select {
