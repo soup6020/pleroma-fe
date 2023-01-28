@@ -8,11 +8,14 @@
         enable-emoji-picker
         :suggest="emojiSuggestor"
       >
-        <input
-          id="username"
-          v-model="newName"
-          class="name-changer"
-        >
+        <template #default="inputProps">
+          <input
+            id="username"
+            v-model="newName"
+            class="name-changer"
+            v-bind="propsToNative(inputProps)"
+          >
+        </template>
       </EmojiInput>
       <p>{{ $t('settings.bio') }}</p>
       <EmojiInput
@@ -20,10 +23,13 @@
         enable-emoji-picker
         :suggest="emojiUserSuggestor"
       >
-        <textarea
-          v-model="newBio"
-          class="bio resize-height"
-        />
+        <template #default="inputProps">
+          <textarea
+            v-model="newBio"
+            class="bio resize-height"
+            v-bind="propsToNative(inputProps)"
+          />
+        </template>
       </EmojiInput>
       <p v-if="role === 'admin' || role === 'moderator'">
         <Checkbox v-model="showRole">
@@ -60,10 +66,13 @@
             hide-emoji-button
             :suggest="userSuggestor"
           >
-            <input
-              v-model="newFields[i].name"
-              :placeholder="$t('settings.profile_fields.name')"
-            >
+            <template #default="inputProps">
+              <input
+                v-model="newFields[i].name"
+                :placeholder="$t('settings.profile_fields.name')"
+                v-bind="propsToNative(inputProps)"
+              >
+            </template>
           </EmojiInput>
           <EmojiInput
             v-model="newFields[i].value"
@@ -71,10 +80,13 @@
             hide-emoji-button
             :suggest="userSuggestor"
           >
-            <input
-              v-model="newFields[i].value"
-              :placeholder="$t('settings.profile_fields.value')"
-            >
+            <template #default="inputProps">
+              <input
+                v-model="newFields[i].value"
+                :placeholder="$t('settings.profile_fields.value')"
+                v-bind="propsToNative(inputProps)"
+              >
+            </template>
           </EmojiInput>
           <button
             class="delete-field button-unstyled -hover-highlight"

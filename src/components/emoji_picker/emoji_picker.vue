@@ -3,6 +3,7 @@
     ref="popover"
     trigger="click"
     popover-class="emoji-picker popover-default"
+    :trigger-attrs="{ 'aria-hidden': true }"
     @show="onPopoverShown"
     @close="onPopoverClosed"
   >

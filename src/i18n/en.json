@@ -271,6 +271,7 @@
       "text/markdown": "Markdown",
       "text/bbcode": "BBCode"
     },
+    "content_type_selection": "Post format",
     "content_warning": "Subject (optional)",
     "default": "Just landed in L.A.",
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
@@ -288,6 +289,7 @@
       "private": "This post will be visible to your followers only",
       "unlisted": "This post will not be visible in Public Timeline and The Whole Known Network"
     },
+    "scope_notice_dismiss": "Close this notice",
     "scope": {
       "direct": "Direct - post to mentioned users only",
       "private": "Followers-only - post to followers only",
@@ -1056,7 +1058,8 @@
     "reject_follow_request": "Reject follow request",
     "bookmark": "Bookmark",
     "toggle_expand": "Expand or collapse notification to show post in full",
-    "toggle_mute": "Expand or collapse notification to reveal muted content"
+    "toggle_mute": "Expand or collapse notification to reveal muted content",
+    "autocomplete_available": "{number} result is available. Use up and down keys to navigate through them. | {number} results are available. Use up and down keys to navigate through them."
   },
   "upload": {
     "error": {
