@@ -20,6 +20,7 @@
         class="logo"
         :to="{ name: 'root' }"
         :style="logoBgStyle"
+        :title="sitename"
       >
         <div
           class="mask"
@@ -38,13 +39,13 @@
         />
         <button
           class="button-unstyled nav-icon"
+          :title="$t('nav.preferences')"
           @click.stop="openSettingsModal"
         >
           <FAIcon
             fixed-width
             class="fa-scale-110 fa-old-padding"
             icon="cog"
-            :title="$t('nav.preferences')"
           />
         </button>
         <a
@@ -52,26 +53,26 @@
           href="/pleroma/admin/#/login-pleroma"
           class="nav-icon"
           target="_blank"
+          :title="$t('nav.administration')"
           @click.stop
         >
           <FAIcon
             fixed-width
             class="fa-scale-110 fa-old-padding"
             icon="tachometer-alt"
-            :title="$t('nav.administration')"
           />
         </a>
         <span class="spacer" />
         <button
           v-if="currentUser"
           class="button-unstyled nav-icon"
+          :title="$t('login.logout')"
           @click.stop.prevent="logout"
         >
           <FAIcon
             fixed-width
             class="fa-scale-110 fa-old-padding"
             icon="sign-out-alt"
-            :title="$t('login.logout')"
           />
         </button>
       </div>
