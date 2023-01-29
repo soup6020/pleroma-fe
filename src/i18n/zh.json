@@ -129,7 +129,8 @@
     "announcements": "公告",
     "edit_nav_mobile": "自定义导航栏",
     "edit_pinned": "编辑固定的项目",
-    "mobile_sidebar": "切换移动设备侧栏"
+    "mobile_sidebar": "切换移动设备侧栏",
+    "search_close": "关闭搜索栏"
   },
   "notifications": {
     "broken_favorite": "未知的状态，正在搜索中…",
@@ -209,7 +210,9 @@
     "post": "发送",
     "edit_remote_warning": "其它远程实例可能不支持编辑并且无法接收您的帖子的最新版本。",
     "edit_unsupported_warning": "Pleroma 不支持对提及或投票进行编辑。",
-    "edit_status": "编辑状态"
+    "edit_status": "编辑状态",
+    "content_type_selection": "发帖格式",
+    "scope_notice_dismiss": "关闭此提示"
   },
   "registration": {
     "bio": "简介",
@@ -993,7 +996,8 @@
     "bookmark": "书签",
     "accept_follow_request": "接受关注请求",
     "toggle_expand": "展开或折叠通知以显示帖子全文",
-    "toggle_mute": "展开或折叠通知以显示已隐藏的内容"
+    "toggle_mute": "展开或折叠通知以显示已隐藏的内容",
+    "autocomplete_available": "共有 {number} 个结果可用。使用向上和向下键浏览它们。"
   },
   "upload": {
     "error": {
