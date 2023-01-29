@@ -10,12 +10,9 @@
 <script src="./screen_reader_notice.js"></script>
 
 <style lang="scss">
+@import "../../mixins";
+
 .screen-reader-text {
-  display: block;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  visibility: visible;
+  @include visible-for-screenreader-only;
 }
 </style>

@@ -10,7 +10,10 @@
       :indeterminate="indeterminate"
       @change="$emit('update:modelValue', $event.target.checked)"
     >
-    <i class="checkbox-indicator" />
+    <i
+      class="checkbox-indicator"
+      :aria-hidden="true"
+    />
     <span
       v-if="!!$slots.default"
       class="label"
@@ -33,6 +36,7 @@ export default {
 
 <style lang="scss">
 @import "../../variables";
+@import "../../mixins";
 
 .checkbox {
   position: relative;
@@ -81,7 +85,7 @@ export default {
   }
 
   input[type="checkbox"] {
-    display: none;
+    @include visible-for-screenreader-only;
 
     &:checked + .checkbox-indicator::before {
       color: $fallback--text;
