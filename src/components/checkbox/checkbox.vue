@@ -5,6 +5,7 @@
   >
     <input
       type="checkbox"
+      class="visible-for-screenreader-only"
       :disabled="disabled"
       :checked="modelValue"
       :indeterminate="indeterminate"
@@ -85,8 +86,6 @@ export default {
   }
 
   input[type="checkbox"] {
-    @include visible-for-screenreader-only;
-
     &:checked + .checkbox-indicator::before {
       color: $fallback--text;
       color: var(--inputText, $fallback--text);

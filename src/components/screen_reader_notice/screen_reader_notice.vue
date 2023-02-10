@@ -1,6 +1,6 @@
 <template>
   <div
-    class="screen-reader-text"
+    class="visible-for-screenreader-only"
     :aria-live="ariaLive"
   >
     {{ currentText }}
@@ -8,11 +8,3 @@
 </template>
 
 <script src="./screen_reader_notice.js"></script>
-
-<style lang="scss">
-@import "../../mixins";
-
-.screen-reader-text {
-  @include visible-for-screenreader-only;
-}
-</style>
