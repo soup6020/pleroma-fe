@@ -1,6 +1,6 @@
 <template>
   <div
-    class="screen-reader-text"
+    class="visible-for-screenreader-only"
     :aria-live="ariaLive"
   >
     {{ currentText }}
@@ -8,14 +8,3 @@
 </template>
 
 <script src="./screen_reader_notice.js"></script>
-
-<style lang="scss">
-.screen-reader-text {
-  display: block;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  visibility: visible;
-}
-</style>
