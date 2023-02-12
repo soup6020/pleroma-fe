@@ -210,6 +210,7 @@
                 :prompt-text="$t('registration.email_language')"
                 :language="v$.user.language.$model"
                 :set-language="val => v$.user.language.$model = val"
+                @click.stop.prevent
               />
             </div>
 
