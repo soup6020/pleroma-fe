@@ -465,6 +465,7 @@
     "domain_mutes": "Domains",
     "avatar_size_instruction": "The recommended minimum size for avatar images is 150x150 pixels.",
     "pad_emoji": "Pad emoji with spaces when adding from picker",
+    "autocomplete_select_first": "Automatically select the first candidate when autocomplete results are available",
     "emoji_reactions_on_timeline": "Show emoji reactions on timeline",
     "export_theme": "Save preset",
     "filtering": "Filtering",

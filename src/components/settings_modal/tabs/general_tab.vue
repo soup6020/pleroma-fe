@@ -501,6 +501,14 @@
             {{ $t('settings.pad_emoji') }}
           </BooleanSetting>
         </li>
+        <li>
+          <BooleanSetting
+            path="autocompleteSelect"
+            expert="1"
+          >
+            {{ $t('settings.autocomplete_select_first') }}
+          </BooleanSetting>
+        </li>
       </ul>
     </div>
   </div>

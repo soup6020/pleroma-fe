@@ -104,6 +104,7 @@ const defaultState = {
   conversationOtherRepliesButton: 'below',
   conversationTreeFadeAncestors: false,
   maxDepthInThread: 6,
+  autocompleteSelect: false,
 
   // Nasty stuff
   customEmoji: [],
