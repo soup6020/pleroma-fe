@@ -195,8 +195,14 @@ export const mutations = {
       state.currentUser.blockIds.push(blockId)
     }
   },
+  setBlockIdsMaxId (state, blockIdsMaxId) {
+    state.currentUser.blockIdsMaxId = blockIdsMaxId
+  },
   saveMuteIds (state, muteIds) {
     state.currentUser.muteIds = muteIds
+  },
+  setMuteIdsMaxId (state, muteIdsMaxId) {
+    state.currentUser.muteIdsMaxId = muteIdsMaxId
   },
   addMuteId (state, muteId) {
     if (state.currentUser.muteIds.indexOf(muteId) === -1) {
@@ -320,10 +326,20 @@ const users = {
           .then((inLists) => store.commit('updateUserInLists', { id, inLists }))
       }
     },
-    fetchBlocks (store) {
-      return store.rootState.api.backendInteractor.fetchBlocks()
+    fetchBlocks (store, args) {
+      const { reset } = args || {}
+
+      const maxId = store.state.currentUser.blockIdsMaxId
+      return store.rootState.api.backendInteractor.fetchBlocks({ maxId })
         .then((blocks) => {
-          store.commit('saveBlockIds', map(blocks, 'id'))
+          if (reset) {
+            store.commit('saveBlockIds', map(blocks, 'id'))
+          } else {
+            map(blocks, 'id').map(id => store.commit('addBlockId', id))
+          }
+          if (blocks.length) {
+            store.commit('setBlockIdsMaxId', last(blocks).id)
+          }
           store.commit('addNewUsers', blocks)
           return blocks
         })
@@ -346,10 +362,20 @@ const users = {
     editUserNote (store, args) {
       return editUserNote(store, args)
     },
-    fetchMutes (store) {
-      return store.rootState.api.backendInteractor.fetchMutes()
+    fetchMutes (store, args) {
+      const { reset } = args || {}
+
+      const maxId = store.state.currentUser.muteIdsMaxId
+      return store.rootState.api.backendInteractor.fetchMutes({ maxId })
         .then((mutes) => {
-          store.commit('saveMuteIds', map(mutes, 'id'))
+          if (reset) {
+            store.commit('saveMuteIds', map(mutes, 'id'))
+          } else {
+            map(mutes, 'id').map(id => store.commit('addMuteId', id))
+          }
+          if (mutes.length) {
+            store.commit('setMuteIdsMaxId', last(mutes).id)
+          }
           store.commit('addNewUsers', mutes)
           return mutes
         })
