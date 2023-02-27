@@ -115,7 +115,8 @@ export const defaultState = {
   conversationTreeAdvanced: undefined, // instance default
   conversationOtherRepliesButton: undefined, // instance default
   conversationTreeFadeAncestors: undefined, // instance default
-  maxDepthInThread: undefined // instance default
+  maxDepthInThread: undefined, // instance default
+  autocompleteSelect: undefined // instance default
 }
 
 // caching the instance default properties

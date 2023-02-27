@@ -134,6 +134,9 @@ const EmojiInput = {
     padEmoji () {
       return this.$store.getters.mergedConfig.padEmoji
     },
+    defaultCandidateIndex () {
+      return this.$store.getters.mergedConfig.autocompleteSelect ? 0 : -1
+    },
     preText () {
       return this.modelValue.slice(0, this.caret)
     },
@@ -287,7 +290,7 @@ const EmojiInput = {
           ...rest,
           img: imageUrl || ''
         }))
-      this.highlighted = -1
+      this.highlighted = this.defaultCandidateIndex
       this.$refs.screenReaderNotice.announce(
         this.$tc('tool_tip.autocomplete_available',
           this.suggestions.length,
