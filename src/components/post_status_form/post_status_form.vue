@@ -281,12 +281,10 @@
         >
           {{ $t('post_status.post') }}
         </button>
-        <!-- touchstart is used to keep the OSK at the same position after a message send -->
         <button
           v-else
           :disabled="uploadingFiles || disableSubmit"
           class="btn button-default"
-          @touchstart.stop.prevent="postStatus($event, newStatus)"
           @click.stop.prevent="postStatus($event, newStatus)"
         >
           {{ $t('post_status.post') }}
