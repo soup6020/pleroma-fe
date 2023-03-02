@@ -3,6 +3,7 @@
     <EmojiPicker
       ref="picker"
       :enable-sticker-picker="enableStickerPicker"
+      :hide-custom-emoji="hideCustomEmoji"
       class="emoji-picker-panel"
       @emoji="addReaction"
       @show="onShow"

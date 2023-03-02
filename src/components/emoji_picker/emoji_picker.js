@@ -98,6 +98,11 @@ const EmojiPicker = {
       required: false,
       type: Boolean,
       default: false
+    },
+    hideCustomEmoji: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -280,6 +285,9 @@ const EmojiPicker = {
       return 0
     },
     allCustomGroups () {
+      if (this.hideCustomEmoji) {
+        return {}
+      }
       const emojis = this.$store.getters.groupedCustomEmojis
       if (emojis.unpacked) {
         emojis.unpacked.text = this.$t('emoji.unpacked')

@@ -45,8 +45,8 @@ const ReactButton = {
     }
   },
   computed: {
-    mergedConfig () {
-      return this.$store.getters.mergedConfig
+    hideCustomEmoji () {
+      return !this.$store.state.instance.pleromaChatMessagesAvailable
     }
   }
 }
