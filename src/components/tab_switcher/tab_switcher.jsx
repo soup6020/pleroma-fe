@@ -117,6 +117,7 @@ export default {
                 onClick={this.clickTab(index)}
                 class={classesTab.join(' ')}
                 type="button"
+                role="tab"
               >
                 <img src={props.image} title={props['image-tooltip']}/>
                 {props.label ? '' : props.label}
@@ -131,6 +132,7 @@ export default {
               onClick={this.clickTab(index)}
               class={classesTab.join(' ')}
               type="button"
+              role="tab"
             >
               {!props.icon ? '' : (<FAIcon class="tab-icon" size="2x" fixed-width icon={props.icon}/>)}
               <span class="text">
@@ -167,11 +169,15 @@ export default {
 
     return (
       <div class={'tab-switcher ' + (this.sideTabBar ? 'side-tabs' : 'top-tabs')}>
-        <div class="tabs">
+        <div
+          class="tabs"
+          role="tablist"
+        >
           {tabs}
         </div>
         <div
           ref="contents"
+          role="tabpanel"
           class={'contents' + (this.scrollableTabs ? ' scrollable-tabs' : '')}
           v-body-scroll-lock={this.bodyScrollLock}
         >
