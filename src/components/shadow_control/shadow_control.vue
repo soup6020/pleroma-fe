@@ -129,12 +129,13 @@
           v-model="selected.inset"
           :disabled="!present"
           name="inset"
-          class="input-inset"
+          class="input-inset visible-for-screenreader-only"
           type="checkbox"
         >
         <label
           class="checkbox-label"
           for="inset"
+          :aria-hidden="true"
         />
       </div>
       <div
