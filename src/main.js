@@ -12,6 +12,7 @@ import apiModule from './modules/api.js'
 import configModule from './modules/config.js'
 import profileConfigModule from './modules/profileConfig.js'
 import serverSideStorageModule from './modules/serverSideStorage.js'
+import adminSettingsModule from './modules/adminSettings.js'
 import shoutModule from './modules/shout.js'
 import oauthModule from './modules/oauth.js'
 import authFlowModule from './modules/auth_flow.js'
@@ -82,6 +83,7 @@ const persistedStateOptions = {
       config: configModule,
       profileConfig: profileConfigModule,
       serverSideStorage: serverSideStorageModule,
+      adminSettings: adminSettingsModule,
       shout: shoutModule,
       oauth: oauthModule,
       authFlow: authFlowModule,
