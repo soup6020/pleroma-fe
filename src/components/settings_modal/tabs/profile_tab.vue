@@ -254,27 +254,42 @@
       <h2>{{ $t('settings.account_privacy') }}</h2>
       <ul class="setting-list">
         <li>
-          <BooleanSetting source="profile" path="locked">
+          <BooleanSetting
+            source="profile"
+            path="locked"
+          >
             {{ $t('settings.lock_account_description') }}
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting source="profile" path="discoverable">
+          <BooleanSetting
+            source="profile"
+            path="discoverable"
+          >
             {{ $t('settings.discoverable') }}
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting source="profile" path="allowFollowingMove">
+          <BooleanSetting
+            source="profile"
+            path="allowFollowingMove"
+          >
             {{ $t('settings.allow_following_move') }}
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting source="profile" path="hideFavorites">
+          <BooleanSetting
+            source="profile"
+            path="hideFavorites"
+          >
             {{ $t('settings.hide_favorites_description') }}
           </BooleanSetting>
         </li>
         <li>
-          <BooleanSetting source="profile" path="hideFollowers">
+          <BooleanSetting
+            source="profile"
+            path="hideFollowers"
+          >
             {{ $t('settings.hide_followers_description') }}
           </BooleanSetting>
           <ul class="setting-list suboptions">
@@ -282,7 +297,7 @@
               <BooleanSetting
                 source="profile"
                 path="hideFollowersCount"
-                parentPath="hideFollowers"
+                parent-path="hideFollowers"
               >
                 {{ $t('settings.hide_followers_count_description') }}
               </BooleanSetting>
@@ -290,7 +305,10 @@
           </ul>
         </li>
         <li>
-          <BooleanSetting source="profile" path="hideFollows">
+          <BooleanSetting
+            source="profile"
+            path="hideFollows"
+          >
             {{ $t('settings.hide_follows_description') }}
           </BooleanSetting>
           <ul class="setting-list suboptions">
@@ -298,7 +316,7 @@
               <BooleanSetting
                 source="profile"
                 path="hideFollowsCount"
-                parentPath="hideFollows"
+                parent-path="hideFollows"
               >
                 {{ $t('settings.hide_follows_count_description') }}
               </BooleanSetting>

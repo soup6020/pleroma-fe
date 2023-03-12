@@ -36,7 +36,9 @@
         <button
           class="button-default btn"
           @click="addLanguage"
-        >{{ $t('settings.add_language') }}</button>
+        >
+          {{ $t('settings.add_language') }}
+        </button>
       </li>
     </ul>
   </div>

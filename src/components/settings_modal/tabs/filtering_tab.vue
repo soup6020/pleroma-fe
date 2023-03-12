@@ -10,8 +10,8 @@
           <ul class="setting-list suboptions">
             <li>
               <BooleanSetting
-                parentPath="hideFilteredStatuses"
-                :parentInvert="true"
+                parent-path="hideFilteredStatuses"
+                :parent-invert="true"
                 path="hideWordFilteredPosts"
               >
                 {{ $t('settings.hide_wordfiltered_statuses') }}
@@ -20,8 +20,8 @@
             <li>
               <BooleanSetting
                 v-if="user"
-                parentPath="hideFilteredStatuses"
-                :parentInvert="true"
+                parent-path="hideFilteredStatuses"
+                :parent-invert="true"
                 path="hideMutedThreads"
               >
                 {{ $t('settings.hide_muted_threads') }}
@@ -30,8 +30,8 @@
             <li>
               <BooleanSetting
                 v-if="user"
-                parentPath="hideFilteredStatuses"
-                :parentInvert="true"
+                parent-path="hideFilteredStatuses"
+                :parent-invert="true"
                 path="hideMutedPosts"
               >
                 {{ $t('settings.hide_muted_posts') }}

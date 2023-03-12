@@ -33,7 +33,7 @@
             <li>
               <BooleanSetting
                 path="pauseOnUnfocused"
-                parentPath="streaming"
+                parent-path="streaming"
               >
                 {{ $t('settings.pause_on_unfocused') }}
               </BooleanSetting>
@@ -262,7 +262,8 @@
         <li>
           <BooleanSetting
             v-if="user"
-            source="profile" path="stripRichContent"
+            source="profile"
+            path="stripRichContent"
             expert="1"
           >
             {{ $t('settings.no_rich_text_description') }}
@@ -287,7 +288,7 @@
             <BooleanSetting
               path="preloadImage"
               expert="1"
-              parentPath="hideNsfw"
+              parent-path="hideNsfw"
             >
               {{ $t('settings.preload_images') }}
             </BooleanSetting>
@@ -296,7 +297,7 @@
             <BooleanSetting
               path="useOneClickNsfw"
               expert="1"
-              parentPath="hideNsfw"
+              parent-path="hideNsfw"
             >
               {{ $t('settings.use_one_click_nsfw') }}
             </BooleanSetting>
@@ -314,7 +315,7 @@
               <BooleanSetting
                 path="loopVideoSilentOnly"
                 expert="1"
-                parentPath="loopVideo"
+                parent-path="loopVideo"
                 :disabled="!loopSilentAvailable"
               >
                 {{ $t('settings.loop_video_silent_only') }}
