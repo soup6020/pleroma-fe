@@ -19,7 +19,7 @@
         :changed="isChanged"
         :onclick="reset"
       />
-      <ProfileSettingIndicator :is-profile="isProfileTied" />
+      <ProfileSettingIndicator :is-profile="isProfileSetting" />
     </Checkbox>
   </label>
 </template>

@@ -62,7 +62,7 @@ export default {
           return get(this.$store.getters.defaultConfig, this.path)
       }
     },
-    isProfileTied () {
+    isProfileSetting () {
       return this.source === 'profile'
     },
     isChanged () {

@@ -210,7 +210,7 @@
           </ChoiceSetting>
         </li>
         <ul
-          v-if="conversationDisplay !== 'linear'"
+          v-if="mergedConfig.conversationDisplay !== 'linear'"
           class="setting-list suboptions"
         >
           <li>

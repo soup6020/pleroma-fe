@@ -4,6 +4,9 @@ const SharedComputedObject = () => ({
   },
   expertLevel () {
     return this.$store.getters.mergedConfig.expertLevel > 0
+  },
+  mergedConfig () {
+    return this.$store.getters.mergedConfig
   }
 })
 
