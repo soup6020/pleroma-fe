@@ -23,7 +23,7 @@
       :changed="isChanged"
       :onclick="reset"
     />
-    <ServerSideIndicator :server-side="isServerSide" />
+    <ProfileSettingIndicator :is-profile="isProfileSetting" />
   </label>
 </template>
 

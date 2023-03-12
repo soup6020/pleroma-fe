@@ -5,7 +5,7 @@
   >
     <Checkbox
       :model-value="state"
-      :disabled="disabled"
+      :disabled="shouldBeDisabled"
       @update:modelValue="update"
     >
       <span
@@ -19,7 +19,7 @@
         :changed="isChanged"
         :onclick="reset"
       />
-      <ServerSideIndicator :server-side="isServerSide" />
+      <ProfileSettingIndicator :is-profile="isProfileTied" />
     </Checkbox>
   </label>
 </template>

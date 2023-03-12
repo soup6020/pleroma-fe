@@ -1,33 +1,15 @@
 import { defaultState as configDefaultState } from 'src/modules/config.js'
-import { defaultState as serverSideConfigDefaultState } from 'src/modules/serverSideConfig.js'
 
 const SharedComputedObject = () => ({
   user () {
     return this.$store.state.users.currentUser
   },
-  // Getting values for default properties
-  ...Object.keys(configDefaultState)
-    .map(key => [
-      key + 'DefaultValue',
-      function () {
-        return this.$store.getters.defaultConfig[key]
-      }
-    ])
-    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
   // Generating computed values for vuex properties
   ...Object.keys(configDefaultState)
     .map(key => [key, {
       get () { return this.$store.getters.mergedConfig[key] },
       set (value) {
         this.$store.dispatch('setOption', { name: key, value })
-      }
-    }])
-    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
-  ...Object.keys(serverSideConfigDefaultState)
-    .map(key => ['serverSide_' + key, {
-      get () { return this.$store.state.serverSideConfig[key] },
-      set (value) {
-        this.$store.dispatch('setServerSideOption', { name: key, value })
       }
     }])
     .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),

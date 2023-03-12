@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import { setPreset, applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
+import { set } from 'lodash'
 import localeService from '../services/locale/locale.service.js'
 
 const BACKEND_LANGUAGE_COOKIE_NAME = 'userLanguage'
@@ -147,7 +148,7 @@ const config = {
   },
   mutations: {
     setOption (state, { name, value }) {
-      state[name] = value
+      set(state, name, value)
     },
     setHighlight (state, { user, color, type }) {
       const data = this.state.config.highlight[user]

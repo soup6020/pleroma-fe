@@ -10,7 +10,7 @@ import listsModule from './modules/lists.js'
 import usersModule from './modules/users.js'
 import apiModule from './modules/api.js'
 import configModule from './modules/config.js'
-import serverSideConfigModule from './modules/serverSideConfig.js'
+import profileConfigModule from './modules/profileConfig.js'
 import serverSideStorageModule from './modules/serverSideStorage.js'
 import shoutModule from './modules/shout.js'
 import oauthModule from './modules/oauth.js'
@@ -80,7 +80,7 @@ const persistedStateOptions = {
       lists: listsModule,
       api: apiModule,
       config: configModule,
-      serverSideConfig: serverSideConfigModule,
+      profileConfig: profileConfigModule,
       serverSideStorage: serverSideStorageModule,
       shout: shoutModule,
       oauth: oauthModule,
