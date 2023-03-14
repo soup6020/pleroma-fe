@@ -1,14 +1,14 @@
 <template>
   <Modal
     :is-open="modalActivated"
-    class="settings-modal"
+    class="admin-modal"
     :class="{ peek: modalPeeked }"
     :no-background="modalPeeked"
   >
-    <div class="settings-modal-panel panel">
+    <div class="admin-modal-panel panel">
       <div class="panel-heading">
         <span class="title">
-          {{ $t('settings.settings') }}
+          {{ $t('admin.settings') }}
         </span>
         <transition name="fade">
           <div
@@ -17,7 +17,7 @@
             :class="{ transparent: !currentSaveStateNotice.error, error: currentSaveStateNotice.error}"
             @click.prevent
           >
-            {{ currentSaveStateNotice.error ? $t('settings.saving_err') : $t('settings.saving_ok') }}
+            {{ currentSaveStateNotice.error ? $t('admin.saving_err') : $t('settings.saving_ok') }}
           </div>
         </transition>
         <button
@@ -42,10 +42,9 @@
         </button>
       </div>
       <div class="panel-body">
-        <SettingsModalUserContent v-if="modalMode === 'user' && modalOpenedOnceUser" />
-        <SettingsModalAdminContent v-if="modalMode === 'admin' && modalOpenedOnceAdmin" />
+        <AdminModalContent v-if="modalOpenedOnce" />
       </div>
-      <div class="panel-footer settings-footer">
+      <div class="panel-footer admin-footer">
         <Popover
           class="export"
           trigger="click"
@@ -59,7 +58,7 @@
               class="btn button-default"
               :title="$t('general.close')"
             >
-              <span>{{ $t("settings.file_export_import.backup_restore") }}</span>
+              <span>{{ $t("admin.file_export_import.backup_restore") }}</span>
               {{ ' ' }}
               <FAIcon
                 icon="chevron-down"
@@ -76,7 +75,7 @@
                 <FAIcon
                   icon="file-download"
                   fixed-width
-                /><span>{{ $t("settings.file_export_import.backup_settings") }}</span>
+                /><span>{{ $t("admin.file_export_import.backup_settings") }}</span>
               </button>
               <button
                 class="button-default dropdown-item dropdown-item-icon"
@@ -86,7 +85,7 @@
                 <FAIcon
                   icon="file-download"
                   fixed-width
-                /><span>{{ $t("settings.file_export_import.backup_settings_theme") }}</span>
+                /><span>{{ $t("admin.file_export_import.backup_settings_theme") }}</span>
               </button>
               <button
                 class="button-default dropdown-item dropdown-item-icon"
@@ -96,7 +95,7 @@
                 <FAIcon
                   icon="file-upload"
                   fixed-width
-                /><span>{{ $t("settings.file_export_import.restore_settings") }}</span>
+                /><span>{{ $t("admin.file_export_import.restore_settings") }}</span>
               </button>
             </div>
           </template>
@@ -106,7 +105,7 @@
           :model-value="!!expertLevel"
           @update:modelValue="expertLevel = Number($event)"
         >
-          {{ $t("settings.expert_mode") }}
+          {{ $t("admin.expert_mode") }}
         </Checkbox>
         <span
           id="unscrolled-content"
@@ -117,6 +116,6 @@
   </Modal>
 </template>
 
-<script src="./settings_modal.js"></script>
+<script src="./admin_modal.js"></script>
 
-<style src="./settings_modal.scss" lang="scss"></style>
+<style src="./admin_modal.scss" lang="scss"></style>

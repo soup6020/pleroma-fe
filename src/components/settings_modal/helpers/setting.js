@@ -42,6 +42,8 @@ export default {
       switch (this.source) {
         case 'profile':
           return this.$store.state.profileConfig
+        case 'admin':
+          return this.$store.state.adminSettings.config
         default:
           return this.$store.getters.mergedConfig
       }
@@ -50,6 +52,8 @@ export default {
       switch (this.source) {
         case 'profile':
           return (k, v) => this.$store.dispatch('setProfileOption', { name: k, value: v })
+        case 'admin':
+          return (k, v) => console.log(this.path, k, v)
         default:
           return (k, v) => this.$store.dispatch('setOption', { name: k, value: v })
       }
@@ -66,7 +70,15 @@ export default {
       return this.source === 'profile'
     },
     isChanged () {
-      return !this.source === 'default' && this.state !== this.defaultState
+      switch (this.source) {
+        case 'profile':
+          return false
+        case 'admin':
+          console.log(this.$store.state.adminSettings.modifiedPaths)
+          return this.$store.state.adminSettings.modifiedPaths.has(this.path)
+        default:
+          return this.state !== this.defaultState
+      }
     },
     matchesExpertLevel () {
       return (this.expert || 0) <= this.$store.state.config.expertLevel > 0

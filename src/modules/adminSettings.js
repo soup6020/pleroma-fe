@@ -10,7 +10,7 @@ export const newUserFlags = {
   ...defaultState.flagStorage
 }
 
-const serverSideStorage = {
+const adminSettingsStorage = {
   state: {
     ...cloneDeep(defaultState)
   },
@@ -40,9 +40,10 @@ const serverSideStorage = {
         }
         set(config, path, convert(c.value))
       })
+      console.log(config)
       commit('updateAdminSettings', { config, modifiedPaths })
     }
   }
 }
 
-export default serverSideStorage
+export default adminSettingsStorage
