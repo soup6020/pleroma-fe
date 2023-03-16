@@ -11,13 +11,13 @@
       <template #trigger>
         &nbsp;
         <button
-        v-if="$parent.isDirty"
-        class="button button-default btn"
-        type="button"
-        :title="$t('settings.commit_value')"
-        @click="$parent.commitDraft"
+          v-if="$parent.isDirty"
+          class="button button-default btn"
+          type="button"
+          :title="$t('settings.commit_value')"
+          @click="$parent.commitDraft"
         >
-        {{ $t('settings.commit_value') }}
+          {{ $t('settings.commit_value') }}
         </button>
       </template>
       <template #content>
@@ -33,13 +33,13 @@
       <template #trigger>
         &nbsp;
         <button
-        v-if="$parent.isDirty"
-        class="button button-default btn"
-        type="button"
-        :title="$t('settings.reset_value')"
-        @click="$parent.reset"
+          v-if="$parent.isDirty"
+          class="button button-default btn"
+          type="button"
+          :title="$t('settings.reset_value')"
+          @click="$parent.reset"
         >
-        {{ $t('settings.reset_value') }}
+          {{ $t('settings.reset_value') }}
         </button>
       </template>
       <template #content>
@@ -55,13 +55,13 @@
       <template #trigger>
         &nbsp;
         <button
-        v-if="$parent.canHardReset"
-        class="button button-default btn"
-        type="button"
-        :title="$t('settings.hard_reset_value')"
-        @click="$parent.hardReset"
+          v-if="$parent.canHardReset"
+          class="button button-default btn"
+          type="button"
+          :title="$t('settings.hard_reset_value')"
+          @click="$parent.hardReset"
         >
-        {{ $t('settings.hard_reset_value') }}
+          {{ $t('settings.hard_reset_value') }}
         </button>
       </template>
       <template #content>

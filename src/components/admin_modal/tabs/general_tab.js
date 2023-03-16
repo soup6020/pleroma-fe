@@ -15,7 +15,7 @@ const GeneralTab = {
   components: {
     BooleanSetting,
     ChoiceSetting,
-    IntegerSetting,
+    IntegerSetting
   },
   computed: {
     mergedConfig () {
