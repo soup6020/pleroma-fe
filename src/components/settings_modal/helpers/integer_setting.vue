@@ -13,7 +13,7 @@
       step="1"
       :disabled="disabled"
       :min="min || 0"
-      :value="state"
+      :value="draftMode ? draft :state"
       @change="update"
     >
     {{ ' ' }}
@@ -21,6 +21,8 @@
       :changed="isChanged"
       :onclick="reset"
     />
+    <ProfileSettingIndicator :is-profile="isProfileSetting" />
+    <DraftButtons />
   </span>
 </template>
 

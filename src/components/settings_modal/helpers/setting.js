@@ -1,5 +1,16 @@
+import Checkbox from 'src/components/checkbox/checkbox.vue'
+import ModifiedIndicator from './modified_indicator.vue'
+import ProfileSettingIndicator from './profile_setting_indicator.vue'
+import DraftButtons from './draft_buttons.vue'
 import { get, set } from 'lodash'
+
 export default {
+  components: {
+    Checkbox,
+    ModifiedIndicator,
+    DraftButtons,
+    ProfileSettingIndicator
+  },
   props: {
     path: {
       type: String,
@@ -23,6 +34,20 @@ export default {
     source: {
       type: String,
       default: 'default'
+    },
+    draftMode: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      draft: null
+    }
+  },
+  created () {
+    if (this.draftMode) {
+      this.draft = this.state
     }
   },
   computed: {
@@ -53,7 +78,7 @@ export default {
         case 'profile':
           return (k, v) => this.$store.dispatch('setProfileOption', { name: k, value: v })
         case 'admin':
-          return (k, v) => console.log(this.path, k, v)
+          return (k, v) => this.$store.dispatch('pushAdminSetting', { path: k, value: v })
         default:
           return (k, v) => this.$store.dispatch('setOption', { name: k, value: v })
       }
@@ -72,25 +97,56 @@ export default {
     isChanged () {
       switch (this.source) {
         case 'profile':
-          return false
         case 'admin':
-          console.log(this.$store.state.adminSettings.modifiedPaths)
-          return this.$store.state.adminSettings.modifiedPaths.has(this.path)
+          return false
         default:
           return this.state !== this.defaultState
       }
+    },
+    isDirty () {
+      return this.draftMode && this.draft !== this.state
+    },
+    canHardReset () {
+      return this.source === 'admin' && this.$store.state.adminSettings.modifiedPaths.has(this.path)
     },
     matchesExpertLevel () {
       return (this.expert || 0) <= this.$store.state.config.expertLevel > 0
     }
   },
   methods: {
+    getValue (e) {
+      return e.target.value
+    },
     update (e) {
-      console.log('U', this.path, e)
-      this.configSink(this.path, e)
+      if (this.draftMode) {
+        this.draft = this.getValue(e)
+      } else {
+        this.configSink(this.path, this.getValue(e))
+      }
+    },
+    commitDraft () {
+      if (this.draftMode) {
+        this.configSink(this.path, this.draft)
+      }
     },
     reset () {
-      set(this.$store.getters.mergedConfig, this.path, this.defaultState)
+      console.log('reset')
+      if (this.draftMode) {
+        console.log(this.draft)
+        console.log(this.state)
+        this.draft = this.state
+      } else {
+        set(this.$store.getters.mergedConfig, this.path, this.defaultState)
+      }
+    },
+    hardReset () {
+      switch (this.source) {
+        case 'admin':
+          return this.$store.dispatch('resetAdminSetting', { path: this.path })
+            .then(() => { this.draft = this.state })
+        default:
+          console.warn('Hard reset not implemented yet!')
+      }
     }
   }
 }

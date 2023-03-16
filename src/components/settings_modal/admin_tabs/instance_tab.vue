@@ -1,17 +1,34 @@
 <template>
-  <div :label="$t('settings.general')">
+  <div :label="$t('admin_dash.instance')">
     <div class="setting-item">
       <h2>{{ $t('admin_dash.instance') }}</h2>
       <ul class="setting-list">
         <li>
-          <StringSetting source="admin" path=":pleroma.:instance.:name">
+          <StringSetting
+            source="admin"
+            path=":pleroma.:instance.:name"
+            draft-mode
+          >
             NAME
           </StringSetting>
         </li>
         <li>
-          <StringSetting source="admin" path=":pleroma.:instance.:description">
+          <StringSetting
+            source="admin"
+            path=":pleroma.:instance.:description"
+            draft-mode
+          >
             DESCRIPTION
           </StringSetting>
+        </li>
+        <li>
+          <IntegerSetting
+            source="admin"
+            path=":pleroma.:instance.:limit"
+            draft-mode
+          >
+            POST LIMIT
+          </IntegerSetting>
         </li>
       </ul>
     </div>

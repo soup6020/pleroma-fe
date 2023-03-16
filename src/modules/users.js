@@ -564,7 +564,7 @@ const users = {
               user.domainMutes = []
               commit('setCurrentUser', user)
               commit('setServerSideStorage', user)
-              if (user.rights.moderator || user.rights.admin) {
+              if (user.rights.admin) {
                 store.rootState.api.backendInteractor.fetchInstanceDBConfig()
                   .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
               }

@@ -1,13 +1,16 @@
 import Checkbox from 'src/components/checkbox/checkbox.vue'
-import ModifiedIndicator from './modified_indicator.vue'
-import ProfileSettingIndicator from './profile_setting_indicator.vue'
 import Setting from './setting.js'
 
 export default {
+  ...Setting,
   components: {
-    Checkbox,
-    ModifiedIndicator,
-    ProfileSettingIndicator
+    ...Setting.components,
+    Checkbox
   },
-  ...Setting
+  methods: {
+    ...Setting.methods,
+    getValue (e) {
+      return e
+    }
+  }
 }

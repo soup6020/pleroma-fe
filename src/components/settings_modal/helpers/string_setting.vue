@@ -11,7 +11,7 @@
       class="string-input"
       step="1"
       :disabled="disabled"
-      :value="state"
+      :value="draftMode ? draft :state"
       @change="update"
     >
     {{ ' ' }}
@@ -19,7 +19,9 @@
       :changed="isChanged"
       :onclick="reset"
     />
+    <ProfileSettingIndicator :is-profile="isProfileSetting" />
+    <DraftButtons />
   </label>
 </template>
 
-<script src="./boolean_setting.js"></script>
+<script src="./string_setting.js"></script>

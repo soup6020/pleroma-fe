@@ -1,4 +1,3 @@
-import ModifiedIndicator from './modified_indicator.vue'
 import Select from 'src/components/select/select.vue'
 import Setting from './setting.js'
 
@@ -7,11 +6,11 @@ export const defaultHorizontalUnits = ['px', 'rem', 'vw']
 export const defaultVerticalUnits = ['px', 'rem', 'vh']
 
 export default {
+  ...Setting,
   components: {
-    ModifiedIndicator,
+    ...Setting.components,
     Select
   },
-  ...Setting,
   props: {
     ...Setting.props,
     min: Number,

@@ -4,7 +4,7 @@
     class="BooleanSetting"
   >
     <Checkbox
-      :model-value="state"
+      :model-value="draftMode ? draft :state"
       :disabled="shouldBeDisabled"
       @update:modelValue="update"
     >
@@ -20,6 +20,7 @@
         :onclick="reset"
       />
       <ProfileSettingIndicator :is-profile="isProfileSetting" />
+      <DraftButtons />
     </Checkbox>
   </label>
 </template>

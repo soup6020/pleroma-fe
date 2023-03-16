@@ -22,8 +22,8 @@ const adminSettingsStorage = {
   },
   actions: {
     setInstanceAdminSettings ({ state, commit, dispatch }, { backendDbConfig }) {
-      const config = {}
-      const modifiedPaths = new Set()
+      const config = state.config || {}
+      const modifiedPaths = state.modifiedPaths || new Set()
       backendDbConfig.configs.forEach(c => {
         const path = c.group + '.' + c.key
         if (c.db) {
@@ -40,8 +40,54 @@ const adminSettingsStorage = {
         }
         set(config, path, convert(c.value))
       })
-      console.log(config)
       commit('updateAdminSettings', { config, modifiedPaths })
+    },
+    pushAdminSetting ({ rootState, state, commit, dispatch }, { path, value }) {
+      const [group, key, ...rest] = path.split(/\./g)
+      const clone = {} // not actually cloning the entire thing to avoid excessive writes
+      set(clone, rest.join('.'), value)
+
+      // TODO cleanup paths in modifiedPaths
+      const convert = (value) => {
+        if (typeof value !== 'object') {
+          return value
+        } else if (Array.isArray(value)) {
+          return value.map(convert)
+        } else {
+          return Object.entries(value).map(([k, v]) => ({ tuple: [k, v] }))
+        }
+      }
+
+      rootState.api.backendInteractor.pushInstanceDBConfig({
+        payload: {
+          configs: [{
+            group,
+            key,
+            value: convert(clone)
+          }]
+        }
+      })
+        .then(() => rootState.api.backendInteractor.fetchInstanceDBConfig())
+        .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
+    },
+    resetAdminSetting ({ rootState, state, commit, dispatch }, { path }) {
+      console.log('ASS')
+      const [group, key, subkey] = path.split(/\./g)
+
+      state.modifiedPaths.delete(path)
+
+      return rootState.api.backendInteractor.pushInstanceDBConfig({
+        payload: {
+          configs: [{
+            group,
+            key,
+            delete: true,
+            subkeys: [subkey]
+          }]
+        }
+      })
+        .then(() => rootState.api.backendInteractor.fetchInstanceDBConfig())
+        .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
     }
   }
 }
