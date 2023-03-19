@@ -3,6 +3,7 @@ import TabSwitcher from 'src/components/tab_switcher/tab_switcher.jsx'
 import DataImportExportTab from './tabs/data_import_export_tab.vue'
 import MutesAndBlocksTab from './tabs/mutes_and_blocks_tab.vue'
 import InstanceTab from './admin_tabs/instance_tab.vue'
+import LimitsTab from './admin_tabs/limits_tab.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -33,7 +34,8 @@ const SettingsModalAdminContent = {
 
     DataImportExportTab,
     MutesAndBlocksTab,
-    InstanceTab
+    InstanceTab,
+    LimitsTab
   },
   computed: {
     isLoggedIn () {

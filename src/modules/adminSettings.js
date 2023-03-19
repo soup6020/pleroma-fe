@@ -3,7 +3,8 @@ import { set, cloneDeep } from 'lodash'
 export const defaultState = {
   needsReboot: null,
   config: null,
-  modifiedPaths: null
+  modifiedPaths: null,
+  descriptions: null
 }
 
 export const newUserFlags = {
@@ -18,6 +19,9 @@ const adminSettingsStorage = {
     updateAdminSettings (state, { config, modifiedPaths }) {
       state.config = config
       state.modifiedPaths = modifiedPaths
+    },
+    updateAdminDescriptions (state, { descriptions }) {
+      state.descriptions = descriptions
     }
   },
   actions: {
@@ -40,7 +44,24 @@ const adminSettingsStorage = {
         }
         set(config, path, convert(c.value))
       })
+      console.log(config[':pleroma'][':welcome'])
       commit('updateAdminSettings', { config, modifiedPaths })
+    },
+    setInstanceAdminDescriptions ({ state, commit, dispatch }, { backendDescriptions }) {
+      const convert = ({ children, description, label, key = '<ROOT>', group, suggestions }, path, acc) => {
+        const newPath = group ? group + '.' + key : key
+        const obj = { description, label, suggestions }
+        if (Array.isArray(children)) {
+          children.forEach(c => {
+            convert(c, '.' + newPath, obj)
+          })
+        }
+        set(acc, newPath, obj)
+      }
+
+      const descriptions = {}
+      backendDescriptions.forEach(d => convert(d, '', descriptions))
+      commit('updateAdminDescriptions', { descriptions })
     },
     pushAdminSetting ({ rootState, state, commit, dispatch }, { path, value }) {
       const [group, key, ...rest] = path.split(/\./g)
@@ -71,7 +92,6 @@ const adminSettingsStorage = {
         .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
     },
     resetAdminSetting ({ rootState, state, commit, dispatch }, { path }) {
-      console.log('ASS')
       const [group, key, subkey] = path.split(/\./g)
 
       state.modifiedPaths.delete(path)

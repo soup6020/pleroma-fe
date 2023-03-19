@@ -109,6 +109,7 @@ const PLEROMA_EDIT_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
 const PLEROMA_ADMIN_CONFIG_URL = '/api/pleroma/admin/config'
+const PLEROMA_ADMIN_DESCRIPTIONS_URL = '/api/pleroma/admin/config/descriptions'
 
 const oldfetch = window.fetch
 
@@ -1677,6 +1678,21 @@ const fetchInstanceDBConfig = ({ credentials }) => {
     })
 }
 
+const fetchInstanceConfigDescriptions = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_DESCRIPTIONS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
 const pushInstanceDBConfig = ({ credentials, payload }) => {
   return fetch(PLEROMA_ADMIN_CONFIG_URL, {
     headers: {
@@ -1813,6 +1829,7 @@ const apiService = {
   deleteAnnouncement,
   adminFetchAnnouncements,
   fetchInstanceDBConfig,
+  fetchInstanceConfigDescriptions,
   pushInstanceDBConfig
 }
 

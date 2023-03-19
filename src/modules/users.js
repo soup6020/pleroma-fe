@@ -567,6 +567,8 @@ const users = {
               if (user.rights.admin) {
                 store.rootState.api.backendInteractor.fetchInstanceDBConfig()
                   .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
+                store.rootState.api.backendInteractor.fetchInstanceConfigDescriptions()
+                  .then(backendDescriptions => dispatch('setInstanceAdminDescriptions', { backendDescriptions }))
               }
               commit('addNewUsers', [user])
 

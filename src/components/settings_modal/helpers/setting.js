@@ -59,6 +59,16 @@ export default {
         return value
       }
     },
+    backendDescription () {
+      console.log(get(this.$store.state.adminSettings.descriptions, this.path))
+      return get(this.$store.state.adminSettings.descriptions, this.path)
+    },
+    backendDescriptionLabel () {
+      return this.backendDescription.label
+    },
+    backendDescriptionDescription () {
+      return this.backendDescription.description
+    },
     shouldBeDisabled () {
       const parentValue = this.parentPath !== undefined ? get(this.configSource, this.parentPath) : null
       return this.disabled || (parentValue !== null ? (this.parentInvert ? parentValue : !parentValue) : false)

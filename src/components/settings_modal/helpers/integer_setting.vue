@@ -4,7 +4,12 @@
     class="IntegerSetting"
   >
     <label :for="path">
-      <slot />
+      <template v-if="backendDescription">
+        {{ backendDescriptionLabel + ' ' }}
+      </template>
+      <template v-else>
+        <slot />
+      </template>
     </label>
     <input
       :id="path"
@@ -23,6 +28,12 @@
     />
     <ProfileSettingIndicator :is-profile="isProfileSetting" />
     <DraftButtons />
+    <p
+      v-if="backendDescriptionDescription"
+      class="setting-description"
+    >
+      {{ backendDescriptionDescription + ' ' }}
+    </p>
   </span>
 </template>
 

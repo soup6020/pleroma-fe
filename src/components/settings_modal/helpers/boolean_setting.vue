@@ -12,7 +12,12 @@
         v-if="!!$slots.default"
         class="label"
       >
-        <slot />
+        <template v-if="backendDescription">
+          {{ backendDescriptionLabel + ' ' }}
+        </template>
+        <template v-else>
+          <slot />
+        </template>
       </span>
       {{ ' ' }}
       <ModifiedIndicator
@@ -21,6 +26,12 @@
       />
       <ProfileSettingIndicator :is-profile="isProfileSetting" />
       <DraftButtons />
+      <p
+        v-if="backendDescriptionDescription"
+        class="setting-description"
+      >
+        {{ backendDescriptionDescription + ' ' }}
+      </p>
     </Checkbox>
   </label>
 </template>

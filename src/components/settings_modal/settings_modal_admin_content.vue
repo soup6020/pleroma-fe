@@ -7,11 +7,18 @@
     :body-scroll-lock="bodyLock"
   >
     <div
-      :label="$t('settings.general')"
+      :label="$t('admin_dash.instance')"
       icon="wrench"
       data-tab-name="general"
     >
       <InstanceTab />
+    </div>
+    <div
+      :label="$t('admin_dash.limits')"
+      icon="wrench"
+      data-tab-name="limits"
+    >
+      <LimitsTab />
     </div>
   </tab-switcher>
 </template>
