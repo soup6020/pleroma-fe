@@ -13,7 +13,7 @@ export default {
   },
   props: {
     path: {
-      type: String,
+      type: [String, Array],
       required: true
     },
     disabled: {
@@ -21,7 +21,7 @@ export default {
       default: false
     },
     parentPath: {
-      type: String
+      type: [String, Array]
     },
     parentInvert: {
       type: Boolean,
@@ -67,6 +67,9 @@ export default {
     },
     backendDescriptionDescription () {
       return this.backendDescription?.description
+    },
+    backendDescriptionSuggestions () {
+      return this.backendDescription?.suggestions
     },
     shouldBeDisabled () {
       const parentValue = this.parentPath !== undefined ? get(this.configSource, this.parentPath) : null

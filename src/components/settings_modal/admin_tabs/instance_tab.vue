@@ -111,6 +111,57 @@
             APPROVAL REQUIRED
           </BooleanSetting>
         </li>
+        <li>
+          <h3>{{ $t('admin_dash.captcha.header') }}</h3>
+        </li>
+        <li>
+          <BooleanSetting
+            source="admin"
+            :path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+            draft-mode
+          >
+            CAPTCHA
+          </BooleanSetting>
+          <ul class="setting-list suboptions">
+            <li>
+              <ChoiceSetting
+                source="admin"
+                :path="[':pleroma', 'Pleroma.Captcha', ':method']"
+                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+                :option-label-map="{
+                  'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
+                  'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
+                }"
+                draft-mode
+              >
+                CAPTCHA TYPE
+              </ChoiceSetting>
+              <IntegerSetting
+                source="admin"
+                :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
+                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+                draft-mode
+              >
+                VALID
+              </IntegerSetting>
+            </li>
+          </ul>
+          <ul
+            v-if="adminConfig[':pleroma']['Pleroma.Captcha'][':enabled'] && adminConfig[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
+            class="setting-list suboptions"
+          >
+            <h4>{{ $t('admin_dash.kocaptcha') }}</h4>
+            <li>
+              <StringSetting
+                source="admin"
+                :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']"
+                draft-mode
+              >
+                cockAPTCHA ENDPOINT
+              </StringSetting>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

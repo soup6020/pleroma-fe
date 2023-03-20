@@ -7,6 +7,9 @@ const SharedComputedObject = () => ({
   },
   mergedConfig () {
     return this.$store.getters.mergedConfig
+  },
+  adminConfig () {
+    return this.$store.state.adminSettings.config
   }
 })
 

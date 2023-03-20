@@ -11,7 +11,32 @@ export default {
     ...Setting.props,
     options: {
       type: Array,
-      required: true
+      required: false
+    },
+    optionLabelMap: {
+      type: Object,
+      required: false,
+      default: {}
+    }
+  },
+  computed: {
+    ...Setting.computed,
+    realOptions () {
+      if (this.source === 'admin') {
+        console.log(this.backendDescriptionSuggestions)
+        return this.backendDescriptionSuggestions.map(x => ({
+          key: x,
+          value: x,
+          label: this.optionLabelMap[x] || x
+        }))
+      }
+      return this.options
+    }
+  },
+  methods: {
+    ...Setting.methods,
+    getValue (e) {
+      return e
     }
   }
 }
