@@ -2,6 +2,7 @@ import BooleanSetting from '../helpers/boolean_setting.vue'
 import ChoiceSetting from '../helpers/choice_setting.vue'
 import ScopeSelector from 'src/components/scope_selector/scope_selector.vue'
 import IntegerSetting from '../helpers/integer_setting.vue'
+import FloatSetting from '../helpers/float_setting.vue'
 import SizeSetting, { defaultHorizontalUnits } from '../helpers/size_setting.vue'
 import InterfaceLanguageSwitcher from 'src/components/interface_language_switcher/interface_language_switcher.vue'
 
@@ -62,6 +63,7 @@ const GeneralTab = {
     BooleanSetting,
     ChoiceSetting,
     IntegerSetting,
+    FloatSetting,
     SizeSetting,
     InterfaceLanguageSwitcher,
     ScopeSelector,

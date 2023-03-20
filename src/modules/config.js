@@ -98,6 +98,7 @@ export const defaultState = {
   sidebarColumnWidth: '25rem',
   contentColumnWidth: '45rem',
   notifsColumnWidth: '25rem',
+  emojiReactionsScale: 1.0,
   navbarColumnStretch: false,
   greentext: undefined, // instance default
   useAtIcon: undefined, // instance default
@@ -205,6 +206,7 @@ const config = {
           case 'sidebarColumnWidth':
           case 'contentColumnWidth':
           case 'notifsColumnWidth':
+          case 'emojiReactionsScale':
             applyConfig(state)
             break
           case 'customTheme':

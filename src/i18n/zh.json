@@ -295,7 +295,7 @@
     "change_password_error": "修改密码的时候出了点问题。",
     "changed_password": "成功修改了密码！",
     "collapse_subject": "折叠带主题的内容",
-    "composing": "写作",
+    "composing": "撰写",
     "confirm_new_password": "确认新密码",
     "current_avatar": "当前头像",
     "current_password": "当前密码",
@@ -737,7 +737,8 @@
     "mention_link_use_tooltip": "点击提及链接时显示用户卡片",
     "mention_link_show_avatar": "在链接旁边显示用户头像",
     "mention_link_show_avatar_quick": "在提及内容旁边显示用户头像",
-    "user_popover_avatar_action_open": "打开个人资料"
+    "user_popover_avatar_action_open": "打开个人资料",
+    "autocomplete_select_first": "当有自动完成的结果时，自动选择第一个候选项"
   },
   "time": {
     "day": "{0} 天",

@@ -123,6 +123,7 @@ const defaultState = {
   // Feature-set, apparently, not everything here is reported...
   shoutAvailable: false,
   pleromaChatMessagesAvailable: false,
+  pleromaCustomEmojiReactionsAvailable: false,
   gopherAvailable: false,
   mediaProxyAvailable: false,
   suggestionsEnabled: false,

@@ -441,6 +441,7 @@ export const parseNotification = (data) => {
       : parseUser(data.target)
     output.from_profile = parseUser(data.account)
     output.emoji = data.emoji
+    output.emoji_url = data.emoji_url
     if (data.report) {
       output.report = data.report
       output.report.content = data.report.content

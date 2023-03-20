@@ -2,7 +2,7 @@
   <div class="EmojiReactions">
     <UserListPopover
       v-for="(reaction) in emojiReactions"
-      :key="reaction.name"
+      :key="reaction.url || reaction.name"
       :users="accountsForEmoji[reaction.name]"
     >
       <button
@@ -11,7 +11,21 @@
         @click="emojiOnClick(reaction.name, $event)"
         @mouseenter="fetchEmojiReactionsByIfMissing()"
       >
-        <span class="reaction-emoji">{{ reaction.name }}</span>
+        <span
+          class="reaction-emoji"
+        >
+          <img
+            v-if="reaction.url"
+            :src="reaction.url"
+            :title="reaction.name"
+            class="reaction-emoji-content"
+            width="1em"
+          >
+          <span
+            v-else
+            class="reaction-emoji reaction-emoji-content"
+          >{{ reaction.name }}</span>
+        </span>
         <span>{{ reaction.count }}</span>
       </button>
     </UserListPopover>
@@ -35,6 +49,8 @@
   margin-top: 0.25em;
   flex-wrap: wrap;
 
+  --emoji-size: calc(1.25em * var(--emojiReactionsScale, 1));
+
   .emoji-reaction {
     padding: 0 0.5em;
     margin-right: 0.5em;
@@ -45,8 +61,24 @@
     box-sizing: border-box;
 
     .reaction-emoji {
-      width: 1.25em;
+      width: var(--emoji-size);
+      height: var(--emoji-size);
       margin-right: 0.25em;
+      line-height: var(--emoji-size);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .reaction-emoji-content {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      line-height: inherit;
+      overflow: hidden;
+      font-size: calc(var(--emoji-size) * 0.8);
+      margin: 0;
     }
 
     &:focus {
