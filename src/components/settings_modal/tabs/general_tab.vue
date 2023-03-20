@@ -271,6 +271,15 @@
             {{ $t('settings.no_rich_text_description') }}
           </BooleanSetting>
         </li>
+        <li>
+          <FloatSetting
+            v-if="user"
+            path="emojiReactionsScale"
+            expert="1"
+          >
+            {{ $t('settings.emoji_reactions_scale') }}
+          </FloatSetting>
+        </li>
         <h3>{{ $t('settings.attachments') }}</h3>
         <li>
           <BooleanSetting

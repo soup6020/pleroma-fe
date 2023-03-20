@@ -467,6 +467,7 @@
     "pad_emoji": "Pad emoji with spaces when adding from picker",
     "autocomplete_select_first": "Automatically select the first candidate when autocomplete results are available",
     "emoji_reactions_on_timeline": "Show emoji reactions on timeline",
+    "emoji_reactions_scale": "Reactions scale factor",
     "export_theme": "Save preset",
     "filtering": "Filtering",
     "wordfilter": "Wordfilter",
