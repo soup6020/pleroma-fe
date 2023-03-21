@@ -22,8 +22,7 @@ export default {
   computed: {
     ...Setting.computed,
     realOptions () {
-      if (this.source === 'admin') {
-        console.log(this.backendDescriptionSuggestions)
+      if (this.realSource === 'admin') {
         return this.backendDescriptionSuggestions.map(x => ({
           key: x,
           value: x,

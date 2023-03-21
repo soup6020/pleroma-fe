@@ -31,10 +31,18 @@ export default {
     },
     source: {
       type: String,
-      default: 'default'
+      default: undefined
     },
     draftMode: {
       type: Boolean,
+      default: undefined
+    }
+  },
+  inject: {
+    defaultSource: {
+      default: 'default'
+    },
+    defaultDraftMode: {
       default: false
     }
   },
@@ -44,7 +52,7 @@ export default {
     }
   },
   created () {
-    if (this.draftMode) {
+    if (this.realDraftMode) {
       this.draft = this.state
     }
   },
@@ -56,6 +64,12 @@ export default {
       } else {
         return value
       }
+    },
+    realSource () {
+      return this.source || this.defaultSource
+    },
+    realDraftMode () {
+      return typeof this.draftMode === 'undefined' ? this.defaultDraftMode : this.draftMode
     },
     backendDescription () {
       return get(this.$store.state.adminSettings.descriptions, this.path)
@@ -74,7 +88,8 @@ export default {
       return this.disabled || (parentValue !== null ? (this.parentInvert ? parentValue : !parentValue) : false)
     },
     configSource () {
-      switch (this.source) {
+      console.log('SRC', this.realSource)
+      switch (this.realSource) {
         case 'profile':
           return this.$store.state.profileConfig
         case 'admin':
@@ -84,7 +99,7 @@ export default {
       }
     },
     configSink () {
-      switch (this.source) {
+      switch (this.realSource) {
         case 'profile':
           return (k, v) => this.$store.dispatch('setProfileOption', { name: k, value: v })
         case 'admin':
@@ -94,7 +109,7 @@ export default {
       }
     },
     defaultState () {
-      switch (this.source) {
+      switch (this.realSource) {
         case 'profile':
           return {}
         default:
@@ -102,10 +117,10 @@ export default {
       }
     },
     isProfileSetting () {
-      return this.source === 'profile'
+      return this.realSource === 'profile'
     },
     isChanged () {
-      switch (this.source) {
+      switch (this.realSource) {
         case 'profile':
         case 'admin':
           return false
@@ -114,10 +129,10 @@ export default {
       }
     },
     isDirty () {
-      return this.draftMode && this.draft !== this.state
+      return this.realDraftMode && this.draft !== this.state
     },
     canHardReset () {
-      return this.source === 'admin' && this.$store.state.adminSettings.modifiedPaths.has(this.path)
+      return this.realSource === 'admin' && this.$store.state.adminSettings.modifiedPaths.has(this.path)
     },
     matchesExpertLevel () {
       return (this.expert || 0) <= this.$store.state.config.expertLevel > 0
@@ -128,20 +143,20 @@ export default {
       return e.target.value
     },
     update (e) {
-      if (this.draftMode) {
+      if (this.realDraftMode) {
         this.draft = this.getValue(e)
       } else {
         this.configSink(this.path, this.getValue(e))
       }
     },
     commitDraft () {
-      if (this.draftMode) {
+      if (this.realDraftMode) {
         this.configSink(this.path, this.draft)
       }
     },
     reset () {
       console.log('reset')
-      if (this.draftMode) {
+      if (this.realDraftMode) {
         console.log(this.draft)
         console.log(this.state)
         this.draft = this.state
@@ -150,7 +165,7 @@ export default {
       }
     },
     hardReset () {
-      switch (this.source) {
+      switch (this.realSource) {
         case 'admin':
           return this.$store.dispatch('resetAdminSetting', { path: this.path })
             .then(() => { this.draft = this.state })

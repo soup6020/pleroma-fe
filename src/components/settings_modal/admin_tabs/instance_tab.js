@@ -14,6 +14,12 @@ library.add(
 )
 
 const InstanceTab = {
+  provide () {
+    return {
+      defaultDraftMode: true,
+      defaultSource: 'admin'
+    }
+  },
   components: {
     BooleanSetting,
     ChoiceSetting,

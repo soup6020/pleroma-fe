@@ -18,7 +18,7 @@
       :step="step || 1"
       :disabled="disabled"
       :min="min || 0"
-      :value="draftMode ? draft :state"
+      :value="realDraftMode ? draft :state"
       @change="update"
     >
     {{ ' ' }}

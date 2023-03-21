@@ -16,7 +16,7 @@
       class="string-input"
       step="1"
       :disabled="disabled"
-      :value="draftMode ? draft :state"
+      :value="realDraftMode ? draft : state"
       @change="update"
     >
     {{ ' ' }}
