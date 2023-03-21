@@ -1,4 +1,3 @@
-import Checkbox from 'src/components/checkbox/checkbox.vue'
 import ModifiedIndicator from './modified_indicator.vue'
 import ProfileSettingIndicator from './profile_setting_indicator.vue'
 import DraftButtons from './draft_buttons.vue'
@@ -6,7 +5,6 @@ import { get, set } from 'lodash'
 
 export default {
   components: {
-    Checkbox,
     ModifiedIndicator,
     DraftButtons,
     ProfileSettingIndicator

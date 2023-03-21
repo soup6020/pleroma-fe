@@ -13,26 +13,25 @@
         class="label"
       >
         <template v-if="backendDescription">
-          {{ backendDescriptionLabel + ' ' }}
+          {{ backendDescriptionLabel }}
         </template>
         <template v-else>
           <slot />
         </template>
       </span>
-      {{ ' ' }}
-      <ModifiedIndicator
-        :changed="isChanged"
-        :onclick="reset"
-      />
-      <ProfileSettingIndicator :is-profile="isProfileSetting" />
-      <DraftButtons />
-      <p
-        v-if="backendDescriptionDescription"
-        class="setting-description"
-      >
-        {{ backendDescriptionDescription + ' ' }}
-      </p>
     </Checkbox>
+    <ModifiedIndicator
+      :changed="isChanged"
+      :onclick="reset"
+    />
+    <ProfileSettingIndicator :is-profile="isProfileSetting" />
+    <DraftButtons />
+    <p
+      v-if="backendDescriptionDescription"
+      class="setting-description"
+    >
+      {{ backendDescriptionDescription + ' ' }}
+    </p>
   </label>
 </template>
 

@@ -5,13 +5,13 @@
     class="DraftButtons"
   >
     <Popover
+      v-if="$parent.isDirty"
       trigger="hover"
       :trigger-attrs="{ 'aria-label': $t('settings.commit_value_tooltip') }"
     >
       <template #trigger>
         &nbsp;
         <button
-          v-if="$parent.isDirty"
           class="button button-default btn"
           type="button"
           :title="$t('settings.commit_value')"
@@ -27,13 +27,13 @@
       </template>
     </Popover>
     <Popover
+      v-if="$parent.isDirty"
       trigger="hover"
       :trigger-attrs="{ 'aria-label': $t('settings.reset_value_tooltip') }"
     >
       <template #trigger>
         &nbsp;
         <button
-          v-if="$parent.isDirty"
           class="button button-default btn"
           type="button"
           :title="$t('settings.reset_value')"

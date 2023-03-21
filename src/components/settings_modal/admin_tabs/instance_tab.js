@@ -14,7 +14,6 @@ library.add(
 )
 
 const InstanceTab = {
-  data () {},
   components: {
     BooleanSetting,
     ChoiceSetting,
