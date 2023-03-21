@@ -1,7 +1,7 @@
 <template>
-  <div :label="$t('admin_dash.instance')">
+  <div :label="$t('admin_dash.tabs.limits')">
     <div class="setting-item">
-      <h2>{{ $t('admin_dash.arbitrary_limits') }}</h2>
+      <h2>{{ $t('admin_dash.limits.arbitrary_limits') }}</h2>
       <ul class="setting-list">
         <li>
           <h3>{{ $t('admin_dash.limits.posts') }}</h3>
@@ -19,6 +19,7 @@
           <IntegerSetting
             source="admin"
             path=":pleroma.:instance.:remote_limit"
+            expert="1"
             draft-mode
           >
             POST LIMIT (remote)
@@ -60,6 +61,15 @@
         <li>
           <IntegerSetting
             source="admin"
+            path=":pleroma.:instance.:max_pinned_statuses"
+            draft-mode
+          >
+            MAX PINNED POSTS
+          </IntegerSetting>
+        </li>
+        <li>
+          <IntegerSetting
+            source="admin"
             path=":pleroma.:instance.:user_bio_length"
             draft-mode
           >
@@ -92,6 +102,7 @@
             source="admin"
             path=":pleroma.:instance.:max_remote_account_fields"
             draft-mode
+            expert="1"
           >
             MAX ACCOUNT FIELDS (remote)
           </IntegerSetting>
@@ -133,15 +144,6 @@
             draft-mode
           >
             MAX BANNER SIZE KiB
-          </IntegerSetting>
-        </li>
-        <li>
-          <IntegerSetting
-            source="admin"
-            path=":pleroma.:instance.:max_pinned_statuses"
-            draft-mode
-          >
-            MAX PINNED POSTS
           </IntegerSetting>
         </li>
       </ul>

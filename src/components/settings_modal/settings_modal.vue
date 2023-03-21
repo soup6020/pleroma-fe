@@ -8,7 +8,7 @@
     <div class="settings-modal-panel panel">
       <div class="panel-heading">
         <span class="title">
-          {{ $t('settings.settings') }}
+          {{ modalMode === 'user' ? $t('settings.settings') : $t('admin_dash.window_title') }}
         </span>
         <transition name="fade">
           <div
@@ -47,6 +47,7 @@
       </div>
       <div class="panel-footer settings-footer">
         <Popover
+          v-if="modalMode === 'user'"
           class="export"
           trigger="click"
           placement="top"
@@ -108,6 +109,18 @@
         >
           {{ $t("settings.expert_mode") }}
         </Checkbox>
+        <span v-if="modalMode === 'admin'">
+          <i18n-t keypath="admin_dash.wip_notice">
+            <template #adminFeLink>
+              <a
+                href="/pleroma/admin/#/login-pleroma"
+                target="_blank"
+              >
+                {{ $t("admin_dash.old_ui_link") }}
+              </a>
+            </template>
+          </i18n-t>
+        </span>
         <span
           id="unscrolled-content"
           class="extra-content"

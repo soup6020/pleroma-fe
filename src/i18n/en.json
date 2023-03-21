@@ -832,6 +832,33 @@
       "frontend_version": "Frontend version"
     }
   },
+  "admin_dash": {
+    "window_title": "Administration",
+    "wip_notice": "This admin dashboard is experimental and WIP, {adminFeLink}.",
+    "old_ui_link": "old admin UI available here",
+    "tabs": {
+      "instance": "Instance",
+      "limits": "Limits"
+    },
+    "captcha": {
+      "native": "Native",
+      "kocaptcha": "KoCaptcha"
+    },
+    "instance": {
+      "instance": "Instance information",
+      "registrations": "User sign-ups",
+      "captcha_header": "CAPTCHA",
+      "kocaptcha": "KoCaptcha settings"
+    },
+    "limits": {
+      "arbitrary_limits": "Arbitrary limits",
+      "posts": "Post limits",
+      "uploads": "Attachments limits",
+      "users": "User profile limits",
+      "profile_fields": "Profile fields limits",
+      "user_uploads": "Profile media limits"
+    }
+  },
   "time": {
     "unit": {
       "days": "{0} day | {0} days",

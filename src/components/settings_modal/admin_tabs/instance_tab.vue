@@ -1,7 +1,7 @@
 <template>
-  <div :label="$t('admin_dash.instance')">
+  <div :label="$t('admin_dash.tabs.instance')">
     <div class="setting-item">
-      <h2>{{ $t('admin_dash.instance') }}</h2>
+      <h2>{{ $t('admin_dash.instance.instance') }}</h2>
       <ul class="setting-list">
         <li>
           <StringSetting
@@ -69,7 +69,7 @@
       </ul>
     </div>
     <div class="setting-item">
-      <h2>{{ $t('admin_dash.registrations') }}</h2>
+      <h2>{{ $t('admin_dash.instance.registrations') }}</h2>
       <ul class="setting-list">
         <li>
           <BooleanSetting
@@ -112,7 +112,7 @@
           </BooleanSetting>
         </li>
         <li>
-          <h3>{{ $t('admin_dash.captcha.header') }}</h3>
+          <h3>{{ $t('admin_dash.instance.captcha_header') }}</h3>
         </li>
         <li>
           <BooleanSetting
@@ -150,7 +150,7 @@
             v-if="adminConfig[':pleroma']['Pleroma.Captcha'][':enabled'] && adminConfig[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
             class="setting-list suboptions"
           >
-            <h4>{{ $t('admin_dash.kocaptcha') }}</h4>
+            <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
             <li>
               <StringSetting
                 source="admin"

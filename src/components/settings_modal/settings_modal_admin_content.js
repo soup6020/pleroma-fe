@@ -8,7 +8,7 @@ import LimitsTab from './admin_tabs/limits_tab.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faWrench,
-  faUser,
+  faHand,
   faFilter,
   faPaintBrush,
   faBell,
@@ -19,7 +19,7 @@ import {
 
 library.add(
   faWrench,
-  faUser,
+  faHand,
   faFilter,
   faPaintBrush,
   faBell,
