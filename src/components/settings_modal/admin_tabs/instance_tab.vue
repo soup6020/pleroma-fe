@@ -33,9 +33,79 @@
             BACKGROUND IMAGE
           </StringSetting>
         </li>
+      </ul>
+    </div>
+    <div class="setting-item">
+      <h2>{{ $t('admin_dash.instance.access') }}</h2>
+      <ul class="setting-list">
         <li>
           <BooleanSetting path=":pleroma.:instance.:public">
             PUBLIC
+          </BooleanSetting>
+        </li>
+        <li>
+          <h3>{{ $t('admin_dash.instance.restrict.header') }}</h3>
+        </li>
+        <li>
+          <ChoiceSetting path=":pleroma.:instance.:limit_to_local_content">
+            SEARCH RESTRICTION
+          </ChoiceSetting>
+        </li>
+        <li>
+          <h4>{{ $t('admin_dash.instance.restrict.timelines') }}</h4>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:timelines.:local"
+            indeterminate-state=":if_instance_is_private"
+          >
+            LOCAL TIMELINES
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:timelines.:federated"
+            indeterminate-state=":if_instance_is_private"
+          >
+            FED TIMELINES
+          </BooleanSetting>
+        </li>
+        <li>
+          <h4>{{ $t('admin_dash.instance.restrict.profiles') }}</h4>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:profiles.:local"
+            indeterminate-state=":if_instance_is_private"
+          >
+            LOCAL PROFILES
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:profiles.:remote"
+            indeterminate-state=":if_instance_is_private"
+          >
+            FED PROFILES
+          </BooleanSetting>
+        </li>
+        <li>
+          <h4>{{ $t('admin_dash.instance.restrict.activities') }}</h4>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:activities.:local"
+            indeterminate-state=":if_instance_is_private"
+          >
+            LOCAL STATUSES
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting
+            path=":pleroma.:restrict_unauthenticated.:activities.:remote"
+            indeterminate-state=":if_instance_is_private"
+          >
+            FED STATUSES
           </BooleanSetting>
         </li>
       </ul>
@@ -52,10 +122,25 @@
               <BooleanSetting
                 path=":pleroma.:instance.:invites_enabled"
                 parent-path=":pleroma.:instance.:registrations_open"
-                :parent-invert="true"
+                parent-invert
               >
                 INVITES ENABLED
               </BooleanSetting>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <BooleanSetting path=":pleroma.:instance.:birthday_required">
+            BDEY REQUIRED
+          </BooleanSetting>
+          <ul class="setting-list suboptions">
+            <li>
+              <IntegerSetting
+                path=":pleroma.:instance.:birthday_min_age"
+                parent-path=":pleroma.:instance.:birthday_required"
+              >
+                BDEY age of consent
+              </IntegerSetting>
             </li>
           </ul>
         </li>

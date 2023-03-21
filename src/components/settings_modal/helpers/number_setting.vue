@@ -3,7 +3,7 @@
     v-if="matchesExpertLevel"
     class="NumberSetting"
   >
-    <label :for="path">
+    <label :for="path" :class="{ 'faint': shouldBeDisabled }">
       <template v-if="backendDescription">
         {{ backendDescriptionLabel + ' ' }}
       </template>
@@ -16,7 +16,7 @@
       class="number-input"
       type="number"
       :step="step || 1"
-      :disabled="disabled"
+      :disabled="shouldBeDisabled"
       :min="min || 0"
       :value="realDraftMode ? draft :state"
       @change="update"
@@ -31,6 +31,7 @@
     <p
       v-if="backendDescriptionDescription"
       class="setting-description"
+      :class="{ 'faint': shouldBeDisabled }"
     >
       {{ backendDescriptionDescription + ' ' }}
     </p>

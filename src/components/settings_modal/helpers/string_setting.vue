@@ -3,7 +3,7 @@
     v-if="matchesExpertLevel"
     class="StringSetting"
   >
-    <label :for="path">
+    <label :for="path" :class="{ 'faint': shouldBeDisabled }">
       <template v-if="backendDescription">
         {{ backendDescriptionLabel + ' ' }}
       </template>
@@ -15,7 +15,7 @@
       :id="path"
       class="string-input"
       step="1"
-      :disabled="disabled"
+      :disabled="shouldBeDisabled"
       :value="realDraftMode ? draft : state"
       @change="update"
     >
@@ -29,6 +29,7 @@
     <p
       v-if="backendDescriptionDescription"
       class="setting-description"
+      :class="{ 'faint': shouldBeDisabled }"
     >
       {{ backendDescriptionDescription + ' ' }}
     </p>

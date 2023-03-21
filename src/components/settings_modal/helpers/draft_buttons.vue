@@ -49,13 +49,13 @@
       </template>
     </Popover>
     <Popover
+      v-if="$parent.canHardReset"
       trigger="hover"
       :trigger-attrs="{ 'aria-label': $t('settings.hard_reset_value_tooltip') }"
     >
       <template #trigger>
         &nbsp;
         <button
-          v-if="$parent.canHardReset"
           class="button button-default btn"
           type="button"
           :title="$t('settings.hard_reset_value')"

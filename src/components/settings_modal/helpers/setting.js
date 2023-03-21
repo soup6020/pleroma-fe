@@ -65,6 +65,9 @@ export default {
         return value
       }
     },
+    visibleState () {
+      return this.realDraftMode ? this.draft : this.state
+    },
     realSource () {
       return this.source || this.defaultSource
     },
@@ -88,7 +91,6 @@ export default {
       return this.disabled || (parentValue !== null ? (this.parentInvert ? parentValue : !parentValue) : false)
     },
     configSource () {
-      console.log('SRC', this.realSource)
       switch (this.realSource) {
         case 'profile':
           return this.$store.state.profileConfig
