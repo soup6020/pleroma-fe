@@ -840,7 +840,7 @@ const postStatus = ({
   })
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
@@ -897,7 +897,7 @@ const editStatus = ({
 
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
