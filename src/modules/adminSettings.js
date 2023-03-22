@@ -1,10 +1,11 @@
-import { set, cloneDeep } from 'lodash'
+import { set, get, cloneDeep } from 'lodash'
 
 export const defaultState = {
   needsReboot: null,
   config: null,
   modifiedPaths: null,
-  descriptions: null
+  descriptions: null,
+  draft: null
 }
 
 export const newUserFlags = {
@@ -22,6 +23,20 @@ const adminSettingsStorage = {
     },
     updateAdminDescriptions (state, { descriptions }) {
       state.descriptions = descriptions
+    },
+    updateAdminDraft (state, { path, value }) {
+      const [group, key, subkey] = path
+      const parent = [group, key, subkey]
+
+      set(state.draft, path, value)
+
+      // force-updating grouped draft to trigger refresh of group settings
+      if (path.length > parent.length) {
+        set(state.draft, parent, cloneDeep(get(state.draft, parent)))
+      }
+    },
+    resetAdminDraft (state) {
+      state.draft = cloneDeep(state.config)
     }
   },
   actions: {
@@ -31,7 +46,9 @@ const adminSettingsStorage = {
       backendDbConfig.configs.forEach(c => {
         const path = [c.group, c.key]
         if (c.db) {
-          c.db.forEach(x => modifiedPaths.add(path + '.' + x))
+          // Path elements can contain dot, therefore we use ' -> ' as a separator instead
+          // Using strings for modified paths for easier searching
+          c.db.forEach(x => modifiedPaths.add([...path, x].join(' -> ')))
         }
         const convert = (value) => {
           if (Array.isArray(value) && value.length > 0 && value[0].tuple) {
@@ -46,6 +63,7 @@ const adminSettingsStorage = {
       })
       console.log(config[':pleroma'])
       commit('updateAdminSettings', { config, modifiedPaths })
+      commit('resetAdminDraft')
     },
     setInstanceAdminDescriptions ({ state, commit, dispatch }, { backendDescriptions }) {
       const convert = ({ children, description, label, key = '<ROOT>', group, suggestions }, path, acc) => {

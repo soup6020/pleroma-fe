@@ -71,6 +71,11 @@
           </BooleanSetting>
         </li>
         <li>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:timelines">
+            TIMELINES
+          </GroupSetting>
+        </li>
+        <li>
           <h4>{{ $t('admin_dash.instance.restrict.profiles') }}</h4>
         </li>
         <li>
@@ -90,6 +95,11 @@
           </BooleanSetting>
         </li>
         <li>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:profiles">
+            PROFILES
+          </GroupSetting>
+        </li>
+        <li>
           <h4>{{ $t('admin_dash.instance.restrict.activities') }}</h4>
         </li>
         <li>
@@ -107,6 +117,11 @@
           >
             FED STATUSES
           </BooleanSetting>
+        </li>
+        <li>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities">
+            STATUSES
+          </GroupSetting>
         </li>
       </ul>
     </div>

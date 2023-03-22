@@ -48,15 +48,32 @@ export default {
   },
   data () {
     return {
-      draft: null
+      localDraft: null
     }
   },
   created () {
-    if (this.realDraftMode) {
+    if (this.realDraftMode && this.realSource !== 'admin') {
       this.draft = this.state
     }
   },
   computed: {
+    draft: {
+      // TODO allow passing shared draft object?
+      get () {
+        if (this.realSource === 'admin') {
+          return get(this.$store.state.adminSettings.draft, this.path)
+        } else {
+          return this.localDraft
+        }
+      },
+      set (value) {
+        if (this.realSource === 'admin') {
+          this.$store.commit('updateAdminDraft', { path: this.canonPath, value })
+        } else {
+          this.localDraft = value
+        }
+      }
+    },
     state () {
       const value = get(this.configSource, this.path)
       if (value === undefined) {
@@ -130,11 +147,18 @@ export default {
           return this.state !== this.defaultState
       }
     },
+    canonPath () {
+      return Array.isArray(this.path) ? this.path : this.path.split('.')
+    },
     isDirty () {
-      return this.realDraftMode && this.draft !== this.state
+      if (this.realSource === 'admin' && this.canonPath.length > 3) {
+        return false // should not show draft buttons for "grouped" values
+      } else {
+        return this.realDraftMode && this.draft !== this.state
+      }
     },
     canHardReset () {
-      return this.realSource === 'admin' && this.$store.state.adminSettings.modifiedPaths.has(this.path)
+      return this.realSource === 'admin' && this.$store.state.adminSettings.modifiedPaths.has(this.canonPath.join(' -> '))
     },
     matchesExpertLevel () {
       return (this.expert || 0) <= this.$store.state.config.expertLevel > 0
