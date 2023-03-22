@@ -842,6 +842,8 @@
     "window_title": "Administration",
     "wip_notice": "This admin dashboard is experimental and WIP, {adminFeLink}.",
     "old_ui_link": "old admin UI available here",
+    "reset_all": "Reset all",
+    "commit_all": "Save all",
     "tabs": {
       "instance": "Instance",
       "limits": "Limits"
