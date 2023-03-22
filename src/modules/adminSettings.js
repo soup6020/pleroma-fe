@@ -1,4 +1,4 @@
-import { set, get, cloneDeep } from 'lodash'
+import { set, get, cloneDeep, differenceWith, isEqual, flatten } from 'lodash'
 
 export const defaultState = {
   needsReboot: null,
@@ -42,7 +42,7 @@ const adminSettingsStorage = {
   actions: {
     setInstanceAdminSettings ({ state, commit, dispatch }, { backendDbConfig }) {
       const config = state.config || {}
-      const modifiedPaths = state.modifiedPaths || new Set()
+      const modifiedPaths = new Set()
       backendDbConfig.configs.forEach(c => {
         const path = [c.group, c.key]
         if (c.db) {
@@ -81,6 +81,59 @@ const adminSettingsStorage = {
       backendDescriptions.forEach(d => convert(d, '', descriptions))
       console.log(descriptions[':pleroma']['Pleroma.Captcha'])
       commit('updateAdminDescriptions', { descriptions })
+    },
+
+    // This action takes draft state, diffs it with live config state and then pushes
+    // only differences between the two. Difference detection only work up to subkey (third) level.
+    pushAdminDraft ({ rootState, state, commit, dispatch }) {
+      // TODO cleanup paths in modifiedPaths
+      const convert = (value) => {
+        if (typeof value !== 'object') {
+          return value
+        } else if (Array.isArray(value)) {
+          return value.map(convert)
+        } else {
+          return Object.entries(value).map(([k, v]) => ({ tuple: [k, v] }))
+        }
+      }
+
+      // Getting all group-keys used in config
+      const allGroupKeys = flatten(
+        Object
+          .entries(state.config)
+          .map(
+            ([group, lv1data]) => Object
+              .keys(lv1data)
+              .map((key) => ({ group, key }))
+          )
+      )
+
+      // Only using group-keys where there are changes detected
+      const changedGroupKeys = allGroupKeys.filter(({ group, key }) => {
+        return !isEqual(state.config[group][key], state.draft[group][key])
+      })
+
+      // Here we take all changed group-keys and get all changed subkeys
+      const changed = changedGroupKeys.map(({ group, key }) => {
+        const config = state.config[group][key]
+        const draft = state.draft[group][key]
+
+        // We convert group-key value into entries arrays
+        const eConfig = Object.entries(config)
+        const eDraft = Object.entries(draft)
+
+        // Then those entries array we diff so only changed subkey entries remain
+        // We use the diffed array to reconstruct the object and then shove it into convert()
+        return ({ group, key, value: convert(Object.fromEntries(differenceWith(eDraft, eConfig, isEqual))) })
+      })
+
+      rootState.api.backendInteractor.pushInstanceDBConfig({
+        payload: {
+          configs: changed
+        }
+      })
+        .then(() => rootState.api.backendInteractor.fetchInstanceDBConfig())
+        .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
     },
     pushAdminSetting ({ rootState, state, commit, dispatch }, { path, value }) {
       const [group, key, ...rest] = Array.isArray(path) ? path : path.split(/\./g)

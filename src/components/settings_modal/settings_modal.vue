@@ -45,7 +45,7 @@
         <SettingsModalUserContent v-if="modalMode === 'user' && modalOpenedOnceUser" />
         <SettingsModalAdminContent v-if="modalMode === 'admin' && modalOpenedOnceAdmin" />
       </div>
-      <div class="panel-footer settings-footer">
+      <div class="panel-footer settings-footer -flexible-height">
         <Popover
           v-if="modalMode === 'user'"
           class="export"
@@ -125,6 +125,23 @@
           id="unscrolled-content"
           class="extra-content"
         />
+        <span class="admin-buttons" v-if="modalMode === 'admin'">
+          <button
+            class="button-default btn"
+            @click="resetAdminDraft"
+            :disabled="!adminDraftAny"
+          >
+              {{ $t("admin_dash.reset_all") }}
+          </button>
+          {{ ' ' }}
+          <button
+            class="button-default btn"
+            @click="pushAdminDraft"
+            :disabled="!adminDraftAny"
+          >
+              {{ $t("admin_dash.commit_all") }}
+          </button>
+        </span>
       </div>
     </div>
   </Modal>
