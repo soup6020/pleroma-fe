@@ -830,7 +830,13 @@
       "title": "Version",
       "backend_version": "Backend version",
       "frontend_version": "Frontend version"
-    }
+    },
+    "commit_value": "Save",
+    "commit_value_tooltip": "Value is not saved, press this button to commit your changes",
+    "reset_value": "Reset",
+    "reset_value_tooltip": "Reset draft",
+    "hard_reset_value": "Hard reset",
+    "hard_reset_value_tooltip": "Remove setting from storage, forcing use of default value"
   },
   "admin_dash": {
     "window_title": "Administration",
