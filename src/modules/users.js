@@ -564,12 +564,6 @@ const users = {
               user.domainMutes = []
               commit('setCurrentUser', user)
               commit('setServerSideStorage', user)
-              if (user.rights.admin) {
-                store.rootState.api.backendInteractor.fetchInstanceDBConfig()
-                  .then(backendDbConfig => dispatch('setInstanceAdminSettings', { backendDbConfig }))
-                store.rootState.api.backendInteractor.fetchInstanceConfigDescriptions()
-                  .then(backendDescriptions => dispatch('setInstanceAdminDescriptions', { backendDescriptions }))
-              }
               commit('addNewUsers', [user])
 
               dispatch('fetchEmoji')

@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faWrench,
   faHand,
-  faFilter,
+  faLaptopCode,
   faPaintBrush,
   faBell,
   faDownload,
@@ -20,7 +20,7 @@ import {
 library.add(
   faWrench,
   faHand,
-  faFilter,
+  faLaptopCode,
   faPaintBrush,
   faBell,
   faDownload,
@@ -38,6 +38,9 @@ const SettingsModalAdminContent = {
     LimitsTab
   },
   computed: {
+    user () {
+      return this.$store.state.users.currentUser
+    },
     isLoggedIn () {
       return !!this.$store.state.users.currentUser
     },
@@ -46,6 +49,17 @@ const SettingsModalAdminContent = {
     },
     bodyLock () {
       return this.$store.state.interface.settingsModalState === 'visible'
+    },
+    adminDbLoaded () {
+      return this.$store.state.adminSettings.loaded
+    },
+    noDb () {
+      return this.$store.state.adminSettings.dbConfigEnabled === false
+    }
+  },
+  created () {
+    if (this.user.rights.admin) {
+      this.$store.dispatch('loadAdminStuff')
     }
   },
   methods: {

@@ -1,11 +1,13 @@
 import { set, get, cloneDeep, differenceWith, isEqual, flatten } from 'lodash'
 
 export const defaultState = {
+  loaded: false,
   needsReboot: null,
   config: null,
   modifiedPaths: null,
   descriptions: null,
-  draft: null
+  draft: null,
+  dbConfigEnabled: null
 }
 
 export const newUserFlags = {
@@ -17,7 +19,13 @@ const adminSettingsStorage = {
     ...cloneDeep(defaultState)
   },
   mutations: {
+    setInstanceAdminNoDbConfig (state) {
+      state.loaded = false
+      state.dbConfigEnabled = false
+    },
     updateAdminSettings (state, { config, modifiedPaths }) {
+      state.loaded = true
+      state.dbConfigEnabled = true
       state.config = config
       state.modifiedPaths = modifiedPaths
     },
@@ -40,6 +48,26 @@ const adminSettingsStorage = {
     }
   },
   actions: {
+    loadAdminStuff ({ state, rootState, dispatch, commit }) {
+      rootState.api.backendInteractor.fetchInstanceDBConfig()
+        .then(backendDbConfig => {
+          if (backendDbConfig.error) {
+            if (backendDbConfig.error.status === 400) {
+              backendDbConfig.error.json().then(errorJson => {
+                if (/configurable_from_database/.test(errorJson.error)) {
+                  commit('setInstanceAdminNoDbConfig')
+                }
+              })
+            }
+          } else {
+            dispatch('setInstanceAdminSettings', { backendDbConfig })
+          }
+        })
+      if (state.descriptions === null) {
+        rootState.api.backendInteractor.fetchInstanceConfigDescriptions()
+          .then(backendDescriptions => this.$store.dispatch('setInstanceAdminDescriptions', { backendDescriptions }))
+      }
+    },
     setInstanceAdminSettings ({ state, commit, dispatch }, { backendDbConfig }) {
       const config = state.config || {}
       const modifiedPaths = new Set()

@@ -845,8 +845,16 @@
     "reset_all": "Reset all",
     "commit_all": "Save all",
     "tabs": {
+      "nodb": "No DB Config",
       "instance": "Instance",
-      "limits": "Limits"
+      "limits": "Limits",
+      "frontends": "Front-ends"
+    },
+    "nodb": {
+      "heading": "Database config is disabled",
+      "text": "You need to change backend config files so that {property} is set to {value}, see more in {documentation}.",
+      "documentation": "documentation",
+      "text2": "Most configuration options will be unavailable."
     },
     "captcha": {
       "native": "Native",
