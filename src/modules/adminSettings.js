@@ -65,7 +65,7 @@ const adminSettingsStorage = {
         })
       if (state.descriptions === null) {
         rootState.api.backendInteractor.fetchInstanceConfigDescriptions()
-          .then(backendDescriptions => this.$store.dispatch('setInstanceAdminDescriptions', { backendDescriptions }))
+          .then(backendDescriptions => dispatch('setInstanceAdminDescriptions', { backendDescriptions }))
       }
     },
     setInstanceAdminSettings ({ state, commit, dispatch }, { backendDbConfig }) {
