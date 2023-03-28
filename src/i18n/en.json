@@ -873,6 +873,14 @@
       "users": "User profile limits",
       "profile_fields": "Profile fields limits",
       "user_uploads": "Profile media limits"
+    },
+    "frontend": {
+      "repository": "Repository link",
+      "versions": "Available versions",
+      "build_url": "Build URL",
+      "reinstall": "Reinstall",
+      "install": "Install",
+      "install_version": "Install version {version}"
     }
   },
   "time": {

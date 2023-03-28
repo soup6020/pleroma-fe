@@ -1,6 +1,7 @@
 import { set, get, cloneDeep, differenceWith, isEqual, flatten } from 'lodash'
 
 export const defaultState = {
+  frontends: [],
   loaded: false,
   needsReboot: null,
   config: null,
@@ -22,6 +23,16 @@ const adminSettingsStorage = {
     setInstanceAdminNoDbConfig (state) {
       state.loaded = false
       state.dbConfigEnabled = false
+    },
+    setAvailableFrontends (state, { frontends }) {
+      state.frontends = frontends.map(f => {
+        if (f.name === 'pleroma-fe') {
+          f.refs = ['master', 'develop']
+        } else {
+          f.refs = [f.ref]
+        }
+        return f
+      })
     },
     updateAdminSettings (state, { config, modifiedPaths }) {
       state.loaded = true
@@ -48,6 +59,10 @@ const adminSettingsStorage = {
     }
   },
   actions: {
+    loadFrontendsStuff ({ state, rootState, dispatch, commit }) {
+      rootState.api.backendInteractor.fetchAvailableFrontends()
+        .then(frontends => commit('setAvailableFrontends', { frontends }))
+    },
     loadAdminStuff ({ state, rootState, dispatch, commit }) {
       rootState.api.backendInteractor.fetchInstanceDBConfig()
         .then(backendDbConfig => {

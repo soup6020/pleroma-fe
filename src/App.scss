@@ -645,6 +645,19 @@ option {
   }
 }
 
+.cards-list {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: 1fr 1fr;
+
+  li {
+    border: 1px solid var(--border);
+    border-radius: var(--inputRadius);
+    padding: 0.5em;
+    margin: 0.25em;
+  }
+}
+
 .btn-block {
   display: block;
   width: 100%;
@@ -655,16 +668,19 @@ option {
   display: inline-flex;
   vertical-align: middle;
 
-  button {
+  button,
+  .button-dropdown {
     position: relative;
     flex: 1 1 auto;
 
-    &:not(:last-child) {
+    &:not(:last-child),
+    &:not(:last-child) .button-default {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &:not(:first-child) {
+    &:not(:first-child),
+    &:not(:first-child) .button-default {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }

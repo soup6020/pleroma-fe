@@ -110,6 +110,8 @@ const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcemen
 
 const PLEROMA_ADMIN_CONFIG_URL = '/api/pleroma/admin/config'
 const PLEROMA_ADMIN_DESCRIPTIONS_URL = '/api/pleroma/admin/config/descriptions'
+const PLEROMA_ADMIN_FRONTENDS_URL = '/api/pleroma/admin/frontends'
+const PLEROMA_ADMIN_FRONTENDS_INSTALL_URL = '/api/pleroma/admin/frontends/install'
 
 const oldfetch = window.fetch
 
@@ -1693,8 +1695,44 @@ const fetchInstanceConfigDescriptions = ({ credentials }) => {
     })
 }
 
+const fetchAvailableFrontends = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
 const pushInstanceDBConfig = ({ credentials, payload }) => {
   return fetch(PLEROMA_ADMIN_CONFIG_URL, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...authHeaders(credentials)
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const installFrontend = ({ credentials, payload }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_INSTALL_URL, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -1830,7 +1868,9 @@ const apiService = {
   adminFetchAnnouncements,
   fetchInstanceDBConfig,
   fetchInstanceConfigDescriptions,
-  pushInstanceDBConfig
+  fetchAvailableFrontends,
+  pushInstanceDBConfig,
+  installFrontend
 }
 
 export default apiService
