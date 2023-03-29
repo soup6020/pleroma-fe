@@ -197,7 +197,7 @@
             </li>
           </ul>
           <ul
-            v-if="adminConfig[':pleroma']['Pleroma.Captcha'][':enabled'] && adminConfig[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
+            v-if="adminDraft[':pleroma']['Pleroma.Captcha'][':enabled'] && adminDraft[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
             class="setting-list suboptions"
           >
             <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
