@@ -7,7 +7,6 @@ export default {
   computed: {
     ...Setting.computed,
     isDirty () {
-      console.log(this.state, this.draft)
       return !isEqual(this.state, this.draft)
     }
   }

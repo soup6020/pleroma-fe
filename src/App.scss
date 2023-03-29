@@ -646,6 +646,7 @@ option {
 }
 
 .cards-list {
+  list-style: none;
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 1fr;

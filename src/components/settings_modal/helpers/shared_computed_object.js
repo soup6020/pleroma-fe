@@ -10,6 +10,9 @@ const SharedComputedObject = () => ({
   },
   adminConfig () {
     return this.$store.state.adminSettings.config
+  },
+  adminDraft () {
+    return this.$store.state.adminSettings.draft
   }
 })
 

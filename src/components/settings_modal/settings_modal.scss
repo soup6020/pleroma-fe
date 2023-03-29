@@ -43,6 +43,9 @@
 
       .btn {
         min-height: 2em;
+      }
+
+      .btn:not(.dropdown-button) {
         padding: 0 2em;
       }
     }

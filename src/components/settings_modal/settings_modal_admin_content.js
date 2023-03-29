@@ -51,6 +51,9 @@ const SettingsModalAdminContent = {
     adminDbLoaded () {
       return this.$store.state.adminSettings.loaded
     },
+    adminDescriptionsLoaded () {
+      return this.$store.state.adminSettings.descriptions !== null
+    },
     noDb () {
       return this.$store.state.adminSettings.dbConfigEnabled === false
     }

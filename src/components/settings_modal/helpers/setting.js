@@ -61,7 +61,7 @@ export default {
       // TODO allow passing shared draft object?
       get () {
         if (this.realSource === 'admin') {
-          return get(this.$store.state.adminSettings.draft, this.path)
+          return get(this.$store.state.adminSettings.draft, this.canonPath)
         } else {
           return this.localDraft
         }
@@ -75,7 +75,7 @@ export default {
       }
     },
     state () {
-      const value = get(this.configSource, this.path)
+      const value = get(this.configSource, this.canonPath)
       if (value === undefined) {
         return this.defaultState
       } else {

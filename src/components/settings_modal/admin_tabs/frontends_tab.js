@@ -51,6 +51,12 @@ const FrontendsTab = {
         .then((externalUser) => {
           this.$store.dispatch('loadFrontendsStuff')
         })
+    },
+    setDefault (frontend, suggestRef) {
+      const ref = suggestRef || frontend.refs[0]
+      const { name } = frontend
+
+      this.$store.commit('updateAdminDraft', { path: [':pleroma', ':frontends', ':primary'], value: { name, ref } })
     }
   }
 }

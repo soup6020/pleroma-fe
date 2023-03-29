@@ -1,5 +1,6 @@
 <template>
   <tab-switcher
+    v-if="adminDescriptionsLoaded && (noDb || adminDbLoaded)"
     ref="tabSwitcher"
     class="settings_tab-switcher"
     :side-tab-bar="true"
