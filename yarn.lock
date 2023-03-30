@@ -2275,10 +2275,10 @@
   dependencies:
     js-beautify "1.14.6"
 
-"@vuelidate/core@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@vuelidate/core/-/core-2.0.0.tgz#dfe73ba3f997646e07bd4da4f327fe53c29782cb"
-  integrity sha512-xIFgdQlScO0aaSZ0wTGPJh8YcTMNAj5veI8yPgiAyxOT+GV7vNQFiU1vpYWCL4cklkkhYvRRSC2OEX7YOZNmPQ==
+"@vuelidate/core@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@vuelidate/core/-/core-2.0.2.tgz#e874afc830ccc5295e83a0c0a0f0621e084348c9"
+  integrity sha512-aG1OZWv6xVws3ljyKy/pyxq1rdZZ2ryj+FEREcC9d4GP4qOvNHHZUl/NQxa0Bck3Ooc0RfXU8vwCA9piRoWy6w==
   dependencies:
     vue-demi "^0.13.11"
 
