@@ -615,9 +615,19 @@ const statuses = {
     fetchStatusHistory ({ rootState, dispatch }, status) {
       return apiService.fetchStatusHistory({ status })
     },
-    deleteStatus ({ rootState, commit }, status) {
-      commit('setDeleted', { status })
+    deleteStatus ({ rootState, commit, dispatch }, status) {
       apiService.deleteStatus({ id: status.id, credentials: rootState.users.currentUser.credentials })
+        .then((_) => {
+          commit('setDeleted', { status })
+        })
+        .catch((e) => {
+          dispatch('pushGlobalNotice', {
+            level: 'error',
+            messageKey: 'status.delete_error',
+            messageArgs: [e.message],
+            timeout: 5000
+          })
+        })
     },
     deleteStatusById ({ rootState, commit }, id) {
       const status = rootState.statuses.allStatusesObject[id]
