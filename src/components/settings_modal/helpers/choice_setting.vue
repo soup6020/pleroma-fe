@@ -3,7 +3,7 @@
     v-if="matchesExpertLevel"
     class="ChoiceSetting"
   >
-    <template v-if="backendDescription">
+    <template v-if="backendDescriptionLabel">
       {{ backendDescriptionLabel }}
     </template>
     <template v-else>

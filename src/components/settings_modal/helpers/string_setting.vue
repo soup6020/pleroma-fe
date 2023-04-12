@@ -4,7 +4,7 @@
     class="StringSetting"
   >
     <label :for="path" :class="{ 'faint': shouldBeDisabled }">
-      <template v-if="backendDescription">
+      <template v-if="backendDescriptionLabel">
         {{ backendDescriptionLabel + ' ' }}
       </template>
       <template v-else>

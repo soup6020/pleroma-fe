@@ -33,6 +33,18 @@ export default {
       type: String,
       default: undefined
     },
+    hideDescription: {
+      type: Boolean
+    },
+    swapDescriptionAndLabel: {
+      type: Boolean
+    },
+    overrideBackendDescription: {
+      type: Boolean
+    },
+    overrideBackendDescriptionLabel: {
+      type: Boolean
+    },
     draftMode: {
       type: Boolean,
       default: undefined
@@ -95,10 +107,35 @@ export default {
       return get(this.$store.state.adminSettings.descriptions, this.path)
     },
     backendDescriptionLabel () {
-      return this.backendDescription?.label
+      if (this.realSource !== 'admin') return ''
+      if (!this.backendDescription || this.overrideBackendDescriptionLabel) {
+        return this.$t([
+          'admin_dash',
+          'temp_overrides',
+          ...this.canonPath.map(p => p.replace(/\./g, '_DOT_')),
+          'label'
+        ].join('.'))
+      } else {
+        return this.swapDescriptionAndLabel
+          ? this.backendDescription?.description
+          : this.backendDescription?.label
+      }
     },
     backendDescriptionDescription () {
-      return this.backendDescription?.description
+      if (this.realSource !== 'admin') return ''
+      if (this.hideDescription) return null
+      if (!this.backendDescription || this.overrideBackendDescription) {
+        return this.$t([
+          'admin_dash',
+          'temp_overrides',
+          ...this.canonPath.map(p => p.replace(/\./g, '_DOT_')),
+          'description'
+        ].join('.'))
+      } else {
+        return this.swapDescriptionAndLabel
+          ? this.backendDescription?.label
+          : this.backendDescription?.description
+      }
     },
     backendDescriptionSuggestions () {
       return this.backendDescription?.suggestions

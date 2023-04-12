@@ -58,6 +58,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:timelines.:local"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             LOCAL TIMELINES
           </BooleanSetting>
@@ -66,6 +68,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:timelines.:federated"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             FED TIMELINES
           </BooleanSetting>
@@ -82,6 +86,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:profiles.:local"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             LOCAL PROFILES
           </BooleanSetting>
@@ -90,6 +96,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:profiles.:remote"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             FED PROFILES
           </BooleanSetting>
@@ -106,6 +114,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:activities.:local"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             LOCAL STATUSES
           </BooleanSetting>
@@ -114,6 +124,8 @@
           <BooleanSetting
             path=":pleroma.:restrict_unauthenticated.:activities.:remote"
             indeterminate-state=":if_instance_is_private"
+            swap-description-and-label
+            hide-description
           >
             FED STATUSES
           </BooleanSetting>
