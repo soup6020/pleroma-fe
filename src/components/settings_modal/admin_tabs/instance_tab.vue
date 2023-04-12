@@ -36,6 +36,91 @@
       </ul>
     </div>
     <div class="setting-item">
+      <h2>{{ $t('admin_dash.instance.registrations') }}</h2>
+      <ul class="setting-list">
+        <li>
+          <BooleanSetting path=":pleroma.:instance.:registrations_open">
+            REGISTRATIONS OPEN
+          </BooleanSetting>
+          <ul class="setting-list suboptions">
+            <li>
+              <BooleanSetting
+                path=":pleroma.:instance.:invites_enabled"
+                parent-path=":pleroma.:instance.:registrations_open"
+                parent-invert
+              >
+                INVITES ENABLED
+              </BooleanSetting>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <BooleanSetting path=":pleroma.:instance.:birthday_required">
+            BDEY REQUIRED
+          </BooleanSetting>
+          <ul class="setting-list suboptions">
+            <li>
+              <IntegerSetting
+                path=":pleroma.:instance.:birthday_min_age"
+                parent-path=":pleroma.:instance.:birthday_required"
+              >
+                BDEY age of consent
+              </IntegerSetting>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <BooleanSetting path=":pleroma.:instance.:account_activation_required">
+            ACTIVATION REQUIRED
+          </BooleanSetting>
+        </li>
+        <li>
+          <BooleanSetting path=":pleroma.:instance.:account_approval_required">
+            APPROVAL REQUIRED
+          </BooleanSetting>
+        </li>
+        <li>
+          <h3>{{ $t('admin_dash.instance.captcha_header') }}</h3>
+        </li>
+        <li>
+          <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']">
+            CAPTCHA
+          </BooleanSetting>
+          <ul class="setting-list suboptions">
+            <li>
+              <ChoiceSetting
+                :path="[':pleroma', 'Pleroma.Captcha', ':method']"
+                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+                :option-label-map="{
+                  'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
+                  'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
+                }"
+              >
+                CAPTCHA TYPE
+              </ChoiceSetting>
+              <IntegerSetting
+                :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
+                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+              >
+                VALID
+              </IntegerSetting>
+            </li>
+          </ul>
+          <ul
+            v-if="adminDraft[':pleroma']['Pleroma.Captcha'][':enabled'] && adminDraft[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
+            class="setting-list suboptions"
+          >
+            <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
+            <li>
+              <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']">
+                cockAPTCHA ENDPOINT
+              </StringSetting>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="setting-item">
       <h2>{{ $t('admin_dash.instance.access') }}</h2>
       <ul class="setting-list">
         <li>
@@ -134,91 +219,6 @@
           <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities">
             STATUSES
           </GroupSetting>
-        </li>
-      </ul>
-    </div>
-    <div class="setting-item">
-      <h2>{{ $t('admin_dash.instance.registrations') }}</h2>
-      <ul class="setting-list">
-        <li>
-          <BooleanSetting path=":pleroma.:instance.:registrations_open">
-            REGISTRATIONS OPEN
-          </BooleanSetting>
-          <ul class="setting-list suboptions">
-            <li>
-              <BooleanSetting
-                path=":pleroma.:instance.:invites_enabled"
-                parent-path=":pleroma.:instance.:registrations_open"
-                parent-invert
-              >
-                INVITES ENABLED
-              </BooleanSetting>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <BooleanSetting path=":pleroma.:instance.:birthday_required">
-            BDEY REQUIRED
-          </BooleanSetting>
-          <ul class="setting-list suboptions">
-            <li>
-              <IntegerSetting
-                path=":pleroma.:instance.:birthday_min_age"
-                parent-path=":pleroma.:instance.:birthday_required"
-              >
-                BDEY age of consent
-              </IntegerSetting>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <BooleanSetting path=":pleroma.:instance.:account_activation_required">
-            ACTIVATION REQUIRED
-          </BooleanSetting>
-        </li>
-        <li>
-          <BooleanSetting path=":pleroma.:instance.:account_approval_required">
-            APPROVAL REQUIRED
-          </BooleanSetting>
-        </li>
-        <li>
-          <h3>{{ $t('admin_dash.instance.captcha_header') }}</h3>
-        </li>
-        <li>
-          <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']">
-            CAPTCHA
-          </BooleanSetting>
-          <ul class="setting-list suboptions">
-            <li>
-              <ChoiceSetting
-                :path="[':pleroma', 'Pleroma.Captcha', ':method']"
-                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
-                :option-label-map="{
-                  'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
-                  'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
-                }"
-              >
-                CAPTCHA TYPE
-              </ChoiceSetting>
-              <IntegerSetting
-                :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
-                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
-              >
-                VALID
-              </IntegerSetting>
-            </li>
-          </ul>
-          <ul
-            v-if="adminDraft[':pleroma']['Pleroma.Captcha'][':enabled'] && adminDraft[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
-            class="setting-list suboptions"
-          >
-            <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
-            <li>
-              <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']">
-                cockAPTCHA ENDPOINT
-              </StringSetting>
-            </li>
-          </ul>
         </li>
       </ul>
     </div>
