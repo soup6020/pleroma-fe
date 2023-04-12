@@ -939,6 +939,7 @@
     "repeat_confirm_accept_button": "Repeat",
     "repeat_confirm_cancel_button": "Do not repeat",
     "delete": "Delete status",
+    "delete_error": "Error deleting status: {0}",
     "edit": "Edit status",
     "edited_at": "(last edited {time})",
     "pin": "Pin on profile",

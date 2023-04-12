@@ -845,7 +845,7 @@ const postStatus = ({
   })
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
@@ -902,7 +902,7 @@ const editStatus = ({
 
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
@@ -928,8 +928,9 @@ const editStatus = ({
 }
 
 const deleteStatus = ({ id, credentials }) => {
-  return fetch(MASTODON_DELETE_URL(id), {
-    headers: authHeaders(credentials),
+  return promisedRequest({
+    url: MASTODON_DELETE_URL(id),
+    credentials,
     method: 'DELETE'
   })
 }
@@ -1118,8 +1119,12 @@ const generateMfaBackupCodes = ({ credentials }) => {
   }).then((data) => data.json())
 }
 
-const fetchMutes = ({ credentials }) => {
-  return promisedRequest({ url: MASTODON_USER_MUTES_URL, credentials })
+const fetchMutes = ({ maxId, credentials }) => {
+  const query = new URLSearchParams({ with_relationships: true })
+  if (maxId) {
+    query.append('max_id', maxId)
+  }
+  return promisedRequest({ url: `${MASTODON_USER_MUTES_URL}?${query.toString()}`, credentials })
     .then((users) => users.map(parseUser))
 }
 
@@ -1143,8 +1148,12 @@ const unsubscribeUser = ({ id, credentials }) => {
   return promisedRequest({ url: MASTODON_UNSUBSCRIBE_USER(id), credentials, method: 'POST' })
 }
 
-const fetchBlocks = ({ credentials }) => {
-  return promisedRequest({ url: MASTODON_USER_BLOCKS_URL, credentials })
+const fetchBlocks = ({ maxId, credentials }) => {
+  const query = new URLSearchParams({ with_relationships: true })
+  if (maxId) {
+    query.append('max_id', maxId)
+  }
+  return promisedRequest({ url: `${MASTODON_USER_BLOCKS_URL}?${query.toString()}`, credentials })
     .then((users) => users.map(parseUser))
 }
 

@@ -45,6 +45,7 @@ const NavPanel = {
       privateMode: state => state.instance.private,
       federating: state => state.instance.federating,
       pleromaChatMessagesAvailable: state => state.instance.pleromaChatMessagesAvailable,
+      supportsAnnouncements: state => state.announcements.supportsAnnouncements,
       pinnedItems: state => new Set(state.serverSideStorage.prefsStorage.collections.pinnedNavItems)
     }),
     pinnedList () {
@@ -56,6 +57,7 @@ const NavPanel = {
         ],
         {
           hasChats: this.pleromaChatMessagesAvailable,
+          hasAnnouncements: this.supportsAnnouncements,
           isFederating: this.federating,
           isPrivate: this.privateMode,
           currentUser: this.currentUser
@@ -75,6 +77,7 @@ const NavPanel = {
         ],
         {
           hasChats: this.pleromaChatMessagesAvailable,
+          hasAnnouncements: this.supportsAnnouncements,
           isFederating: this.federating,
           isPrivate: this.privateMode,
           currentUser: this.currentUser
