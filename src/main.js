@@ -44,7 +44,7 @@ const i18n = createI18n({
   messages: messages.default
 })
 
-messages.setLanguage(i18n, currentLocale)
+messages.setLanguage(i18n.global, currentLocale)
 
 const persistedStateOptions = {
   paths: [
