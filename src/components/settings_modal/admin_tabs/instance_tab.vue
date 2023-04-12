@@ -24,14 +24,14 @@
           </StringSetting>
         </li>
         <li>
-          <StringSetting path=":pleroma.:instance.:instance_thumbnail">
+          <AttachmentSetting path=":pleroma.:instance.:instance_thumbnail">
             INSTANCE THUMBNAIL
-          </StringSetting>
+          </AttachmentSetting>
         </li>
         <li>
-          <StringSetting path=":pleroma.:instance.:background_image">
+          <AttachmentSetting path=":pleroma.:instance.:background_image">
             BACKGROUND IMAGE
-          </StringSetting>
+          </AttachmentSetting>
         </li>
       </ul>
     </div>

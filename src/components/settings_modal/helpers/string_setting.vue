@@ -14,7 +14,6 @@
     <input
       :id="path"
       class="string-input"
-      step="1"
       :disabled="shouldBeDisabled"
       :value="realDraftMode ? draft : state"
       @change="update"
