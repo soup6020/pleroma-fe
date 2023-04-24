@@ -3,7 +3,10 @@
     v-if="matchesExpertLevel"
     class="AttachmentSetting"
   >
-    <label :for="path" :class="{ 'faint': shouldBeDisabled }">
+    <label
+      :for="path"
+      :class="{ 'faint': shouldBeDisabled }"
+    >
       <template v-if="backendDescriptionLabel">
         {{ backendDescriptionLabel + ' ' }}
       </template>
@@ -51,10 +54,10 @@
           ref="mediaUpload"
           class="media-upload-icon"
           :drop-files="dropFiles"
-          @uploaded="setMediaFile"
-          @upload-failed="uploadFailed"
           normal-button
           :accept-types="acceptTypes"
+          @uploaded="setMediaFile"
+          @upload-failed="uploadFailed"
         />
       </div>
     </div>

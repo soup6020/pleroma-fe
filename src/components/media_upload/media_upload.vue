@@ -1,7 +1,7 @@
 <template>
   <component
-    class="media-upload"
     :is="normalButton ? 'button' : 'label'"
+    class="media-upload"
     :class="{ disabled: disabled, ['media-upload button-default btn']: normalButton }"
     :title="$t('tool_tip.media_upload')"
     @click="onClick"
@@ -23,13 +23,13 @@
     </template>
     <input
       v-if="uploadReady"
+      ref="input"
       class="hidden-input-file"
       :disabled="disabled"
       type="file"
       multiple="true"
-      @change="change"
-      ref="input"
       :accept="acceptTypes"
+      @change="change"
     >
   </component>
 </template>

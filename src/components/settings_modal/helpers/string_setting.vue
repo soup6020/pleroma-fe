@@ -3,7 +3,10 @@
     v-if="matchesExpertLevel"
     class="StringSetting"
   >
-    <label :for="path" :class="{ 'faint': shouldBeDisabled }">
+    <label
+      :for="path"
+      :class="{ 'faint': shouldBeDisabled }"
+    >
       <template v-if="backendDescriptionLabel">
         {{ backendDescriptionLabel + ' ' }}
       </template>

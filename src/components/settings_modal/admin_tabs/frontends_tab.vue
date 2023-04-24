@@ -1,5 +1,8 @@
 <template>
-  <div class="frontends-tab" :label="$t('admin_dash.tabs.frontends')">
+  <div
+    class="frontends-tab"
+    :label="$t('admin_dash.tabs.frontends')"
+  >
     <div class="setting-item">
       <h2>{{ $t('admin_dash.tabs.frontends') }}</h2>
       <p>{{ $t('admin_dash.frontend.wip_notice') }}</p>
@@ -20,23 +23,26 @@
           </StringSetting>
         </li>
         <li>
-          <GroupSetting path=":pleroma.:frontends.:primary"/>
+          <GroupSetting path=":pleroma.:frontends.:primary" />
         </li>
       </ul>
       <div class="setting-list">
         <h3>{{ $t('admin_dash.frontend.available_frontends') }}</h3>
         <ul class="cards-list">
-          <li v-for="frontend in frontends" :key="frontend.name">
+          <li
+            v-for="frontend in frontends"
+            :key="frontend.name"
+          >
             <strong>{{ frontend.name }}</strong>
             {{ ' ' }}
             <span v-if="adminDraft[':pleroma'][':frontends'][':primary'].name === frontend.name">
               <i18n-t
-                keypath="admin_dash.frontend.is_default"
                 v-if="adminDraft[':pleroma'][':frontends'][':primary'].ref === frontend.refs[0]"
+                keypath="admin_dash.frontend.is_default"
               />
               <i18n-t
-                keypath="admin_dash.frontend.is_default_custom"
                 v-else
+                keypath="admin_dash.frontend.is_default_custom"
               >
                 <template #version>
                   <code>{{ adminDraft[':pleroma'][':frontends'][':primary'].ref }}</code>
@@ -45,13 +51,30 @@
             </span>
             <dl>
               <dt>{{ $t('admin_dash.frontend.repository') }}</dt>
-              <dd><a :href="frontend.git" target="_blank">{{ frontend.git }}</a></dd>
+              <dd>
+                <a
+                  :href="frontend.git"
+                  target="_blank"
+                >{{ frontend.git }}</a>
+              </dd>
               <template v-if="expertLevel">
                 <dt>{{ $t('admin_dash.frontend.versions') }}</dt>
-                <dd v-for="ref in frontend.refs" :key="ref"><code>{{ ref }}</code></dd>
+                <dd
+                  v-for="ref in frontend.refs"
+                  :key="ref"
+                >
+                  <code>{{ ref }}</code>
+                </dd>
               </template>
-              <dt v-if="expertLevel">{{ $t('admin_dash.frontend.build_url') }}</dt>
-              <dd v-if="expertLevel"><a :href="frontend.build_url" target="_blank">{{ frontend.build_url }}</a></dd>
+              <dt v-if="expertLevel">
+                {{ $t('admin_dash.frontend.build_url') }}
+              </dt>
+              <dd v-if="expertLevel">
+                <a
+                  :href="frontend.build_url"
+                  target="_blank"
+                >{{ frontend.build_url }}</a>
+              </dd>
             </dl>
             <div>
               <span class="btn-group">
@@ -62,7 +85,7 @@
                   @click="update(frontend)"
                 >
                   {{
-                      frontend.installed
+                    frontend.installed
                       ? $t('admin_dash.frontend.reinstall')
                       : $t('admin_dash.frontend.install')
                   }}
@@ -100,19 +123,22 @@
                   </template>
                 </Popover>
               </span>
-              <span class="btn-group" v-if="frontend.name !== 'admin-fe'">
+              <span
+                v-if="frontend.name !== 'admin-fe'"
+                class="btn-group"
+              >
                 <button
                   class="button button-default btn"
                   type="button"
                   :disabled="
-                             adminDraft[':pleroma'][':frontends'][':primary'].name === frontend.name &&
-                             adminDraft[':pleroma'][':frontends'][':primary'].ref === frontend.refs[0]
-                             "
+                    adminDraft[':pleroma'][':frontends'][':primary'].name === frontend.name &&
+                      adminDraft[':pleroma'][':frontends'][':primary'].ref === frontend.refs[0]
+                  "
                   :title="$t('admin_dash.frontend.update')"
                   @click="setDefault(frontend)"
                 >
                   {{
-                      $t('admin_dash.frontend.set_default')
+                    $t('admin_dash.frontend.set_default')
                   }}
                 </button>
                 {{ ' ' }}

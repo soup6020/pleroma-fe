@@ -125,21 +125,24 @@
           id="unscrolled-content"
           class="extra-content"
         />
-        <span class="admin-buttons" v-if="modalMode === 'admin'">
+        <span
+          v-if="modalMode === 'admin'"
+          class="admin-buttons"
+        >
           <button
             class="button-default btn"
-            @click="resetAdminDraft"
             :disabled="!adminDraftAny"
+            @click="resetAdminDraft"
           >
-              {{ $t("admin_dash.reset_all") }}
+            {{ $t("admin_dash.reset_all") }}
           </button>
           {{ ' ' }}
           <button
             class="button-default btn"
-            @click="pushAdminDraft"
             :disabled="!adminDraftAny"
+            @click="pushAdminDraft"
           >
-              {{ $t("admin_dash.commit_all") }}
+            {{ $t("admin_dash.commit_all") }}
           </button>
         </span>
       </div>
