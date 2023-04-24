@@ -7,10 +7,10 @@ export default {
   ...Setting,
   props: {
     ...Setting.props,
-    type: {
-      type: Array,
+    acceptTypes: {
+      type: String,
       required: false,
-      default: []
+      default: 'image/*'
     }
   },
   components: {
@@ -22,6 +22,7 @@ export default {
     ...Setting.computed,
     attachment () {
       const path = this.realDraftMode ? this.draft : this.state
+      // The "server" part is primarily for local dev, but could be useful for alt-domain or multiuser usage.
       const url = path.includes('://') ? path : this.$store.state.instance.server + path
       return {
         mimetype: fileTypeExt(url),

@@ -519,6 +519,8 @@
     "loop_video_silent_only": "Loop only videos without sound (i.e. Mastodon's \"gifs\")",
     "mutes_tab": "Mutes",
     "play_videos_in_modal": "Play videos in a popup frame",
+    "url": "URL",
+    "preview": "Preview",
     "file_export_import": {
       "backup_restore": "Settings backup",
       "backup_settings": "Backup settings to file",

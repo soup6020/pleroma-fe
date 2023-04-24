@@ -1,8 +1,10 @@
 <template>
-  <label
+  <component
     class="media-upload"
-    :class="{ disabled: disabled }"
+    :is="normalButton ? 'button' : 'label'"
+    :class="{ disabled: disabled, ['media-upload button-default btn']: normalButton }"
     :title="$t('tool_tip.media_upload')"
+    @click="onClick"
   >
     <FAIcon
       v-if="uploading"
@@ -15,6 +17,10 @@
       class="new-icon"
       icon="upload"
     />
+    <template v-if="normalButton">
+      {{ ' ' }}
+      {{ uploading ? $t('general.loading') : $t('tool_tip.media_upload') }}
+    </template>
     <input
       v-if="uploadReady"
       class="hidden-input-file"
@@ -22,8 +28,10 @@
       type="file"
       multiple="true"
       @change="change"
+      ref="input"
+      :accept="acceptTypes"
     >
-  </label>
+  </component>
 </template>
 
 <script src="./media_upload.js"></script>
@@ -32,10 +40,12 @@
 @import "../../variables";
 
 .media-upload {
-  cursor: pointer; // We use <label> for interactivity... i wonder if it's fine
-
   .hidden-input-file {
     display: none;
   }
 }
- </style>
+
+label.media-upload {
+  cursor: pointer; // We use <label> for interactivity... i wonder if it's fine
+}
+</style>
