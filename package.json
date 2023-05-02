@@ -107,7 +107,7 @@
     "postcss-loader": "7.0.2",
     "postcss-scss": "^4.0.6",
     "sass": "1.60.0",
-    "sass-loader": "13.2.0",
+    "sass-loader": "13.2.2",
     "selenium-server": "2.53.1",
     "semver": "7.3.8",
     "serviceworker-webpack5-plugin": "2.0.0",
