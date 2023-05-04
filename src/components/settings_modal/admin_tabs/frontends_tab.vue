@@ -13,14 +13,10 @@
           <p>{{ $t('admin_dash.frontend.default_frontend_tip2') }}</p>
         </li>
         <li>
-          <StringSetting path=":pleroma.:frontends.:primary.name">
-            NAME
-          </StringSetting>
+          <StringSetting path=":pleroma.:frontends.:primary.name"/>
         </li>
         <li>
-          <StringSetting path=":pleroma.:frontends.:primary.ref">
-            REF
-          </StringSetting>
+          <StringSetting path=":pleroma.:frontends.:primary.ref"/>
         </li>
         <li>
           <GroupSetting path=":pleroma.:frontends.:primary" />

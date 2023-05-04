@@ -4,34 +4,22 @@
       <h2>{{ $t('admin_dash.instance.instance') }}</h2>
       <ul class="setting-list">
         <li>
-          <StringSetting path=":pleroma.:instance.:name">
-            NAME
-          </StringSetting>
+          <StringSetting path=":pleroma.:instance.:name"/>
         </li>
         <li>
-          <StringSetting path=":pleroma.:instance.:email">
-            ADMIN EMAIL
-          </StringSetting>
+          <StringSetting path=":pleroma.:instance.:email"/>
         </li>
         <li>
-          <StringSetting path=":pleroma.:instance.:description">
-            DESCRIPTION
-          </StringSetting>
+          <StringSetting path=":pleroma.:instance.:description"/>
         </li>
         <li>
-          <StringSetting path=":pleroma.:instance.:short_description">
-            SHORT DESCRIPTION
-          </StringSetting>
+          <StringSetting path=":pleroma.:instance.:short_description"/>
         </li>
         <li>
-          <AttachmentSetting path=":pleroma.:instance.:instance_thumbnail">
-            INSTANCE THUMBNAIL
-          </AttachmentSetting>
+          <AttachmentSetting path=":pleroma.:instance.:instance_thumbnail"/>
         </li>
         <li>
-          <AttachmentSetting path=":pleroma.:instance.:background_image">
-            BACKGROUND IMAGE
-          </AttachmentSetting>
+          <AttachmentSetting path=":pleroma.:instance.:background_image"/>
         </li>
       </ul>
     </div>
@@ -39,53 +27,39 @@
       <h2>{{ $t('admin_dash.instance.registrations') }}</h2>
       <ul class="setting-list">
         <li>
-          <BooleanSetting path=":pleroma.:instance.:registrations_open">
-            REGISTRATIONS OPEN
-          </BooleanSetting>
+          <BooleanSetting path=":pleroma.:instance.:registrations_open"/>
           <ul class="setting-list suboptions">
             <li>
               <BooleanSetting
                 path=":pleroma.:instance.:invites_enabled"
                 parent-path=":pleroma.:instance.:registrations_open"
                 parent-invert
-              >
-                INVITES ENABLED
-              </BooleanSetting>
+              />
             </li>
           </ul>
         </li>
         <li>
-          <BooleanSetting path=":pleroma.:instance.:birthday_required">
-            BDEY REQUIRED
-          </BooleanSetting>
+          <BooleanSetting path=":pleroma.:instance.:birthday_required"/>
           <ul class="setting-list suboptions">
             <li>
               <IntegerSetting
                 path=":pleroma.:instance.:birthday_min_age"
                 parent-path=":pleroma.:instance.:birthday_required"
-              >
-                BDEY age of consent
-              </IntegerSetting>
+              />
             </li>
           </ul>
         </li>
         <li>
-          <BooleanSetting path=":pleroma.:instance.:account_activation_required">
-            ACTIVATION REQUIRED
-          </BooleanSetting>
+          <BooleanSetting path=":pleroma.:instance.:account_activation_required"/>
         </li>
         <li>
-          <BooleanSetting path=":pleroma.:instance.:account_approval_required">
-            APPROVAL REQUIRED
-          </BooleanSetting>
+          <BooleanSetting path=":pleroma.:instance.:account_approval_required"/>
         </li>
         <li>
           <h3>{{ $t('admin_dash.instance.captcha_header') }}</h3>
         </li>
         <li>
-          <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']">
-            CAPTCHA
-          </BooleanSetting>
+          <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']"/>
           <ul class="setting-list suboptions">
             <li>
               <ChoiceSetting
@@ -95,15 +69,11 @@
                   'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
                   'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
                 }"
-              >
-                CAPTCHA TYPE
-              </ChoiceSetting>
+              />
               <IntegerSetting
                 :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
                 :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
-              >
-                VALID
-              </IntegerSetting>
+              />
             </li>
           </ul>
           <ul
@@ -112,9 +82,7 @@
           >
             <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
             <li>
-              <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']">
-                cockAPTCHA ENDPOINT
-              </StringSetting>
+              <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']"/>
             </li>
           </ul>
         </li>
@@ -124,17 +92,13 @@
       <h2>{{ $t('admin_dash.instance.access') }}</h2>
       <ul class="setting-list">
         <li>
-          <BooleanSetting path=":pleroma.:instance.:public">
-            PUBLIC
-          </BooleanSetting>
+          <BooleanSetting path=":pleroma.:instance.:public"/>
         </li>
         <li>
           <h3>{{ $t('admin_dash.instance.restrict.header') }}</h3>
         </li>
         <li>
-          <ChoiceSetting path=":pleroma.:instance.:limit_to_local_content">
-            SEARCH RESTRICTION
-          </ChoiceSetting>
+          <ChoiceSetting path=":pleroma.:instance.:limit_to_local_content"/>
         </li>
         <li>
           <h4>{{ $t('admin_dash.instance.restrict.timelines') }}</h4>
@@ -145,9 +109,7 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            LOCAL TIMELINES
-          </BooleanSetting>
+          />
         </li>
         <li>
           <BooleanSetting
@@ -155,14 +117,10 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            FED TIMELINES
-          </BooleanSetting>
+          />
         </li>
         <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:timelines">
-            TIMELINES
-          </GroupSetting>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:timelines"/>
         </li>
         <li>
           <h4>{{ $t('admin_dash.instance.restrict.profiles') }}</h4>
@@ -173,9 +131,7 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            LOCAL PROFILES
-          </BooleanSetting>
+          />
         </li>
         <li>
           <BooleanSetting
@@ -183,14 +139,10 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            FED PROFILES
-          </BooleanSetting>
+          />
         </li>
         <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:profiles">
-            PROFILES
-          </GroupSetting>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:profiles"/>
         </li>
         <li>
           <h4>{{ $t('admin_dash.instance.restrict.activities') }}</h4>
@@ -201,9 +153,7 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            LOCAL STATUSES
-          </BooleanSetting>
+          />
         </li>
         <li>
           <BooleanSetting
@@ -211,14 +161,10 @@
             indeterminate-state=":if_instance_is_private"
             swap-description-and-label
             hide-description
-          >
-            FED STATUSES
-          </BooleanSetting>
+          />
         </li>
         <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities">
-            STATUSES
-          </GroupSetting>
+          <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities"/>
         </li>
       </ul>
     </div>
