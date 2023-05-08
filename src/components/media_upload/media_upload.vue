@@ -1,8 +1,7 @@
 <template>
-  <component
-    :is="normalButton ? 'button' : 'label'"
+  <button
     class="media-upload"
-    :class="{ disabled: disabled, ['media-upload button-default btn']: normalButton }"
+    :class="[normalButton ? 'button-default btn' : 'button-unstyled', { disabled }]"
     :title="$t('tool_tip.media_upload')"
     @click="onClick"
   >
@@ -31,7 +30,7 @@
       :accept="acceptTypes"
       @change="change"
     >
-  </component>
+  </button>
 </template>
 
 <script src="./media_upload.js"></script>

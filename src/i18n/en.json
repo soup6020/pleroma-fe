@@ -892,6 +892,8 @@
       "is_default_custom": "(Default, version: {version})",
       "install": "Install",
       "install_version": "Install version {version}",
+      "more_install_options": "More install options",
+      "more_default_options": "More default setting options",
       "set_default": "Set default",
       "set_default_version": "Set version {version} as default",
       "wip_notice": "Please note that this section is a WIP and lacks certain features as backend implementation of front-end management is incomplete.",
