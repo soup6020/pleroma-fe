@@ -7,18 +7,12 @@
     <Popover
       v-if="$parent.isDirty"
       trigger="hover"
+      normal-button
+      @click="$parent.commitDraft"
       :trigger-attrs="{ 'aria-label': $t('settings.commit_value_tooltip') }"
     >
       <template #trigger>
-        &nbsp;
-        <button
-          class="button button-default btn"
-          type="button"
-          :title="$t('settings.commit_value')"
-          @click="$parent.commitDraft"
-        >
-          {{ $t('settings.commit_value') }}
-        </button>
+        {{ $t('settings.commit_value') }}
       </template>
       <template #content>
         <div class="modified-tooltip">
@@ -29,18 +23,12 @@
     <Popover
       v-if="$parent.isDirty"
       trigger="hover"
+      normal-button
       :trigger-attrs="{ 'aria-label': $t('settings.reset_value_tooltip') }"
+      @click="$parent.reset"
     >
       <template #trigger>
-        &nbsp;
-        <button
-          class="button button-default btn"
-          type="button"
-          :title="$t('settings.reset_value')"
-          @click="$parent.reset"
-        >
-          {{ $t('settings.reset_value') }}
-        </button>
+        {{ $t('settings.reset_value') }}
       </template>
       <template #content>
         <div class="modified-tooltip">
@@ -51,18 +39,12 @@
     <Popover
       v-if="$parent.canHardReset"
       trigger="hover"
+      normal-button
+      @click="$parent.hardReset"
       :trigger-attrs="{ 'aria-label': $t('settings.hard_reset_value_tooltip') }"
     >
       <template #trigger>
-        &nbsp;
-        <button
-          class="button button-default btn"
-          type="button"
-          :title="$t('settings.hard_reset_value')"
-          @click="$parent.hardReset"
-        >
-          {{ $t('settings.hard_reset_value') }}
-        </button>
+        {{ $t('settings.hard_reset_value') }}
       </template>
       <template #content>
         <div class="modified-tooltip">
@@ -92,6 +74,10 @@ export default {
 .DraftButtons {
   display: inline-block;
   position: relative;
+
+  .button-default {
+    margin-left: 0.5em;
+  }
 }
 
 .draft-tooltip {
