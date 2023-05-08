@@ -11,15 +11,17 @@
           <h3>{{ $t('admin_dash.frontend.default_frontend') }}</h3>
           <p>{{ $t('admin_dash.frontend.default_frontend_tip') }}</p>
           <p>{{ $t('admin_dash.frontend.default_frontend_tip2') }}</p>
-        </li>
-        <li>
-          <StringSetting path=":pleroma.:frontends.:primary.name"/>
-        </li>
-        <li>
-          <StringSetting path=":pleroma.:frontends.:primary.ref"/>
-        </li>
-        <li>
-          <GroupSetting path=":pleroma.:frontends.:primary" />
+          <ul class="setting-list">
+            <li>
+              <StringSetting path=":pleroma.:frontends.:primary.name"/>
+            </li>
+            <li>
+              <StringSetting path=":pleroma.:frontends.:primary.ref"/>
+            </li>
+            <li>
+              <GroupSetting path=":pleroma.:frontends.:primary" />
+            </li>
+          </ul>
         </li>
       </ul>
       <div class="setting-list">
@@ -77,7 +79,6 @@
                 <button
                   class="button button-default btn"
                   type="button"
-                  :title="$t('admin_dash.frontend.update')"
                   @click="update(frontend)"
                 >
                   {{
@@ -112,7 +113,7 @@
                     <button
                       class="button button-default btn dropdown-button"
                       type="button"
-                      :title="$t('admin_dash.frontend.update')"
+                      :title="$t('admin_dash.frontend.more_install_options')"
                     >
                       <FAIcon icon="chevron-down" />
                     </button>
@@ -120,7 +121,7 @@
                 </Popover>
               </span>
               <span
-                v-if="frontend.name !== 'admin-fe'"
+                v-if="frontend.installed && frontend.name !== 'admin-fe'"
                 class="btn-group"
               >
                 <button
@@ -130,7 +131,6 @@
                     adminDraft[':pleroma'][':frontends'][':primary'].name === frontend.name &&
                       adminDraft[':pleroma'][':frontends'][':primary'].ref === frontend.refs[0]
                   "
-                  :title="$t('admin_dash.frontend.update')"
                   @click="setDefault(frontend)"
                 >
                   {{
@@ -164,7 +164,7 @@
                     <button
                       class="button button-default btn dropdown-button"
                       type="button"
-                      :title="$t('admin_dash.frontend.update')"
+                      :title="$t('admin_dash.frontend.more_default_options')"
                     >
                       <FAIcon icon="chevron-down" />
                     </button>
