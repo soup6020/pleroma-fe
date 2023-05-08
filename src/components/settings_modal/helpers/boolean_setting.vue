@@ -10,16 +10,16 @@
       @update:modelValue="update"
     >
       <span
-        v-if="!!$slots.default"
         class="label"
         :class="{ 'faint': shouldBeDisabled }"
       >
         <template v-if="backendDescriptionLabel">
           {{ backendDescriptionLabel }}
         </template>
-        <template v-else>
-          <slot />
+        <template v-else-if="source === 'admin'">
+          MISSING LABEL FOR {{ path }}
         </template>
+        <slot v-else />
       </span>
     </Checkbox>
     <ModifiedIndicator
@@ -35,6 +35,16 @@
     >
       {{ backendDescriptionDescription + ' ' }}
     </p>
+    <!-- debugging -->
+    <!--
+    <p
+      v-else
+      class="setting-description"
+      :class="{ 'faint': shouldBeDisabled }"
+    >
+      MISSING DESCRIPTION FOR {{ path }}
+    </p>
+    -->
   </label>
 </template>
 

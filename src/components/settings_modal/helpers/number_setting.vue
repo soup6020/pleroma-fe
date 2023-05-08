@@ -10,9 +10,10 @@
       <template v-if="backendDescriptionLabel">
         {{ backendDescriptionLabel + ' ' }}
       </template>
-      <template v-else>
-        <slot />
+      <template v-else-if="source === 'admin'">
+        MISSING LABEL FOR {{ path }}
       </template>
+      <slot v-else />
     </label>
     <input
       :id="path"
