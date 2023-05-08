@@ -869,7 +869,8 @@
       "kocaptcha": "KoCaptcha settings",
       "access": "Instance access",
       "restrict": {
-        "header": "Restrict access",
+        "header": "Restrict access for anonymous visitors",
+        "description": "Detailed setting for allowing/disallowing access to certain aspects of API. By default (indeterminate state) it will disallow if instance is not public, ticked checkbox means disallow access even if instance is public, unticked means allow access even if instance is private. Please note that unexpected behavior might happen if some settings are set, i.e. if profile access is disabled posts will show without profile information.",
         "timelines": "Timelines access",
         "profiles": "User profiles access",
         "activities": "Statues/activities access"
@@ -905,6 +906,14 @@
     "temp_overrides": {
       ":pleroma": {
         ":instance": {
+          ":public": {
+            "label": "Instance is public",
+            "description": "Disabling this will make all API accessible only for logged-in users, this will make Public and Federated timelines inaccessible to anonymous visitors."
+          },
+          ":limit_to_local_content": {
+            "label": "Limit search to local content",
+            "description": "Disables global network search for unauthenticated (default), all users or none"
+          },
           ":description_limit": {
             "label": "Limit",
             "description": "Character limit for attachment descriptions"

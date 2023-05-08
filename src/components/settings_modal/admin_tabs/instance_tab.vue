@@ -57,32 +57,35 @@
         </li>
         <li>
           <h3>{{ $t('admin_dash.instance.captcha_header') }}</h3>
-        </li>
-        <li>
-          <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']"/>
-          <ul class="setting-list suboptions">
+          <ul class="setting-list">
             <li>
-              <ChoiceSetting
-                :path="[':pleroma', 'Pleroma.Captcha', ':method']"
-                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
-                :option-label-map="{
-                  'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
-                  'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
-                }"
-              />
-              <IntegerSetting
-                :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
-                :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
-              />
-            </li>
-          </ul>
-          <ul
-            v-if="adminDraft[':pleroma']['Pleroma.Captcha'][':enabled'] && adminDraft[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
-            class="setting-list suboptions"
-          >
-            <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
-            <li>
-              <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']"/>
+              <BooleanSetting :path="[':pleroma', 'Pleroma.Captcha', ':enabled']"/>
+              <ul class="setting-list suboptions">
+                <li>
+                  <ChoiceSetting
+                    :path="[':pleroma', 'Pleroma.Captcha', ':method']"
+                    :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+                    :option-label-map="{
+                      'Pleroma.Captcha.Native': $t('admin_dash.captcha.native'),
+                      'Pleroma.Captcha.Kocaptcha': $t('admin_dash.captcha.kocaptcha')
+                    }"
+                  />
+                  <IntegerSetting
+                    :path="[':pleroma', 'Pleroma.Captcha', ':seconds_valid']"
+                    :parent-path="[':pleroma', 'Pleroma.Captcha', ':enabled']"
+                  />
+                </li>
+                <li
+                  v-if="adminDraft[':pleroma']['Pleroma.Captcha'][':enabled'] && adminDraft[':pleroma']['Pleroma.Captcha'][':method'] === 'Pleroma.Captcha.Kocaptcha'"
+                >
+                  <h4>{{ $t('admin_dash.instance.kocaptcha') }}</h4>
+                  <ul class="setting-list">
+                    <li>
+                      <StringSetting :path="[':pleroma', 'Pleroma.Captcha.Kocaptcha', ':endpoint']"/>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
@@ -92,79 +95,98 @@
       <h2>{{ $t('admin_dash.instance.access') }}</h2>
       <ul class="setting-list">
         <li>
-          <BooleanSetting path=":pleroma.:instance.:public"/>
+          <BooleanSetting
+            override-backend-description
+            override-backend-description-label
+            path=":pleroma.:instance.:public"
+            />
+        </li>
+        <li>
+          <ChoiceSetting
+            override-backend-description
+            override-backend-description-label
+            path=":pleroma.:instance.:limit_to_local_content"
+          />
         </li>
         <li>
           <h3>{{ $t('admin_dash.instance.restrict.header') }}</h3>
-        </li>
-        <li>
-          <ChoiceSetting path=":pleroma.:instance.:limit_to_local_content"/>
-        </li>
-        <li>
-          <h4>{{ $t('admin_dash.instance.restrict.timelines') }}</h4>
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:timelines.:local"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:timelines.:federated"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:timelines"/>
-        </li>
-        <li>
-          <h4>{{ $t('admin_dash.instance.restrict.profiles') }}</h4>
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:profiles.:local"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:profiles.:remote"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:profiles"/>
-        </li>
-        <li>
-          <h4>{{ $t('admin_dash.instance.restrict.activities') }}</h4>
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:activities.:local"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <BooleanSetting
-            path=":pleroma.:restrict_unauthenticated.:activities.:remote"
-            indeterminate-state=":if_instance_is_private"
-            swap-description-and-label
-            hide-description
-          />
-        </li>
-        <li>
-          <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities"/>
+          <p>
+            {{ $t('admin_dash.instance.restrict.description') }}
+          </p>
+          <ul class="setting-list">
+            <li>
+              <h4>{{ $t('admin_dash.instance.restrict.timelines') }}</h4>
+              <ul class="setting-list">
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:timelines.:local"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:timelines.:federated"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <GroupSetting path=":pleroma.:restrict_unauthenticated.:timelines"/>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>{{ $t('admin_dash.instance.restrict.profiles') }}</h4>
+              <ul class="setting-list">
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:profiles.:local"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:profiles.:remote"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <GroupSetting path=":pleroma.:restrict_unauthenticated.:profiles"/>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>{{ $t('admin_dash.instance.restrict.activities') }}</h4>
+              <ul class="setting-list">
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:activities.:local"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <BooleanSetting
+                    path=":pleroma.:restrict_unauthenticated.:activities.:remote"
+                    indeterminate-state=":if_instance_is_private"
+                    swap-description-and-label
+                    hide-description
+                    />
+                </li>
+                <li>
+                  <GroupSetting path=":pleroma.:restrict_unauthenticated.:activities"/>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
