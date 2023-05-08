@@ -8,8 +8,8 @@
       v-if="$parent.isDirty"
       trigger="hover"
       normal-button
-      @click="$parent.commitDraft"
       :trigger-attrs="{ 'aria-label': $t('settings.commit_value_tooltip') }"
+      @click="$parent.commitDraft"
     >
       <template #trigger>
         {{ $t('settings.commit_value') }}
@@ -40,8 +40,8 @@
       v-if="$parent.canHardReset"
       trigger="hover"
       normal-button
-      @click="$parent.hardReset"
       :trigger-attrs="{ 'aria-label': $t('settings.hard_reset_value_tooltip') }"
+      @click="$parent.hardReset"
     >
       <template #trigger>
         {{ $t('settings.hard_reset_value') }}
