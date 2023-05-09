@@ -87,7 +87,8 @@
   .controls {
     margin-bottom: 0.5em;
 
-    input, button {
+    input,
+    button {
       width: 100%;
     }
   }
