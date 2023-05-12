@@ -46,7 +46,7 @@ const ReactButton = {
   },
   computed: {
     hideCustomEmoji () {
-      return !this.$store.state.instance.pleromaChatMessagesAvailable
+      return !this.$store.state.instance.pleromaCustomEmojiReactionsAvailable
     }
   }
 }
