@@ -211,11 +211,19 @@
         "keyword_policies": "سياسة الكلمات الدلالية"
       },
       "simple": {
-        "simple_policies": "سياسات الخادم"
+        "simple_policies": "سياسات الخادم",
+        "instance": "مثيل",
+        "reason": "السبب",
+        "accept": "قبول",
+        "reject": "رفض"
       },
       "federation": "الاتحاد",
       "mrf_policies": "تفعيل سياسات إعادة كتابة المنشور",
       "mrf_policies_desc": "خاصية إعادة كتابة المناشير تقوم بتعديل تفاعل الاتحاد مع هذا الخادم. السياسات التالية مفعّلة:"
     }
+  },
+  "announcements": {
+    "page_header": "إعلانات",
+    "title": "إعلان"
   }
 }
