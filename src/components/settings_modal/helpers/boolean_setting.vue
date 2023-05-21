@@ -35,16 +35,6 @@
     >
       {{ backendDescriptionDescription + ' ' }}
     </p>
-    <!-- debugging -->
-    <!--
-    <p
-      v-else
-      class="setting-description"
-      :class="{ 'faint': shouldBeDisabled }"
-    >
-      MISSING DESCRIPTION FOR {{ path }}
-    </p>
-    -->
   </label>
 </template>
 
