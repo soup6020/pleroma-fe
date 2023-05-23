@@ -5,9 +5,12 @@
       :key="reaction.url || reaction.name"
       class="emoji-reaction-container btn-group"
     >
-      <button
+      <component
+        :is="loggedIn ? 'button' : 'a'"
+        v-bind="!loggedIn ? { href: remoteInteractionLink } : {}"
+        role="button"
         class="emoji-reaction btn button-default"
-        :class="{ '-picked-reaction': reactedWith(reaction.name), 'not-clickable': !loggedIn }"
+        :class="{ '-picked-reaction': reactedWith(reaction.name) }"
         @click="emojiOnClick(reaction.name, $event)"
       >
         <span
@@ -45,7 +48,7 @@
           icon="minus"
         />
         </FALayers>
-      </button>
+      </component>
     <UserListPopover
       :users="accountsForEmoji[reaction.name]"
       class="emoji-reaction-popover"
@@ -112,6 +115,8 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
     .reaction-emoji {
       width: var(--emoji-size);
@@ -136,15 +141,6 @@
 
     &:focus {
       outline: none;
-    }
-
-    &.not-clickable {
-      cursor: default;
-
-      &:hover {
-        box-shadow: $fallback--buttonShadow;
-        box-shadow: var(--buttonShadow);
-      }
     }
 
     &.-picked-reaction {
