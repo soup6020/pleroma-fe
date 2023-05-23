@@ -125,7 +125,8 @@
                     v-if="notification.emoji_url"
                     class="emoji-reaction-emoji emoji-reaction-emoji-image"
                     :src="notification.emoji_url"
-                    :name="notification.emoji"
+                    :alt="notification.emoji"
+                    :title="notification.emoji"
                   >
                   <span
                     v-else
