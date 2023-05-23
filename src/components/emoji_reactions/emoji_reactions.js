@@ -1,5 +1,17 @@
 import UserAvatar from '../user_avatar/user_avatar.vue'
 import UserListPopover from '../user_list_popover/user_list_popover.vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faPlus,
+  faMinus,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(
+  faPlus,
+  faMinus,
+  faCheck
+)
 
 const EMOJI_REACTION_COUNT_CUTOFF = 12
 

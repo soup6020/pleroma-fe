@@ -1,15 +1,14 @@
 <template>
   <div class="EmojiReactions">
-    <UserListPopover
+    <span
       v-for="(reaction) in emojiReactions"
       :key="reaction.url || reaction.name"
-      :users="accountsForEmoji[reaction.name]"
+      class="emoji-reaction-container btn-group"
     >
       <button
         class="emoji-reaction btn button-default"
         :class="{ '-picked-reaction': reactedWith(reaction.name), 'not-clickable': !loggedIn }"
         @click="emojiOnClick(reaction.name, $event)"
-        @mouseenter="fetchEmojiReactionsByIfMissing()"
       >
         <span
           class="reaction-emoji"
@@ -26,9 +25,36 @@
             class="reaction-emoji reaction-emoji-content"
           >{{ reaction.name }}</span>
         </span>
-        <span>{{ reaction.count }}</span>
+        <FALayers>
+        <FAIcon
+          v-if="reactedWith(reaction.name)"
+          class="active-marker"
+          transform="shrink-6 up-9"
+          icon="check"
+        />
+        <FAIcon
+          v-if="!reactedWith(reaction.name)"
+          class="focus-marker"
+          transform="shrink-6 up-9"
+          icon="plus"
+        />
+        <FAIcon
+          v-else
+          class="focus-marker"
+          transform="shrink-6 up-9"
+          icon="minus"
+        />
+        </FALayers>
       </button>
+    <UserListPopover
+      :users="accountsForEmoji[reaction.name]"
+      class="emoji-reaction-popover"
+      @show="fetchEmojiReactionsByIfMissing()"
+      :trigger-attrs="{ class: ['btn', 'button-default', 'emoji-reaction-count-button', { '-picked-reaction': reactedWith(reaction.name) }] }"
+    >
+      <span class="emoji-reaction-counts">{{ reaction.count }}</span>
     </UserListPopover>
+    </span>
     <a
       v-if="tooManyReactions"
       class="emoji-reaction-expand faint"
@@ -43,6 +69,7 @@
 <script src="./emoji_reactions.js"></script>
 <style lang="scss">
 @import "../../variables";
+@import "../../mixins";
 
 .EmojiReactions {
   display: flex;
@@ -51,10 +78,36 @@
 
   --emoji-size: calc(1.25em * var(--emojiReactionsScale, 1));
 
-  .emoji-reaction {
-    padding: 0 0.5em;
-    margin-right: 0.5em;
+  .emoji-reaction-container {
+    display: flex;
+    align-items: stretch;
     margin-top: 0.5em;
+    margin-right: 0.5em;
+
+    .emoji-reaction-popover {
+      padding: 0;
+
+      .emoji-reaction-count-button {
+        background-color: var(--btn);
+        height: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        box-sizing: border-box;
+        min-width: 2em;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        &.-picked-reaction {
+          border: 1px solid var(--accent, $fallback--link);
+          margin-right: -1px;
+        }
+      }
+    }
+  }
+
+  .emoji-reaction {
+    padding-left: 0.5em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,7 +150,42 @@
     &.-picked-reaction {
       border: 1px solid var(--accent, $fallback--link);
       margin-left: -1px; // offset the border, can't use inset shadows either
-      margin-right: calc(0.5em - 1px);
+      margin-right: -1px;
+
+      .svg-inline--fa {
+        color: $fallback--link;
+        color: var(--accent, $fallback--link);
+      }
+    }
+
+    @include unfocused-style {
+      .svg-inline--fa {
+        color: $fallback--text;
+        color: var(--btnText, $fallback--text);
+      }
+
+      .focus-marker {
+        visibility: hidden;
+      }
+
+      .active-marker {
+        visibility: visible;
+      }
+    }
+
+    @include focused-style {
+      .svg-inline--fa {
+        color: $fallback--link;
+        color: var(--accent, $fallback--link);
+      }
+
+      .focus-marker {
+        visibility: visible;
+      }
+
+      .active-marker {
+        visibility: hidden;
+      }
     }
   }
 
