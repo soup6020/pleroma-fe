@@ -143,6 +143,11 @@
       outline: none;
     }
 
+    .svg-inline--fa {
+      color: $fallback--text;
+      color: var(--btnText, $fallback--text);
+    }
+
     &.-picked-reaction {
       border: 1px solid var(--accent, $fallback--link);
       margin-left: -1px; // offset the border, can't use inset shadows either
@@ -155,11 +160,6 @@
     }
 
     @include unfocused-style {
-      .svg-inline--fa {
-        color: $fallback--text;
-        color: var(--btnText, $fallback--text);
-      }
-
       .focus-marker {
         visibility: hidden;
       }
