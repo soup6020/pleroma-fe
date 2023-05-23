@@ -1027,7 +1027,8 @@
     "show_all_conversation_with_icon": "{icon} {text}",
     "show_all_conversation": "Show full conversation ({numStatus} other status) | Show full conversation ({numStatus} other statuses)",
     "show_only_conversation_under_this": "Only show replies to this status",
-    "status_history": "Status history"
+    "status_history": "Status history",
+    "reaction_count_label": "{num} person reacted | {num} people reacted"
   },
   "user_card": {
     "approve": "Approve",
