@@ -101,6 +101,8 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        color: $fallback--text;
+        color: var(--btnText, $fallback--text);
 
         &.-picked-reaction {
           border: 1px solid var(--accent, $fallback--link);
