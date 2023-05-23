@@ -11,6 +11,8 @@
         role="button"
         class="emoji-reaction btn button-default"
         :class="{ '-picked-reaction': reactedWith(reaction.name) }"
+        :title="reaction.url ? reaction.name : undefined"
+        :aria-pressed="reactedWith(reaction.name)"
         @click="emojiOnClick(reaction.name, $event)"
       >
         <span
@@ -19,7 +21,6 @@
           <img
             v-if="reaction.url"
             :src="reaction.url"
-            :title="reaction.name"
             class="reaction-emoji-content"
             width="1em"
           >
