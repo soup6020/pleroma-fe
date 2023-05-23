@@ -77,6 +77,17 @@ const EmojiReactions = {
       } else {
         this.reactWith(emoji)
       }
+    },
+    counterTriggerAttrs (reaction) {
+      return {
+        class: [
+          'btn',
+          'button-default',
+          'emoji-reaction-count-button',
+          { '-picked-reaction': this.reactedWith(reaction.name) }
+        ],
+        'aria-label': this.$tc('status.reaction_count_label', reaction.count, { num: reaction.count })
+      }
     }
   }
 }

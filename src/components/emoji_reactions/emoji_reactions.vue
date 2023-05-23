@@ -53,7 +53,7 @@
       <UserListPopover
         :users="accountsForEmoji[reaction.name]"
         class="emoji-reaction-popover"
-        :trigger-attrs="{ class: ['btn', 'button-default', 'emoji-reaction-count-button', { '-picked-reaction': reactedWith(reaction.name) }] }"
+        :trigger-attrs="counterTriggerAttrs(reaction)"
         @show="fetchEmojiReactionsByIfMissing()"
       >
         <span class="emoji-reaction-counts">{{ reaction.count }}</span>
