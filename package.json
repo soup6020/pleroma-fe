@@ -18,9 +18,9 @@
   "dependencies": {
     "@babel/runtime": "7.21.5",
     "@chenfengyuan/vue-qrcode": "2.0.0",
-    "@fortawesome/fontawesome-svg-core": "6.3.0",
-    "@fortawesome/free-regular-svg-icons": "6.3.0",
-    "@fortawesome/free-solid-svg-icons": "6.3.0",
+    "@fortawesome/fontawesome-svg-core": "6.4.0",
+    "@fortawesome/free-regular-svg-icons": "6.4.0",
+    "@fortawesome/free-solid-svg-icons": "6.4.0",
     "@fortawesome/vue-fontawesome": "3.0.3",
     "@kazvmoe-infra/pinch-zoom-element": "1.2.0",
     "@kazvmoe-infra/unicode-emoji-json": "0.4.0",
