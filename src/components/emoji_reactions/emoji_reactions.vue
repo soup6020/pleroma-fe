@@ -30,34 +30,34 @@
           >{{ reaction.name }}</span>
         </span>
         <FALayers>
-        <FAIcon
-          v-if="reactedWith(reaction.name)"
-          class="active-marker"
-          transform="shrink-6 up-9"
-          icon="check"
-        />
-        <FAIcon
-          v-if="!reactedWith(reaction.name)"
-          class="focus-marker"
-          transform="shrink-6 up-9"
-          icon="plus"
-        />
-        <FAIcon
-          v-else
-          class="focus-marker"
-          transform="shrink-6 up-9"
-          icon="minus"
-        />
+          <FAIcon
+            v-if="reactedWith(reaction.name)"
+            class="active-marker"
+            transform="shrink-6 up-9"
+            icon="check"
+          />
+          <FAIcon
+            v-if="!reactedWith(reaction.name)"
+            class="focus-marker"
+            transform="shrink-6 up-9"
+            icon="plus"
+          />
+          <FAIcon
+            v-else
+            class="focus-marker"
+            transform="shrink-6 up-9"
+            icon="minus"
+          />
         </FALayers>
       </component>
-    <UserListPopover
-      :users="accountsForEmoji[reaction.name]"
-      class="emoji-reaction-popover"
-      @show="fetchEmojiReactionsByIfMissing()"
-      :trigger-attrs="{ class: ['btn', 'button-default', 'emoji-reaction-count-button', { '-picked-reaction': reactedWith(reaction.name) }] }"
-    >
-      <span class="emoji-reaction-counts">{{ reaction.count }}</span>
-    </UserListPopover>
+      <UserListPopover
+        :users="accountsForEmoji[reaction.name]"
+        class="emoji-reaction-popover"
+        :trigger-attrs="{ class: ['btn', 'button-default', 'emoji-reaction-count-button', { '-picked-reaction': reactedWith(reaction.name) }] }"
+        @show="fetchEmojiReactionsByIfMissing()"
+      >
+        <span class="emoji-reaction-counts">{{ reaction.count }}</span>
+      </UserListPopover>
     </span>
     <a
       v-if="tooManyReactions"
