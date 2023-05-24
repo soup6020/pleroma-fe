@@ -1,7 +1,7 @@
 import ModifiedIndicator from './modified_indicator.vue'
 import ProfileSettingIndicator from './profile_setting_indicator.vue'
 import DraftButtons from './draft_buttons.vue'
-import { get, set } from 'lodash'
+import { get, set, cloneDeep } from 'lodash'
 
 export default {
   components: {
@@ -218,13 +218,10 @@ export default {
       }
     },
     reset () {
-      console.log('reset')
       if (this.realDraftMode) {
-        console.log(this.draft)
-        console.log(this.state)
-        this.draft = this.state
+        this.draft = cloneDeep(this.state)
       } else {
-        set(this.$store.getters.mergedConfig, this.path, this.defaultState)
+        set(this.$store.getters.mergedConfig, this.path, cloneDeep(this.defaultState))
       }
     },
     hardReset () {
