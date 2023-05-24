@@ -108,7 +108,7 @@
             path=":pleroma.:instance.:limit_to_local_content"
           />
         </li>
-        <li>
+        <li v-if="expertLevel">
           <h3>{{ $t('admin_dash.instance.restrict.header') }}</h3>
           <p>
             {{ $t('admin_dash.instance.restrict.description') }}
