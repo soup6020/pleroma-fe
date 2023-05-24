@@ -45,7 +45,9 @@ export default {
   },
   methods: {
     onTransitionEnd (e) {
-      this.indeterminateTransitionFix = false
+      if (!this.indeterminate) {
+        this.indeterminateTransitionFix = false
+      }
     }
   }
 }
