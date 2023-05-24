@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import { setPreset, applyTheme, applyConfig } from '../services/style_setter/style_setter.js'
 import messages from '../i18n/messages'
+import { set } from 'lodash'
 import localeService from '../services/locale/locale.service.js'
 
 const BACKEND_LANGUAGE_COOKIE_NAME = 'userLanguage'
@@ -148,7 +149,7 @@ const config = {
   },
   mutations: {
     setOption (state, { name, value }) {
-      state[name] = value
+      set(state, name, value)
     },
     setHighlight (state, { user, color, type }) {
       const data = this.state.config.highlight[user]
@@ -178,32 +179,52 @@ const config = {
       commit('setHighlight', { user, color, type })
     },
     setOption ({ commit, dispatch, state }, { name, value }) {
-      commit('setOption', { name, value })
-      switch (name) {
-        case 'theme':
-          setPreset(value)
-          break
-        case 'sidebarColumnWidth':
-        case 'contentColumnWidth':
-        case 'notifsColumnWidth':
-        case 'emojiReactionsScale':
-          applyConfig(state)
-          break
-        case 'customTheme':
-        case 'customThemeSource':
-          applyTheme(value)
-          break
-        case 'interfaceLanguage':
-          messages.setLanguage(this.getters.i18n, value)
-          dispatch('loadUnicodeEmojiData', value)
-          Cookies.set(
-            BACKEND_LANGUAGE_COOKIE_NAME,
-            localeService.internalToBackendLocaleMulti(value)
-          )
-          break
-        case 'thirdColumnMode':
-          dispatch('setLayoutWidth', undefined)
-          break
+      const exceptions = new Set([
+        'useStreamingApi'
+      ])
+
+      if (exceptions.has(name)) {
+        switch (name) {
+          case 'useStreamingApi': {
+            const action = value ? 'enableMastoSockets' : 'disableMastoSockets'
+
+            dispatch(action).then(() => {
+              commit('setOption', { name: 'useStreamingApi', value })
+            }).catch((e) => {
+              console.error('Failed starting MastoAPI Streaming socket', e)
+              dispatch('disableMastoSockets')
+              dispatch('setOption', { name: 'useStreamingApi', value: false })
+            })
+          }
+        }
+      } else {
+        commit('setOption', { name, value })
+        switch (name) {
+          case 'theme':
+            setPreset(value)
+            break
+          case 'sidebarColumnWidth':
+          case 'contentColumnWidth':
+          case 'notifsColumnWidth':
+          case 'emojiReactionsScale':
+            applyConfig(state)
+            break
+          case 'customTheme':
+          case 'customThemeSource':
+            applyTheme(value)
+            break
+          case 'interfaceLanguage':
+            messages.setLanguage(this.getters.i18n, value)
+            dispatch('loadUnicodeEmojiData', value)
+            Cookies.set(
+              BACKEND_LANGUAGE_COOKIE_NAME,
+              localeService.internalToBackendLocaleMulti(value)
+            )
+            break
+          case 'thirdColumnMode':
+            dispatch('setLayoutWidth', undefined)
+            break
+        }
       }
     }
   }

@@ -5,7 +5,8 @@
   >
     <button
       ref="trigger"
-      class="button-unstyled popover-trigger-button"
+      class="popover-trigger-button"
+      :class="normalButton ? 'button-default btn' : 'button-unstyled'"
       type="button"
       v-bind="triggerAttrs"
       @click="onClick"

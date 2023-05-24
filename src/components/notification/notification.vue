@@ -163,8 +163,8 @@
             </router-link>
             <button
               class="button-unstyled expand-icon"
-              :aria-expanded="statusExpanded"
               :title="$t('tool_tip.toggle_expand')"
+              :aria-expanded="statusExpanded"
               @click.prevent="toggleStatusExpanded"
             >
               <FAIcon

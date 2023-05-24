@@ -519,6 +519,8 @@
     "loop_video_silent_only": "Loop only videos without sound (i.e. Mastodon's \"gifs\")",
     "mutes_tab": "Mutes",
     "play_videos_in_modal": "Play videos in a popup frame",
+    "url": "URL",
+    "preview": "Preview",
     "file_export_import": {
       "backup_restore": "Settings backup",
       "backup_settings": "Backup settings to file",
@@ -830,6 +832,98 @@
       "title": "Version",
       "backend_version": "Backend version",
       "frontend_version": "Frontend version"
+    },
+    "commit_value": "Save",
+    "commit_value_tooltip": "Value is not saved, press this button to commit your changes",
+    "reset_value": "Reset",
+    "reset_value_tooltip": "Reset draft",
+    "hard_reset_value": "Hard reset",
+    "hard_reset_value_tooltip": "Remove setting from storage, forcing use of default value"
+  },
+  "admin_dash": {
+    "window_title": "Administration",
+    "wip_notice": "This admin dashboard is experimental and WIP, {adminFeLink}.",
+    "old_ui_link": "old admin UI available here",
+    "reset_all": "Reset all",
+    "commit_all": "Save all",
+    "tabs": {
+      "nodb": "No DB Config",
+      "instance": "Instance",
+      "limits": "Limits",
+      "frontends": "Front-ends"
+    },
+    "nodb": {
+      "heading": "Database config is disabled",
+      "text": "You need to change backend config files so that {property} is set to {value}, see more in {documentation}.",
+      "documentation": "documentation",
+      "text2": "Most configuration options will be unavailable."
+    },
+    "captcha": {
+      "native": "Native",
+      "kocaptcha": "KoCaptcha"
+    },
+    "instance": {
+      "instance": "Instance information",
+      "registrations": "User sign-ups",
+      "captcha_header": "CAPTCHA",
+      "kocaptcha": "KoCaptcha settings",
+      "access": "Instance access",
+      "restrict": {
+        "header": "Restrict access for anonymous visitors",
+        "description": "Detailed setting for allowing/disallowing access to certain aspects of API. By default (indeterminate state) it will disallow if instance is not public, ticked checkbox means disallow access even if instance is public, unticked means allow access even if instance is private. Please note that unexpected behavior might happen if some settings are set, i.e. if profile access is disabled posts will show without profile information.",
+        "timelines": "Timelines access",
+        "profiles": "User profiles access",
+        "activities": "Statues/activities access"
+      }
+    },
+    "limits": {
+      "arbitrary_limits": "Arbitrary limits",
+      "posts": "Post limits",
+      "uploads": "Attachments limits",
+      "users": "User profile limits",
+      "profile_fields": "Profile fields limits",
+      "user_uploads": "Profile media limits"
+    },
+    "frontend": {
+      "repository": "Repository link",
+      "versions": "Available versions",
+      "build_url": "Build URL",
+      "reinstall": "Reinstall",
+      "is_default": "(Default)",
+      "is_default_custom": "(Default, version: {version})",
+      "install": "Install",
+      "install_version": "Install version {version}",
+      "more_install_options": "More install options",
+      "more_default_options": "More default setting options",
+      "set_default": "Set default",
+      "set_default_version": "Set version {version} as default",
+      "wip_notice": "Please note that this section is a WIP and lacks certain features as backend implementation of front-end management is incomplete.",
+      "default_frontend": "Default front-end",
+      "default_frontend_tip": "Default front-end will be shown to all users. Currently there's no way to for a user to select personal front-end. If you switch away from PleromaFE you'll most likely have to use old and buggy AdminFE to do instance configuration until we replace it.",
+      "default_frontend_tip2": "WIP: Since Pleroma backend doesn't properly list all installed frontends you'll have to enter name and reference manually. List below provides shortcuts to fill the values.",
+      "available_frontends": "Available for install"
+    },
+    "temp_overrides": {
+      ":pleroma": {
+        ":instance": {
+          ":public": {
+            "label": "Instance is public",
+            "description": "Disabling this will make all API accessible only for logged-in users, this will make Public and Federated timelines inaccessible to anonymous visitors."
+          },
+          ":limit_to_local_content": {
+            "label": "Limit search to local content",
+            "description": "Disables global network search for unauthenticated (default), all users or none"
+          },
+          ":description_limit": {
+            "label": "Limit",
+            "description": "Character limit for attachment descriptions"
+          },
+          ":background_image": {
+            "label": "Background image",
+            "description": "Background image (primarily used by PleromaFE)"
+          }
+        }
+      }
     }
   },
   "time": {

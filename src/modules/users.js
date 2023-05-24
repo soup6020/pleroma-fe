@@ -577,6 +577,7 @@ const users = {
     loginUser (store, accessToken) {
       return new Promise((resolve, reject) => {
         const commit = store.commit
+        const dispatch = store.dispatch
         commit('beginLogin')
         store.rootState.api.backendInteractor.verifyCredentials(accessToken)
           .then((data) => {
@@ -591,57 +592,57 @@ const users = {
               commit('setServerSideStorage', user)
               commit('addNewUsers', [user])
 
-              store.dispatch('fetchEmoji')
+              dispatch('fetchEmoji')
 
               getNotificationPermission()
                 .then(permission => commit('setNotificationPermission', permission))
 
               // Set our new backend interactor
               commit('setBackendInteractor', backendInteractorService(accessToken))
-              store.dispatch('pushServerSideStorage')
+              dispatch('pushServerSideStorage')
 
               if (user.token) {
-                store.dispatch('setWsToken', user.token)
+                dispatch('setWsToken', user.token)
 
                 // Initialize the shout socket.
-                store.dispatch('initializeSocket')
+                dispatch('initializeSocket')
               }
 
               const startPolling = () => {
                 // Start getting fresh posts.
-                store.dispatch('startFetchingTimeline', { timeline: 'friends' })
+                dispatch('startFetchingTimeline', { timeline: 'friends' })
 
                 // Start fetching notifications
-                store.dispatch('startFetchingNotifications')
+                dispatch('startFetchingNotifications')
 
                 // Start fetching chats
-                store.dispatch('startFetchingChats')
+                dispatch('startFetchingChats')
               }
 
-              store.dispatch('startFetchingLists')
+              dispatch('startFetchingLists')
 
               if (user.locked) {
-                store.dispatch('startFetchingFollowRequests')
+                dispatch('startFetchingFollowRequests')
               }
 
               if (store.getters.mergedConfig.useStreamingApi) {
-                store.dispatch('fetchTimeline', { timeline: 'friends', since: null })
-                store.dispatch('fetchNotifications', { since: null })
-                store.dispatch('enableMastoSockets', true).catch((error) => {
+                dispatch('fetchTimeline', { timeline: 'friends', since: null })
+                dispatch('fetchNotifications', { since: null })
+                dispatch('enableMastoSockets', true).catch((error) => {
                   console.error('Failed initializing MastoAPI Streaming socket', error)
                 }).then(() => {
-                  store.dispatch('fetchChats', { latest: true })
-                  setTimeout(() => store.dispatch('setNotificationsSilence', false), 10000)
+                  dispatch('fetchChats', { latest: true })
+                  setTimeout(() => dispatch('setNotificationsSilence', false), 10000)
                 })
               } else {
                 startPolling()
               }
 
               // Get user mutes
-              store.dispatch('fetchMutes')
+              dispatch('fetchMutes')
 
-              store.dispatch('setLayoutWidth', windowWidth())
-              store.dispatch('setLayoutHeight', windowHeight())
+              dispatch('setLayoutWidth', windowWidth())
+              dispatch('setLayoutHeight', windowHeight())
 
               // Fetch our friends
               store.rootState.api.backendInteractor.fetchFriends({ id: user.id })

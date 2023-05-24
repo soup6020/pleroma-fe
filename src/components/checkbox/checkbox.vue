@@ -1,7 +1,7 @@
 <template>
   <label
     class="checkbox"
-    :class="{ disabled, indeterminate }"
+    :class="{ disabled, indeterminate, 'indeterminate-fix': indeterminateTransitionFix }"
   >
     <input
       type="checkbox"
@@ -14,6 +14,7 @@
     <i
       class="checkbox-indicator"
       :aria-hidden="true"
+      @transitionend.capture="onTransitionEnd"
     />
     <span
       v-if="!!$slots.default"
@@ -31,7 +32,24 @@ export default {
     'indeterminate',
     'disabled'
   ],
-  emits: ['update:modelValue']
+  emits: ['update:modelValue'],
+  data: (vm) => ({
+    indeterminateTransitionFix: vm.indeterminate
+  }),
+  watch: {
+    indeterminate (e) {
+      if (e) {
+        this.indeterminateTransitionFix = true
+      }
+    }
+  },
+  methods: {
+    onTransitionEnd (e) {
+      if (!this.indeterminate) {
+        this.indeterminateTransitionFix = false
+      }
+    }
+  }
 }
 </script>
 
@@ -95,6 +113,12 @@ export default {
       content: "–";
       color: $fallback--text;
       color: var(--inputText, $fallback--text);
+    }
+  }
+
+  &.indeterminate-fix {
+    input[type="checkbox"] + .checkbox-indicator::before {
+      content: "–";
     }
   }
 

@@ -1,7 +1,7 @@
 <template>
-  <span
+  <label
     v-if="matchesExpertLevel"
-    class="NumberSetting"
+    class="StringSetting"
   >
     <label
       :for="path"
@@ -17,12 +17,9 @@
     </label>
     <input
       :id="path"
-      class="number-input"
-      type="number"
-      :step="step || 1"
+      class="string-input"
       :disabled="shouldBeDisabled"
-      :min="min || 0"
-      :value="realDraftMode ? draft :state"
+      :value="realDraftMode ? draft : state"
       @change="update"
     >
     {{ ' ' }}
@@ -39,7 +36,7 @@
     >
       {{ backendDescriptionDescription + ' ' }}
     </p>
-  </span>
+  </label>
 </template>
 
-<script src="./number_setting.js"></script>
+<script src="./string_setting.js"></script>

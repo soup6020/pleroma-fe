@@ -7,7 +7,7 @@ import SizeSetting, { defaultHorizontalUnits } from '../helpers/size_setting.vue
 import InterfaceLanguageSwitcher from 'src/components/interface_language_switcher/interface_language_switcher.vue'
 
 import SharedComputedObject from '../helpers/shared_computed_object.js'
-import ServerSideIndicator from '../helpers/server_side_indicator.vue'
+import ProfileSettingIndicator from '../helpers/profile_setting_indicator.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faGlobe
@@ -67,7 +67,7 @@ const GeneralTab = {
     SizeSetting,
     InterfaceLanguageSwitcher,
     ScopeSelector,
-    ServerSideIndicator
+    ProfileSettingIndicator
   },
   computed: {
     horizontalUnits () {
@@ -110,7 +110,7 @@ const GeneralTab = {
   },
   methods: {
     changeDefaultScope (value) {
-      this.$store.dispatch('setServerSideOption', { name: 'defaultScope', value })
+      this.$store.dispatch('setProfileOption', { name: 'defaultScope', value })
     }
   }
 }

@@ -108,6 +108,11 @@ const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
 const PLEROMA_EDIT_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
+const PLEROMA_ADMIN_CONFIG_URL = '/api/pleroma/admin/config'
+const PLEROMA_ADMIN_DESCRIPTIONS_URL = '/api/pleroma/admin/config/descriptions'
+const PLEROMA_ADMIN_FRONTENDS_URL = '/api/pleroma/admin/frontends'
+const PLEROMA_ADMIN_FRONTENDS_INSTALL_URL = '/api/pleroma/admin/frontends/install'
+
 const oldfetch = window.fetch
 
 const fetch = (url, options) => {
@@ -1668,6 +1673,94 @@ const setReportState = ({ id, state, credentials }) => {
     })
 }
 
+// ADMIN STUFF // EXPERIMENTAL
+const fetchInstanceDBConfig = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_CONFIG_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const fetchInstanceConfigDescriptions = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_DESCRIPTIONS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const fetchAvailableFrontends = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const pushInstanceDBConfig = ({ credentials, payload }) => {
+  return fetch(PLEROMA_ADMIN_CONFIG_URL, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...authHeaders(credentials)
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const installFrontend = ({ credentials, payload }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_INSTALL_URL, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...authHeaders(credentials)
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
 const apiService = {
   verifyCredentials,
   fetchTimeline,
@@ -1781,7 +1874,12 @@ const apiService = {
   postAnnouncement,
   editAnnouncement,
   deleteAnnouncement,
-  adminFetchAnnouncements
+  adminFetchAnnouncements,
+  fetchInstanceDBConfig,
+  fetchInstanceConfigDescriptions,
+  fetchAvailableFrontends,
+  pushInstanceDBConfig,
+  installFrontend
 }
 
 export default apiService
