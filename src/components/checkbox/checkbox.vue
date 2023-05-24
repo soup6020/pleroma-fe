@@ -33,8 +33,8 @@ export default {
     'disabled'
   ],
   emits: ['update:modelValue'],
-  data: () => ({
-    indeterminateTransitionFix: false
+  data: (vm) => ({
+    indeterminateTransitionFix: vm.indeterminate
   }),
   watch: {
     indeterminate (e) {
