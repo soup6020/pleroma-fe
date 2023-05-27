@@ -219,7 +219,7 @@
     "limited_availability": "غير متوفر على متصفحك",
     "links": "الروابط",
     "lock_account_description": "",
-    "loop_video": "كرر الفيديوهات",
+    "loop_video": "كرر تشغيل الفيديوهات",
     "loop_video_silent_only": "كرر فيديوهات بدون صوت (مثل gif في ماستودون)",
     "name": "الاسم",
     "name_bio": "الاسم والسيرة الذاتية",
@@ -369,7 +369,9 @@
     "notification_visibility_polls": "انتهاء استطلاعات اشتركت بها",
     "file_export_import": {
       "restore_settings": "استرجع الإعدادات من ملف",
-      "backup_restore": "نسخ احتياطي للإعدادات"
+      "backup_restore": "نسخ احتياطي للإعدادات",
+      "backup_settings_theme": "احفظ النسخ الاحتياطي للإعدادات والسمة في ملف",
+      "backup_settings": "احفظ النسخ الاحتياطي للإعدادات في ملف"
     },
     "mutes_tab": "مكتومون",
     "no_mutes": "لا يوجد مكتومون",
@@ -378,7 +380,63 @@
     "hide_follows_count_description": "لا تظهر عدد المتابَعين",
     "hide_muted_threads": "اخف النقاشات المكتومة",
     "no_blocks": "لا يوجد محجوبون",
-    "show_admin_badge": "أظهر شارة \"مدير\" في ملفي التعريفي"
+    "show_admin_badge": "أظهر شارة \"مدير\" في ملفي التعريفي",
+    "conversation_display_tree": "تفرعات",
+    "notification_setting_block_from_strangers": "احجب اشعارات من لا تتابعهم",
+    "style": {
+      "switcher": {
+        "clear_all": "امسح الكل",
+        "keep_as_is": "أبقه على حاله",
+        "use_snapshot": "النسخة القديمة",
+        "use_source": "النسخة الحديثة",
+        "load_theme": "حمِّل سمة",
+        "help": {
+          "upgraded_from_v2": "PleromaFE حُدث، وعليه ربما ستجد اختلافًا في السمة."
+        },
+        "keep_color": "أبق الألوان",
+        "keep_opacity": "أبق الشفافية",
+        "keep_fonts": "أبق الخطوط",
+        "keep_shadows": "أبق الظلال"
+      },
+      "common": {
+        "color": "اللون",
+        "opacity": "الشافافية"
+      }
+    },
+    "notification_setting_privacy": "الخصوصية",
+    "notification_mutes": "لوقف استلام إشعارات من مستخدم، اكتمه.",
+    "search_user_to_mute": "جِد من تريد كتمه",
+    "subject_input_always_show": "أظهر حقل الموضوع دائمًا",
+    "subject_line_noop": "لا تنسخ",
+    "auto_update": "أظهر المنشورات الجديدة تلقائيًا",
+    "mention_link_display": "اعرض روابط الذكر",
+    "more_settings": "إعدادات إضافية",
+    "user_mutes": "مستخدمون",
+    "mention_link_show_avatar": "أظهر الصورة الرمزية للمستخدم بجانب الرابط",
+    "preview": "معاينة",
+    "show_scrollbars": "أظهر شريط التمرير للعمود الجانبي",
+    "third_column_mode": "أظهر محتوى العمود الثالث إذا توفرت المساحة",
+    "third_column_mode_none": "لا تظهر العمود الثالث",
+    "third_column_mode_notifications": "عمود الإشعارات",
+    "columns": "الأعمدة",
+    "column_sizes": "حجم الأعمدة",
+    "column_sizes_sidebar": "الشريط الجانبي",
+    "type_domains_to_mute": "جِد نطاقًا لكتمه",
+    "upload_a_photo": "ارفع صورة",
+    "virtual_scrolling": "حسن تصيير الخيط الزمني",
+    "user_popover_avatar_action_zoom": "كبر صورة الرمزية",
+    "fun": "ممتع",
+    "column_sizes_content": "المحتوى",
+    "column_sizes_notifs": "الإشعارات",
+    "search_user_to_block": "جِد من تريد حجبه",
+    "url": "رابط",
+    "subject_line_behavior": "انسخ الموضوع عند الرد",
+    "conversation_display": "اسلوب عرض المحادثة",
+    "mention_link_show_avatar_quick": "أظهر الصورة الرمزية للمستخدم عند ذكره",
+    "user_popover_avatar_action_open": "افتح الملف الشخصي",
+    "notifications": "الإشعارات",
+    "notification_setting_filters": "مرشح",
+    "notification_setting_hide_notification_contents": "اخف محتوى الإشعارات ومرسليها"
   },
   "timeline": {
     "collapse": "",
