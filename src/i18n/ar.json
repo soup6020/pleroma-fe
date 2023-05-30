@@ -401,6 +401,59 @@
       "common": {
         "color": "اللون",
         "opacity": "الشافافية"
+      },
+      "advanced_colors": {
+        "top_bar": "شريط العلوي",
+        "icons": "أيقونات",
+        "poll": "منحنى الاستطلاع",
+        "_tab_label": "متقدم",
+        "badge_notification": "الإشعارات",
+        "selectedPost": "منشور محدد",
+        "selectedMenu": "عنصر محدد من قائمة",
+        "highlight": "عناصر بارزة",
+        "disabled": "معطل",
+        "tabs": "ألسنة",
+        "chat": {
+          "border": "حدود"
+        },
+        "alert_warning": "تحذير",
+        "alert_error": "خطأ",
+        "buttons": "أزرار",
+        "borders": "الحدود",
+        "wallpaper": "خلفية"
+      },
+      "shadows": {
+        "components": {
+          "button": "زر",
+          "input": "حقل إدخال",
+          "topBar": "شريط العلوي",
+          "avatar": "الصورة الرمزية لمستخدم (في الملف الشخصي)",
+          "avatarStatus": "الصورة الرمزية لمستخدم (في منشور)"
+        },
+        "_tab_label": "الظلال والإضاءة",
+        "shadow_id": "ظل #{value}",
+        "blur": "طمس",
+        "spread": "توزع"
+      },
+      "fonts": {
+        "size": "حجم (بالبكسل)",
+        "_tab_label": "خطوط",
+        "components": {
+          "interface": "واجهة",
+          "input": "حقول الإدخال",
+          "post": "نص المنشور"
+        },
+        "family": "اسم الخط",
+        "custom": "مخصص"
+      },
+      "preview": {
+        "header": "معاينة",
+        "content": "محتوى",
+        "header_faint": "جيد",
+        "mono": "محتوى",
+        "button": "زر",
+        "input": "وصلت للتوّ إلى لوس أنجلس.",
+        "fine_print": "طالع {0} لتعلم ما لا ينفعك!"
       }
     },
     "notification_setting_privacy": "الخصوصية",
@@ -425,7 +478,7 @@
     "upload_a_photo": "ارفع صورة",
     "virtual_scrolling": "حسن تصيير الخيط الزمني",
     "user_popover_avatar_action_zoom": "كبر صورة الرمزية",
-    "fun": "ممتع",
+    "fun": "متعة",
     "column_sizes_content": "المحتوى",
     "column_sizes_notifs": "الإشعارات",
     "search_user_to_block": "جِد من تريد حجبه",
@@ -436,7 +489,14 @@
     "user_popover_avatar_action_open": "افتح الملف الشخصي",
     "notifications": "الإشعارات",
     "notification_setting_filters": "مرشح",
-    "notification_setting_hide_notification_contents": "اخف محتوى الإشعارات ومرسليها"
+    "notification_setting_hide_notification_contents": "اخف محتوى الإشعارات ومرسليها",
+    "mention_link_display_short": "اسماء قصيرة (مثل {'@'}foo)",
+    "mention_link_display_full_for_remote": "اسماء كاملة للمستخدمين من الخوادم البعاد ({'@'}foo{'@'}example.org)",
+    "version": {
+      "title": "نسخة"
+    },
+    "commit_value": "احفظ",
+    "mention_link_display_full": "اسماء كاملة دايمًا (مثل {'@'}foo{'@'}example.org)"
   },
   "timeline": {
     "collapse": "",
