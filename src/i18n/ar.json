@@ -645,5 +645,10 @@
   "remote_user_resolver": {
     "searching_for": "يبحث عن",
     "error": "لم يُعثر عليه."
+  },
+  "admin_dash": {
+    "nodb": {
+      "documentation": "التوثيق"
+    }
   }
 }
