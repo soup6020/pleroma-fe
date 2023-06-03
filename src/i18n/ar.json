@@ -453,7 +453,9 @@
         "mono": "محتوى",
         "button": "زر",
         "input": "وصلت للتوّ إلى لوس أنجلس.",
-        "fine_print": "طالع {0} لتعلم ما لا ينفعك!"
+        "fine_print": "طالع {0} لتعلّم ما لا ينفعك!",
+        "error": "مثال خطأ",
+        "faint_link": "دليل للمساعدة"
       }
     },
     "notification_setting_privacy": "الخصوصية",
@@ -499,14 +501,18 @@
     "mention_link_display_full": "اسماء كاملة دايمًا (مثل {'@'}foo{'@'}example.org)"
   },
   "timeline": {
-    "collapse": "",
+    "collapse": "طوي",
     "conversation": "محادثة",
     "error_fetching": "خطأ أثناء جلب التحديثات",
-    "load_older": "تحميل المنشورات القديمة",
+    "load_older": "حمل الحالات القديمة",
     "no_retweet_hint": "",
-    "repeated": "",
-    "show_new": "عرض الجديد",
-    "up_to_date": "تم تحديثه"
+    "repeated": "شورِك",
+    "show_new": "اعرض الجديد",
+    "up_to_date": "محدث",
+    "no_more_statuses": "لا مزيد من الحالات",
+    "error": "خطأ أثناء جلب الخيط الزمني: {0}",
+    "reload": "أعد التحميل",
+    "no_statuses": "لا توجد حالات"
   },
   "user_card": {
     "approve": "قبول",
@@ -648,7 +654,127 @@
   },
   "admin_dash": {
     "nodb": {
-      "documentation": "التوثيق"
+      "documentation": "التوثيق",
+      "text2": "اغلب خيارات الضبط لن تتوفر."
+    },
+    "window_title": "الإدارة",
+    "wip_notice": "لوحة المدير لا زالت تجريبية ولا تزال قيد للتطوير، {adminFeLink}.",
+    "old_ui_link": "واجهة المدير القديمة هنا",
+    "commit_all": "احفظ الكل",
+    "tabs": {
+      "instance": "مثيل"
+    },
+    "instance": {
+      "instance": "معلومات المثيل",
+      "registrations": "تسجيل المستخدمين",
+      "restrict": {
+        "header": "قيّد وصول الزواروالمجهولين",
+        "timelines": "وصول الخط الزمني",
+        "profiles": "وصول الملفات الشخصية",
+        "activities": "وصول النشاطات/الحالات"
+      }
+    },
+    "limits": {
+      "posts": "حد النشر",
+      "uploads": "حد المرفقات"
+    },
+    "frontend": {
+      "repository": "رابط المستودع",
+      "versions": "النسخ المتوفرة",
+      "build_url": "رابط البناء",
+      "reinstall": "أعد التثبيت",
+      "is_default": "(افتراضي)",
+      "is_default_custom": "(افتراضي، النسخة: {version})",
+      "install": "ثبّت",
+      "install_version": "ثبت النسخة {version}",
+      "more_install_options": "مزيد من خيارات التثبيت",
+      "set_default": "عينه كافتراضي",
+      "set_default_version": "عين النسخة {version} كافتراضية",
+      "available_frontends": "متوفر للتثبيت"
+    },
+    "temp_overrides": {
+      ":pleroma": {
+        ":instance": {
+          ":public": {
+            "label": "المثيل علني",
+            "description": "تعطيله سيحصر الوصول إلى API للمستخدمين الوالجين، ولن يقدر الزوار على الوصول إلى الخط الزمني العلني والموحد."
+          },
+          ":description_limit": {
+            "description": "حد عدد المحارف لوصف المرفق"
+          },
+          ":background_image": {
+            "label": "صورة الخلفية"
+          }
+        }
+      }
     }
+  },
+  "time": {
+    "in_past": "منذ {0}",
+    "unit": {
+      "hours_short": "{0}سا",
+      "minutes": "{0} دقيقة | {0} دقائق",
+      "days_short": "{0}ي",
+      "minutes_short": "{0}د",
+      "hours": "{0} ساعة | {0} ساعات",
+      "weeks": "{0} أسبوع | {0} أسابيع",
+      "months_short": "{0}ش",
+      "seconds": "{0} ثانية | {0} ثانية",
+      "seconds_short": "{0}ثا",
+      "years": "{0} سنة | {0} سنوات",
+      "years_short": "{0}سن",
+      "days": "{0} يوم | {0} أيام",
+      "months": "{0} شهر | {0} أشهر",
+      "weeks_short": "{0}أس"
+    },
+    "in_future": "في {0}",
+    "now": "هذه اللحظة",
+    "now_short": "الآن"
+  },
+  "status": {
+    "delete_confirm": "أتريد حذف هذه الحالة؟",
+    "delete_error": "خطأ أثناء حذف الحالة: {0}",
+    "plus_more": "+{number} أخرون",
+    "many_attachments": "المنشور يحوي {number} مرفقات",
+    "repeat_confirm": "أتريد مشاركة هذه الحالة؟",
+    "edited_at": "(آخر تعديل {time})",
+    "repeat_confirm_title": "تأكيد المشاركة",
+    "repeat_confirm_accept_button": "شارك",
+    "repeat_confirm_cancel_button": "لا تشارك",
+    "edit": "حرر الحالة",
+    "pin": "ثبته على الملف الشخصي",
+    "unpin": "ألغ تثبيته من الملف الشخصي",
+    "delete_confirm_cancel_button": "أبقه",
+    "replies_list": "الردود:",
+    "status_deleted": "هذا المنشور محذوف",
+    "favorites": "المفضلة",
+    "pinned": "مثبت",
+    "hide_full_subject": "اخف كامل الموضوع",
+    "repeats": "المشاركات",
+    "delete": "اخذف الحالة",
+    "delete_confirm_title": "تأكيد الحذف",
+    "reply_to": "رد على",
+    "mentions": "الذكر",
+    "unmute_conversation": "ارفع الكتم عن المحادثة",
+    "status_unavailable": "الحالة غير متوفرة",
+    "copy_link": "انسخ رابط الحالة",
+    "show_full_subject": "أظهر الموضوع كاملا",
+    "show_content": "أظهر المحتوى",
+    "hide_content": "اخف المحتوى",
+    "you": "(أنت)",
+    "show_all_attachments": "أظهر كل المرفقات",
+    "hide_attachment": "اخف المرفق",
+    "move_down": "حرك المرفق لليمين",
+    "thread_hide": "اخف هذا النقاش",
+    "thread_muted": "النقاش مكتوم",
+    "delete_confirm_accept_button": "احذف",
+    "mute_conversation": "اكتم المحادثة",
+    "external_source": "مصدر خارجي",
+    "expand": "وسّع",
+    "collapse_attachments": "طوي المرفقات",
+    "remove_attachment": "أزل المرفق",
+    "move_up": "حرك المرفق لليسار",
+    "open_gallery": "افتح المعرض",
+    "thread_show": "أظهر هذا النقاس"
   }
 }
