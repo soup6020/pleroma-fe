@@ -4,6 +4,7 @@
     :class="{ custom: isCustom }"
   >
     <label
+      :id="name + '-label'"
       :for="preset === 'custom' ? name : name + '-font-switcher'"
       class="label"
     >
@@ -12,7 +13,8 @@
     <input
       v-if="typeof fallback !== 'undefined'"
       :id="name + '-o'"
-      class="opt exlcude-disabled"
+      :aria-labelledby="name + '-label'"
+      class="opt exlcude-disabled visible-for-screenreader-only"
       type="checkbox"
       :checked="present"
       @change="$emit('update:modelValue', typeof modelValue === 'undefined' ? fallback : undefined)"
@@ -21,6 +23,7 @@
       v-if="typeof fallback !== 'undefined'"
       class="opt-l"
       :for="name + '-o'"
+      :aria-hidden="true"
     />
     {{ ' ' }}
     <Select

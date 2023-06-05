@@ -104,6 +104,7 @@ const defaultState = {
   conversationOtherRepliesButton: 'below',
   conversationTreeFadeAncestors: false,
   maxDepthInThread: 6,
+  autocompleteSelect: false,
 
   // Nasty stuff
   customEmoji: [],
@@ -122,6 +123,7 @@ const defaultState = {
   // Feature-set, apparently, not everything here is reported...
   shoutAvailable: false,
   pleromaChatMessagesAvailable: false,
+  pleromaCustomEmojiReactionsAvailable: false,
   gopherAvailable: false,
   mediaProxyAvailable: false,
   suggestionsEnabled: false,

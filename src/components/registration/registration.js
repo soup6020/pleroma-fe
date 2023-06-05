@@ -16,7 +16,7 @@ const registration = {
       confirm: '',
       birthday: '',
       reason: '',
-      language: ''
+      language: ['']
     },
     captcha: {}
   }),
@@ -100,7 +100,7 @@ const registration = {
       this.user.captcha_token = this.captcha.token
       this.user.captcha_answer_data = this.captcha.answer_data
       if (this.user.language) {
-        this.user.language = localeService.internalToBackendLocale(this.user.language)
+        this.user.language = localeService.internalToBackendLocaleMulti(this.user.language.filter(k => k))
       }
 
       this.v$.$touch()

@@ -180,16 +180,16 @@
           v-if="currentUser && currentUser.role === 'admin'"
           @click="toggleDrawer"
         >
-          <a
-            href="/pleroma/admin/#/login-pleroma"
-            target="_blank"
+          <button
+            class="button-unstyled -link -fullwidth"
+            @click.stop="openAdminModal"
           >
             <FAIcon
               fixed-width
               class="fa-scale-110 fa-old-padding"
               icon="tachometer-alt"
             /> {{ $t("nav.administration") }}
-          </a>
+          </button>
         </li>
         <li
           v-if="currentUser && supportsAnnouncements"

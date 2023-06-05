@@ -580,8 +580,6 @@ textarea,
   }
 
   &[type="checkbox"] {
-    display: none;
-
     &:checked + label::before {
       color: $fallback--text;
       color: var(--inputText, $fallback--text);
@@ -647,6 +645,20 @@ option {
   }
 }
 
+.cards-list {
+  list-style: none;
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: 1fr 1fr;
+
+  li {
+    border: 1px solid var(--border);
+    border-radius: var(--inputRadius);
+    padding: 0.5em;
+    margin: 0.25em;
+  }
+}
+
 .btn-block {
   display: block;
   width: 100%;
@@ -657,16 +669,19 @@ option {
   display: inline-flex;
   vertical-align: middle;
 
-  button {
+  button,
+  .button-dropdown {
     position: relative;
     flex: 1 1 auto;
 
-    &:not(:last-child) {
+    &:not(:last-child),
+    &:not(:last-child) .button-default {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &:not(:first-child) {
+    &:not(:first-child),
+    &:not(:first-child) .button-default {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
@@ -887,3 +902,15 @@ option {
   opacity: 0;
 }
 /* stylelint-enable no-descending-specificity */
+
+.visible-for-screenreader-only {
+  display: block;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  visibility: visible;
+  clip: rect(0 0 0 0);
+  padding: 0;
+  position: absolute;
+}

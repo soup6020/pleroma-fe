@@ -12,6 +12,7 @@ import InterfaceLanguageSwitcher from 'src/components/interface_language_switche
 import BooleanSetting from '../helpers/boolean_setting.vue'
 import SharedComputedObject from '../helpers/shared_computed_object.js'
 import localeService from 'src/services/locale/locale.service.js'
+import { propsToNative } from 'src/services/attributes_helper/attributes_helper.service.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -261,6 +262,9 @@ const ProfileTab = {
         messageArgs: [error.message],
         level: 'error'
       })
+    },
+    propsToNative (props) {
+      return propsToNative(props)
     }
   }
 }

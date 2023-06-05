@@ -118,7 +118,10 @@
       "totp": "Двофакторна автентифікація"
     },
     "enter_two_factor_code": "Введіть двофакторний код автентифікації",
-    "placeholder": "напр. stepan"
+    "placeholder": "напр. stepan",
+    "logout_confirm": "Ви дійсно хочете вийти?",
+    "logout_confirm_accept_button": "Вийти",
+    "logout_confirm_cancel_button": "Ні, хочу назад!"
   },
   "importer": {
     "error": "Під час імпортування файлу сталася помилка.",
@@ -189,7 +192,8 @@
     "mobile_notifications": "Відкрити сповіщення (є непрочитані)",
     "mobile_notifications_close": "Закрити сповіщення",
     "edit_nav_mobile": "Редагувати панель навігації",
-    "announcements": "Анонси"
+    "announcements": "Анонси",
+    "search_close": "Закрити панель пошуку"
   },
   "media_modal": {
     "next": "Наступна",

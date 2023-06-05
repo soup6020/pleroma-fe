@@ -1,16 +1,21 @@
 <template>
   <label
     class="checkbox"
-    :class="{ disabled, indeterminate }"
+    :class="{ disabled, indeterminate, 'indeterminate-fix': indeterminateTransitionFix }"
   >
     <input
       type="checkbox"
+      class="visible-for-screenreader-only"
       :disabled="disabled"
       :checked="modelValue"
       :indeterminate="indeterminate"
       @change="$emit('update:modelValue', $event.target.checked)"
     >
-    <i class="checkbox-indicator" />
+    <i
+      class="checkbox-indicator"
+      :aria-hidden="true"
+      @transitionend.capture="onTransitionEnd"
+    />
     <span
       v-if="!!$slots.default"
       class="label"
@@ -27,12 +32,30 @@ export default {
     'indeterminate',
     'disabled'
   ],
-  emits: ['update:modelValue']
+  emits: ['update:modelValue'],
+  data: (vm) => ({
+    indeterminateTransitionFix: vm.indeterminate
+  }),
+  watch: {
+    indeterminate (e) {
+      if (e) {
+        this.indeterminateTransitionFix = true
+      }
+    }
+  },
+  methods: {
+    onTransitionEnd (e) {
+      if (!this.indeterminate) {
+        this.indeterminateTransitionFix = false
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import "../../variables";
+@import "../../mixins";
 
 .checkbox {
   position: relative;
@@ -81,8 +104,6 @@ export default {
   }
 
   input[type="checkbox"] {
-    display: none;
-
     &:checked + .checkbox-indicator::before {
       color: $fallback--text;
       color: var(--inputText, $fallback--text);
@@ -92,6 +113,12 @@ export default {
       content: "–";
       color: $fallback--text;
       color: var(--inputText, $fallback--text);
+    }
+  }
+
+  &.indeterminate-fix {
+    input[type="checkbox"] + .checkbox-indicator::before {
+      content: "–";
     }
   }
 

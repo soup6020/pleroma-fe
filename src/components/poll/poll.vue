@@ -4,53 +4,63 @@
     :class="containerClass"
   >
     <div
-      v-for="(option, index) in options"
-      :key="index"
-      class="poll-option"
+      :role="showResults ? 'section' : (poll.multiple ? 'group' : 'radiogroup')"
     >
       <div
-        v-if="showResults"
-        :title="resultTitle(option)"
-        class="option-result"
+        v-for="(option, index) in options"
+        :key="index"
+        class="poll-option"
       >
-        <div class="option-result-label">
-          <span class="result-percentage">
-            {{ percentageForOption(option.votes_count) }}%
-          </span>
-          <RichContent
-            :html="option.title_html"
-            :handle-links="false"
-            :emoji="emoji"
+        <div
+          v-if="showResults"
+          :title="resultTitle(option)"
+          class="option-result"
+        >
+          <div class="option-result-label">
+            <span class="result-percentage">
+              {{ percentageForOption(option.votes_count) }}%
+            </span>
+            <RichContent
+              :html="option.title_html"
+              :handle-links="false"
+              :emoji="emoji"
+            />
+          </div>
+          <div
+            class="result-fill"
+            :style="{ 'width': `${percentageForOption(option.votes_count)}%` }"
           />
         </div>
         <div
-          class="result-fill"
-          :style="{ 'width': `${percentageForOption(option.votes_count)}%` }"
-        />
-      </div>
-      <div
-        v-else
-        @click="activateOption(index)"
-      >
-        <input
-          v-if="poll.multiple"
-          type="checkbox"
-          :disabled="loading"
-          :value="index"
-        >
-        <input
           v-else
-          type="radio"
-          :disabled="loading"
-          :value="index"
+          tabindex="0"
+          :role="poll.multiple ? 'checkbox' : 'radio'"
+          :aria-labelledby="`option-vote-${randomSeed}-${index}`"
+          :aria-checked="choices[index]"
+          @click="activateOption(index)"
         >
-        <label class="option-vote">
-          <RichContent
-            :html="option.title_html"
-            :handle-links="false"
-            :emoji="emoji"
-          />
-        </label>
+          <input
+            v-if="poll.multiple"
+            type="checkbox"
+            class="poll-checkbox"
+            :disabled="loading"
+            :value="index"
+          >
+          <input
+            v-else
+            type="radio"
+            :disabled="loading"
+            :value="index"
+          >
+          <label class="option-vote">
+            <RichContent
+              :id="`option-vote-${randomSeed}-${index}`"
+              :html="option.title_html"
+              :handle-links="false"
+              :emoji="emoji"
+            />
+          </label>
+        </div>
       </div>
     </div>
     <div class="footer faint">
@@ -160,6 +170,10 @@
   .poll-vote-button {
     padding: 0 0.5em;
     margin-right: 0.5em;
+  }
+
+  .poll-checkbox {
+    display: none;
   }
 }
 </style>

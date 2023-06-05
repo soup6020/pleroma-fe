@@ -108,6 +108,11 @@ const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
 const PLEROMA_EDIT_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 
+const PLEROMA_ADMIN_CONFIG_URL = '/api/pleroma/admin/config'
+const PLEROMA_ADMIN_DESCRIPTIONS_URL = '/api/pleroma/admin/config/descriptions'
+const PLEROMA_ADMIN_FRONTENDS_URL = '/api/pleroma/admin/frontends'
+const PLEROMA_ADMIN_FRONTENDS_INSTALL_URL = '/api/pleroma/admin/frontends/install'
+
 const oldfetch = window.fetch
 
 const fetch = (url, options) => {
@@ -840,7 +845,7 @@ const postStatus = ({
   })
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
@@ -897,7 +902,7 @@ const editStatus = ({
 
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
-      expires_in: poll.expiresIn,
+      expires_in: parseInt(poll.expiresIn, 10),
       multiple: poll.multiple
     }
     Object.keys(normalizedPoll).forEach(key => {
@@ -923,8 +928,9 @@ const editStatus = ({
 }
 
 const deleteStatus = ({ id, credentials }) => {
-  return fetch(MASTODON_DELETE_URL(id), {
-    headers: authHeaders(credentials),
+  return promisedRequest({
+    url: MASTODON_DELETE_URL(id),
+    credentials,
     method: 'DELETE'
   })
 }
@@ -1113,8 +1119,12 @@ const generateMfaBackupCodes = ({ credentials }) => {
   }).then((data) => data.json())
 }
 
-const fetchMutes = ({ credentials }) => {
-  return promisedRequest({ url: MASTODON_USER_MUTES_URL, credentials })
+const fetchMutes = ({ maxId, credentials }) => {
+  const query = new URLSearchParams({ with_relationships: true })
+  if (maxId) {
+    query.append('max_id', maxId)
+  }
+  return promisedRequest({ url: `${MASTODON_USER_MUTES_URL}?${query.toString()}`, credentials })
     .then((users) => users.map(parseUser))
 }
 
@@ -1138,8 +1148,12 @@ const unsubscribeUser = ({ id, credentials }) => {
   return promisedRequest({ url: MASTODON_UNSUBSCRIBE_USER(id), credentials, method: 'POST' })
 }
 
-const fetchBlocks = ({ credentials }) => {
-  return promisedRequest({ url: MASTODON_USER_BLOCKS_URL, credentials })
+const fetchBlocks = ({ maxId, credentials }) => {
+  const query = new URLSearchParams({ with_relationships: true })
+  if (maxId) {
+    query.append('max_id', maxId)
+  }
+  return promisedRequest({ url: `${MASTODON_USER_BLOCKS_URL}?${query.toString()}`, credentials })
     .then((users) => users.map(parseUser))
 }
 
@@ -1659,6 +1673,94 @@ const setReportState = ({ id, state, credentials }) => {
     })
 }
 
+// ADMIN STUFF // EXPERIMENTAL
+const fetchInstanceDBConfig = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_CONFIG_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const fetchInstanceConfigDescriptions = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_DESCRIPTIONS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const fetchAvailableFrontends = ({ credentials }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_URL, {
+    headers: authHeaders(credentials)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const pushInstanceDBConfig = ({ credentials, payload }) => {
+  return fetch(PLEROMA_ADMIN_CONFIG_URL, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...authHeaders(credentials)
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
+const installFrontend = ({ credentials, payload }) => {
+  return fetch(PLEROMA_ADMIN_FRONTENDS_INSTALL_URL, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...authHeaders(credentials)
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return {
+          error: response
+        }
+      }
+    })
+}
+
 const apiService = {
   verifyCredentials,
   fetchTimeline,
@@ -1772,7 +1874,12 @@ const apiService = {
   postAnnouncement,
   editAnnouncement,
   deleteAnnouncement,
-  adminFetchAnnouncements
+  adminFetchAnnouncements,
+  fetchInstanceDBConfig,
+  fetchInstanceConfigDescriptions,
+  fetchAvailableFrontends,
+  pushInstanceDBConfig,
+  installFrontend
 }
 
 export default apiService
