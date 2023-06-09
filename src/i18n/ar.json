@@ -524,8 +524,8 @@
     "followers": "مُتابِعون",
     "following": "",
     "follows_you": "يتابعك!",
-    "mute": "كتم",
-    "muted": "تم كتمه",
+    "mute": "اكتم",
+    "muted": "مكتوم",
     "per_day": "في اليوم",
     "remote_follow": "مُتابَعة عن بُعد",
     "statuses": "المنشورات",
@@ -554,7 +554,13 @@
     "unfollow_confirm_accept_button": "ألغ المتابعة",
     "unfollow_confirm_cancel_button": "لا تلغ المتابعة",
     "media": "وسائط",
-    "block_confirm": "أتريد حظر {user} ؟"
+    "block_confirm": "أتريد حظر {user} ؟",
+    "mute_confirm_cancel_button": "لا تكتم",
+    "mute_confirm_title": "تأكيد الكتم",
+    "message": "راسل",
+    "mute_confirm": "أتريد كتم {user}؟",
+    "mute_confirm_accept_button": "اكتم",
+    "mention": "أذكر"
   },
   "user_profile": {
     "timeline_title": "الخيط الزمني للمستخدم"
