@@ -757,7 +757,7 @@ const statuses = {
       )
     },
     fetchEmojiReactionsBy ({ rootState, commit }, id) {
-      rootState.api.backendInteractor.fetchEmojiReactions({ id }).then(
+      return rootState.api.backendInteractor.fetchEmojiReactions({ id }).then(
         emojiReactions => {
           commit('addEmojiReactionsBy', { id, emojiReactions, currentUser: rootState.users.currentUser })
         }
