@@ -57,10 +57,10 @@ const EmojiReactions = {
     reactedWith (emoji) {
       return this.status.emoji_reactions.find(r => r.name === emoji).me
     },
-    fetchEmojiReactionsByIfMissing () {
+    async fetchEmojiReactionsByIfMissing () {
       const hasNoAccounts = this.status.emoji_reactions.find(r => !r.accounts)
       if (hasNoAccounts) {
-        this.$store.dispatch('fetchEmojiReactionsBy', this.status.id)
+        return await this.$store.dispatch('fetchEmojiReactionsBy', this.status.id)
       }
     },
     reactWith (emoji) {
@@ -69,9 +69,10 @@ const EmojiReactions = {
     unreact (emoji) {
       this.$store.dispatch('unreactWithEmoji', { id: this.status.id, emoji })
     },
-    emojiOnClick (emoji, event) {
+    async emojiOnClick (emoji, event) {
       if (!this.loggedIn) return
 
+      await this.fetchEmojiReactionsByIfMissing()
       if (this.reactedWith(emoji)) {
         this.unreact(emoji)
       } else {
