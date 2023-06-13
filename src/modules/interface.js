@@ -112,7 +112,7 @@ const interfaceMod = {
     },
     openSettingsModalTab ({ commit }, value) {
       commit('setSettingsModalTargetTab', value)
-      commit('openSettingsModal')
+      commit('openSettingsModal', 'user')
     },
     pushGlobalNotice (
       { commit, dispatch, state },
