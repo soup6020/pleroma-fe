@@ -219,7 +219,7 @@
     "limited_availability": "غير متوفر على متصفحك",
     "links": "الروابط",
     "lock_account_description": "",
-    "loop_video": "كرر الفيديوهات",
+    "loop_video": "كرر تشغيل الفيديوهات",
     "loop_video_silent_only": "كرر فيديوهات بدون صوت (مثل gif في ماستودون)",
     "name": "الاسم",
     "name_bio": "الاسم والسيرة الذاتية",
@@ -369,7 +369,9 @@
     "notification_visibility_polls": "انتهاء استطلاعات اشتركت بها",
     "file_export_import": {
       "restore_settings": "استرجع الإعدادات من ملف",
-      "backup_restore": "نسخ احتياطي للإعدادات"
+      "backup_restore": "نسخ احتياطي للإعدادات",
+      "backup_settings_theme": "احفظ النسخ الاحتياطي للإعدادات والسمة في ملف",
+      "backup_settings": "احفظ النسخ الاحتياطي للإعدادات في ملف"
     },
     "mutes_tab": "مكتومون",
     "no_mutes": "لا يوجد مكتومون",
@@ -378,33 +380,187 @@
     "hide_follows_count_description": "لا تظهر عدد المتابَعين",
     "hide_muted_threads": "اخف النقاشات المكتومة",
     "no_blocks": "لا يوجد محجوبون",
-    "show_admin_badge": "أظهر شارة \"مدير\" في ملفي التعريفي"
+    "show_admin_badge": "أظهر شارة \"مدير\" في ملفي التعريفي",
+    "conversation_display_tree": "تفرعات",
+    "notification_setting_block_from_strangers": "احجب اشعارات من لا تتابعهم",
+    "style": {
+      "switcher": {
+        "clear_all": "امسح الكل",
+        "keep_as_is": "أبقه على حاله",
+        "use_snapshot": "النسخة القديمة",
+        "use_source": "النسخة الحديثة",
+        "load_theme": "حمِّل سمة",
+        "help": {
+          "upgraded_from_v2": "PleromaFE حُدث، وعليه ربما ستجد اختلافًا في السمة."
+        },
+        "keep_color": "أبق الألوان",
+        "keep_opacity": "أبق الشفافية",
+        "keep_fonts": "أبق الخطوط",
+        "keep_shadows": "أبق الظلال"
+      },
+      "common": {
+        "color": "اللون",
+        "opacity": "الشافافية"
+      },
+      "advanced_colors": {
+        "top_bar": "شريط العلوي",
+        "icons": "أيقونات",
+        "poll": "منحنى الاستطلاع",
+        "_tab_label": "متقدم",
+        "badge_notification": "الإشعارات",
+        "selectedPost": "منشور محدد",
+        "selectedMenu": "عنصر محدد من قائمة",
+        "highlight": "عناصر بارزة",
+        "disabled": "معطل",
+        "tabs": "ألسنة",
+        "chat": {
+          "border": "حدود"
+        },
+        "alert_warning": "تحذير",
+        "alert_error": "خطأ",
+        "buttons": "أزرار",
+        "borders": "الحدود",
+        "wallpaper": "خلفية"
+      },
+      "shadows": {
+        "components": {
+          "button": "زر",
+          "input": "حقل إدخال",
+          "topBar": "شريط العلوي",
+          "avatar": "الصورة الرمزية لمستخدم (في الملف الشخصي)",
+          "avatarStatus": "الصورة الرمزية لمستخدم (في منشور)"
+        },
+        "_tab_label": "الظلال والإضاءة",
+        "shadow_id": "ظل #{value}",
+        "blur": "طمس",
+        "spread": "توزع"
+      },
+      "fonts": {
+        "size": "حجم (بالبكسل)",
+        "_tab_label": "خطوط",
+        "components": {
+          "interface": "واجهة",
+          "input": "حقول الإدخال",
+          "post": "نص المنشور"
+        },
+        "family": "اسم الخط",
+        "custom": "مخصص"
+      },
+      "preview": {
+        "header": "معاينة",
+        "content": "محتوى",
+        "header_faint": "جيد",
+        "mono": "محتوى",
+        "button": "زر",
+        "input": "وصلت للتوّ إلى لوس أنجلس.",
+        "fine_print": "طالع {0} لتعلّم ما لا ينفعك!",
+        "error": "مثال خطأ",
+        "faint_link": "دليل للمساعدة"
+      }
+    },
+    "notification_setting_privacy": "الخصوصية",
+    "notification_mutes": "لوقف استلام إشعارات من مستخدم، اكتمه.",
+    "search_user_to_mute": "جِد من تريد كتمه",
+    "subject_input_always_show": "أظهر حقل الموضوع دائمًا",
+    "subject_line_noop": "لا تنسخ",
+    "auto_update": "أظهر المنشورات الجديدة تلقائيًا",
+    "mention_link_display": "اعرض روابط الذكر",
+    "more_settings": "إعدادات إضافية",
+    "user_mutes": "مستخدمون",
+    "mention_link_show_avatar": "أظهر الصورة الرمزية للمستخدم بجانب الرابط",
+    "preview": "معاينة",
+    "show_scrollbars": "أظهر شريط التمرير للعمود الجانبي",
+    "third_column_mode": "أظهر محتوى العمود الثالث إذا توفرت المساحة",
+    "third_column_mode_none": "لا تظهر العمود الثالث",
+    "third_column_mode_notifications": "عمود الإشعارات",
+    "columns": "الأعمدة",
+    "column_sizes": "حجم الأعمدة",
+    "column_sizes_sidebar": "الشريط الجانبي",
+    "type_domains_to_mute": "جِد نطاقًا لكتمه",
+    "upload_a_photo": "ارفع صورة",
+    "virtual_scrolling": "حسن تصيير الخيط الزمني",
+    "user_popover_avatar_action_zoom": "كبر صورة الرمزية",
+    "fun": "متعة",
+    "column_sizes_content": "المحتوى",
+    "column_sizes_notifs": "الإشعارات",
+    "search_user_to_block": "جِد من تريد حجبه",
+    "url": "رابط",
+    "subject_line_behavior": "انسخ الموضوع عند الرد",
+    "conversation_display": "اسلوب عرض المحادثة",
+    "mention_link_show_avatar_quick": "أظهر الصورة الرمزية للمستخدم عند ذكره",
+    "user_popover_avatar_action_open": "افتح الملف الشخصي",
+    "notifications": "الإشعارات",
+    "notification_setting_filters": "مرشح",
+    "notification_setting_hide_notification_contents": "اخف محتوى الإشعارات ومرسليها",
+    "mention_link_display_short": "اسماء قصيرة (مثل {'@'}foo)",
+    "mention_link_display_full_for_remote": "اسماء كاملة للمستخدمين من الخوادم البعاد ({'@'}foo{'@'}example.org)",
+    "version": {
+      "title": "نسخة"
+    },
+    "commit_value": "احفظ",
+    "mention_link_display_full": "اسماء كاملة دايمًا (مثل {'@'}foo{'@'}example.org)"
   },
   "timeline": {
-    "collapse": "",
+    "collapse": "طوي",
     "conversation": "محادثة",
     "error_fetching": "خطأ أثناء جلب التحديثات",
-    "load_older": "تحميل المنشورات القديمة",
+    "load_older": "حمل الحالات القديمة",
     "no_retweet_hint": "",
-    "repeated": "",
-    "show_new": "عرض الجديد",
-    "up_to_date": "تم تحديثه"
+    "repeated": "شورِك",
+    "show_new": "اعرض الجديد",
+    "up_to_date": "محدث",
+    "no_more_statuses": "لا مزيد من الحالات",
+    "error": "خطأ أثناء جلب الخيط الزمني: {0}",
+    "reload": "أعد التحميل",
+    "no_statuses": "لا توجد حالات"
   },
   "user_card": {
     "approve": "قبول",
     "block": "حظر",
-    "blocked": "تم حظره!",
+    "blocked": "حُظر!",
     "deny": "رفض",
-    "follow": "اتبع",
-    "followees": "",
+    "follow": "تابع",
+    "followees": "متابَعون",
     "followers": "مُتابِعون",
     "following": "",
     "follows_you": "يتابعك!",
-    "mute": "كتم",
-    "muted": "تم كتمه",
+    "mute": "اكتم",
+    "muted": "مكتوم",
     "per_day": "في اليوم",
     "remote_follow": "مُتابَعة عن بُعد",
-    "statuses": "المنشورات"
+    "statuses": "المنشورات",
+    "approve_confirm_accept_button": "قبول",
+    "approve_confirm_title": "تأكيد القبول",
+    "edit_profile": "عدّل الملف الشخصي",
+    "deny_confirm": "أتريد رفض طلب المتابعة من {user} ؟",
+    "unfollow_confirm_title": "تأكيد إلغاء المتابعة",
+    "follow_progress": "الطلب جارٍ…",
+    "hidden": "مخفي",
+    "its_you": "أنت!",
+    "approve_confirm_cancel_button": "لا تقبل",
+    "approve_confirm": "أتريد قبول طلب المتابعة من {user} ؟",
+    "block_confirm_title": "تأكيد الحظر",
+    "block_confirm_accept_button": "حظر",
+    "block_confirm_cancel_button": "لا تحظر",
+    "deactivated": "عُطل",
+    "deny_confirm_title": "تأكيد الرفض",
+    "deny_confirm_accept_button": "رفض",
+    "deny_confirm_cancel_button": "لا ترفض",
+    "favorites": "المفضلة",
+    "follow_cancel": "ألغ الطلب",
+    "follow_sent": "أُرسل الطلب!",
+    "follow_unfollow": "ألغ المتابعة",
+    "unfollow_confirm": "أتريد إلغاء متابعة {user}؟",
+    "unfollow_confirm_accept_button": "ألغ المتابعة",
+    "unfollow_confirm_cancel_button": "لا تلغ المتابعة",
+    "media": "وسائط",
+    "block_confirm": "أتريد حظر {user} ؟",
+    "mute_confirm_cancel_button": "لا تكتم",
+    "mute_confirm_title": "تأكيد الكتم",
+    "message": "راسل",
+    "mute_confirm": "أتريد كتم {user}؟",
+    "mute_confirm_accept_button": "اكتم",
+    "mention": "أذكر"
   },
   "user_profile": {
     "timeline_title": "الخيط الزمني للمستخدم"
@@ -527,5 +683,130 @@
   "remote_user_resolver": {
     "searching_for": "يبحث عن",
     "error": "لم يُعثر عليه."
+  },
+  "admin_dash": {
+    "nodb": {
+      "documentation": "التوثيق",
+      "text2": "اغلب خيارات الضبط لن تتوفر."
+    },
+    "window_title": "الإدارة",
+    "wip_notice": "لوحة المدير لا زالت تجريبية ولا تزال قيد للتطوير، {adminFeLink}.",
+    "old_ui_link": "واجهة المدير القديمة هنا",
+    "commit_all": "احفظ الكل",
+    "tabs": {
+      "instance": "مثيل"
+    },
+    "instance": {
+      "instance": "معلومات المثيل",
+      "registrations": "تسجيل المستخدمين",
+      "restrict": {
+        "header": "قيّد وصول الزواروالمجهولين",
+        "timelines": "وصول الخط الزمني",
+        "profiles": "وصول الملفات الشخصية",
+        "activities": "وصول النشاطات/الحالات"
+      }
+    },
+    "limits": {
+      "posts": "حد النشر",
+      "uploads": "حد المرفقات"
+    },
+    "frontend": {
+      "repository": "رابط المستودع",
+      "versions": "النسخ المتوفرة",
+      "build_url": "رابط البناء",
+      "reinstall": "أعد التثبيت",
+      "is_default": "(افتراضي)",
+      "is_default_custom": "(افتراضي، النسخة: {version})",
+      "install": "ثبّت",
+      "install_version": "ثبت النسخة {version}",
+      "more_install_options": "مزيد من خيارات التثبيت",
+      "set_default": "عينه كافتراضي",
+      "set_default_version": "عين النسخة {version} كافتراضية",
+      "available_frontends": "متوفر للتثبيت"
+    },
+    "temp_overrides": {
+      ":pleroma": {
+        ":instance": {
+          ":public": {
+            "label": "المثيل علني",
+            "description": "تعطيله سيحصر الوصول إلى API للمستخدمين الوالجين، ولن يقدر الزوار على الوصول إلى الخط الزمني العلني والموحد."
+          },
+          ":description_limit": {
+            "description": "حد عدد المحارف لوصف المرفق"
+          },
+          ":background_image": {
+            "label": "صورة الخلفية"
+          }
+        }
+      }
+    }
+  },
+  "time": {
+    "in_past": "منذ {0}",
+    "unit": {
+      "hours_short": "{0}سا",
+      "minutes": "{0} دقيقة | {0} دقائق",
+      "days_short": "{0}ي",
+      "minutes_short": "{0}د",
+      "hours": "{0} ساعة | {0} ساعات",
+      "weeks": "{0} أسبوع | {0} أسابيع",
+      "months_short": "{0}ش",
+      "seconds": "{0} ثانية | {0} ثانية",
+      "seconds_short": "{0}ثا",
+      "years": "{0} سنة | {0} سنوات",
+      "years_short": "{0}سن",
+      "days": "{0} يوم | {0} أيام",
+      "months": "{0} شهر | {0} أشهر",
+      "weeks_short": "{0}أس"
+    },
+    "in_future": "في {0}",
+    "now": "هذه اللحظة",
+    "now_short": "الآن"
+  },
+  "status": {
+    "delete_confirm": "أتريد حذف هذه الحالة؟",
+    "delete_error": "خطأ أثناء حذف الحالة: {0}",
+    "plus_more": "+{number} أخرون",
+    "many_attachments": "المنشور يحوي {number} مرفقات",
+    "repeat_confirm": "أتريد مشاركة هذه الحالة؟",
+    "edited_at": "(آخر تعديل {time})",
+    "repeat_confirm_title": "تأكيد المشاركة",
+    "repeat_confirm_accept_button": "شارك",
+    "repeat_confirm_cancel_button": "لا تشارك",
+    "edit": "حرر الحالة",
+    "pin": "ثبته على الملف الشخصي",
+    "unpin": "ألغ تثبيته من الملف الشخصي",
+    "delete_confirm_cancel_button": "أبقه",
+    "replies_list": "الردود:",
+    "status_deleted": "هذا المنشور محذوف",
+    "favorites": "المفضلة",
+    "pinned": "مثبت",
+    "hide_full_subject": "اخف كامل الموضوع",
+    "repeats": "المشاركات",
+    "delete": "اخذف الحالة",
+    "delete_confirm_title": "تأكيد الحذف",
+    "reply_to": "رد على",
+    "mentions": "الذكر",
+    "unmute_conversation": "ارفع الكتم عن المحادثة",
+    "status_unavailable": "الحالة غير متوفرة",
+    "copy_link": "انسخ رابط الحالة",
+    "show_full_subject": "أظهر الموضوع كاملا",
+    "show_content": "أظهر المحتوى",
+    "hide_content": "اخف المحتوى",
+    "you": "(أنت)",
+    "show_all_attachments": "أظهر كل المرفقات",
+    "hide_attachment": "اخف المرفق",
+    "move_down": "حرك المرفق لليمين",
+    "thread_hide": "اخف هذا النقاش",
+    "thread_muted": "النقاش مكتوم",
+    "delete_confirm_accept_button": "احذف",
+    "mute_conversation": "اكتم المحادثة",
+    "external_source": "مصدر خارجي",
+    "expand": "وسّع",
+    "collapse_attachments": "طوي المرفقات",
+    "remove_attachment": "أزل المرفق",
+    "move_up": "حرك المرفق لليسار",
+    "open_gallery": "افتح المعرض",
+    "thread_show": "أظهر هذا النقاس"
   }
 }
