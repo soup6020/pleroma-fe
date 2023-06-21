@@ -3,7 +3,7 @@ import ISO6391 from 'iso-639-1'
 import _ from 'lodash'
 
 const specialLanguageCodes = {
-  nan: 'nan',
+  nan: 'nan-TW',
   ja_easy: 'ja',
   zh_Hant: 'zh-HANT',
   zh: 'zh-Hans'
