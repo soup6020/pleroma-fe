@@ -19,7 +19,7 @@ const internalToBackendLocaleMulti = codes => {
 const getLanguageName = (code) => {
   const specialLanguageNames = {
     ja_easy: 'やさしいにほんご',
-    nan-TW: '臺語（閩南語）',
+    "nan-TW": '臺語（閩南語）',
     zh: '简体中文',
     zh_Hant: '繁體中文'
   }
