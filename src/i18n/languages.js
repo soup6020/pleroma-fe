@@ -17,7 +17,7 @@ const languages = [
   'ja',
   'ja_easy',
   'ko',
-  'nan',
+  'nan-TW',
   'nb',
   'nl',
   'oc',
