@@ -1,454 +1,515 @@
 {
-	"about": {
-		"mrf": {
-			"federation": "聯邦",
-			"keyword": {
-				"keyword_policies": "關鍵字政策",
-				"ftl_removal": "Tuì「知影 ê 網路」時間線除掉。",
-				"reject": "拒絕",
-				"replace": "取代"
-
-			},
-			"mrf_policies": "啟用 ê MRF 政策",
-			"mrf_policies_desc": "MRF 政策操作本站 ê 對外通信行為。以下ê政策啟用 ah：",
-			"simple": {
-				"simple_policies": "站臺特有 ê 政策",
-				"instance": "站",
-				"reason": "理由",
-
-				"accept": "接受",
-				"accept_desc": "本站干焦接受下跤 ê 站 ê 短 phue：",
-				"reject": "拒絕",
-				"reject_desc": "本站 buē 接受 tuì 以下 ê 站 ê 短 phue：",
-				"quarantine": "隔離",
-				"quarantine_desc": "針對下跤 ê 站，本站干焦送出公開ê PO文：",
-				"ftl_removal": "Tuì「知影 ê 網路」時間線thâi掉",
-				"ftl_removal_desc": "本站buē 佇「知影 ê 網路」刊下跤 ê 站 ê PO文：",
-				"media_removal": "Thâi除媒體",
-				"media_removal_desc": "本站 kā 下跤 ê 站臺送 ê PO文 ê 媒體 lóng thâi 除：",
-				"media_nsfw": "媒體 lóng 標做「敏感內容」",
-				"media_nsfw_desc": "本站 kā 下跤 ê 站 ê 媒體，lóng 標做敏感內容："
-			}
-		},
-		"staff": "工作人員"
-	},
-	"announcements": {
-		"page_header": "公告",
-		"title": "公告",
-		"mark_as_read_action": "標做有讀",
-		"post_form_header": "貼公告",
-		"post_placeholder": "佇 tsia 拍你 ê 公告……",
-		"post_action": "貼",
-		"post_error": "錯誤：{error}",
-		"close_error": "關",
-
-		"start_time_prompt": "開始時間： ",
-		"end_time_prompt": "結束時間：",
-		"all_day_prompt": "Tse 是 kui 工 ê 事件",
-		"published_time_display": "公告佇 {time}",
-		"start_time_display": "有效 tuì：{time}",
-		"end_time_display": "中止佇：{time}",
-		"edit_action": "編輯",
-		"submit_edit_action": "送出",
-		"cancel_edit_action": "取消",
-		"inactive_message": "這个公告 tsit-má 無效力。"
-	},
-	"shoutbox": {
-		"title": "留話枋"
-	},
-	"domain_mute_card": {
-		"mute": "予恬去",
-		"mute_progress": "Teh 予恬……",
-		"unmute": "予有聲",
-		"unmute_progress": "Teh 予有聲……"
-	},
-	"exporter": {
-		"export": "匯出",
-		"processing": "Teh 處理，較停仔指示你下載檔案……"
-	},
-	"features_panel": {
-		"shout": "留話枋",
-		"pleroma_chat_messages": "Pleroma 開講",
-
-		"media_proxy": "媒體代理伺侯器",
-		"scope_options": "公開範圍選項",
-		"text_limit": "字數限制",
-		"title": "有效 ê 功能",
-		"who_to_follow": "啥儂通綴",
-		"upload_limit": "檔案 sài-suh 限制"
-	},
-	"finder": {
-		"error_fetching_user": "Tshuē 用者 ê 時起錯誤",
-		"find_user": "Tshuē 用者"
-	},
-	"general": {
-		"apply": "應用",
-		"submit": "送出",
-		"more": "Koh 較 tsē",
-		"loading": "Leh 載入……",
-		"generic_error": "起錯誤 ah",
-		"generic_error_message": "起錯誤：{0}",
-		"error_retry": "請 koh 試一 kái",
-		"retry": "Koh 試",
-		"optional": "非必要",
-		"show_more": "展示較 tsē",
-		"show_less": "展示較少",
-		"never_show_again": "Mài koh 展示",
-		"dismiss": "無視",
-		"cancel": "取消",
-		"disable": "無愛用",
-		"enable": "啟用",
-		"confirm": "確認",
-		"verify": "驗證",
-		"close": "關掉",
-		"undo": "復原",
-		"yes": "是",
-		"no": "毋是",
-		"peek": "先看 māi",
-		"scroll_to_top": "捲 kàu 頂懸",
-		"role": {
-			"admin": "行政員",
-			"moderator": "管理員"
-		},
-		"unpin": "無愛 kā 釘",
-		"pin": "Kā釘起來",
-		"flash_content": "Ji̍h tsia，用 Ruffle（iáu teh 試驗，可能 buē 紡）看 Flash ê 內容。",
-		"flash_sepcurity": "注意 tse 可能有危險，因為 Flash 內容猶原是任意 ê 程式碼。",
-		"flash_fail": "載入 flash 內容失敗，詳細會當看控制臺。",
-		"scope_in_timeline": {
-			"direct": "私人 phue",
-			"private": "干焦 hōo 綴 lí ê 看",
-			"public": "公開佇公共時間線",
-			"unlisted": "無愛公開佇公共時間線"
-		}
-	},
-	"image_cropper": {
-		"crop_picture": "裁相片",
-		"save": "儲存",
-		"save_without_cropping": "無裁就儲存",
-		"cancel": "取消"
-	},
-	"importer": {
-		"submit": "送出",
-		"success": "匯入成功。",
-		"error": "佇匯入 ê 時起錯誤。"
-	},
-	"login": {
-		"login": "登入",
-		"description": "用 OAuth 登入",
-		"logout": "登出",
-		"logout_confirm_title": "登出確認",
-		"logout_confirm": "Lí　敢真正　beh　登出？",
-		"logout_confirm_accept_button": "登出",
-		"logout_confirm_cancel_button": "mài 登出",
-		"password": "密碼",
-		"placeholder": "例：lain",
-		"register": "註冊",
-		"username": "用者 ê 名",
-		"hint": "登入，參與討論",
-		"authentication_code": "認證碼",
-		"enter_recovery_code": "輸入恢復碼",
-		"enter_two_factor_code": "輸入兩階段認證碼",
-		"recovery_code": "恢復碼",
-		"heading": {
-			"totp": "兩階段認證",
-			"recovery": "兩階段恢復"
-		}
-	},
-	"media_modal": {
-		"previous": "頂一　ê",
-		"next": "後一个",
-		"counter": "{current} / {total}",
-		"hide": "關掉媒體瀏覽"
-	},
-	"nav": {
-		"about": "有關……",
-		"administration": "管理",
-		"back": "轉去",
-		"friend_requests": "跟綴請求",
-		"mentions": "The̍h起",
-		"interactions": "互動",
-		"dms": "私人 phue",
-		"public_tl": "公共時間線",
-		"timeline": "時間線",
-		"home_timeline": "厝 ê 時間線",
-		"twkn": "知影 ê 網路",
-		"bookmarks": "冊籤",
-		"user_search": "Tshuē 用者",
-
-		"search_close": "關掉 tshiau-tshuē liâu",
-		"who_to_follow": "Siáng 會當綴？",
-		"preferences": "個人 ê 設定",
-		"timelines": "時間流",
-		"chats": "開講",
-		"lists": "列單",
-		"edit_nav_mobile": "自訂導覽條",
-		"edit_pinned": "編輯釘起來 ê 項目",
-		"edit_finish": "編輯 suah",
-		"mobile_sidebar": "切換行動版 ê 邊 á liâu",
-		"mobile_notifications": "拍開通知（有無讀ê）",
-		"mobile_notifications_close": "關掉通知",
-		"announcements": "公告"
-	},
-	"notifications": {
-		"broken_favorite": "狀態毋知影，leh tshiau-tshuē……",
-		"error": "佇取得通知 ê 時起錯誤：{0}",
-		"favorited_you": "kah 意 lí ê 狀態",
-		"followed_you": "綴 lí",
-		"follow_request": "想 beh 綴 lí",
-		"load_older": "載入 khah 早 ê 通知",
-		"notifications": "通知",
-		"read": "讀！",
-		"repeated_you": "轉送 lí ê 狀態",
-		"no_more_notifications": "無別 ê 通知",
-		"migrated_to": "移民到",
-		"reacted_with": "顯出{0} ê 反應",
-		"submitted_report": "送出檢舉",
-		"poll_ended": "投票結束"
-	},
-	"polls": {
-		"add_poll": "開投票",
-		"add_option": "加選項",
-		"option": "選項",
-		"votes": "票",
-		"people_voted_count": "{count} 位有投",
-		"votes_count": "{count} 票",
-		"vote": "投票",
-		"type": "投票 ê 形式",
-		"single_choice": "孤選",
-		"multiple_choices": "Tsē 選",
-		"expiry": "投票期限",
-		"expires_in": "投票 tī {0} 以後結束",
-		"expired": "投票佇 {0} 以前結束",
-		"not_enough_options": "投票 ê 選項傷少。"
-	},
-	"emoji": {
-		"stickers": "貼圖",
-		"emoji": "繪文字",
-		"keep_open": "Hōo 揀選仔開 leh",
-		"search_emoji": "Tshuē 繪文字",
-		"add_emoji": "插繪文字",
-		"custom": "定製 ê 繪文字",
-		"unpacked": "拍開 ê 繪文字",
-		"unicode": "Unicode 繪文字",
-		"unicode_groups": {
-			"activities": "活動",
-			"animals-and-nature": "動物 kap 自然",
-			"flags": "旗 á",
-			"food-and-drink": "食物 kap 飲料",
-			"objects": "物體",
-			"people-and-body": "Lâng kap 身軀",
-			"smileys-and-emotion": "笑面 kap 情緒",
-			"symbols": "符號",
-			"travel-and-places": "旅遊 kap 所在"
-		},
-		"load_all_hint": "載入頭前 {saneAmount} ê 繪文字，規个攏載入效能可能 ē khah 食力。",
-		"load_all": "Kā {emojiAmount} ê 繪文字攏載入",
-		"regional_indicator": "地區指引 {letter}"
-	},
-	"errors": {
-		"storage_unavailable": "Pleroma buē-tàng the̍h 著瀏覽器儲存 ê。Lí ê 登入狀態抑是局部設定 buē 儲存，mā 凡勢 tú 著意料外 ê 問題。拍開 cookie 看覓。"
-	},
-	"interactions": {
-		"favs_repeats": "轉送 kap kah 意",
-		"follows": "最近綴 lí ê",
-		"emoji_reactions": "繪文字 ê 回應",
-		"reports": "檢舉",
-		"moves": "用者 ê 移民",
-		"load_older": "載入 koh khah 早 ê 互動"
-	},
-	"post_status": {
-		"edit_status": "編輯狀態",
-		"new_status": "PO 新 ê 狀態",
-		"account_not_locked_warning": "Lín 口座毋是 {0} ê。見 nā 有 lâng 綴--lí，ē-tàng 看著 lí ê 限定跟綴者 ê PO 文。.",
-		"account_not_locked_warning_link": "鎖起來 ê 口座",
-		"attachments_sensitive": "Kā 附件標做敏感內容。",
-		"media_description": "媒體說明",
-		"content_type": {
-			"text/plain": "純 ê 文字"
-
-		},
-		"content_type_selection": "貼 ê 形式",
-		"content_warning": "主旨（毋是必要）",
-		"default": "Tú 正 kàu 高雄 ah。",
-		"direct_warning_to_all": "Tsit ê PO 文通 hōo 逐 ê 提起 ê 用者看見。",
-		"direct_warning_to_first_only": "Tsit ê PO 文，kan-ta 短信 tú 開始提起 ê 用者，tsiah 通看見。",
-		"edit_remote_warning": "別 ê 站臺可能無支援編輯，無法度收著 PO 文上新 ê 版本。",
-		"edit_unsupported_warning": "Pleroma 無支持編輯 the̍h 起 hām 投票。",
-		"posting": "PO 文",
-
-		"preview": "Sing 看覓",
-		"preview_empty": "空 ê",
-		"empty_status_error": "無法度 PO 無檔案 koh 空 ê 狀態。",
-		"media_description_error": "更新媒體失敗，請 koh 試一 kái。",
-		"scope_notice": {
-			"public": "Tsit ê PO 文通予逐 ê 儂看著。",
-			"private": "Tsit ê PO 文 kan-ta 予綴 lí ê 看著。",
-			"unlisted": "Tsit ê PO 文 buē 公開 tī 公共時間線 kap 知影 ê 網路。"
-		},
-		"scope_notice_dismiss": "關掉 tsit ê 通知",
-		"scope": {
-			"direct": "私人 phue - PO 文干焦予提起 ê 用者看著",
-			"private": "限定綴 ê 儂 - PO 文干焦予綴 lí ê 儂看著",
-			"public": "公開 - PO kàu 公開時間線",
-			"unlisted": "Mài 列出來 - Mài PO tī 公開時間線。"
-		}
-	},
-	"registration": {
-		"bio_optional": "介紹（毋是必要）",
-
-		"email_optional": "Email（毋是必要）",
-		"fullname": "顯示 ê 名",
-		"password_confirm": "確認密碼",
-		"registration": "註冊",
-		"token": "邀請碼",
-		"captcha": "驗證碼",
-		"new_captcha": "Ji̍h 圖片，the̍h 新 ê 驗證碼",
-
-		"fullname_placeholder": "e.g. 岩倉 Lain",
-		"bio_placeholder": "e.g.\nLí 好，我是 Lain。我是日本動畫 ê 角色，tuà tī 日本 ê 郊區。Lí 凡勢 bat tī Wired 知影我。",
-		"reason": "註冊 ê 理由",
-		"reason_placeholder": "本站靠人工審核註冊。\n介紹管理者 lí beh tī tsia 註冊 ê 理由。",
-		"register": "註冊",
-		"validations": {
-			"username_required": "著愛添",
-			"fullname_required": "著愛添",
-			"email_required": "著愛添",
-			"password_required": "著愛添",
-			"password_confirmation_required": "著愛添",
-			"password_confirmation_match": "密碼著相 kâng",
-			"birthday_required": "著愛添",
-			"birthday_min_age": "Buē-tàng tī {date} 以後"
-		},
-		"email_language": "Lí想 beh 服侍器用 siánn 物語言寄批 hōo lí？",
-		"birthday": "生日",
-		"birthday_optional": "生日（毋是必要）："
-	},
-	"remote_user_resolver": {
-		"remote_user_resolver": "別站用者 ê 解析器",
-
-		"error": "Tshuē無"
-	},
-	"report": {
-		"reporter": "檢舉人：",
-		"reported_user": "Beh 檢舉 ê 用者：",
-		"reported_statuses": "Beh 檢舉 ê 狀態：",
-
-		"state_open": "開 ê",
-		"state_closed": "關 ê",
-		"state_resolved": "解決了 ê"
-	},
-	"selectable_list": {
-		"select_all": "攏總揀"
-	},
-	"settings": {
-		"add_language": "加一 ê 備用 ê 語言",
-		"remove_language": "Ni 掉",
-		"primary_language": "主要語言：",
-		"fallback_language": "備用語言 {index}：",
-		"app_name": "App ê 名",
-		"expert_mode": "進階模式",
-		"save": "保存改變",
-		"security": "安全",
-		"setting_changed": "設定 kap 預先 ê 有 tsing 差",
-
-		"style": {
-
-			"common": {
-				"color": "色彩",
-				"opacity": "無透明度",
-				"contrast": {
-					"hint": "Contrast ratio is {ratio}, it {level} {context}"
-				}
-			}
-
-		},
-
-
-		"upload": {
-			"error": {
-				"base": "上傳 ê 時失敗。",
-				"message": "傳 buē 起去：{0}",
-				"file_too_big": "檔案 sài-suh 傷大 [{filesize}{filesizeunit} / {allowedsize}{allowedsizeunit}]",
-				"default": "Koh 試一 kái。"
-			},
-			"file_size_units": {}
-		},
-		"search": {
-			"people": "用戶",
-			"hashtags": "主題標籤",
-			"person_talking": "{count} ê leh 論",
-			"people_talking": "{count} ê leh 論",
-			"no_results": "無半 ê 結果",
-			"no_more_results": "無其他 ê 結果",
-			"load_more": "載入 koh 較 tsē 結果"
-		},
-		"password_reset": {
-			"forgot_password": "Buē 記得密碼？",
-			"password_reset": "重頭設密碼",
-			"instruction": "拍 lí ê email 地址 iah 是用者 ê 名。Guán 會送 lí 連結，重頭設定密碼。",
-			"placeholder": "Lí ê email 地址 iah 是用者 ê 名。",
-			"check_email": "檢查電子 phue 箱，看有重頭設密碼 ê 連結無。",
-			"return_home": "轉來頭頁",
-			"too_many_requests": "Lí kā 請求 ê khòo-tah 用了 ah。等一時仔，閣試一 pái。",
-			"password_reset_disabled": "密碼重頭設定無開放。請聯絡本站 ê 行政員。",
-			"password_reset_required": "Beh 登入，著重頭設 lí ê 密碼。",
-			"password_reset_required_but_mailer_is_disabled": "Lí 需要重頭設密碼，毋 koh tsia 無開放密碼 koh 再設定。請聯絡本站 ê 行政員。"
-		},
-		"chats": {
-
-			"message_user": "傳私人 phue：{nickname}",
-			"delete": "Thâi 掉",
-			"chats": "開講",
-			"new": "發起開講",
-			"empty_message_error": "無法度 PO 空 ê phue",
-			"more": "Koh較濟……",
-			"delete_confirm": "Lí 敢真 ê beh thâi tsit 張 phue？",
-			"error_loading_chat": "載入開講 ê 時，出箠 ah。",
-			"error_sending_message": "送 phue ê 時，出箠 ah。",
-			"empty_chat_list_placeholder": "Lí 猶無佇 tsia 開講過，來開講 lah！"
-		},
-		"lists": {
-			"lists": "列單",
-			"new": "新 ê 列單",
-			"title": "列單標題",
-			"search": "Tshuē 用者",
-			"create": "開新 ê",
-			"save": "保存改變",
-			"delete": "刣列單",
-			"following_only": "限定 lí 所關注 ê",
-			"manage_lists": "管理列單",
-			"manage_members": "管理列單成員",
-			"add_members": "Tshiau 閣較 tsē ê 用者",
-			"remove_from_list": "對列單刣掉",
-			"add_to_list": "加入去列單",
-			"is_in_list": "列單已經有 ah ",
-			"editing_list": "編輯列單 {listTitle}",
-			"creating_list": "開新 ê 列單",
-			"update_title": "保存標題",
-			"really_delete": "敢真正 beh 刣掉列單？",
-			"error": "操作列單 ê 時陣出重耽：{0}"
-		},
-		"file_type": {
-			"audio": "音訊",
-			"video": "影片",
-			"image": "影像",
-			"file": "檔案"
-		},
-		"display_date": {
-			"today": "今 á 日"
-		},
-		"update": {
-			"big_update_title": "敬請體諒",
-			"big_update_content": "因為 guán 有一站 á 無發行新版本，所以這个版本會 kap lí 以早慣 sì ê 無仝。",
-			"update_bugs": "請佇 {pleromaGitlab} 報告任何問題 kap bug，因為 Pleroma 改變真 tsē。雖罔 guán 徹底 leh 試，mā 家 kī 用開發版，伊凡勢有一寡重耽。Guán 歡迎 lín 提供關係所拄著 ê 問題 ê 意見、建議，或者是改進 Pleroma kap Pleroma-FE ê 法度。",
-
-			"update_changelog": "Nā beh 知影改變 ê 詳細，請看：{theFullChangelog}.",
-			"update_changelog_here": "Kui ê 改變日誌",
-			"art_by": "美編：{linkToArtist}"
-		},
-		"unicode_domain_indicator": {
-			"tooltip": "這 ê 域名包含毋是 ascii ê 字元。"
-		}
-	}
+  "about": {
+    "mrf": {
+      "federation": "聯邦",
+      "keyword": {
+        "keyword_policies": "關鍵字政策",
+        "ftl_removal": "Tuì「知影 ê 網路」時間線除掉",
+        "reject": "拒絕",
+        "replace": "取代",
+        "is_replaced_by": "→"
+      },
+      "mrf_policies": "啟用 ê MRF 政策",
+      "mrf_policies_desc": "MRF 政策操作本站 ê 對外通信行為。以下ê政策啟用 ah：",
+      "simple": {
+        "simple_policies": "站臺特有 ê 政策",
+        "instance": "站",
+        "reason": "理由",
+        "accept": "接受",
+        "accept_desc": "本站干焦接受下跤 ê 站 ê 短 phue：",
+        "reject": "拒絕",
+        "reject_desc": "本站 buē 接受 tuì 以下 ê 站 ê 短 phue：",
+        "quarantine": "隔離",
+        "quarantine_desc": "針對下跤 ê 站，本站干焦送出公開ê PO文：",
+        "ftl_removal": "Tuì「知影 ê 網路」時間線thâi掉",
+        "ftl_removal_desc": "本站buē 佇「知影 ê 網路」刊下跤 ê 站 ê PO文：",
+        "media_removal": "Thâi除媒體",
+        "media_removal_desc": "本站 kā 下跤 ê 站臺送 ê PO文 ê 媒體 lóng thâi 除：",
+        "media_nsfw": "媒體 lóng 標做「敏感內容」",
+        "media_nsfw_desc": "本站 kā 下跤 ê 站 ê 媒體，lóng 標做敏感內容：",
+        "not_applicable": "N/A"
+      }
+    },
+    "staff": "工作人員"
+  },
+  "announcements": {
+    "page_header": "公告",
+    "title": "公告",
+    "mark_as_read_action": "標做讀過",
+    "post_form_header": "貼公告",
+    "post_placeholder": "佇 tsia 拍你 ê 公告……",
+    "post_action": "貼",
+    "post_error": "錯誤：{error}",
+    "close_error": "關",
+    "start_time_prompt": "開始時間： ",
+    "end_time_prompt": "結束時間： ",
+    "all_day_prompt": "Tse 是 kui 工 ê 事件",
+    "published_time_display": "公告佇 {time}",
+    "start_time_display": "有效 tuì：{time}",
+    "end_time_display": "中止佇：{time}",
+    "edit_action": "編輯",
+    "submit_edit_action": "送出",
+    "cancel_edit_action": "取消",
+    "inactive_message": "這个公告 tsit-má 無效力",
+    "delete_action": "Thâi掉"
+  },
+  "shoutbox": {
+    "title": "留話枋"
+  },
+  "domain_mute_card": {
+    "mute": "消音",
+    "mute_progress": "Teh 消音……",
+    "unmute": "予有聲",
+    "unmute_progress": "Teh 予有聲……"
+  },
+  "exporter": {
+    "export": "匯出",
+    "processing": "Teh 處理，較停仔指示你下載檔案"
+  },
+  "features_panel": {
+    "shout": "留話枋",
+    "pleroma_chat_messages": "Pleroma 開講",
+    "media_proxy": "媒體代理伺侯器",
+    "scope_options": "公開範圍選項",
+    "text_limit": "字數限制",
+    "title": "有效 ê 功能",
+    "who_to_follow": "啥儂通綴",
+    "upload_limit": "檔案 sài-suh 限制",
+    "gopher": "Gopher"
+  },
+  "finder": {
+    "error_fetching_user": "Tshuē 用者 ê 時起錯誤",
+    "find_user": "Tshuē 用者"
+  },
+  "general": {
+    "apply": "應用",
+    "submit": "送出",
+    "more": "Koh 較 tsē",
+    "loading": "Leh 載入……",
+    "generic_error": "起錯誤 ah",
+    "generic_error_message": "起錯誤：{0}",
+    "error_retry": "請 koh 試一 kái",
+    "retry": "Koh 試",
+    "optional": "非必要",
+    "show_more": "展示較 tsē",
+    "show_less": "展示較少",
+    "never_show_again": "Mài koh 展示",
+    "dismiss": "無視",
+    "cancel": "取消",
+    "disable": "無愛用",
+    "enable": "啟用",
+    "confirm": "確認",
+    "verify": "驗證",
+    "close": "關掉",
+    "undo": "復原",
+    "yes": "是",
+    "no": "毋是",
+    "peek": "先看 māi",
+    "scroll_to_top": "捲 kàu 頂懸",
+    "role": {
+      "admin": "行政員",
+      "moderator": "管理員"
+    },
+    "unpin": "無愛 kā 釘",
+    "pin": "Kā釘起來",
+    "flash_content": "Ji̍h tsia，用 Ruffle（iáu teh 試驗，可能 buē 紡）看 Flash ê 內容。",
+    "flash_sepcurity": "注意 tse 可能有危險，因為 Flash 內容猶原是任意 ê 程式碼。",
+    "flash_fail": "載入 flash 內容失敗，詳細會當看控制臺。",
+    "scope_in_timeline": {
+      "direct": "私人 phue",
+      "private": "干焦 hōo 綴 lí ê 看",
+      "public": "公開佇公共時間線",
+      "unlisted": "無愛公開佇公共時間線"
+    },
+    "flash_security": "Flash內容通藏任何ê指令，所以可能有危險。"
+  },
+  "image_cropper": {
+    "crop_picture": "裁相片",
+    "save": "儲存",
+    "save_without_cropping": "無裁就儲存",
+    "cancel": "取消"
+  },
+  "importer": {
+    "submit": "送出",
+    "success": "匯入成功。",
+    "error": "佇匯入 ê 時起錯誤。"
+  },
+  "login": {
+    "login": "登入",
+    "description": "用 OAuth 登入",
+    "logout": "登出",
+    "logout_confirm_title": "登出確認",
+    "logout_confirm": "Lí　敢真正　beh　登出？",
+    "logout_confirm_accept_button": "登出",
+    "logout_confirm_cancel_button": "mài 登出",
+    "password": "密碼",
+    "placeholder": "例：lain",
+    "register": "註冊",
+    "username": "用者 ê 名",
+    "hint": "登入，參與討論",
+    "authentication_code": "認證碼",
+    "enter_recovery_code": "輸入恢復碼",
+    "enter_two_factor_code": "輸入兩階段認證碼",
+    "recovery_code": "恢復碼",
+    "heading": {
+      "totp": "兩階段認證",
+      "recovery": "兩階段恢復"
+    }
+  },
+  "media_modal": {
+    "previous": "頂一　ê",
+    "next": "後一个",
+    "counter": "{current} / {total}",
+    "hide": "關掉媒體瀏覽"
+  },
+  "nav": {
+    "about": "有關本站",
+    "administration": "管理",
+    "back": "轉去",
+    "friend_requests": "跟綴請求",
+    "mentions": "The̍h起",
+    "interactions": "互動",
+    "dms": "私人 phue",
+    "public_tl": "公共時間線",
+    "timeline": "時間線",
+    "home_timeline": "厝 ê 時間線",
+    "twkn": "知影 ê 網路",
+    "bookmarks": "冊籤",
+    "user_search": "Tshuē 用者",
+    "search_close": "關掉 tshiau-tshuē liâu",
+    "who_to_follow": "Siáng 會當綴",
+    "preferences": "個人 ê 設定",
+    "timelines": "時間流",
+    "chats": "開講",
+    "lists": "列單",
+    "edit_nav_mobile": "自訂導覽條",
+    "edit_pinned": "編輯釘起來 ê 項目",
+    "edit_finish": "編輯 suah",
+    "mobile_sidebar": "切換行動版 ê 邊 á liâu",
+    "mobile_notifications": "拍開通知（有無讀ê）",
+    "mobile_notifications_close": "關掉通知",
+    "announcements": "公告",
+    "search": "Tshuē"
+  },
+  "notifications": {
+    "broken_favorite": "狀態毋知影，leh tshiau-tshuē……",
+    "error": "佇取得通知 ê 時起錯誤：{0}",
+    "favorited_you": "kah 意 lí ê 狀態",
+    "followed_you": "綴 lí",
+    "follow_request": "想 beh 綴 lí",
+    "load_older": "載入 khah 早 ê 通知",
+    "notifications": "通知",
+    "read": "讀！",
+    "repeated_you": "轉送 lí ê 狀態",
+    "no_more_notifications": "無別 ê 通知",
+    "migrated_to": "移民到",
+    "reacted_with": "顯出{0} ê 反應",
+    "submitted_report": "送出檢舉",
+    "poll_ended": "投票結束"
+  },
+  "polls": {
+    "add_poll": "開投票",
+    "add_option": "加選項",
+    "option": "選項",
+    "votes": "票",
+    "people_voted_count": "{count} 位有投",
+    "votes_count": "{count} 票",
+    "vote": "投票",
+    "type": "投票 ê 形式",
+    "single_choice": "孤選",
+    "multiple_choices": "Tsē 選",
+    "expiry": "投票期限",
+    "expires_in": "投票 tī {0} 以後結束",
+    "expired": "投票佇 {0} 以前結束",
+    "not_enough_options": "投票 ê 選項傷少"
+  },
+  "emoji": {
+    "stickers": "貼圖",
+    "emoji": "繪文字",
+    "keep_open": "Hōo 揀選仔開 leh",
+    "search_emoji": "Tshuē 繪文字",
+    "add_emoji": "插繪文字",
+    "custom": "定製 ê 繪文字",
+    "unpacked": "拍開 ê 繪文字",
+    "unicode": "Unicode 繪文字",
+    "unicode_groups": {
+      "activities": "活動",
+      "animals-and-nature": "動物 kap 自然",
+      "flags": "旗 á",
+      "food-and-drink": "食物 kap 飲料",
+      "objects": "物體",
+      "people-and-body": "Lâng kap 身軀",
+      "smileys-and-emotion": "笑面 kap 情緒",
+      "symbols": "符號",
+      "travel-and-places": "旅遊 kap 所在"
+    },
+    "load_all_hint": "載入頭前 {saneAmount} ê 繪文字，規个攏載入效能可能 ē khah 食力。",
+    "load_all": "Kā {emojiAmount} ê 繪文字攏載入",
+    "regional_indicator": "地區指引 {letter}"
+  },
+  "errors": {
+    "storage_unavailable": "Pleroma buē-tàng the̍h 著瀏覽器儲存 ê。Lí ê 登入狀態抑是局部設定 buē 儲存，mā 凡勢 tú 著意料外 ê 問題。拍開 cookie 看覓。"
+  },
+  "interactions": {
+    "favs_repeats": "轉送 kap kah 意",
+    "follows": "最近綴 lí ê",
+    "emoji_reactions": "繪文字 ê 回應",
+    "reports": "檢舉",
+    "moves": "用者 ê 移民",
+    "load_older": "載入 koh khah 早 ê 互動"
+  },
+  "post_status": {
+    "edit_status": "編輯狀態",
+    "new_status": "PO 新 ê 狀態",
+    "account_not_locked_warning": "Lín 口座毋是 {0} ê。見 nā 有 lâng 綴--lí，ē-tàng 看著 lí ê 限定跟綴者 ê PO 文。.",
+    "account_not_locked_warning_link": "鎖起來 ê 口座",
+    "attachments_sensitive": "Kā 附件標做敏感內容",
+    "media_description": "媒體說明",
+    "content_type": {
+      "text/plain": "純 ê 文字",
+      "text/html": "HTML",
+      "text/markdown": "Markdown",
+      "text/bbcode": "BBCode"
+    },
+    "content_type_selection": "貼 ê 形式",
+    "content_warning": "主旨（毋是必要）",
+    "default": "Tú 正 kàu 高雄 ah。",
+    "direct_warning_to_all": "Tsit ê PO 文通 hōo 逐 ê 提起 ê 用者看見。",
+    "direct_warning_to_first_only": "Tsit ê PO 文，kan-ta 短信 tú 開始提起 ê 用者，tsiah 通看見。",
+    "edit_remote_warning": "別 ê 站臺可能無支援編輯，無法度收著 PO 文上新 ê 版本。",
+    "edit_unsupported_warning": "Pleroma 無支持編輯 the̍h 起 hām 投票。",
+    "posting": "PO 文",
+    "preview": "Sing 看覓",
+    "preview_empty": "空 ê",
+    "empty_status_error": "無法度 PO 無檔案 koh 空 ê 狀態",
+    "media_description_error": "更新媒體失敗，請 koh 試一 kái",
+    "scope_notice": {
+      "public": "Tsit ê PO 文通予逐 ê 儂看著",
+      "private": "Tsit ê PO 文 kan-ta 予綴 lí ê 看著",
+      "unlisted": "Tsit ê PO 文 buē 公開 tī 公共時間線 kap 知影 ê 網路"
+    },
+    "scope_notice_dismiss": "關掉 tsit ê 通知",
+    "scope": {
+      "direct": "私人 phue - PO 文干焦予提起 ê 用者看著",
+      "private": "限定綴 ê 儂 - PO 文干焦予綴 lí ê 儂看著",
+      "public": "公開 - PO kàu 公開時間線",
+      "unlisted": "Mài 列出來 - Mài PO tī 公開時間線"
+    },
+    "post": "PO 上去"
+  },
+  "registration": {
+    "bio_optional": "介紹（毋是必要）",
+    "email_optional": "Email（毋是必要）",
+    "fullname": "顯示 ê 名",
+    "password_confirm": "確認密碼",
+    "registration": "註冊",
+    "token": "邀請碼",
+    "captcha": "驗證碼",
+    "new_captcha": "Ji̍h 圖片，the̍h 新 ê 驗證碼",
+    "fullname_placeholder": "e.g. 岩倉 Lain",
+    "bio_placeholder": "e.g.\nLí 好，我是 Lain。\n我是日本動畫 ê 角色，tuà tī 日本 ê 郊區。Lí 凡勢 bat tī Wired 知影我。",
+    "reason": "註冊 ê 理由",
+    "reason_placeholder": "本站靠人工審核註冊。\n介紹管理者 lí beh tī tsia 註冊 ê 理由。",
+    "register": "註冊",
+    "validations": {
+      "username_required": "著愛添",
+      "fullname_required": "著愛添",
+      "email_required": "著愛添",
+      "password_required": "著愛添",
+      "password_confirmation_required": "著愛添",
+      "password_confirmation_match": "密碼著相 kâng",
+      "birthday_required": "著愛添",
+      "birthday_min_age": "Buē-tàng tī {date} 以後"
+    },
+    "email_language": "Lí想 beh 服侍器用 siánn 物語言寄批 hōo lí？",
+    "birthday": "生日：",
+    "birthday_optional": "生日（毋是必要）：",
+    "email": "電子 phue 箱",
+    "username_placeholder": "比如：lain"
+  },
+  "remote_user_resolver": {
+    "remote_user_resolver": "別站用者 ê 解析器",
+    "error": "Tshuē無。",
+    "searching_for": "Tshuē："
+  },
+  "report": {
+    "reporter": "檢舉人：",
+    "reported_user": "Beh 檢舉 ê 用者：",
+    "reported_statuses": "Beh 檢舉 ê 狀態：",
+    "state_open": "開 ê",
+    "state_closed": "關 ê",
+    "state_resolved": "解決了 ê",
+    "notes": "註：",
+    "state": "狀態："
+  },
+  "selectable_list": {
+    "select_all": "攏總揀"
+  },
+  "settings": {
+    "add_language": "加一 ê 備用 ê 語言",
+    "remove_language": "Ni 掉",
+    "primary_language": "主要語言：",
+    "fallback_language": "備用語言 {index}：",
+    "app_name": "App ê 名",
+    "expert_mode": "進階模式",
+    "save": "保存改變",
+    "security": "安全",
+    "setting_changed": "設定 kap 預先 ê 有 tsing 差",
+    "style": {
+      "common": {
+        "color": "色彩",
+        "opacity": "無透明度",
+        "contrast": {
+          "hint": "色彩ê對比率：{ratio}。{level}、 {context}"
+        }
+      }
+    },
+    "upload": {
+      "error": {
+        "base": "上傳 ê 時失敗。",
+        "message": "傳 buē 起去：{0}",
+        "file_too_big": "檔案 sài-suh 傷大 [{filesize}{filesizeunit} / {allowedsize}{allowedsizeunit}]",
+        "default": "Koh 試一 kái。"
+      }
+    },
+    "search": {
+      "people": "用戶",
+      "hashtags": "主題標籤",
+      "person_talking": "{count} ê leh 論",
+      "people_talking": "{count} ê leh 論",
+      "no_results": "無半 ê 結果",
+      "no_more_results": "無其他 ê 結果",
+      "load_more": "載入 koh 較 tsē 結果"
+    },
+    "password_reset": {
+      "forgot_password": "Buē 記得密碼？",
+      "password_reset": "重頭設密碼",
+      "instruction": "拍 lí ê email 地址 iah 是用者 ê 名。Guán 會送 lí 連結，重頭設定密碼。",
+      "placeholder": "Lí ê email 地址 iah 是用者 ê 名。",
+      "check_email": "檢查電子 phue 箱，看有重頭設密碼 ê 連結無。",
+      "return_home": "轉來頭頁",
+      "too_many_requests": "Lí kā 請求 ê khòo-tah 用了 ah。等一時仔，閣試一 pái。",
+      "password_reset_disabled": "密碼重頭設定無開放。請聯絡本站 ê 行政員。",
+      "password_reset_required": "Beh 登入，著重頭設 lí ê 密碼。",
+      "password_reset_required_but_mailer_is_disabled": "Lí 需要重頭設密碼，毋 koh tsia 無開放密碼 koh 再設定。請聯絡本站 ê 行政員。"
+    },
+    "chats": {
+      "message_user": "傳私人 phue：{nickname}",
+      "delete": "Thâi 掉",
+      "chats": "開講",
+      "new": "發起開講",
+      "empty_message_error": "無法度 PO 空 ê phue",
+      "more": "Koh較濟……",
+      "delete_confirm": "Lí 敢真 ê beh thâi tsit 張 phue？",
+      "error_loading_chat": "載入開講 ê 時，出箠 ah。",
+      "error_sending_message": "送 phue ê 時，出箠 ah。",
+      "empty_chat_list_placeholder": "Lí 猶無佇 tsia 開講過，來開講 lah！"
+    },
+    "lists": {
+      "lists": "列單",
+      "new": "新 ê 列單",
+      "title": "列單標題",
+      "search": "Tshuē 用者",
+      "create": "開新 ê",
+      "save": "保存改變",
+      "delete": "刣列單",
+      "following_only": "限定 lí 所關注 ê",
+      "manage_lists": "管理列單",
+      "manage_members": "管理列單成員",
+      "add_members": "Tshiau 閣較 tsē ê 用者",
+      "remove_from_list": "對列單刣掉",
+      "add_to_list": "加入去列單",
+      "is_in_list": "列單已經有 ah ",
+      "editing_list": "編輯列單 {listTitle}",
+      "creating_list": "開新 ê 列單",
+      "update_title": "保存標題",
+      "really_delete": "敢真正 beh 刣掉列單？",
+      "error": "操作列單 ê 時陣出重耽：{0}"
+    },
+    "file_type": {
+      "audio": "音訊",
+      "video": "影片",
+      "image": "影像",
+      "file": "檔案"
+    },
+    "display_date": {
+      "today": "今 á 日"
+    },
+    "update": {
+      "big_update_title": "敬請體諒",
+      "big_update_content": "因為 guán 有一站 á 無發行新版本，所以這个版本會 kap lí 以早慣 sì ê 無仝。",
+      "update_bugs": "請佇 {pleromaGitlab} 報告任何問題 kap bug，因為 Pleroma 改變真 tsē。雖罔 guán 徹底 leh 試，mā 家 kī 用開發版，伊凡勢有一寡重耽。Guán 歡迎 lín 提供關係所拄著 ê 問題 ê 意見、建議，或者是改進 Pleroma kap Pleroma-FE ê 法度。",
+      "update_changelog": "Nā beh 知影改變 ê 詳細，請看：{theFullChangelog}.",
+      "update_changelog_here": "Kui ê 改變日誌",
+      "art_by": "美編：{linkToArtist}"
+    },
+    "unicode_domain_indicator": {
+      "tooltip": "這 ê 域名包含毋是 ascii ê 字元。"
+    },
+    "setting_server_side": "Tsit-ê設定縛佇lí ê個人資料，mā 影響逐ê連線階段kap用者端",
+    "post_look_feel": "PO 文ê外貌kap感受",
+    "mention_links": "提起 ê 連結",
+    "mfa": {
+      "otp": "OTP",
+      "setup_otp": "設 OTP",
+      "wait_pre_setup_otp": "kā OTP 預設",
+      "title": "兩階段認證",
+      "generate_new_recovery_codes": "產生新ê恢復碼",
+      "warning_of_generate_new_codes": "產生新 ê 恢復碼ê時，舊 ê tio̍h 變無效。",
+      "recovery_codes": "恢復碼。",
+      "waiting_a_recovery_codes": "當leh收備份碼……",
+      "authentication_methods": "認證方法",
+      "scan": {
+        "title": "掃一 ē",
+        "secret_code": "鎖匙",
+        "desc": "The̍h lí个兩階段app，掃 tsit ê QR code，抑是拍文字鎖匙："
+      },
+      "verify": {
+        "desc": "Nā beh開兩階段認證，請拍兩階段認證app內底ê碼："
+      },
+      "confirm_and_enable": "確定，拍開 OTP",
+      "recovery_codes_warning": "著 kā tsiah ê 號碼抄落來，抑是儲存佇安全ê所在，因為號碼 buē koh 再出現。若是 lí 袂當用 lí 个兩階段認證app，而且恢復碼拍 ka-la̍uh，lí就永永buē當登入lí个口座。"
+    },
+    "lists_navigation": "佇導覽中顯示列單",
+    "allow_following_move": "若是綴ê口座徙位ê時，允准自動綴新ê",
+    "attachmentRadius": "附件",
+    "avatar": "標頭",
+    "avatarAltRadius": "標仔（通知）",
+    "avatarRadius": "標頭",
+    "background": "背景",
+    "bio": "紹介",
+    "block_export": "輸出封鎖名單",
+    "block_export_button": "封鎖名單輸出kàu csv檔",
+    "block_import_error": "佇輸入封鎖名單ê時出tshê",
+    "block_import": "輸入封鎖名單",
+    "mute_export": "輸出消音名單",
+    "mute_export_button": "輸出消音名單kàu csv檔",
+    "mute_import": "輸入消音名單",
+    "blocks_imported": "成功輸入封鎖名單！較停仔tsiah ē處理suah。",
+    "mutes_imported": "成功輸入消音名單！較停仔tsiah ē處理suah。",
+    "import_mutes_from_a_csv_file": "輸入封鎖名單ê csv檔",
+    "account_backup": "備份口座",
+    "mutes_and_blocks": "消音kap封鎖",
+    "delete_account": "Thâi口座",
+    "delete_account_error": "佇刣掉lí ê 口座ê時出問題。若是問題一直佇leh，請聯絡 lín 站臺 ê 行政員。",
+    "account_alias": "口座 ê 別名",
+    "account_alias_table_head": "別名",
+    "list_aliases_error": "佇the̍h別名ê時出tshê：{error}",
+    "hide_list_aliases_error_action": "關掉",
+    "remove_alias": "Thâi 掉tsit ê別名",
+    "new_alias_target": "加新ê別名（比如： {example})）",
+    "added_alias": "別名加入去ah。",
+    "add_alias_error": "佇加別名ê時出tshê：{error}",
+    "move_account": "徙口座",
+    "move_account_target": "目標口座（比如：{example}）",
+    "moved_account": "口座徙過去ah。",
+    "move_account_error": "佇徙口座ê時出tshê：{error}",
+    "attachments": "附件",
+    "email_language": "服侍器送ê email 所用 ê 語言",
+    "enter_current_password_to_confirm": "輸入lí tsit-má ê 密碼，確認lí ê身份",
+    "mute_import_error": "佇輸入消音名單ê時出tshê",
+    "delete_account_description": "Ē 永永刣掉lí个資料，hōo lí 个口座bē當用。",
+    "delete_account_instructions": "佇佇下跤拍lí个密碼，確認 kā 口座 thâi掉。",
+    "move_account_notes": "若是欲徙tsit ê口座，著去lí ê目標口座hia，加一ê指tsia ê別名。"
+  }
 }
