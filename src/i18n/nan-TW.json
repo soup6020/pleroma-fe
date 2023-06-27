@@ -610,6 +610,16 @@
     "theme_help_v2_1": "拍開選擇框á就 ē 當改掉一寡組件ê色彩kap無透明度。Ji̍h「清掉所有ê」，ē 恢復原來ê款。",
     "preload_images": "Kā 圖片先載入",
     "hide_user_stats": "Khàm 掉用者ê統計數據（比如：綴ê lâng額）",
-    "interfaceLanguage": "界面ê語言"
+    "interfaceLanguage": "界面ê語言",
+    "invalid_theme_imported": "Lí 所揀ê主題檔案，Pleroma 無支援，所以主題無改。",
+    "limited_availability": "你ê瀏覽器內底buē當用",
+    "links": "連結",
+    "lock_account_description": "Kan-ta lí 同意，別儂tsiah通綴lí",
+    "loop_video": "循環播出ê影片",
+    "loop_video_silent_only": "Kan-ta無聲ê影片tsiah通循環播出（比如：Mastodon ê \"gif\"）",
+    "mutes_tab": "消音",
+    "play_videos_in_modal": "佇跳出來ê框仔播出影片",
+    "url": "URL",
+    "preview": "預展"
   }
 }
