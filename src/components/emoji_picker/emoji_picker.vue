@@ -12,6 +12,11 @@
         <span
           ref="header"
           class="emoji-tabs"
+          <!--
+            Body scroll lock needs to be on every scrollable element on safari iOS.
+            Here we tell it to enable scrolling for this element.
+            See https://github.com/willmcpo/body-scroll-lock#vanilla-js
+          -->
           v-body-scroll-lock="isInModal"
         >
           <span
@@ -79,6 +84,7 @@
           <DynamicScroller
             ref="emoji-groups"
             class="emoji-groups"
+            <!-- Enables scrolling for this element on safari iOS. See comments for header. -->
             v-body-scroll-lock="isInModal"
             :class="groupsScrolledClass"
             :min-item-size="minItemSize"
