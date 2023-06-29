@@ -12,6 +12,7 @@
         <span
           ref="header"
           class="emoji-tabs"
+          v-body-scroll-lock="isInModal"
         >
           <span
             v-for="group in filteredEmojiGroups"
@@ -78,6 +79,7 @@
           <DynamicScroller
             ref="emoji-groups"
             class="emoji-groups"
+            v-body-scroll-lock="isInModal"
             :class="groupsScrolledClass"
             :min-item-size="minItemSize"
             :items="emojiItems"
