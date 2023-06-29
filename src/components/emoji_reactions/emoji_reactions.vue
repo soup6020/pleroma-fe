@@ -93,6 +93,7 @@
 
       .emoji-reaction-count-button {
         background-color: var(--btn);
+        margin: 0;
         height: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -120,6 +121,7 @@
     box-sizing: border-box;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    margin: 0;
 
     .reaction-emoji {
       width: var(--emoji-size);
