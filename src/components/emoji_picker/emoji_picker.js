@@ -105,6 +105,7 @@ const EmojiPicker = {
       default: false
     }
   },
+  inject: ['popoversZLayer'],
   data () {
     return {
       keyword: '',
@@ -350,6 +351,9 @@ const EmojiPicker = {
 
         return emoji.displayText
       }
+    },
+    isInModal () {
+      return this.popoversZLayer === 'modals'
     }
   }
 }
