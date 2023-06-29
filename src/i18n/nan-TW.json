@@ -620,6 +620,35 @@
     "mutes_tab": "消音",
     "play_videos_in_modal": "佇跳出來ê框仔播出影片",
     "url": "URL",
-    "preview": "預展"
+    "preview": "預展",
+    "file_export_import": {
+      "backup_restore": "備份設定",
+      "backup_settings": "Kā 設定備份kàu檔案",
+      "backup_settings_theme": "Kā設定kap主題備份kàu檔案",
+      "restore_settings": "對檔案回復設定",
+      "errors": {
+        "file_too_old": "無接受ê主要版本：{fileMajor}，檔案ê版本siūnn舊，buē當處理（{feMajor} 版以後ê tsiah支援）",
+        "file_slightly_new": "檔案ê次版本無仝，一寡設定可能buē當載入去",
+        "invalid_file": "選擇ê檔案毋是Pleroma支援ê設定備份，設定無振動。",
+        "file_too_new": "無接受ê主要版本：{fileMajor}，本 PleromaFE（設定版本 {feMajor}）siūnn舊，buē當處理"
+      }
+    },
+    "profile_fields": {
+      "label": "個人資料ê meta資料",
+      "add_field": "加格仔",
+      "name": "標簽",
+      "value": "內容"
+    },
+    "birthday": {
+      "label": "生日",
+      "show_birthday": "顯示我ê生日"
+    },
+    "account_privacy": "隱私",
+    "use_contain_fit": "Mài裁附件ê縮小圖",
+    "name_bio": "名kah介紹",
+    "new_password": "新ê密碼",
+    "posts": "PO文",
+    "name": "名",
+    "new_email": "新ê電子phue箱"
   }
 }
