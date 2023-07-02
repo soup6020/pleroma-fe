@@ -699,7 +699,7 @@
     "hide_muted_threads": "不显示已隐藏的同主题帖子",
     "notification_visibility_polls": "你所投的投票的结束于",
     "tree_advanced": "允许在树状视图中进行更灵活的导航",
-    "tree_fade_ancestors": "以模糊的文字显示当前状态的原型",
+    "tree_fade_ancestors": "以模糊的文字显示当前状态的上级",
     "conversation_display_linear": "线性样式",
     "mention_link_fade_domain": "淡化域名（例如：{'@'}example.org 中的 {'@'}foo{'@'}example.org）",
     "mention_link_bolden_you": "当你被提及时突出显示提及你",
@@ -738,7 +738,16 @@
     "mention_link_show_avatar": "在链接旁边显示用户头像",
     "mention_link_show_avatar_quick": "在提及内容旁边显示用户头像",
     "user_popover_avatar_action_open": "打开个人资料",
-    "autocomplete_select_first": "当有自动完成的结果时，自动选择第一个候选项"
+    "autocomplete_select_first": "当有自动完成的结果时，自动选择第一个候选项",
+    "url": "URL",
+    "preview": "预览",
+    "commit_value": "保存",
+    "commit_value_tooltip": "当前值未保存，请按此按钮以提交你的修改",
+    "reset_value": "重置",
+    "reset_value_tooltip": "重置草稿",
+    "hard_reset_value": "硬重置",
+    "hard_reset_value_tooltip": "从存储中移除设置，强制使用默认值",
+    "emoji_reactions_scale": "表情回应比例系数"
   },
   "time": {
     "day": "{0} 天",
@@ -869,7 +878,9 @@
     "delete_confirm_accept_button": "删除",
     "delete_confirm_cancel_button": "保留",
     "show_attachment_in_modal": "在媒体模式中显示",
-    "status_history": "状态历史"
+    "status_history": "状态历史",
+    "delete_error": "删除状态时出错：{0}",
+    "reaction_count_label": "{num} 人作出了表情回应"
   },
   "user_card": {
     "approve": "核准",
@@ -1195,5 +1206,91 @@
     "lists": "列表",
     "new": "新的列表",
     "title": "列表标题"
+  },
+  "admin_dash": {
+    "window_title": "管理员",
+    "old_ui_link": "旧的管理界面在此处",
+    "reset_all": "重置全部",
+    "commit_all": "保存全部",
+    "tabs": {
+      "nodb": "无数据库配置",
+      "instance": "实例",
+      "limits": "限制",
+      "frontends": "前端"
+    },
+    "nodb": {
+      "heading": "数据库配置已禁用",
+      "documentation": "文档",
+      "text2": "大多数配置选项将不可用。",
+      "text": "你需要修改后端配置文件，以便将 {property} 设置为 {value}，更多内容请参见 {documentation}。"
+    },
+    "captcha": {
+      "native": "本地",
+      "kocaptcha": "KoCaptcha"
+    },
+    "instance": {
+      "instance": "实例信息",
+      "registrations": "用户注册",
+      "captcha_header": "验证码",
+      "kocaptcha": "KoCaptcha 设置",
+      "access": "实例访问",
+      "restrict": {
+        "header": "限制匿名访客的访问",
+        "timelines": "时间线访问",
+        "profiles": "用户个人资料访问",
+        "activities": "状态/活动访问",
+        "description": "允许/不允许访问特定 API 的详细设置。默认情况下（不确定状态），如果实例不是公开的，它将拒绝访问；勾选复选框意味着即使实例是公开的，也拒绝访问；不勾选意味着即使实例是私有的，也允许访问。请注意，如果某些设置被设定，可能会发生意想不到的行为，例如，如果个人资料访问被禁用，显示的帖文将不包含个人资料信息。"
+      }
+    },
+    "limits": {
+      "arbitrary_limits": "任意限制",
+      "posts": "帖文限制",
+      "uploads": "附件限制",
+      "users": "用户个人资料限制",
+      "profile_fields": "个人资料字段限制",
+      "user_uploads": "个人资料媒体限制"
+    },
+    "frontend": {
+      "repository": "存储库链接",
+      "versions": "可用版本",
+      "build_url": "构建产物 URL",
+      "reinstall": "重新安装",
+      "is_default": "（默认）",
+      "is_default_custom": "（默认，版本：{version}）",
+      "install": "安装",
+      "install_version": "安装版本 {version}",
+      "more_install_options": "更多安装选项",
+      "more_default_options": "更多默认设置选项",
+      "set_default": "设为默认",
+      "set_default_version": "将版本 {version} 设为默认",
+      "wip_notice": "请注意，此部分是一个WIP，缺乏某些功能，因为前端管理的后台实现并不完整。",
+      "default_frontend": "默认前端",
+      "default_frontend_tip": "默认的前端将显示给所有用户。目前还没有办法让用户选择个人的前端。如果你不使用 PleromaFE，你很可能不得不使用旧的和有问题的 AdminFE 来进行实例配置，直到我们替换它。",
+      "default_frontend_tip2": "WIP: 由于 Pleroma 后端没有正确列出所有已安装的前端，你必须手动输入名称和引用。下面的列表提供了填写这些值的快捷方式。",
+      "available_frontends": "可供安装"
+    },
+    "temp_overrides": {
+      ":pleroma": {
+        ":instance": {
+          ":public": {
+            "label": "实例是公开的",
+            "description": "禁用此功能将使所有的 API 只能被已登录用户访问，这将使公共和联邦时间线无法被匿名访客访问。"
+          },
+          ":limit_to_local_content": {
+            "label": "将搜索限于本地内容",
+            "description": "禁用未认证用户（默认）、所有用户或无人的全局网络搜索"
+          },
+          ":description_limit": {
+            "label": "限制",
+            "description": "附件描述的字数限制"
+          },
+          ":background_image": {
+            "label": "背景图片",
+            "description": "背景图片（主要使用于 PleromaFE）"
+          }
+        }
+      }
+    },
+    "wip_notice": "此管理仪表板是实验性和 WIP 的，{adminFeLink}。"
   }
 }
