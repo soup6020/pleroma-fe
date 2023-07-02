@@ -43,7 +43,9 @@
     "loading": "يحمل…",
     "generic_error": "حدث خطأ",
     "scope_in_timeline": {
-      "private": "المتابِعون فقط"
+      "private": "المتابِعون فقط",
+      "public": "علني",
+      "unlisted": "غير مدرج"
     },
     "scroll_to_top": "مرر لأعلى",
     "pin": "ثبت العنصر"
@@ -65,8 +67,10 @@
     "enter_two_factor_code": "أدخل رمز الاستيثاق بعاملين",
     "recovery_code": "رمز الاستعادة",
     "heading": {
-      "totp": "الاستيثاق بعاملين"
-    }
+      "totp": "الاستيثاق بعاملين",
+      "recovery": "الاستيثاق بعاملين"
+    },
+    "description": "لج باستخدام OAuth"
   },
   "nav": {
     "chat": "الدردشة المحلية",
@@ -91,7 +95,9 @@
     "dms": "رسالة شخصية",
     "edit_finish": "تم التحرير",
     "timelines": "الخيوط الزمنية",
-    "mobile_notifications": "افتح الإشعارات (تتواجد اشعارات غير مقروءة)"
+    "mobile_notifications": "افتح الإشعارات (تتواجد اشعارات غير مقروءة)",
+    "about": "حول",
+    "user_search": "بحث عن مستخدم"
   },
   "notifications": {
     "broken_favorite": "منشور مجهول، جارٍ البحث عنه…",
@@ -106,10 +112,11 @@
     "poll_ended": "انتهى الاستطلاع",
     "no_more_notifications": "لا مزيد من الإشعارات",
     "reacted_with": "تفاعل بـ{0}",
-    "submitted_report": "أرسل بلاغًا"
+    "submitted_report": "أرسل بلاغًا",
+    "migrated_to": "انتقلَ إلى"
   },
   "post_status": {
-    "account_not_locked_warning": "",
+    "account_not_locked_warning": "حسابك ليس {0}. يمكن للجميع مشاهدة مشاركاتك المحصورة على المتابِعين.",
     "account_not_locked_warning_link": "مقفل",
     "attachments_sensitive": "اعتبر المرفقات كلها كمحتوى حساس",
     "content_type": {
@@ -122,8 +129,8 @@
     "direct_warning": "",
     "posting": "النشر",
     "scope": {
-      "direct": "",
-      "private": "",
+      "direct": "مباشر - شارك مع المستخدمين المذكورين فقط",
+      "private": "للمتابِعين فقط - شارك حصرًا مع المتابِعين",
       "public": "علني - يُنشر على الخيوط الزمنية العمومية",
       "unlisted": "غير مُدرَج - لا يُنشَر على الخيوط الزمنية العمومية"
     },
@@ -134,11 +141,17 @@
     "preview_empty": "فارغ",
     "scope_notice": {
       "public": "سيكون هذا المنشور مرئيًا للجميع",
-      "private": "سيكون هذا المنشور مرئيا لمتابِعيك فقط"
+      "private": "سيكون هذا المنشور مرئيا لمتابِعيك فقط",
+      "unlisted": "لن تظهر هته المشاركة في الخط الزمني العلني والشبكات العلنية"
     },
     "direct_warning_to_first_only": "سيكون عذا المنشور مرئيًا للمستخدمين المذكورين في أول الرسالة.",
     "edit_unsupported_warning": "بليروما لا يدعم تعديل الذكر والاستطلاع.",
-    "empty_status_error": "يتعذر نشر منشور فارغ دون ملفات"
+    "empty_status_error": "يتعذر نشر منشور فارغ دون ملفات",
+    "edit_status": "حرر الحالة",
+    "new_status": "انشر حالة جديدة",
+    "content_type_selection": "نسق المشاركة",
+    "scope_notice_dismiss": "أغلق هذا التنبيه",
+    "media_description_error": "فشل تحديث الوسائط، حاول مجددًا"
   },
   "registration": {
     "bio": "السيرة الذاتية",
@@ -203,7 +216,7 @@
     "follow_export_processing": "التصدير جارٍ، سوف يُطلَب منك تنزيل ملفك بعد حين",
     "follow_import": "استيراد الاشتراكات",
     "follow_import_error": "خطأ أثناء استيراد المتابِعين",
-    "follows_imported": "",
+    "follows_imported": "أُستورد المتابِعون! معالجتهم ستستغرق بعض الوقت.",
     "foreground": "الأمامية",
     "general": "الإعدادات العامة",
     "hide_attachments_in_convo": "اخف المرفقات من المحادثات",
@@ -498,7 +511,18 @@
       "title": "نسخة"
     },
     "commit_value": "احفظ",
-    "mention_link_display_full": "اسماء كاملة دايمًا (مثل {'@'}foo{'@'}example.org)"
+    "mention_link_display_full": "اسماء كاملة دايمًا (مثل {'@'}foo{'@'}example.org)",
+    "mute_bot_posts": "اكتم مشاركات الحسابات الآلية",
+    "mention_links": "روابط الذِكر",
+    "email_language": "لغة رسائل البريد الإلكتروني المرسلة إلي من الخادم",
+    "bot": "هذا الحساب آلي",
+    "discoverable": "اسمح بالعثور على هذا الحساب من خلال البحث وخِدمات أخرى",
+    "right_sidebar": "عكس ترتيب الأعمدة",
+    "setting_changed": "الإعدادات مغيّرة",
+    "setting_server_side": "هذا الإعداد مرتبط بحسابك وسيأثر على كل الجلسات والعملاء",
+    "allow_following_move": "اسمح بالمتابعة التلقائية عند انتقال حساب متابَع",
+    "chatMessageRadius": "رسائل",
+    "domain_mutes": "نطاقات"
   },
   "timeline": {
     "collapse": "طوي",
@@ -622,7 +646,9 @@
     "expired": "انتهى الاستطلاع منذ {0}",
     "add_poll": "أضف استطلاعًا",
     "add_option": "أضف خيارًا",
-    "option": "خيار"
+    "option": "خيار",
+    "people_voted_count": "{count} شخص صوّت| {count} شخص صوّت",
+    "votes_count": "{count} صوت | {count} صوت"
   },
   "emoji": {
     "stickers": "ملصقات",
@@ -633,10 +659,13 @@
       "food-and-drink": "أطعمة ومشروبات",
       "symbols": "رموز",
       "activities": "نشاطات",
-      "flags": "أعلام"
+      "flags": "أعلام",
+      "smileys-and-emotion": "ابتسامات وانفعالات",
+      "travel-and-places": "سفر وأماكن"
     },
     "add_emoji": "أدخل إيموجي",
-    "custom": "إيموجي مخصص"
+    "custom": "إيموجي مخصص",
+    "keep_open": "أبق المنتقي مفتوحًا"
   },
   "interactions": {
     "emoji_reactions": "تفاعلات بالإيموجي",
@@ -658,7 +687,9 @@
   },
   "image_cropper": {
     "save": "احفظ",
-    "cancel": "ألغ"
+    "cancel": "ألغ",
+    "crop_picture": "اقتصاص الصورة",
+    "save_without_cropping": "احفظ دون اقتصاص"
   },
   "importer": {
     "submit": "أرسل",
@@ -678,7 +709,8 @@
   "media_modal": {
     "previous": "السابق",
     "next": "التالي",
-    "hide": "أغلق عارض الوسائط"
+    "hide": "أغلق عارض الوسائط",
+    "counter": "{current}\\{total}"
   },
   "remote_user_resolver": {
     "searching_for": "يبحث عن",
