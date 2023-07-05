@@ -249,7 +249,7 @@
     "refresh_token": "رمز التحديث",
     "valid_until": "صالح حتى",
     "revoke_token": "سحب",
-    "panelRadius": "",
+    "panelRadius": "لوحات",
     "pause_on_unfocused": "",
     "presets": "النماذج",
     "profile_background": "خلفية الملف التعريفي",
@@ -258,8 +258,8 @@
     "radii_help": "",
     "replies_in_timeline": "المشاركات في الخيط الزمني",
     "reply_visibility_all": "أظهر كل المشاركات",
-    "reply_visibility_following": "",
-    "reply_visibility_self": "",
+    "reply_visibility_following": "أظهر الردود الموجهة إلي أو لمتابَعي فقط",
+    "reply_visibility_self": "أظهر الردود الموجهة إلي فقط",
     "saving_err": "خطأ أثناء حفظ الإعدادات",
     "saving_ok": "حُفظت الإعدادات",
     "security_tab": "الأمان",
@@ -267,10 +267,10 @@
     "set_new_profile_background": "اختيار خلفية جديدة للملف الشخصي",
     "set_new_profile_banner": "اختيار رأسية جديدة للصفحة الشخصية",
     "settings": "الإعدادات",
-    "stop_gifs": "",
-    "streaming": "",
-    "text": "النص",
-    "theme": "المظهر",
+    "stop_gifs": "إيقاف الصور المتحركة مالم يُمرر فوقها",
+    "streaming": "إظهار المنشورات الجديدة عند التمرير لأعلى",
+    "text": "نص",
+    "theme": "السمة",
     "theme_help": "",
     "tooltipRadius": "",
     "user_settings": "إعدادات المستخدم",
@@ -374,10 +374,12 @@
     },
     "profile_fields": {
       "add_field": "أضف حقل",
-      "value": "محتوى"
+      "value": "محتوى",
+      "label": "البيانات الوصفية للملف الشخصي",
+      "name": "لصيقة"
     },
     "posts": "منشورات",
-    "user_profiles": "ملفات تعريفية للمستخدمين",
+    "user_profiles": "ملفات المستخدمين الشخصية",
     "notification_visibility_emoji_reactions": "تفاعلات",
     "notification_visibility_polls": "انتهاء استطلاعات اشتركت بها",
     "file_export_import": {
@@ -409,7 +411,8 @@
         "keep_color": "أبق الألوان",
         "keep_opacity": "أبق الشفافية",
         "keep_fonts": "أبق الخطوط",
-        "keep_shadows": "أبق الظلال"
+        "keep_shadows": "أبق الظلال",
+        "clear_opacity": "امسح الشفافية"
       },
       "common": {
         "color": "اللون",
@@ -522,7 +525,18 @@
     "setting_server_side": "هذا الإعداد مرتبط بحسابك وسيأثر على كل الجلسات والعملاء",
     "allow_following_move": "اسمح بالمتابعة التلقائية عند انتقال حساب متابَع",
     "chatMessageRadius": "رسائل",
-    "domain_mutes": "نطاقات"
+    "domain_mutes": "نطاقات",
+    "new_email": "البريد إلكتروني الجديد",
+    "notification_visibility_moves": "هجرة مستخدم",
+    "subject_line_mastodon": "مثل ماستودون: انسخ الأصلي",
+    "hide_follows_description": "لا تظهر متابَعي",
+    "conversation_other_replies_button_inside": "داخل الحالات",
+    "autohide_floating_post_button": "اخفاء زر النشر تلقائيا (هاتف)",
+    "conversation_other_replies_button_below": "تحت الحالات",
+    "reply_visibility_following_short": "أظهر الردود الموجهة إلى متابَعي",
+    "conversation_display_linear": "خطي",
+    "conversation_other_replies_button": "أظهر زر \"ردود أخرى\"",
+    "hide_followers_description": "لا تظهر متابِعي"
   },
   "timeline": {
     "collapse": "طوي",
@@ -546,7 +560,7 @@
     "follow": "تابع",
     "followees": "متابَعون",
     "followers": "مُتابِعون",
-    "following": "",
+    "following": "متابَع!",
     "follows_you": "يتابعك!",
     "mute": "اكتم",
     "muted": "مكتوم",
