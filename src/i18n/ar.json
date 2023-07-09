@@ -299,7 +299,7 @@
       }
     },
     "block_import": "استيراد المحجوبين",
-    "import_mutes_from_a_csv_file": "استورد قائمة المكتومين من ملف csv",
+    "import_mutes_from_a_csv_file": "استورد قائمة الخُرس من ملف csv",
     "account_backup": "نسخ احتياطي للحساب",
     "download_backup": "نزّل",
     "account_backup_table_head": "نسخ احتياطي",
@@ -310,7 +310,7 @@
     "added_backup": "أُضيفت نسخة احتياطية جديدة.",
     "blocks_tab": "المحجوبون",
     "confirm_dialogs_block": "حجب مستخدم",
-    "confirm_dialogs_mute": "كتم مستخدم",
+    "confirm_dialogs_mute": "إخراس مستخدم",
     "confirm_dialogs_delete": "حذف حالة",
     "confirm_dialogs_logout": "خروج",
     "confirm_dialogs_approve_follow": "قبول متابِع",
@@ -321,18 +321,18 @@
     "add_alias_error": "حدث خطأ أثناء إضافة الكنية: {error}",
     "confirm_dialogs": "أطلب تأكيدًا عند",
     "confirm_dialogs_repeat": "مشاركة حالة",
-    "mutes_and_blocks": "المكتومون والمحجوبون",
+    "mutes_and_blocks": "الخُرس والمحجوبون",
     "move_account_target": "الحساب المستهدف (مثل {example})",
     "wordfilter": "ترشيح الكلمات",
     "always_show_post_button": "أظهر الزر العائم لإنشاء منشور جديد دائمًا",
     "hide_wallpaper": "اخف خلفية المثيل",
     "save": "احفظ التعديلات",
     "lists_navigation": "أظهر القوائم في شريط التنقل",
-    "mute_export_button": "صدّر قائمة المكتومين إلى ملف csv",
+    "mute_export_button": "صدّر قائمة الخرس إلى ملف csv",
     "blocks_imported": "اُستورد المحجوبون! معالجة القائمة ستستغرق وقتًا.",
-    "mute_export": "تصدير المكتومين",
-    "mute_import": "استيراد المكتومين",
-    "mute_import_error": "خطأ أثناء استيراد المكتومين",
+    "mute_export": "تصدير الخُرس",
+    "mute_import": "استيراد الخُرس",
+    "mute_import_error": "خطأ أثناء استيراد الخُرس",
     "change_email_error": "حدثت خلل أثناء تغيير بريدك الإلكتروني.",
     "change_email": "غيّر البريد الإلكتروني",
     "changed_email": "نجح تغيير البريد الإلكتروني!",
@@ -341,14 +341,14 @@
     "move_account": "أنقل الحساب",
     "moved_account": "نُقل الحساب.",
     "hide_media_previews": "اخف معاينات الوسائط",
-    "hide_muted_posts": "اخف منشورات المستخدمين المكتومين",
+    "hide_muted_posts": "اخف منشورات المستخدمين الخُرس",
     "confirm_dialogs_unfollow": "الغاء متابعة مستخدم",
     "confirm_dialogs_remove_follower": "إزالة متابع",
     "new_alias_target": "أضف كنية جديدة (مثل {example})",
     "added_alias": "أُضيفت الكنية.",
     "move_account_error": "خطأ أثناء نقل الحساب: {error}",
     "emoji_reactions_on_timeline": "أظهر التفاعلات في الخط الزمني",
-    "mutes_imported": "اُستورد المكتومون! معالجة القئمة ستستغرق وقتًا.",
+    "mutes_imported": "اُستورد الخُرس! معالجة القائمة ستستغرق وقتًا.",
     "remove_language": "أزل",
     "primary_language": "اللغة الرئيسية:",
     "expert_mode": "أظهر الإعدادات المتقدمة",
@@ -388,8 +388,8 @@
       "backup_settings_theme": "احفظ النسخ الاحتياطي للإعدادات والسمة في ملف",
       "backup_settings": "احفظ النسخ الاحتياطي للإعدادات في ملف"
     },
-    "mutes_tab": "مكتومون",
-    "no_mutes": "لا يوجد مكتومون",
+    "mutes_tab": "خُرس",
+    "no_mutes": "لا يوجد خُرس",
     "hide_followers_count_description": "لا تظهر عدد المتابِعين",
     "show_moderator_badge": "أظهر شارة \"مشرف\" في ملفي التعريفي",
     "hide_follows_count_description": "لا تظهر عدد المتابَعين",
@@ -482,8 +482,8 @@
       }
     },
     "notification_setting_privacy": "الخصوصية",
-    "notification_mutes": "لوقف استلام إشعارات من مستخدم، اكتمه.",
-    "search_user_to_mute": "جِد من تريد كتمه",
+    "notification_mutes": "لوقف استلام إشعارات من مستخدم، أخرسه.",
+    "search_user_to_mute": "جِد من تريد إخراسه",
     "subject_input_always_show": "أظهر حقل الموضوع دائمًا",
     "subject_line_noop": "لا تنسخ",
     "auto_update": "أظهر المنشورات الجديدة تلقائيًا",
@@ -569,8 +569,8 @@
     "followers": "مُتابِعون",
     "following": "متابَع!",
     "follows_you": "يتابعك!",
-    "mute": "اكتم",
-    "muted": "مكتوم",
+    "mute": "أخرِس",
+    "muted": "أخرَس",
     "per_day": "في اليوم",
     "remote_follow": "مُتابَعة عن بُعد",
     "statuses": "المنشورات",
@@ -600,16 +600,54 @@
     "unfollow_confirm_cancel_button": "لا تلغ المتابعة",
     "media": "وسائط",
     "block_confirm": "أتريد حظر {user} ؟",
-    "mute_confirm_cancel_button": "لا تكتم",
-    "mute_confirm_title": "تأكيد الكتم",
+    "mute_confirm_cancel_button": "لا تخرِس",
+    "mute_confirm_title": "تأكيد الإخراس",
     "message": "راسل",
-    "mute_confirm": "أتريد كتم {user}؟",
-    "mute_confirm_accept_button": "اكتم",
+    "mute_confirm": "أتريد إخراس {user}؟",
+    "mute_confirm_accept_button": "أخرِس",
     "mention": "أذكر",
-    "mute_duration_prompt": "اكتم هذا الشخص لـ (ضع 0 لكتمه دائمًا):"
+    "mute_duration_prompt": "أخرِس هذا الشخص لـ (ضع 0 لكتمه دائمًا):",
+    "admin_menu": {
+      "moderation": "الإشراف",
+      "grant_admin": "امنحه الإدارة",
+      "revoke_admin": "اخلعه من الإدارة",
+      "delete_user": "احذف مستخدم",
+      "deactivate_account": "عطِّل الحساب",
+      "grant_moderator": "امنحه الإشراف",
+      "revoke_moderator": "اخلعه من الإشراف",
+      "activate_account": "فعُّل الحساب",
+      "delete_account": "احذف الحساب",
+      "strip_media": "أزل الوسائط من المشاركات",
+      "delete_user_data_and_deactivate_confirmation": "هذا الإجراء سيحذف بيانات الحساب وسيعطله، هل أنت متيقن؟"
+    },
+    "note": "ملاحظة",
+    "note_blank": "(لاشيء)",
+    "edit_note": "حرر الملاحظة",
+    "edit_note_apply": "طبِّق",
+    "edit_note_cancel": "ألغِ",
+    "report": "بلّغ",
+    "subscribe": "اشترك",
+    "unsubscribe": "ألغِ الاشتراك",
+    "unblock_progress": "يرفع الحجب…",
+    "block_progress": "يحجب…",
+    "unblock": "ارفع الحجب",
+    "remove_follower": "أزل متابِع",
+    "remove_follower_confirm_title": "تأكيد إزالة متابِع",
+    "remove_follower_confirm_accept_button": "أزِل",
+    "remove_follower_confirm_cancel_button": "أبق",
+    "hide_repeats": "اخف المشاركات",
+    "show_repeats": "أظهر المشاركات",
+    "bot": "آلي",
+    "unmute": "ارفع عنه الخرَس",
+    "unmute_progress": "يرفع الخرَس…",
+    "mute_progress": "يُخرِس…",
+    "remove_follower_confirm": "متيقن من إزالة {user} من متابِعيك؟",
+    "birthday": "وُلد في {birthday}"
   },
   "user_profile": {
-    "timeline_title": "الخيط الزمني للمستخدم"
+    "timeline_title": "الخيط الزمني للمستخدم",
+    "profile_loading_error": "عذرًا، حدث خطأ أثناء تحميل هذا الملف الشخصي.",
+    "profile_does_not_exist": "عذرًا، هذا الملف الشخصي ليس موجودًا."
   },
   "who_to_follow": {
     "more": "المزيد",
@@ -629,7 +667,8 @@
         "instance": "مثيل",
         "reason": "السبب",
         "accept": "قبول",
-        "reject": "رفض"
+        "reject": "رفض",
+        "ftl_removal": "أُزيل من الخط الزمني «الشبكات المعروفة»"
       },
       "federation": "الاتحاد",
       "mrf_policies": "تفعيل سياسات إعادة كتابة المنشور",
@@ -719,10 +758,10 @@
     "error": "حدث خطأ أثناء الاستيراد."
   },
   "domain_mute_card": {
-    "mute": "اكتم",
-    "mute_progress": "يكتم…",
-    "unmute": "ارفع الكتم",
-    "unmute_progress": "يرفع الكتم…"
+    "mute": "أخرِس",
+    "mute_progress": "يُخرس…",
+    "unmute": "ارفع عنه الخرس",
+    "unmute_progress": "يرفع الخرس…"
   },
   "exporter": {
     "export": "صدر",
@@ -878,5 +917,101 @@
     "replies_list_with_others": "رد (+ {numReplies} آخر): | رد (+ {numReplies} آخرون):",
     "show_attachment_in_modal": "أظهر الوسائط في منبثقات",
     "show_attachment_description": "معاينة الوصف ( افتح المرفق لقراءة الوصف الكامل)"
+  },
+  "lists": {
+    "creating_list": "إنشاء قائمة جديدة",
+    "update_title": "احفظ العنوان",
+    "add_members": "ابحث عن مزيد من المستخدمين",
+    "really_delete": "أمتيقن من حذف القائمة؟",
+    "lists": "قوائم",
+    "new": "قائمة جديدة",
+    "title": "عنوان القائمة",
+    "search": "ابحث عن مستخدم",
+    "remove_from_list": "أزل من القائمة",
+    "add_to_list": "أضف للقائمة",
+    "editing_list": "تحرير القائمة {listTitle}",
+    "create": "أنشئ",
+    "save": "احفظ التعديلات",
+    "delete": "احذف القائمة",
+    "manage_lists": "أدِر القوائم",
+    "manage_members": "أدِر أعضاء القائمة",
+    "is_in_list": "موجود في القائمة سلفًا"
+  },
+  "file_type": {
+    "audio": "صوت",
+    "image": "صورة",
+    "file": "ملف",
+    "video": "فيديو"
+  },
+  "user_reporting": {
+    "add_comment_description": "سيرسل البلاغ إلى مشرف المثيل، يمكنك شرح سبب البلاغ أدناه:",
+    "title": "بلاغ عن {0}",
+    "additional_comments": "تعليقات إضافية",
+    "forward_description": "هذا المستخدم من خادم آخر. هل تريد إرسال نسخة منه إلى مشرفه؟",
+    "forward_to": "وجّهه إلى {0}",
+    "submit": "أرسل",
+    "generic_error": "حدث خطأ أثناء معالجة طلبك."
+  },
+  "tool_tip": {
+    "media_upload": "ارفع وسائط",
+    "favorite": "فضّل",
+    "add_reaction": "أضف تفاعل",
+    "user_settings": "إعدادات المستخدم",
+    "accept_follow_request": "اقبل طلب المتابعة",
+    "reject_follow_request": "ارفض طلب المتابعة",
+    "repeat": "شارك",
+    "reply": "ردّ"
+  },
+  "upload": {
+    "error": {
+      "base": "فشل الرفع.",
+      "message": "فشل الرفع: {0}",
+      "default": "حاو لاحقًا",
+      "file_too_big": "حجم الملف كبير [{filesize}{filesizeunit}\\{allowedsize}{allowedsizeunit}]"
+    },
+    "file_size_units": {
+      "B": "بايت",
+      "MiB": "مب",
+      "TiB": "تب",
+      "GiB": "غب",
+      "KiB": "كب"
+    }
+  },
+  "search": {
+    "person_talking": "{count} شخص يتكلم",
+    "people_talking": "{count} شخص يتكلم",
+    "no_results": "لا نتائج",
+    "no_more_results": "لا مزيد من النتائج",
+    "people": "أشخاص",
+    "hashtags": "وسوم",
+    "load_more": "حمّل مزيدًا من النتائج"
+  },
+  "password_reset": {
+    "forgot_password": "أنسيت كلمة السر؟",
+    "placeholder": "البريد الإلكتروني أو اسم المستخدم",
+    "return_home": "عُد للصفحة الرئيسية",
+    "too_many_requests": "وصلت سقف المحاولات، حاول لاحقًا."
+  },
+  "chats": {
+    "chats": "محادثات",
+    "delete_confirm": "أتريد حذف هذه الرسالة؟",
+    "you": "أنت:",
+    "message_user": "راسل {nickname}",
+    "delete": "احذف",
+    "new": "محادثة جديدة",
+    "empty_message_error": "يستحيل إرسال رسالة فارغة",
+    "more": "مزيد",
+    "empty_chat_list_placeholder": "ليس لديك محادثات. ابدأ واحدة جديدة!"
+  },
+  "display_date": {
+    "today": "اليوم"
+  },
+  "update": {
+    "big_update_content": "نظرًا لطول المدة التي استغرقها تطوير هذا الاصدار فسترى اختلافات كبيرة عن ما اعتدت عليه.",
+    "update_bugs": "نظرًا لهذا لكبر هذا التحديث فقد نكون قد سهينى عن بعض الاخطاء لذا يرجى التبليغ عن أي علّة أو مشكلة. نحن نرحب بقتراحاتك وتعليقاتكم لتحسين بليروما وواجهها الأمامية وطرح المشاكل المتعلقة بهما.",
+    "update_changelog": "لمزيد من المعلومات، راجع {theFullChangelog}.",
+    "update_changelog_here": "سجل التغييرات الكامل",
+    "art_by": "رَسمُ {linkToArtist}",
+    "big_update_title": "رجاءً تعاون معنا"
   }
 }
