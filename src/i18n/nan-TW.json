@@ -747,7 +747,18 @@
     "mention_link_display_short": "一直顯示短ê名（比如： {'@'}foo）",
     "mention_link_display_full": "一直用全名顯示（比如：{'@'}foo{'@'}example.org）",
     "virtual_scrolling": "Kā時間線ê算畫最佳化",
-    "mention_link_display_full_for_remote": "Kan-ta kā其他域名ê用者，用全名顯示（比如：{'@'}foo{'@'}example.org）"
+    "mention_link_display_full_for_remote": "Kan-ta kā其他域名ê用者，用全名顯示（比如：{'@'}foo{'@'}example.org）",
+    "token": "Token",
+    "use_at_icon": "用標á顯示 {'@'} 符號，mài用文字",
+    "mention_link_display": "顯示提起ê連結",
+    "mention_link_use_tooltip": "佇tshi̍h提起ê連結ê時，顯示用者ê卡片",
+    "mention_link_show_avatar": "佇連結邊á顯示用者ê標頭",
+    "mention_link_show_avatar_quick": "佇提起ê隔壁，顯示用者ê標頭",
+    "mention_link_fade_domain": "用較淺ê色水顯示域名（比如：{'@'}foo{'@'}example.org ê {'@'}example.org）",
+    "mention_link_bolden_you": "佇lí hőng提起ê時，強調對lí ê提起文字",
+    "user_popover_avatar_action": "Tshi̍h跳出來ê標頭ê動作",
+    "user_popover_avatar_action_zoom": "放大／縮小標頭",
+    "user_popover_avatar_action_close": "關掉跳出來ê"
   },
   "status": {
     "favorites": "收藏"
