@@ -758,7 +758,18 @@
     "mention_link_bolden_you": "佇lí hőng提起ê時，強調對lí ê提起文字",
     "user_popover_avatar_action": "Tshi̍h跳出來ê標頭ê動作",
     "user_popover_avatar_action_zoom": "放大／縮小標頭",
-    "user_popover_avatar_action_close": "關掉跳出來ê"
+    "user_popover_avatar_action_close": "關掉跳出來ê框á",
+    "user_popover_avatar_action_open": "拍開個人資料",
+    "user_popover_avatar_overlay": "佇用者ê跳出來ê框仔面頂，顯示用者ê標頭",
+    "fun": "趣味ê",
+    "greentext": "Meme ê箭頭",
+    "show_yous": "顯示（Lí）",
+    "notifications": "通知",
+    "notification_setting_filters": "過濾ê",
+    "notification_setting_block_from_strangers": "關lí bô綴ê lâng 送ê通知",
+    "notification_setting_privacy": "隱私",
+    "notification_setting_hide_notification_contents": "Kā sak通知ê lâng kap伊ê內容khàm掉",
+    "notification_mutes": "若tsún無愛收tuì指定用者來ê通知，著用消音。"
   },
   "status": {
     "favorites": "收藏"
