@@ -362,6 +362,26 @@
         "contrast": {
           "hint": "色彩ê對比率：{ratio}。{level}、 {context}"
         }
+      },
+      "switcher": {
+        "keep_shadows": "保持陰影",
+        "keep_color": "保持色彩",
+        "keep_opacity": "保持無透明度",
+        "keep_roundness": "保留邊á角ê khà-buh",
+        "keep_fonts": "保持字型",
+        "reset": "重頭設定",
+        "clear_all": "攏清掉",
+        "clear_opacity": "清掉無透明度",
+        "load_theme": "載入主題",
+        "keep_as_is": "Mài振動",
+        "use_snapshot": "舊ê版本",
+        "use_source": "新ê版本",
+        "help": {
+          "upgraded_from_v2": "PleromaFE升級ah，主題huân-sè kap lí知影ê無kâng。",
+          "v2_imported": "Lí輸入ê檔案是舊版本ê前端用ê。Guán盡量予版本相通，毋過可能有所在buē-tàng。",
+          "older_version_imported": "Lí輸入ê檔案是予舊ê前端用ê。",
+          "future_version_imported": "Lí輸入ê檔案是新ê前端所用ê。"
+        }
       }
     },
     "upload": {
@@ -681,8 +701,8 @@
     "radii_help": "設定界面邊á ê khà-buh (curve) ê 半徑（單位：畫素）",
     "replies_in_timeline": "佇時間線內底ê回應",
     "reply_visibility_all": "顯示所有ê回應",
-    "reply_visibility_following": "Kan-ta顯示 @ 我抑是我綴ê儂ê回應",
-    "reply_visibility_self": "Kan-ta顯示@我ê回應",
+    "reply_visibility_following": "Kan-ta顯示送予我抑是我綴ê儂ê回應",
+    "reply_visibility_self": "Kan-ta顯示送予我ê回應",
     "reply_visibility_following_short": "顯示予我所綴ê儂ê回應",
     "reply_visibility_self_short": "Kan-ta顯示予我ka-kī ê回應",
     "autohide_floating_post_button": "自動khàm掉「新êPO文」ê鈕仔（行動版）",
@@ -769,7 +789,10 @@
     "notification_setting_block_from_strangers": "關lí bô綴ê lâng 送ê通知",
     "notification_setting_privacy": "隱私",
     "notification_setting_hide_notification_contents": "Kā sak通知ê lâng kap伊ê內容khàm掉",
-    "notification_mutes": "若tsún無愛收tuì指定用者來ê通知，著用消音。"
+    "notification_mutes": "若tsún無愛收tuì指定用者來ê通知，著用消音。",
+    "notification_blocks": "封鎖用者ē停止所有i hia來ê通知，mā取消訂伊。",
+    "enable_web_push_notifications": "拍開網頁sak通知ê功能",
+    "more_settings": "Koh較tsē ê設定"
   },
   "status": {
     "favorites": "收藏"
